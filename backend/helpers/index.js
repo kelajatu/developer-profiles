@@ -6,7 +6,7 @@ module.exports = {
   getUsers: function(id) {
     if (id) {
       return db("users")
-        .where("id", id);
+        .where({id: id});
     }
     //excludes summary ...
     return db("users")
@@ -24,5 +24,20 @@ module.exports = {
         "familiar",
         "filter"
       )
+  },
+  addUser: function(user) {
+    console.log(user)
+    return db("users")
+      .insert(user)
+  },
+  editUser: function(id, input) {
+    return db("users")
+      .where({id: id})
+      .update(input)
+  },
+  deleteUser: function(id) {
+    return db("users")
+      .where({id: id})
+      .delete()
   }
 }
