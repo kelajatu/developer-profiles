@@ -1,13 +1,15 @@
 import React, { Component } from "react";
+import LandingPage from "./containers/landingPage";
 
 class App extends Component {
   render() {
     return (
       <div>
-        <h1>Hello</h1>
+        <LandingPage />
       </div>
     );
   }
 }
 
 export default App;
+
