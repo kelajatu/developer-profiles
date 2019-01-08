@@ -25,4 +25,7 @@ module.exports = {
         "filter"
       )
   }
+  addUser: function() {
+    
+  }
 }
