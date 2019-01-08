@@ -1,0 +1,64 @@
+exports.up = function(knex, Promise) {
+  return knex.schema.createTable("users", function(table) {
+    table.increments();
+    table
+      .string("email")
+      .notNullable()
+      .unique("email");
+    table
+      .string("firstname")
+      .notNullable();
+    table
+      .string("lastname")
+      .notNullable();
+    table
+      .string("title")
+      .notNullable();
+    table
+      .string("filter")
+      .notNullable();
+    table
+      .string("location")
+      .notNullable();
+    table
+      .string("github")
+      .notNullable();
+    table
+      .string("linkedin")
+      .notNullable();
+    table
+      .string("portfolio")
+      .notNullable();
+    table
+      .string("badge")
+      .notNullable();
+    table
+      .string("places")
+      .notNullable();
+    table
+      .string("summary")
+      .notNullable();
+    table
+      .string("topskills")
+      .notNullable();
+    table
+      .string("additionalskills")
+      .notNullable();
+    table
+      .string("familiar")
+      .notNullable();
+    table
+      .string("projects")
+      .notNullable();
+    table
+      .string("experience")
+      .notNullable();
+    table
+      .string("education")
+      .notNullable();
+  });
+};
+
+exports.down = function(knex, Promise) {
+  return knex.schema.dropTableIfExists("users");
+};
