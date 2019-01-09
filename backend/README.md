@@ -9,9 +9,7 @@ Endpoints:
     
     Create, return, update, delete  - user skills array  1, 4, 5  that refrences skills table id
 
-Function: 
-
-//This is the old sqlite3
+//This is the old sqlite3 for local db set up
 development: {
     client: 'sqlite3',
     connection: {
@@ -19,3 +17,9 @@ development: {
     },
     useNullAsDefault: true,
   },
+
+To run server:
+
+    - navigate to the /backend folder 
+    - 'yarn install' 
+    - 'yarn dev' OR 'nodemon' 
