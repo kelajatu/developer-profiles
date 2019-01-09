@@ -1,34 +1,225 @@
 import React, { Component } from 'react'
+import axios from 'axios';
 
 
-class UserProfile extends Component {
+class UserInitProfile extends Component {
 
   state = {
-    email: "",
-    firstName: "",
-    lastName: "",
-    desiredTitle: "",
-    currentLocation: "",
-    github: "",
-    linkedIn: "",
-    portfolio: "",
-    acclaim: "",
-    placesInterested: "",
-    summary: "",
-    topSkills: "",
-    additionalSkills: "",
-    familiarSkills: "",
-    projectTitle: "",
-    projectImg: "",
-    projectLink: "",
-    projectDescription: ""
+    email: "", // str
+    firstName: "", // firstname str
+    lastName: "", // lastname str
+    desiredTitle: "", // title str
+
+    currentLocationInput: "",
+    locationAutocomplete: [],
+    currentLocation: "", // str location - Verify - maybe location ID
+
+    github: "", // str
+    linkedIn: "", // str linkedin
+    portfolio: "", // str
+    acclaim: "", // str badge - Verify
+
+    placesInterestedInput: "",
+    placesAutocomplete: [],
+    placesInterested: [], // Array place - Normalize [{place: 'New York'}, {place: 'Los Angeles'}]
+
+    summary: "", // str
+
+    topSkillsInput: "",
+    topSkillsList: [],
+    topSkills: [], // Array topskill - Normalize [{topskill: 'HTML'}, {topskill: 'CSS'}]
+    
+    additionalSkillsInput: "",
+    additionalSkillsList: [],
+    additionalSkills: [], // Array addskill - Normalize [{addskill: 'HTML'}, {addskill: 'CSS'}]
+
+    familiarSkillsInput: "",
+    familiarSkillsList: [],
+    familiarSkills: [], // Array familiar - Normalize [{familiar: 'HTML'}, {familiar: 'CSS'}]
+
+
+
+    projectTitle: "", // str projtitle
+    projectImg: "", // str projimg
+    projectLink: "", // str link
+    projectDescription: "", // str projdescription
+
+    jobTitle: "", // str jobtitle
+    jobDates: "", // str jobdates
+    jobDescription: "", // str jobdescription
+
+    schoolName: "", // str school
+    schoolDates: "", // str schooldates
+    schoolCourse: "", // str course
+    schoolDegree: "", // str degree
+
+
   }
 
   onInputChange = (e) => {
-    console.log(e.target.name)
-    console.log(e.target.value)
     this.setState({ [e.target.name]: e.target.value });
   }
+  
+
+
+
+
+
+
+  
+  onLocationChange = (e) => {
+    let newArr;
+    var self = this;
+    axios
+    .post("http://localhost:7000/location", {inputLocation: e.target.value})
+    .then(response => {
+      newArr = response.data.predictions.map(location => {
+        return {
+          name: location.description,
+          id: location.id
+        };
+      });
+      self.setState({ locationAutocomplete: newArr });
+    })
+    .catch(error => {
+      console.log(error);
+    });
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  chooseCurrentLocation = (e) => {
+    this.setState({ currentLocation: e.target.value, locationAutocomplete: [], currentLocationInput: e.target.value });
+  }
+
+
+
+  onPlacesChange = (e) => {
+    let newArr;
+    var self = this;
+    axios
+    .post("http://localhost:7000/location", {inputLocation: e.target.value})
+    .then(response => {
+      newArr = response.data.predictions.map(location => {
+        return {
+          name: location.description,
+          id: location.id
+        };
+      });
+      self.setState({ placesAutocomplete: newArr });
+    })
+    .catch(error => {
+      console.log(error);
+    });
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  choosePlacesInterested = (e) => {
+    let newplacesInterested;
+
+    if (this.state.placesInterested.length === 0) {
+      newplacesInterested = [];
+      newplacesInterested.push(e.target.value);
+    } else {
+      newplacesInterested = this.state.placesInterested.slice();
+      newplacesInterested.push(e.target.value);
+    }
+
+    this.setState({ placesInterested: newplacesInterested, placesAutocomplete: [], placesInterestedInput: e.target.value });
+  }
+  
+  
+  
+  onTopSkillsChange = e => {
+    let newArr;
+    var self = this;
+    axios
+    .post("http://localhost:7000/skills", {skillInput: e.target.value})
+    .then(response => {
+      newArr = response.data.map(skill => skill);
+      self.setState({ topSkillsList: newArr });
+    })
+    .catch(error => {
+      console.log(error);
+    });
+    this.setState({ [e.target.name]: e.target.value });
+  }
+  
+  chooseTopSkills = (e) => {
+    let newtopSkills;
+
+    if (this.state.topSkills.length === 0) {
+      newtopSkills = [];
+      newtopSkills.push(e.target.value);
+    } else {
+      newtopSkills = this.state.topSkills.slice();
+      newtopSkills.push(e.target.value);
+    }
+
+    this.setState({ topSkills: newtopSkills, topSkillsList: [], topSkillsInput: e.target.value });
+  }
+
+
+  onAdditionalSkillsChange = e => {
+    let newArr;
+    var self = this;
+    axios
+    .post("http://localhost:7000/skills", {skillInput: e.target.value})
+    .then(response => {
+      newArr = response.data.map(skill => skill);
+      self.setState({ additionalSkillsList: newArr });
+    })
+    .catch(error => {
+      console.log(error);
+    });
+    this.setState({ [e.target.name]: e.target.value });
+  }
+  
+  chooseAdditionalSkills = (e) => {
+    let newadditionalSkills;
+
+    if (this.state.additionalSkills.length === 0) {
+      newadditionalSkills = [];
+      newadditionalSkills.push(e.target.value);
+    } else {
+      newadditionalSkills = this.state.additionalSkills.slice();
+      newadditionalSkills.push(e.target.value);
+    }
+
+    this.setState({ additionalSkills: newadditionalSkills, additionalSkillsList: [], additionalSkillsInput: e.target.value });
+  }
+
+
+  onFamiliarSkillsChange = e => {
+    let newArr;
+    var self = this;
+    axios
+    .post("http://localhost:7000/skills", {skillInput: e.target.value})
+    .then(response => {
+      newArr = response.data.map(skill => skill);
+      self.setState({ familiarSkillsList: newArr });
+    })
+    .catch(error => {
+      console.log(error);
+    });
+    this.setState({ [e.target.name]: e.target.value });
+  }
+  
+  chooseFamiliarSkills = (e) => {
+    let newfamiliarSkills;
+
+    if (this.state.familiarSkills.length === 0) {
+      newfamiliarSkills = [];
+      newfamiliarSkills.push(e.target.value);
+    } else {
+      newfamiliarSkills = this.state.familiarSkills.slice();
+      newfamiliarSkills.push(e.target.value);
+    }
+
+    this.setState({ familiarSkills: newfamiliarSkills, familiarSkillsList: [], familiarSkillsInput: e.target.value });
+  }
+
+
+
 
   render() {
     return (
@@ -41,12 +232,11 @@ class UserProfile extends Component {
         <div>
           <h1>Upload Your Image</h1>
         </div>
-        <form className="main-form">
+        <form className="main-form" onSubmit={this.submitForm}>
 
 
           <fieldset className="user-info">
 
-            {/* Required */}
             <label htmlFor="userEmail">
               Email:
             </label>
@@ -57,11 +247,11 @@ class UserProfile extends Component {
               name="email"
               value={this.state.email}
               onChange={this.onInputChange}
+              required
             />
             
             <br/>
 
-            {/* Required */}
             <label htmlFor="userFirstName">
               First Name:
             </label>
@@ -72,12 +262,13 @@ class UserProfile extends Component {
               name="firstName"
               value={this.state.firstName}
               onChange={this.onInputChange}
+              required
             />
           
             <br/>
-            {/* Optional */}
+
             <label htmlFor="userLastName">
-              Last Name:
+              Last Name: *
             </label>
             <input
               type="text"
@@ -86,10 +277,11 @@ class UserProfile extends Component {
               name="lastName"
               value={this.state.lastName}
               onChange={this.onInputChange}
+              required
             />
           
             <br/>
-            {/* Optional */}
+
             <label htmlFor="userDesiredTitle">
               Desired Title:
             </label>
@@ -100,8 +292,12 @@ class UserProfile extends Component {
               name="desiredTitle"
               value={this.state.desiredTitle}
               onChange={this.onInputChange}
+              required
             />
             
+            <br/>
+            <br/>
+            <br/>
             <br/>
 
             {/* Will Need Autocomplete - Auto Verification - Required - 
@@ -113,10 +309,18 @@ class UserProfile extends Component {
               type="text"
               id="usercurrentLocation"
               placeholder="Washington, DC"
-              name="currentLocation"
-              value={this.state.currentLocation}
-              onChange={this.onInputChange}
+              name="currentLocationInput"
+              value={this.state.currentLocationInput}
+              onChange={this.onLocationChange}
+              required
             />
+            {this.state.locationAutocomplete.length === 0 ?
+              null
+              :
+              this.state.locationAutocomplete.map(location => {
+                return (<option onClick={this.chooseCurrentLocation} key={location.id} value={location.name}>{location.name}</option>);
+              })
+            }
 
           </fieldset>
 
@@ -145,7 +349,7 @@ class UserProfile extends Component {
             <input
               type="text"
               id="userLinkedIn"
-              placeholder="www.linkedin.com/me"
+              placeholder="www.linkedIn.com/me"
               name="linkedIn"
               value={this.state.linkedIn}
               onChange={this.onInputChange}
@@ -164,7 +368,7 @@ class UserProfile extends Component {
               value={this.state.portfolio}
               onChange={this.onInputChange}
             />
-            
+
             <br/>
 
             {/* Will Need Verification - Optional - run fn once user submits */}
@@ -182,7 +386,10 @@ class UserProfile extends Component {
           
           </fieldset>
 
-
+          <br/>
+          <br/>
+          <br/>
+          <br/>
 
           <fieldset className="user-bio">
 
@@ -195,10 +402,18 @@ class UserProfile extends Component {
               type="text"
               id="userPlacesInterested"
               placeholder="Remote, Atlanta, Washington, San Francisco"
-              name="placesInterested"
-              value={this.state.placesInterested}
-              onChange={this.onInputChange}
+              name="placesInterestedInput"
+              value={this.state.placesInterestedInput}
+              onChange={this.onPlacesChange}
             />
+            {this.state.placesAutocomplete.length === 0 ?
+              null
+              :
+              this.state.placesAutocomplete.map(location => {
+                return (<option onClick={this.choosePlacesInterested} key={location.id} value={location.name}>{location.name}</option>);
+              })
+            }
+
 
             <br/>
             {/* Required */}
@@ -227,10 +442,17 @@ class UserProfile extends Component {
               type="text"
               id="userTopSkills"
               placeholder="Put 5 skills here, they are the biggest on your profile"
-              name="topSkills"
-              value={this.state.topSkills}
-              onChange={this.onInputChange}
+              name="topSkillsInput"
+              value={this.state.topSkillsInput}
+              onChange={this.onTopSkillsChange}
             />
+            {this.state.topSkillsList.length === 0 ?
+              null
+              :
+              this.state.topSkillsList.map(skill => {
+                return (<option onClick={this.chooseTopSkills} key={skill} value={skill}>{skill}</option>);
+              })
+            }
           
             <br/>
 
@@ -242,10 +464,17 @@ class UserProfile extends Component {
               type="text"
               id="userAdditionalSkills"
               placeholder="Put more skills here. They will be medium on your profile"
-              name="additionalSkills"
-              value={this.state.additionalSkills}
-              onChange={this.onInputChange}
+              name="additionalSkillsInput"
+              value={this.state.additionalSkillsInput}
+              onChange={this.onAdditionalSkillsChange}
             />
+            {this.state.additionalSkillsList.length === 0 ?
+              null
+              :
+              this.state.additionalSkillsList.map(skill => {
+                return (<option onClick={this.chooseAdditionalSkills} key={skill} value={skill}>{skill}</option>);
+              })
+            }
           
             <br/>
 
@@ -257,14 +486,24 @@ class UserProfile extends Component {
               type="text"
               id="userFamiliarSkills"
               placeholder="Put remaining skills here. They will be small on your profile"
-              name="familiarSkills"
-              value={this.state.familiarSkills}
-              onChange={this.onInputChange}
+              name="familiarSkillsInput"
+              value={this.state.familiarSkillsInput}
+              onChange={this.onFamiliarSkillsChange}
             />
+            {this.state.familiarSkillsList.length === 0 ?
+              null
+              :
+              this.state.familiarSkillsList.map(skill => {
+                return (<option onClick={this.chooseFamiliarSkills} key={skill} value={skill}>{skill}</option>);
+              })
+            }
 
           </fieldset>
 
-
+          <br/>
+          <br/>
+          <br/>
+          <br/>
 
           {/* Optional */}
           <fieldset className="user-projects">
@@ -298,14 +537,13 @@ class UserProfile extends Component {
           
           <br/>
 
-          {/* Upload Functionality */}
           <label htmlFor="userProjectLink">
-            Project Image Upload:
+            Project Link:
           </label>
           <input
             type="text"
             id="userProjectLink"
-            placeholder="Upload Meee"
+            placeholder="www.mysite.com"
             name="projectLink"
             value={this.state.projectLink}
             onChange={this.onInputChange}
@@ -313,13 +551,13 @@ class UserProfile extends Component {
 
           <br/>
 
-          <label htmlFor="userprojectDescription">
+          <label htmlFor="userProjectDescription">
             Summary:
           </label>
           <textarea
             rows="4"
             cols="50"
-            id="userprojectDescription"
+            id="userProjectDescription"
             placeholder="Some Project Description - This is 128 characters or so describing how
             awesome I am and why you should like me. Similar
             to what I put on my LinkedIn!"
@@ -329,21 +567,123 @@ class UserProfile extends Component {
           />
           </fieldset>
 
+          <br/>
+          <br/>
+          <br/>
+          <br/>
 
           {/* Optional */}
           <fieldset className="user-experience">
 
-            {/* company name, job Description, Img(optional), Dates worked */}
+            <label htmlFor="userJobTitle">
+              Job Title:
+            </label>
+            <input
+              type="text"
+              id="userJobTitle"
+              placeholder="Software Engineer"
+              name="jobTitle"
+              value={this.state.jobTitle}
+              onChange={this.onInputChange}
+            />
+            
+            <br/>
+            
+            <label htmlFor="userJobDates">
+              Job Dates:
+            </label>
+            <input
+              type="text"
+              id="userJobDates"
+              placeholder="2017-2019"
+              name="jobDates"
+              value={this.state.jobDates}
+              onChange={this.onInputChange}
+            />
+            
+            <br/>
+            
+            <label htmlFor="userJobDescription">
+              Job Description:
+            </label>
+            <textarea
+              rows="4"
+              cols="50"
+              id="userJobDescription"
+              placeholder="Some Job Description - This is 128 characters or so describing how
+              awesome I am and why you should like me. Similar
+              to what I put on my LinkedIn!"
+              name="jobDescription"
+              value={this.state.jobDescription}
+              onChange={this.onInputChange}
+            />
 
 
           </fieldset>
 
+          <br/>
+          <br/>
+          <br/>
+          <br/>
 
           {/* Optional */}
           <fieldset className="user-education">
 
-          {/* school name, Subjects, degree/diploma, Dates */}
+            <label htmlFor="userSchoolName">
+              Job Title:
+            </label>
+            <input
+              type="text"
+              id="userSchoolName"
+              placeholder="Lambda School"
+              name="schoolName"
+              value={this.state.schoolName}
+              onChange={this.onInputChange}
+            />
+            
+            <br/>
+            
+            <label htmlFor="userSchoolDates">
+              Dates Attended:
+            </label>
+            <input
+              type="text"
+              id="userSchoolDates"
+              placeholder="2017-2019"
+              name="schoolDates"
+              value={this.state.schoolDates}
+              onChange={this.onInputChange}
+            />
+            
+            <br/>
+            
+            <label htmlFor="userSchoolCourse">
+              School Course:
+            </label>
+            <input
+              type="text"
+              id="userSchoolCourse"
+              placeholder="Computer Science"
+              name="schoolCourse"
+              value={this.state.schoolCourse}
+              onChange={this.onInputChange}
+            />
+            
+            <br/>
+            
+            <label htmlFor="userSchoolDegree">
+              Dates Attended:
+            </label>
+            <input
+              type="text"
+              id="userSchoolDegree"
+              placeholder="Bachelors"
+              name="schoolDegree"
+              value={this.state.schoolDegree}
+              onChange={this.onInputChange}
+            />
 
+          
           </fieldset>
 
 
@@ -354,4 +694,4 @@ class UserProfile extends Component {
   }
 }
 
-export default UserProfile;
+export default UserInitProfile;
