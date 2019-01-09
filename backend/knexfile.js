@@ -1,14 +1,22 @@
 // Update with your config settings.
 
 module.exports = {
-
   development: {
-    client: 'sqlite3',
+    client: 'mysql',
+    version: '5.6.41',
     connection: {
-      filename: './dev.sqlite3'
+      host : 'instanceidentifier.crobak3t5x8z.us-east-2.rds.amazonaws.com',
+      port     : '3306',
+      user : process.env.RDS_USERNAME,
+      password : process.env.RDS_PASSWORD,
+      database : 'devProfiles_dbName'
     },
-    useNullAsDefault: true,
-  },
+    pool: {
+      min: 2,
+      max: 10
+    },
+  useNullAsDefault: true,
+},
 
   staging: {
     client: 'postgresql',
@@ -41,5 +49,4 @@ module.exports = {
       tableName: 'knex_migrations'
     }
   }
-
 };
