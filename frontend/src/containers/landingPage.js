@@ -6,7 +6,7 @@ class LandingPage extends Component {
     return (
       <div>
         <div className="page-wrap">
-          <header>
+          <div className="contentbox">
             <h1>Welcome to DevProfiles </h1>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -19,7 +19,7 @@ class LandingPage extends Component {
               {" "}
               Let's get acquainted{" "}
             </a>
-          </header>
+          </div>
         </div>
       </div>
     );

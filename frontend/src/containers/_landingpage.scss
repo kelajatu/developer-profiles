@@ -1,8 +1,9 @@
-$bg-img: url("frontend/src/containers/devprof.jpg");
+$bg-img: url("./devprof.jpg");
 
 
 .page-wrap {
-    border: 1px solid black;
+  background-size: cover;
+  background-image: $bg-img;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -14,14 +15,11 @@ $bg-img: url("frontend/src/containers/devprof.jpg");
 
   }
 
-  header {
-    background-size: cover;
-
-    z-index: 2;
-    display: flex;
-    flex-flow: column;
-
+  .contentbox {
     position: relative;
+    text-align: center;
+    padding: 5em;
+    box-shadow: 0 10px 36px rgba(0, 0, 0, 0.18);
   }
 
   h1 {
