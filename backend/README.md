@@ -23,3 +23,7 @@ To run server:
     - navigate to the /backend folder 
     - 'yarn install' 
     - 'yarn dev' OR 'nodemon' 
+
+To run heroku logs
+    -- install/login to heroku CLI
+    -- 'heroku logs --tail -a developer-profiles'
