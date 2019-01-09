@@ -2,7 +2,6 @@ const express = require('express')
 const server = express.Router()
 const db = require('../helpers/index.js')
 
-
 server.get('/', (req, res) => {
     db.getUsers().then(users => {
         res.status(200).json(users)

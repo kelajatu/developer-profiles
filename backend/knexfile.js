@@ -1,14 +1,23 @@
 // Update with your config settings.
+require('dotenv').config()
 
 module.exports = {
-
   development: {
-    client: 'sqlite3',
+    client: 'mysql',
+    version: '5.6.41',
     connection: {
-      filename: './dev.sqlite3'
+      host : process.env.RDS_HOSTNAME,
+      port     : process.env.RDS_PORT,
+      user : process.env.RDS_USERNAME,
+      password : process.env.RDS_PASSWORD,
+      database : 'devProfiles_dbName'
     },
-    useNullAsDefault: true,
-  },
+    pool: {
+      min: 2,
+      max: 10
+    },
+  useNullAsDefault: true,
+},
 
   staging: {
     client: 'postgresql',
@@ -41,5 +50,4 @@ module.exports = {
       tableName: 'knex_migrations'
     }
   }
-
 };
