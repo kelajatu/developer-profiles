@@ -12,35 +12,25 @@ exports.up = function(knex, Promise) {
       .string("lastname")
       .notNullable();
     table
-      .string("title")
+      .string("image");
     table
-      .string("filter")
+      .string("title");
     table
-      .string("location")
+      .string("filter");
     table
-      .string("github")
+      .string("location");
     table
-      .string("linkedin")
+      .string("github");
     table
-      .string("portfolio")
+      .string("linkedin");
     table
-      .string("badge")
+      .string("portfolio");
     table
-      .string("places")
+      .string("badge");
     table
-      .string("summary")
+      .string("summary");
     table
-      .string("topskills")
-    table
-      .string("additionalskills")
-    table
-      .string("familiar")
-    table
-      .string("projects")
-    table
-      .string("experience")
-    table
-      .string("education")
+      .string("access_token");
   });
 };
 
