@@ -1,12 +1,13 @@
 // Update with your config settings.
+require('dotenv').config()
 
 module.exports = {
   development: {
     client: 'mysql',
     version: '5.6.41',
     connection: {
-      host : 'instanceidentifier.crobak3t5x8z.us-east-2.rds.amazonaws.com',
-      port     : '3306',
+      host : process.env.RDS_HOSTNAME,
+      port     : process.env.RDS_PORT,
       user : process.env.RDS_USERNAME,
       password : process.env.RDS_PASSWORD,
       database : 'devProfiles_dbName'
