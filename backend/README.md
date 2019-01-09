@@ -10,3 +10,12 @@ Endpoints:
     Create, return, update, delete  - user skills array  1, 4, 5  that refrences skills table id
 
 Function: 
+
+//This is the old sqlite3
+development: {
+    client: 'sqlite3',
+    connection: {
+      filename: './dev.sqlite3'
+    },
+    useNullAsDefault: true,
+  },
