@@ -15,10 +15,8 @@ class LandingPage extends Component {
               fuga fugiat impedit, cum blanditiis reiciendis unde.
             </p>
 
-            <a href="#" class="splash-link">
-              {" "}
-              Let's get acquainted{" "}
-            </a>
+            <button className="btn btn--stripe">Let's Get Acquainted
+            </button>
           </div>
         </div>
       </div>
