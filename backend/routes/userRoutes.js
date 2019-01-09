@@ -11,6 +11,15 @@ server.get('/', (req, res) => {
     })
 })
 
+server.get('/test/:id/:type', (req, res) => {
+    db.modifyArr(req.params.id, req.params.type).then(skills => {
+        res.status(200).json(skills)
+    }).catch(err => {
+        res.status(500).json({message: "there is an error in test/:id/:type", err: err})
+        console.log(err)
+    })
+})
+
 server.get('/:id', (req, res) => {
     db.getUsers(req.params.id)
     .then(user => {
