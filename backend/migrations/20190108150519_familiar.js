@@ -4,13 +4,6 @@ exports.up = function(knex, Promise) {
     table.increments();
     table
       .string("familiar");
-    table
-      .integer("userId")
-      .unsigned()
-      .notNullable()
-      .references("id")
-      .inTable("users")
-      .onDelete('CASCADE');
     });
 };
 

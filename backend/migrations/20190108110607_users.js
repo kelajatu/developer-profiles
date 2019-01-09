@@ -31,6 +31,14 @@ exports.up = function(knex, Promise) {
       .string("summary");
     table
       .string("access_token");
+    table
+      .string("places");
+    table
+      .string("topskills");
+    table
+      .string("addskills");
+    table
+      .string("familiar");
   });
 };
 
