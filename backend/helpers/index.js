@@ -8,10 +8,12 @@ module.exports = {
       return db("users")
         .where({id: id});
     }
-    //excludes summary ...
+    //excludes projects, experience, education for card view
     return db("users")
       .select(
         "firstname", 
+        "lastname",
+        "email",
         "location", 
         "summary", 
         "title",
