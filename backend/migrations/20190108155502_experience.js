@@ -3,7 +3,8 @@ exports.up = function(knex, Promise) {
   return knex.schema.createTable("experience", function(table) {
     table.increments();
     table
-      .string("jobtitle");
+      .string("jobtitle")
+      .notNullable();
     table
       .string("jobdates");
     table

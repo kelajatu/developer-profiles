@@ -3,7 +3,8 @@ exports.up = function(knex, Promise) {
   return knex.schema.createTable("projects", function(table) {
     table.increments();
     table
-      .string("projtitle");
+      .string("projtitle")
+      .notNullable();
     table
       .string("link");
     table

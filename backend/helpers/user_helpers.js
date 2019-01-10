@@ -13,6 +13,7 @@ module.exports = {
         //if all users: excludes projects, experience, education for card view
         return db("users")
           .select(
+            "id",
             "firstname", 
             "lastname",
             "email",
@@ -44,7 +45,7 @@ module.exports = {
         .insert(user)
     },
 
-    editUserInfo: function(id, input) {
+    editUser: function(id, input) {
         return db("users")
           .where({id: id})
           .update(input)
