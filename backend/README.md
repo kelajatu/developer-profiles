@@ -18,26 +18,16 @@ Endpoints:
     
     Create, return, update, delete  - user skills array  1, 4, 5  that refrences skills table id
 
-Migrations: 
-
-
-Function: 
-
-//This is the old sqlite3 for local db set up
-
-development: {
-    client: 'sqlite3',
-    connection: {
-      filename: './dev.sqlite3'
-    },
-    useNullAsDefault: true,
-  },
+Initializing server (localy only): 
+  knex migration:latest
+  knex seed:run 
 
 To run server:
-
     - navigate to the /backend folder 
     - 'yarn install' 
-    - 'yarn dev' OR 'nodemon' 
+    - 'yarn dev' OR 'nodemon'
+    - in the dotenv file use switch enviornment to production to use AWS_RDS server and 
+    - or development to use sqlite3 server 
 
 To run heroku logs
     -- install/login to heroku CLI

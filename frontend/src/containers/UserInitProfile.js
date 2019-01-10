@@ -37,8 +37,6 @@ class UserInitProfile extends Component {
     familiarSkillsList: [],
     familiarSkills: [], // Array familiar - Normalize [{familiar: 'HTML'}, {familiar: 'CSS'}]
 
-
-
     projectTitle: "", // str projtitle
     projectImg: "", // str projimg
     projectLink: "", // str link
@@ -52,20 +50,11 @@ class UserInitProfile extends Component {
     schoolDates: "", // str schooldates
     schoolCourse: "", // str course
     schoolDegree: "", // str degree
-
-
   }
 
   onInputChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   }
-  
-
-
-
-
-
-
   
   onLocationChange = (e) => {
     let newArr;
@@ -90,8 +79,6 @@ class UserInitProfile extends Component {
   chooseCurrentLocation = (e) => {
     this.setState({ currentLocation: e.target.value, locationAutocomplete: [], currentLocationInput: e.target.value });
   }
-
-
 
   onPlacesChange = (e) => {
     let newArr;
@@ -126,8 +113,6 @@ class UserInitProfile extends Component {
 
     this.setState({ placesInterested: newplacesInterested, placesAutocomplete: [], placesInterestedInput: e.target.value });
   }
-  
-  
   
   onTopSkillsChange = e => {
     let newArr;
