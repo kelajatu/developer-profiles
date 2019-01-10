@@ -5,6 +5,7 @@ const router = express.Router()
 const userRoutes = require('./userRoutes')
 const authRoutes = require('./authRoutes')
 const listRoutes = require('./listRoutes')
+const apiRoutes = require('./apiRoutes')
 
 router.use(express.json())
 
