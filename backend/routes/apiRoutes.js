@@ -34,7 +34,6 @@ const upload = multer({
 
 const singleImageUpload = upload.single('image');
 
-
 // single image upload request
 server.post('/image-upload', (req, res) => {
   singleImageUpload(req, res, function(err) {
@@ -44,8 +43,6 @@ server.post('/image-upload', (req, res) => {
     return res.json({'imgUrl': req.file.location})
   });
 });
-
-
 
 // google key, need to move to .env
 const key = 'AIzaSyBb8qdcjPWdlsz1qvsbjz4s821Tct8vTn8'
@@ -63,7 +60,6 @@ server.post('/location', (req, res) => {
   })
 });
 
-
 // Each place has an ID, you can grab the ID from the Autocomplete, and just put an array of IDs of the origins to 
 // calculate distances, instead of having to put gio codes or text addresses
 // split array with |
@@ -75,16 +71,15 @@ server.post('/matrix', (req, res) => {
   let destinations;
   const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${locationOrigin}&destinations=${destinations}&key=${key}`;
   
-  
-  axios.post(url)
-  .then(response => {
-    console.log(response.data)
-    res.send(response.data)
-  })
-  .catch(err => {
-    console.log(err)
-    res.send({ err })
-  })
+    axios.post(url)
+    .then(response => {
+      console.log(response.data)
+      res.send(response.data)
+    })
+    .catch(err => {
+      console.log(err)
+      res.send({ err })
+    })
 });
 
 module.exports = server 
