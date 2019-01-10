@@ -3,7 +3,7 @@ require('dotenv').config()
 
 module.exports = {
   production: {
-    client: 'postgresql',
+    client: 'pg',
     connection: process.env.DATABASE_URL,
     acquireConnectionTimeout: 10000,
     pool: {
