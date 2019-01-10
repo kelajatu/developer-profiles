@@ -2,6 +2,14 @@
 require('dotenv').config()
 
 module.exports = {
+  testing: {
+    client: 'sqlite3',
+    connection: {
+      filename: './dev.sqlite3'
+    },
+    useNullAsDefault: true,
+  },
+
   development: {
     client: 'mysql',
     version: '5.6.41',
@@ -16,8 +24,8 @@ module.exports = {
       min: 2,
       max: 10
     },
-  useNullAsDefault: true,
-},
+    useNullAsDefault: true,
+  },
 
   staging: {
     client: 'postgresql',
