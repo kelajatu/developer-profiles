@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Nav from "./components/Nav";
 import LandingPage from "./containers/landingPage";
+import UserInitProfile from "./containers/UserInitProfile";
 
 
 class App extends Component {
@@ -9,6 +10,7 @@ class App extends Component {
       <div>
         <Nav />
         <LandingPage />
+        <UserInitProfile />
       </div>
     );
   }
