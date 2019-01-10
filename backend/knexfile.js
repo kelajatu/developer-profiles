@@ -18,7 +18,7 @@ module.exports = {
       port     : process.env.RDS_PORT,
       user : process.env.RDS_USERNAME,
       password : process.env.RDS_PASSWORD,
-      database : 'devProfiles_dbName'
+      database : process.env.RDS_DB_NAME
     },
     pool: {
       min: 2,
