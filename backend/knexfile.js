@@ -27,23 +27,6 @@ module.exports = {
     useNullAsDefault: true,
   },
 
-  amazonPG: {
-    client: 'pg',
-    version: '10.4',
-    connection: {
-      host : '',
-      port     : process.env.RDS_PORT,
-      user : process.env.RDS_USERNAME,
-      password : process.env.RDS_PASSWORD,
-      database : 'dbname'
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    useNullAsDefault: true,
-  },
-
   production: {
     client: 'pg',
     connection: process.env.DATABASE_URL,
