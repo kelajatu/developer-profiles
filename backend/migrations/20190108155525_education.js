@@ -4,7 +4,7 @@ exports.up = function(knex, Promise) {
     table.increments();
     table
       .string("school")
-      .notNullable();
+        .notNullable();
     table
       .string("schooldates");
     table
@@ -13,11 +13,11 @@ exports.up = function(knex, Promise) {
       .string("course");
     table
       .integer("userId")
-      .unsigned()
-      .notNullable()
-      .references("id")
-      .inTable("users")
-      .onDelete('CASCADE');
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable("users")
+        .onDelete('CASCADE');
     });
 };
 
