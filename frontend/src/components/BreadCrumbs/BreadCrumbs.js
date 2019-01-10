@@ -29,19 +29,22 @@ class BreadCrumbs extends Component {
   render() {
     return (
       <Router>
-        <div>
+        <div className="bread-nav">
           <NavBar nav={this.state.nav} rollBackNavBar={this.rollBackNavBar} />
           <br />
           <br />
           <Route
+            className="item"
             path="/first"
             render={() => <First addToNavBar={this.addToNavBar} />}
           />
           <Route
+            className="item"
             path="/second"
             render={() => <Second addToNavBar={this.addToNavBar} />}
           />
           <Route
+            className="item"
             path="/third"
             render={() => <Third addToNavBar={this.addToNavBar} />}
           />
