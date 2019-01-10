@@ -6,7 +6,7 @@ class LandingPage extends Component {
     return (
       <div>
         <div className="page-wrap">
-          <header>
+          <div className="contentbox">
             <h1>Welcome to DevProfiles </h1>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -15,11 +15,9 @@ class LandingPage extends Component {
               fuga fugiat impedit, cum blanditiis reiciendis unde.
             </p>
 
-            <a href="#" class="splash-link">
-              {" "}
-              Let's get acquainted{" "}
-            </a>
-          </header>
+            <button className="btn btn--stripe">Let's Get Acquainted
+            </button>
+          </div>
         </div>
       </div>
     );

@@ -23,7 +23,8 @@ Migrations:
 
 Function: 
 
-//This is the old sqlite3
+//This is the old sqlite3 for local db set up
+
 development: {
     client: 'sqlite3',
     connection: {
@@ -31,3 +32,13 @@ development: {
     },
     useNullAsDefault: true,
   },
+
+To run server:
+
+    - navigate to the /backend folder 
+    - 'yarn install' 
+    - 'yarn dev' OR 'nodemon' 
+
+To run heroku logs
+    -- install/login to heroku CLI
+    -- 'heroku logs --tail -a developer-profiles'
