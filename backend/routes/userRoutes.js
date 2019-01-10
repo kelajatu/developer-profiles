@@ -5,6 +5,7 @@ const db = require('../helpers/index.js')
 //get all users for card view
 server.get('/', (req, res) => {
     db.user_helpers.getUsers().then(users => {
+        console.log(users)
         res.status(200).json(users)
     }).catch(err => {
         console.log("there is an error in GET users/", err)

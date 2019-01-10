@@ -7,23 +7,34 @@ module.exports = {
     connection: {
       filename: './dev.sqlite3'
     },
-    useNullAsDefault: true,
+    useNullAsDefault: true
   },
 
-  production: {
-    client: 'mysql',
-    version: '5.6.41',
+  staging: {
+    client: 'postgresql',
     connection: {
-      host : process.env.RDS_HOSTNAME,
-      port     : process.env.RDS_PORT,
-      user : process.env.RDS_USERNAME,
-      password : process.env.RDS_PASSWORD,
-      database : process.env.RDS_DB_NAME
+      database: 'my_db',
+      user:     'username',
+      password: 'password'
     },
     pool: {
       min: 2,
       max: 10
     },
-    useNullAsDefault: true,
+    migrations: {
+      tableName: 'knex_migrations'
+    }
   },
+
+  production: {
+    client: 'postgresql',
+    connection: process.env.DATABASE_URL,
+    pool: {
+      min: 2,
+      max: 10
+    },
+    migrations: {
+      tableName: 'knex_migrations'
+    }
+  }
 };
