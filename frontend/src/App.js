@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import Nav from "./components/Nav/Nav";
 import LandingPage from "./containers/landingPage";
 import BreadCrumbs from "./components/BreadCrumbs/BreadCrumbs";
-import UserInitProfile from "./containers/UserInitProfile";
-
+// import UserInitProfile from "./containers/UserInitProfile";
 
 class App extends Component {
   render() {
@@ -12,7 +11,7 @@ class App extends Component {
         <BreadCrumbs />
         <Nav />
         <LandingPage />
-        <UserInitProfile />
+        {/* // <UserInitProfile /> */}
       </div>
     );
   }
