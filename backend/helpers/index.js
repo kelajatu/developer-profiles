@@ -49,13 +49,22 @@ module.exports = {
       .insert(keyword)
   },
   
-  // addFamiliar: function(id, skillsArr) {
-  //   return db("users")
-  //   .where({id: id})
-  //   .update({familiar: skillsArr})
-  // },
-
-  // createFamiliar: function() {
-
-  // },
+  getExtras: function(id, type) {
+    return db(`${type}`)
+    .where({userId: id})
+},
+addExtra: function(type, input) {
+  return db(`${type}`)
+      .insert(input)
+},
+editExtra: function(id, type, input) {
+  return db(`${type}`)
+    .where({id: id})
+    .update(input)
+},
+deleteExtra: function(id, type) {
+  return db(`${type}`)
+    .where({id: id})
+    .delete()
+}
 }

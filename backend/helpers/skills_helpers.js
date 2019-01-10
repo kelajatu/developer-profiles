@@ -7,14 +7,4 @@ module.exports = {
     getAllSkills: function(){
         return db("skills")
     },
-
-  // addMoreskills: function(id, skillsArr) {
-  //   return db("users")
-  //   .where({id: id})
-  //   .update({addskills: skillsArr})
-  // },
-
-  // createAddSkill: function() {
-
-  // },
 }
