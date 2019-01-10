@@ -1,4 +1,7 @@
 // Update with your config settings.
+
+//BACKEND
+
 require('dotenv').config()
 
 module.exports = {
