@@ -1,13 +1,13 @@
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex('topskills').del()
+  return knex('skills').del()
     .then(function () {
       // Inserts seed entries
-      return knex('topskills').truncate().insert([
-        {topskill: "RoR"},
-        {topskill: "Ruby"},
-        {topskill: "Python"}
+      return knex('skills').truncate().insert([
+        {skill: "RoR"},
+        {skill: "Ruby"},
+        {skill: "Python"}
       ]);
     });
 };

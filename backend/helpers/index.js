@@ -2,111 +2,60 @@ const knex = require("knex");
 const dbconfig = require("../knexfile");
 const db = knex(dbconfig.development);
 
+const user_helpers = require('./user_helpers')
+const skills_helpers = require('./skills_helpers')
+const places_helpers = require('./places_helpers')
+const experience_helpers = require('./experiences_helpers')
+const projects_helpers = require('./projects_helpers')
+const education_helpers = require('./education_helpers')
+
 module.exports = {
-  getUsers: function(id) {
-    //if id: return all information on user for focused profile page
-    if (id) {
-      return db("users")
-        .where({id: id});
+    user_helpers,
+    skills_helpers,
+    places_helpers,
+    experience_helpers,
+    projects_helpers,
+    education_helpers,
+
+  //uses array of IDs from user skills/places column and grabs the 
+  //skills/places associated with those IDs in a batch
+  getUserPlacesOrSkills: async function(id, type){
+    let parent;
+    if (type == "places") {
+      parent = "places"
+    } else {
+      parent = "skills"
     }
+    let skills_places = await user_helpers.getUserPlaceSkillID(id, type)
+    skills_places = skills_places[type].split(",");
+    skills_places = skills_places.map(string => Number(string))
+    return db(`${parent}`).whereIn('id', skills_places)
+  },
 
-    //if all users: excludes projects, experience, education for card view
+  addKeywords: function(id, type, keywordsArr) {
     return db("users")
-      .select(
-        "firstname", 
-        "lastname",
-        "email",
-        "location", 
-        "summary", 
-        "title",
-        "badge",
-        "github",
-        "linkedin",
-        "portfolio",
-        "topskills",
-        "additionalskills",
-        "familiar",
-        "filter"
-      )
-  },
-
-  getPlacesAndSkills: function(id, type) {
-    return  db("users")
       .where({id: id})
-      .select(`${type}`)
-      .first();
+      .update({[type]: keywordsArr})
   },
 
-  modifyArr: async function(id, type){
-      let skills_places = await this.getPlacesAndSkills(id, type)
-          let skills_places2 = [];
-          skills_places = skills_places.topskills.split(",");
-          skills_places = skills_places.map(string => Number(string))
-          console.log('skills_places45:', skills_places)
-          return db('topskills').whereIn('id', skills_places)
-          // skills_places.forEach(id => {
-          //     skills_places2.push(db(`${type}`).where({id: id}))
-
-          // })
+  createKeywords: function(type, keyword) {
+    let parent;
+    if (type == "places") {
+      parent = "places"
+    } else {
+      parent = "skills"
+    }
+    return db(`${parent}`)
+      .insert(keyword)
   },
   
-  getAllSkills: function(){
-      return db('topskills')
-  },
-
-  // ==== add functions ====
-  addUser: function(user) {
-    return db("users")
-      .insert(user)
-  },
-  // addPlace: function(id) {
+  // addFamiliar: function(id, skillsArr) {
   //   return db("users")
-  //   .insert({userId: id})
+  //   .where({id: id})
+  //   .update({familiar: skillsArr})
   // },
-  addTopskill: function(id) {
-    return db("users")
-    .insert({userId: id})
-  },
-  addMoreskills: function(id) {
-    return db("addskills")
-    .insert({userId: id})
-  },
-  addExperience: function(id) {
-    return db("experience")
-    .insert({userId: id})
-  },
-  addEducation: function(id) {
-    return db("education")
-    .insert({userId: id})
-  },
-  addProjects: function(id) {
-    return db("projects")
-    .insert({userId: id})
-  },
-  addFamiliar: function(id) {
-    return db("familiar")
-    .insert({userId: id})
-  },
 
-  // ==== edit functions ====
+  // createFamiliar: function() {
 
-  editUserInfo: function(id, input) {
-    return db("users")
-      .where({id: id})
-      .update(input)
-  },
-  editExperience: function(id, input) {
-
-  },
-  editEducation: function(id, input) {
-
-  },
-  editProjects: function(id, input) {
-
-  },
-  deleteUser: function(id) {
-    return db("users")
-      .where({id: id})
-      .delete()
-  }
+  // },
 }
