@@ -3,7 +3,8 @@ exports.up = function(knex, Promise) {
   return knex.schema.createTable("education", function(table) {
     table.increments();
     table
-      .string("school");
+      .string("school")
+      .notNullable();
     table
       .string("schooldates");
     table

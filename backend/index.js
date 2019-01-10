@@ -13,4 +13,7 @@ server.get('/', (req, res) => {
 
 server.use('/', routes)
 
-server.listen(PORT, () => console.log(`\n ==  server is running on ${PORT} == \n`))
+server.listen(PORT, () => {
+    console.log(`\n ==  server is running on ${PORT} == \n`)
+    // console.log("process.env.RDS_USERNAME", process.env.RDS_USERNAME)
+})

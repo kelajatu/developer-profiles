@@ -1,0 +1,7 @@
+{
+    "name": "developer-profiles",
+    "version": "0.1.0",
+    "scripts": {
+      "start": "npm start --prefix backend"
+    }
+}
