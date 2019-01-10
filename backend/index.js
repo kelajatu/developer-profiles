@@ -14,6 +14,6 @@ server.get('/', (req, res) => {
 server.use('/', routes)
 
 server.listen(PORT, () => {
-    console.log(`\n ==  server is running on ${PORT} == \n`)
-    // console.log("process.env.RDS_USERNAME", process.env.RDS_USERNAME)
+    // console.log("process.env", process.env)
+    console.log(`\n == server is running on ${PORT} == \n == using the ${process.env.NODE_ENV} database == \n`)
 })
