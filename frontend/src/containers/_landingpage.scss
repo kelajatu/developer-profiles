@@ -56,8 +56,16 @@ $border-color-hover: $color-black;
   text-align: center;
   padding: 5em;
   box-shadow: 0 10px 36px rgba(0, 0, 0, 0.18);
+  a {
+    color:none;
+    text-decoration: none;
+    cursor: pointer;
+    &:hover {
+      background-color: $btn-background-hover;
+      color: $btn-color-hover;
+      border-color: $border-color-hover;}
+  }
 }
-
 h1 {
   font-size: 5rem;
   letter-spacing: 5px;
@@ -73,8 +81,8 @@ p {
 
 .btn {
   @include reset-button;
-  text-decoration: none;
-  text-transform: uppercase;
+
+  // text-transform: uppercase;
   padding: 16px 36px 22px;
   background-color: $btn-background;
   color: $btn-color;
