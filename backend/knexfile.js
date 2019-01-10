@@ -10,7 +10,7 @@ module.exports = {
     useNullAsDefault: true,
   },
 
-  production: {
+  amazon: {
     client: 'mysql',
     version: '5.6.41',
     connection: {
@@ -26,4 +26,14 @@ module.exports = {
     },
     useNullAsDefault: true,
   },
+
+  production: {
+    client: 'pg',
+    connection: process.env.DATABASE_URL,
+    acquireConnectionTimeout: 10000,
+    pool: {
+      min: 2,
+      max: 10
+    }
+  }
 };
