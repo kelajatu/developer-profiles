@@ -70,12 +70,12 @@ server.post('/location', (req, res) => {
 
 server.post('/matrix', (req, res) => {
   // const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=Washington,DC&destinations=New+York+City,NY|Los+Angeles,CA&key=${key}`;
-
+  
   let locationOrigin;
   let destinations;
   const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${locationOrigin}&destinations=${destinations}&key=${key}`;
-
-
+  
+  
   axios.post(url)
   .then(response => {
     console.log(response.data)
@@ -86,3 +86,5 @@ server.post('/matrix', (req, res) => {
     res.send({ err })
   })
 });
+
+module.exports = server 
