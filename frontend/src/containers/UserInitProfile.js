@@ -4,10 +4,7 @@ import axios from 'axios';
 
 
 /*
-
 API / FORMATTING
-
-
 ** /register - If 3rd party Oauth returns email when user registers
 might be part of /register
 will need to call db.addUser
@@ -16,43 +13,27 @@ oAuth returns limited user info(name, email, age, ets), some do not provide info
 *Only work with oAuth that returns SOME user info to create user
 user will be created in this step
 all other steps will be edit user
-
-
 post('/new')
 Add new user, Initial batch
 might need to make this initial batch an edit since /register created user
 might merge /new with /register
-
-
 Flow
 user registers with 3rd party oAuth
 oAuth returns token + limited user info
 user is created with limited info '/register'
-
 user is sent to profile(seeker) '/editUser'
 this step should be able to handle all user info
 projects, skills, location, education, experience
 x amount of info MUST be filled out for user card to be added to the developers list
 billing MUST be completed as well
-
 User is now free to visit any page
-
 '/users' - main browse page
 get all users
-
 '/users/:id' - expanded profile page
 get user
-
-
-
-
-
 ---
-
 server.post('/new', (req, res) => db.addUser(req.body)
 creates new user, might be part of /register
-
-
 server.get('/', (req, res) => db.getUsers()
 get all users - for card view
 excludes projects, experience, education 
@@ -60,8 +41,6 @@ excludes projects, experience, education
 "summary", "title", "badge", "github",
 "linkedin", "portfolio", "topskills",
 "addskills", "familiar", "filter"
-
-
 server.get('/:id', (req, res) => db.getUsers(req.params.id)
 get single user - for expanded card view
 excludes projects, experience, education
@@ -70,25 +49,18 @@ excludes projects, experience, education
 "linkedin", "portfolio", "topskills",
 "addskills", "familiar", "filter"
 might need to get the rest (projects, experience, education)
-
-
 server.get('/skills/:id/:type', (req, res) => db.getUserPlacesOrSkills(req.params.id, req.params.type)
 get skills or places, define in path as "type" either skills or places
 get places(id) OR skills(id) - choose by 'type'
 will NEED to filter for onChange, so it will not return ALL at every keystroke
 similar to Autocomplete
 * Places might not work since it already has autocomplete
-
-
 server.post('/addkeys/:userid/:type', (req, res) => db.createKeywords(req.params.type, req.body)
 add a skill to the skill bank
 post places(id) OR skills(id) - choose by 'type'
 db.createKeywords(req.params.type, req.body) adds to db depending on args(eg. type=places, body=id)
 db.addKeywords(req.params.userid, req.params.type, oldKeys) adds skills/places to user table
-
-
 erver.get('/topskills', (req, res) => db.getAllSkills() ?
-
 */
 
 

@@ -1,6 +1,7 @@
 const knex = require("knex");
 const dbconfig = require("../knexfile");
-const db = knex(dbconfig.development);
+require('dotenv').config()
+const db = knex(dbconfig[process.env.ENVIORNMENT])
 
 const user_helpers = require('./user_helpers')
 const skills_helpers = require('./skills_helpers')

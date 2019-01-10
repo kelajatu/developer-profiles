@@ -39,8 +39,6 @@ exports.up = function(knex, Promise) {
       .string("addskills");
     table
       .string("familiar");
-    table
-      .string("places");
   });
 };
 
