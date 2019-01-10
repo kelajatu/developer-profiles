@@ -73,8 +73,8 @@ server.get('/skills/:id/:type', (req, res) => {
     })
 })
 
-//add a skill/place *from* the skill or place bank
-//expects user id and skill type or place in path params
+//add a skill/place *from* the skill bank
+//expects user id and skill type in path params
 //expects skill/place id in req.body ex."id":"1"
 server.post('/addkeys/:userid/:type', (req, res) => {
     db.user_helpers.getUserPlaceSkillID(req.params.userid, req.params.type).then(oldKeysList => {
@@ -87,8 +87,8 @@ server.post('/addkeys/:userid/:type', (req, res) => {
     })
 })
 
-//add a completely new skill/place to the skill or place bank
-//expects user id and skill type or place in path params
+//add a completely new skill/place to the skill bank
+//expects user id and skill type in path params
 //expects skill name in req.body ex. "skill": "Python" or "place":"Washington, D.C."
 server.post('/createkeys/:userid/:type', (req, res) => {
     db.createKeywords(req.params.type, req.body).then(async function(data) {
