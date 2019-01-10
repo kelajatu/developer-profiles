@@ -11,5 +11,6 @@ router.use(express.json())
 router.use('/users', userRoutes)
 router.use('/auth', authRoutes)
 router.use('/list', listRoutes)
+router.use('/api', apiRoutes)
 
 module.exports = router

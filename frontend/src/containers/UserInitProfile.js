@@ -284,8 +284,9 @@ class UserInitProfile extends Component {
     this.setState({ familiarSkills: newfamiliarSkills, familiarSkillsList: [], familiarSkillsInput: e.target.value });
   }
 
+
+
   checkOnchange = (e) => {
-    
     const file = e.target.files[0];
     // const reader = new FileReader();
     // reader.addEventListener('load', e => {
@@ -296,8 +297,8 @@ class UserInitProfile extends Component {
 
 
     var formData = new FormData();
-    formData.append("file", file);
-    console.log(formData.get("file"));
+    formData.append("image", file);
+    console.log(formData.get("image"));
 
     // axios({
     //   method: 'post',
@@ -323,8 +324,6 @@ class UserInitProfile extends Component {
     .catch(error => {
       console.log(error);
     });
-
-
 
     // let newImgUrl = imgUrl.replace(/C:\\fakepath\\/, '')
   }
