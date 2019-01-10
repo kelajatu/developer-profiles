@@ -18,16 +18,17 @@ Endpoints:
     
     Create, return, update, delete  - user skills array  1, 4, 5  that refrences skills table id
 
-Initializing server (localy only): 
-  knex migration:latest
-  knex seed:run 
+Initializing server: 
+    - in the dotenv file use switch enviornment to production to use AWS_RDS server 
+    - OR development to use sqlite3 server 
+    - 'knex migration:latest'
+    - 'knex seed:run' 
 
 To run server:
     - navigate to the /backend folder 
     - 'yarn install' 
     - 'yarn dev' OR 'nodemon'
-    - in the dotenv file use switch enviornment to production to use AWS_RDS server and 
-    - or development to use sqlite3 server 
+
 
 To run heroku logs
     -- install/login to heroku CLI
