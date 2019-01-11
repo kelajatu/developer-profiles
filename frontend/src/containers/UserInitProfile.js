@@ -306,6 +306,18 @@ class UserInitProfile extends Component {
     XHR.send(FD);
   }
 
+  checkAcclaim(e) {
+    console.log(e.target.value)
+    axios
+    .post("http://localhost:7000/acclaim", {acclaimBadge: e.target.value})
+    .then(response => {
+      console.log(response.data)
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+
 
   render() {
     console.log('STATEEE',this.state.profileImg)
@@ -485,6 +497,7 @@ class UserInitProfile extends Component {
               name="acclaim"
               value={this.state.acclaim}
               onChange={this.onInputChange}
+              onBlur={this.checkAcclaim}
             />
           
           </fieldset>
