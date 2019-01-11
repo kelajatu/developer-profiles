@@ -28,17 +28,17 @@ exports.up = function(knex, Promise) {
     table
       .string("badge");
     table
-      .string("summary");
+      .string("summary", 1000);
     table
       .string("access_token");
     table
-      .string("places");
+      .string("places", 1000);
     table
-      .string("topskills");
+      .string("topskills", 1000);
     table
-      .string("addskills");
+      .string("addskills", 1000);
     table
-      .string("familiar");
+      .string("familiar", 1000);
   });
 };
 
