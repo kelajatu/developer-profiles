@@ -2,23 +2,23 @@ exports.up = function(knex, Promise) {
   return knex.schema.createTable("users", function(table) {
     table.increments();
     table
-      .string("email")
+      .string("email", 1000)
       .notNullable()
       .unique("email");
     table
-      .string("firstname")
+      .string("firstname", 1000)
       .notNullable();
     table
-      .string("lastname")
+      .string("lastname", 1000)
       .notNullable();
     table
-      .string("image");
+      .string("image", 1000);
     table
-      .string("title");
+      .string("title", 1000);
     table
       .string("filter");
     table
-      .string("location");
+      .string("location", 1000);
     table
       .string("github");
     table
