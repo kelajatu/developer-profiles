@@ -5,7 +5,10 @@ require('dotenv').config()
 
 server.use(express.json())
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT
+if (PORT == null || PORT == "") {
+    PORT = 3000;
+  }
 
 server.get('/', (req, res) => {
     res.send('NICE. The api is up and running.')
