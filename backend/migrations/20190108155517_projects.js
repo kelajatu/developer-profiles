@@ -3,14 +3,14 @@ exports.up = function(knex, Promise) {
   return knex.schema.createTable("projects", function(table) {
     table.increments();
     table
-      .string("projtitle")
+      .string("projtitle", 1000)
       .notNullable();
     table
-      .string("link");
+      .string("link", 1000);
     table
-      .string("projdescription");
+      .string("projdescription", 1000);
     table
-      .string("projimg");
+      .string("projimg", 1000);
     table
       .integer("userId")
       .unsigned()

@@ -21,16 +21,20 @@ class UserCard extends React.Component{
     }
 
     componentDidMount(){
-      axios
-      .get("https://developer-profiles.herokuapp.com/users")
-      .then(response => {
-        console.log(response.data)
-        this.makeSkillsArr()
-      })
-      .catch(error => {
-        console.log(error);
-      });
+      this.makeSkillsArr()
+      this.getUserInfo()
     }
+
+    getUserInfo = () => {
+        axios
+        .get("https://developer-profiles.herokuapp.com/users")
+        .then(response => {
+          console.log(response.data)
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      }
 
     render(){
         return (
