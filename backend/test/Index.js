@@ -1,9 +1,19 @@
+//Require the dev-dependencies
 let chai = require("chai");
+let chaiHttp = require("chai-http");
 let server = require("../index");
 let should = chai.should();
 
-describe("Get to Ingex.js", () => {
+chai.use(chaiHttp);
+
+describe("GET", () => {
   it("Can succesfully make a request", () => {
-    expect(response.status).to.equal(200);
+    chai
+      .request(server)
+      .get("/")
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      });
   });
 });
