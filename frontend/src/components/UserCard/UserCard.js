@@ -1,7 +1,8 @@
 import React from 'react';
-import styled from 'styled-components'
+import styled from 'styled-components';
+import axios from 'axios';
 
-export class UserCard extends React.Component{
+class UserCard extends React.Component{
     makeSkillsArr(){
         let newArr = [];
         let string = 'Lorem ipsum dolor sit amet agam brute vim ne Id quod vocibus eum ius duis doctus persequeris an Te sea prompta democritum dissentiunt cu quo eros nemore facete Et vis possim percipitur appellantur est quas efficiantur theophrastus ea Cum te tation torquatoss'
@@ -20,7 +21,15 @@ export class UserCard extends React.Component{
     }
 
     componentDidMount(){
+      axios
+      .get("https://developer-profiles.herokuapp.com/users")
+      .then(response => {
+        console.log(response.data)
         this.makeSkillsArr()
+      })
+      .catch(error => {
+        console.log(error);
+      });
     }
 
     render(){
@@ -154,3 +163,5 @@ const UserCardDiv = styled.div`
         }
     }
 `;
+
+export default UserCard;
