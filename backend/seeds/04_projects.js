@@ -6,7 +6,7 @@ exports.seed = function(knex, Promise) {
       let arr = []
       let num = 500;
       while(num > 0){
-        userArr.push({
+        arr.push({
           userId: num,
           projtitle: faker.random.word(),
           link: faker.internet.url(),
