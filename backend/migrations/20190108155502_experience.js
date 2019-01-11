@@ -7,7 +7,7 @@ exports.up = function(knex, Promise) {
     table
       .string("jobdates");
     table
-      .string("jobdescription");
+      .string("jobdescription", 500);
     table
       .integer("userId")
       .unsigned()

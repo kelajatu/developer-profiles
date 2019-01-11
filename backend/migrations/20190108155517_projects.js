@@ -8,7 +8,7 @@ exports.up = function(knex, Promise) {
     table
       .string("link");
     table
-      .string("projdescription");
+      .string("projdescription", 500);
     table
       .string("projimg");
     table
