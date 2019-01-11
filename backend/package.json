@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "NODE_ENV=test mocha test/**/*.js",
     "dev": "nodemon",
     "start": "node index.js"
   },
@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
     "mocha": "^5.2.0"
   }
 }
