@@ -1,7 +1,8 @@
 // Update with your config settings.
-require('dotenv').config()
 
+//BACKEND
 module.exports = {
+
   development: {
     client: 'sqlite3',
     connection: {

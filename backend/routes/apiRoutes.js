@@ -8,9 +8,9 @@ const server = express.Router();
 
 // AWS Config, need to move keys to .env
 aws.config.update({
-  secretAccessKey: "VCZIQLZpx+0/yRnC+IA+tIbQPu3901VBOIfnllYX",
-  accessKeyId: "AKIAIHZRWWYBXY72R7JQ",
-  region: "us-east-2"
+  secretAccessKey: 'secret',
+  accessKeyId: 'secret',
+  region: 'us-east-2'
 });
 
 const s3 = new aws.S3();
@@ -45,31 +45,28 @@ server.post("/image-upload", (req, res) => {
 });
 
 // google key, need to move to .env
-const key = "AIzaSyBb8qdcjPWdlsz1qvsbjz4s821Tct8vTn8";
+const key = 'secret'
 
-server.post("/location", (req, res) => {
-  const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${
-    req.body.inputLocation
-  }&key=${key}`;
-  axios
-    .post(url)
-    .then(response => {
-      console.log(response.data);
-      res.send(response.data);
-    })
-    .catch(err => {
-      console.log(err);
-      res.send({ err });
-    });
+server.post('/location', (req, res) => {
+  const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${req.body.inputLocation}&key=${key}`;
+  axios.post(url)
+  .then(response => {
+    console.log(response.data)
+    res.send(response.data)
+  })
+  .catch(err => {
+    console.log(err)
+    res.send({ err })
+  })
 });
 
-// Each place has an ID, you can grab the ID from the Autocomplete, and just put an array of IDs of the origins to
+// Each place has an ID, you can grab the ID from the Autocomplete, and just put an array of IDs of the origins to 
 // calculate distances, instead of having to put gio codes or text addresses
 // split array with |
 
 server.post("/matrix", (req, res) => {
   // const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=Washington,DC&destinations=New+York+City,NY|Los+Angeles,CA&key=${key}`;
-
+  
   let locationOrigin;
   let destinations;
   const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${locationOrigin}&destinations=${destinations}&key=${key}`;
@@ -85,3 +82,5 @@ server.post("/matrix", (req, res) => {
       res.send({ err });
     });
 });
+
+module.exports = server 
