@@ -9,8 +9,8 @@ const server = express.Router()
 
 // AWS Config, need to move keys to .env
 aws.config.update({
-  secretAccessKey: 'VCZIQLZpx+0/yRnC+IA+tIbQPu3901VBOIfnllYX',
-  accessKeyId: 'AKIAIHZRWWYBXY72R7JQ',
+  secretAccessKey: 'secret',
+  accessKeyId: 'secret',
   region: 'us-east-2'
 });
 
@@ -45,7 +45,7 @@ server.post('/image-upload', (req, res) => {
 });
 
 // google key, need to move to .env
-const key = 'AIzaSyBb8qdcjPWdlsz1qvsbjz4s821Tct8vTn8'
+const key = 'secret'
 
 server.post('/location', (req, res) => {
   const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${req.body.inputLocation}&key=${key}`;

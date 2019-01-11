@@ -126,13 +126,6 @@ class UserInitProfile extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
   
-
-
-
-
-
-
-  
   onLocationChange = (e) => {
     let newArr;
     var self = this;
@@ -288,48 +281,46 @@ class UserInitProfile extends Component {
 
   checkOnchange = (e) => {
     const file = e.target.files[0];
-    // const reader = new FileReader();
-    // reader.addEventListener('load', e => {
+    let XHR = new XMLHttpRequest();
+    let FD  = new FormData();
 
-    // })
+    // Push our data into our FormData object
+    FD.append('image', file);
 
-    // reader.readAsDataURL(file);
+    var self = this;
+    // Define what happens on successful data submission
+    XHR.addEventListener('load', function(event) {
+      let url = JSON.parse(event.target.responseText);
+      self.setState({profileImg: url.imgUrl})
+    });
 
+    // Define what happens in case of error
+    XHR.addEventListener('error', function(event) {
+      alert('Oops! Something went wrong.');
+    });
 
-    var formData = new FormData();
-    formData.append("image", file);
-    console.log(formData.get("image"));
+    // Set up our request
+    XHR.open('POST', 'http://localhost:7000/image-upload');
 
-    // axios({
-    //   method: 'post',
-    //   url: 'http://localhost:7000/image-upload',
-    //   data: formData,
-    //   config: { headers: {'Content-Type': 'multipart/form-data' }}
-    //   })
-    //   .then(function (response) {
-    //       //handle success
-    //       console.log('SUCCESS', response);
-    //   })
-    //   .catch(function (response) {
-    //       //handle error
-    //       console.log(response);
-    //   });
+    // Send our FormData object; HTTP headers are set automatically
+    XHR.send(FD);
+  }
 
-
+  checkAcclaim(e) {
+    console.log(e.target.value)
     axios
-    .post("http://localhost:7000/image-upload", {image: formData})
+    .post("http://localhost:7000/acclaim", {acclaimBadge: e.target.value})
     .then(response => {
-      console.log(response)
+      console.log(response.data)
     })
     .catch(error => {
       console.log(error);
     });
-
-    // let newImgUrl = imgUrl.replace(/C:\\fakepath\\/, '')
   }
 
 
   render() {
+    console.log('STATEEE',this.state.profileImg)
     return (
       <main>
         <header>
@@ -344,11 +335,20 @@ class UserInitProfile extends Component {
         <input
           type="file"
           accept="image/*"
+          encrypt="multipart/form-data"
           onChange={this.checkOnchange}
         />
         </div>
-        <form className="main-form" onSubmit={this.submitForm}>
 
+        <div>
+          {this.state.profileImg === "" ?
+            null
+            :
+            <img src={this.state.profileImg} alt="P"/>
+          }
+        </div>
+
+        <form className="main-form" onSubmit={this.submitForm}>
 
           <fieldset className="user-info">
 
@@ -497,6 +497,7 @@ class UserInitProfile extends Component {
               name="acclaim"
               value={this.state.acclaim}
               onChange={this.onInputChange}
+              onBlur={this.checkAcclaim}
             />
           
           </fieldset>
