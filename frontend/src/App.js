@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Nav from "./components/Nav/Nav";
 import LandingPage from "./containers/landingPage";
 import BreadCrumbs from "./components/BreadCrumbs/BreadCrumbs";
-import UserCard from "./components/UserCard/UserCard";
+// import UserCard from "./components/UserCard/UserCard";
 // import UserInitProfile from "./containers/UserInitProfile";
 
 class App extends Component {
@@ -12,8 +12,8 @@ class App extends Component {
         <BreadCrumbs />
         <Nav />
         <LandingPage />
-        <UserCard />
-        {/* // <UserInitProfile /> */}
+        {/* <UserCard /> */}
+        {/* <UserInitProfile /> */}
       </div>
     );
   }
