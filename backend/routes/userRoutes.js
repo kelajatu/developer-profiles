@@ -5,7 +5,6 @@ const db = require('../helpers/index.js')
 //get all users for card view
 server.get('/', (req, res) => {
     db.user_helpers.getUsers().then(users => {
-        console.log(users)
         res.status(200).json(users)
     }).catch(err => {
         console.log("there is an error in GET users/", err)
@@ -15,15 +14,11 @@ server.get('/', (req, res) => {
 
 //get specific user for user profile
 server.get('/:id', (req, res) => {
-    console.log(req.params.id)
-    db.user_helpers.getUsers(req.params.id)
-    .then(user => {
-        console.log(user)
-      res.status(200).json(user)
-    })
-    .catch(err => {
-      console.log("error fetching data at GET users/:id", err)
-      res.status(500).json({ message: "error fetching data at GET users/:id", err: err });
+    db.user_helpers.getUsers(req.params.id).then(user => {
+        res.status(200).json(user)
+    }).catch(err => {
+        console.log("error fetching data at GET users/:id", err)
+        res.status(500).json({ message: "error fetching data at GET users/:id", err: err });
     })    
 })
 
@@ -32,32 +27,26 @@ server.get('/:id', (req, res) => {
 //email must be unique in database
 //empty values will fill with null
 server.post('/new', (req, res) => {
-    db.user_helpers.addUser(req.body)
-    .then(user => {
-      res.status(200).json(user)
-    })
-    .catch(err => {
-      console.log("error posting data at POST users/new", err)
-      res.status(500).json({ message: "error posting data at POST users/new", err: err });
+    db.user_helpers.addUser(req.body).then(user => {
+        res.status(200).json(user)
+    }).catch(err => {
+        console.log("error posting data at POST users/new", err)
+        res.status(500).json({ message: "error posting data at POST users/new", err: err });
     })    
   })
 
 server.put('/:id', (req, res) => {
-    db.user_helpers.editUser(req.params.id, req.body)
-    .then(user => {
+    db.user_helpers.editUser(req.params.id, req.body).then(user => {
         res.status(200).json(user)
-    })
-    .catch(err => {
+    }).catch(err => {
         res.status(500).json({message: "error editing user data", err: err})
     })
 })
 
 server.delete('/:id', (req, res) => {
-    db.user_helpers.deleteUser(req.params.id)
-    .then(user => {
+    db.user_helpers.deleteUser(req.params.id).then(user => {
         res.status(200).json(user)
-    })
-    .catch(err => {
+    }).catch(err => {
         res.status(500).json({message: "error deleting user", err: err})
     })
 })
@@ -80,11 +69,11 @@ server.get('/skills/:id/:type', (req, res) => {
 server.post('/addkeys/:userid/:type', (req, res) => {
     db.user_helpers.getUserPlaceSkillID(req.params.userid, req.params.type).then(oldKeysList => {
         let oldKeys = oldKeysList[req.params.type] + `,${req.body['id']}`
-    db.addKeywords(req.params.userid, req.params.type, oldKeys).then(data => {
-        res.status(200).json(data)
-    })}).catch(err => {
-        console.log("error adding from key bank", err)
-        res.status(500).json({message: "error adding from key bank", err: err})
+        db.addKeywords(req.params.userid, req.params.type, oldKeys).then(data => {
+            res.status(200).json(data)
+        })}).catch(err => {
+            console.log("error adding from key bank", err)
+            res.status(500).json({message: "error adding from key bank", err: err})
     })
 })
 
@@ -109,12 +98,10 @@ server.post('/createkeys/:userid/:type', (req, res) => {
 
 //gets projects, experience, or education 
 //expects one of the above terms in place of "extras" in path param. ex. '/:userid/education'
-server.get('/:userid/:extras', (req, res) => {
-    db.getExtras(req.params.userid, req.params.extras)
-    .then(extras => {
+server.get('/:user_id/:extras', (req, res) => {
+    db.getExtras(req.params.user_id, req.params.extras).then(extras => {
         res.status(200).json(extras)
-    })
-    .catch(err => {
+    }).catch(err => {
         res.status(500).json({message: "error fetching data", err: err})
     })
 })
@@ -127,35 +114,29 @@ server.get('/:userid/:extras', (req, res) => {
 //for experience: "userId", "jobtitle", "jobdescription", "jobdates"
 //for education: "userId", "school", "school_dates", "degree", "course"
 //only userId and title/school are required for a post
-server.post('/:userid/:extras', (req, res) => {
-    console.log(req.params.extras)
-    db.addExtra(req.params.extras, req.body)
-    .then(extra => {
+server.post('/:user_id/:extras', (req, res) => {
+    db.addExtra(req.params.extras, req.body).then(extra => {
         res.status(200).json(extra)
-    })
-    .catch(err => {
+    }).catch(err => {
         res.status(500).json({message: "error adding extras data", err: err})
     })
 })
+
 //edit project/experience/education
 //expects project/experience/education ID as param extrasID
 //expects edited fields in req.body
-server.put('/:userid/:extras/:extrasID', (req, res) => {
-    db.editExtra(req.params.extrasID, req.params.extras, req.body)
-    .then(extra => {
+server.put('/:user_id/:extras/:extras_id', (req, res) => {
+    db.editExtra(req.params.extras_id, req.params.extras, req.body).then(extra => {
         res.status(200).json(extra)
-    })
-    .catch(err => {
+    }).catch(err => {
         res.status(500).json({message: "error editing extras data", err: err})
     })
 })
 
-server.delete('/:userid/:extras/:extrasID', (req, res) => {
-    db.deleteExtra(req.params.extrasID, req.params.extras)
-    .then(extra => {
+server.delete('/:user_id/:extras/:extras_id', (req, res) => {
+    db.deleteExtra(req.params.extras_id, req.params.extras).then(extra => {
         res.status(200).json(extra)
-    })
-    .catch(err => {
+    }).catch(err => {
         res.status(500).json({message: "error deleting extras data", err: err})
     })
 })
