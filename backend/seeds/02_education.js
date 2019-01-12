@@ -5,14 +5,14 @@ exports.seed = function(knex, Promise) {
       // Inserts seed entries
       return knex('education').truncate().insert([
         {
-          userId: 1,
+          user_id: 1,
           school: 'Harvard',
-          schooldates: "Dec 2011 - June 2015",
+          school_dates: "Dec 2011 - June 2015",
           degree:"Heckin Cool Degree",
           course: "Cool major"
         },
-        {userId: 2, school: 'Lambda', schooldates: "Yesterday - Today", course: "FSW"},
-        {userId: 1, school: 'BootinBootcamp', schooldates: "May 1999 - Present", course: "Ur job is to learn"}
+        {user_id: 2, school: 'Lambda', school_dates: "Yesterday - Today", course: "FSW"},
+        {user_id: 1, school: 'BootinBootcamp', school_dates: "May 1999 - Present", course: "Ur job is to learn"}
       ]);
     });
 };

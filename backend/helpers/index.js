@@ -52,7 +52,7 @@ module.exports = {
   
   getExtras: function(id, type) {
     return db(`${type}`)
-    .where({userId: id})
+    .where({user_id: id})
 },
 addExtra: function(type, input) {
   return db(`${type}`)

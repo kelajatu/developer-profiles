@@ -1,4 +1,3 @@
-
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
   return knex('projects').del()
@@ -7,10 +6,10 @@ exports.seed = function(knex, Promise) {
       let num = 500;
       while(num > 0){
         arr.push({
-          userId: num,
-          projtitle: faker.random.word(),
+          user_id: num,
+          project_title: faker.random.word(),
           link: faker.internet.url(),
-          projdescription: faker.lorem.paragraph(),  
+          project_description: faker.lorem.paragraph(),  
         })
         num--;
       }

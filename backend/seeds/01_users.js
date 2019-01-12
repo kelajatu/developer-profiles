@@ -9,8 +9,8 @@ exports.seed = function(knex, Promise) {
       while(num > 0){
         userArr.push({
           email: faker.name.findName(),
-          firstname: faker.name.firstName(),
-          lastname: faker.name.lastName(),
+          first_name: faker.name.firstName(),
+          last_name: faker.name.lastName(),
           title: faker.name.title(),
           filter: faker.name.jobArea(),
           location: `${faker.address.city()}, ${faker.address.state()}`, 
@@ -20,8 +20,8 @@ exports.seed = function(knex, Promise) {
           badge: "acclaim.com",
           places: "1,2",
           summary: faker.lorem.sentences(),
-          topskills: "5,6,7",
-          addskills: "1",
+          top_skills: "5,6,7",
+          add_skills: "1",
           familiar: "1,3",      
         })
         num--;
@@ -29,44 +29,3 @@ exports.seed = function(knex, Promise) {
       return knex('users').truncate().insert(userArr);
     });
 };
-
-
-// //[
-//   {
-//     email: 'coolemail@gmail.com', 
-//     firstname: 'Banana', 
-//     lastname: 'Jones', 
-//     title: "Frontend Developer", 
-//     filter: "UI/UX", 
-//     location: "Seattle, WA", 
-//     github: "github.com", 
-//     linkedin: "linkedin.com", 
-//     portfolio: "coolbanana.com", 
-//     badge: "acclaim.com",
-//     places: "1,2",
-//     summary: "blah blah im soo cool plz hire me wow i have no much to say but not really",
-//     topskills: "1,3",
-//     addskills: "1",
-//     familiar: "1,3",                                                                                          
-//   },
-//   {
-//     email: 'cariboulou@gmail.com', 
-//     firstname: 'Pineapple', 
-//     lastname: 'Juice', 
-//     title: "Bartender", 
-//     filter: "UI/UX", 
-//     location: "Malibu, CA", 
-//     github: "github.com", 
-//     linkedin: "linkedin.com", 
-//     portfolio: "bicardi151.com",
-//     badge: "acclaaim.com",
-//     // places: "anywhere",
-//     summary: "This is a summary about tech n9ne's favorite drink",
-//     topskills: "1,2",
-//     // addskills: "this other thing, sometimes this",
-//     // familiar: "bootstrap only",
-//     // projects: "not actually sure what will go here, text description?",
-//     // experience: "5 years of boostrap",
-//     // education: "1 month bootcamp 2013"
-//   },
-// ]

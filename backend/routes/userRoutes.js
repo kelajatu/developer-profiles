@@ -28,7 +28,7 @@ server.get('/:id', (req, res) => {
 })
 
 //add user
-//expects req.body with email, firstname, lastname at minimum
+//expects req.body with email, first_name, last_name at minimum
 //email must be unique in database
 //empty values will fill with null
 server.post('/new', (req, res) => {
@@ -64,7 +64,7 @@ server.delete('/:id', (req, res) => {
 
 
 //get skills or places
-//expects type in path param as either "topskills" "addskills" "familiar" or "places"
+//expects type in path param as either "top_skills" "add_skills" "familiar" or "places"
 server.get('/skills/:id/:type', (req, res) => {
     db.getUserPlacesOrSkills(req.params.id, req.params.type).then(skills => {
         res.status(200).json(skills)
@@ -122,10 +122,10 @@ server.get('/:userid/:extras', (req, res) => {
 //TODO 
 //post/put/delete for extras
 //add project, experience, or education
-//req.body expectations for project: "userId", "projtitle", "projdescription"
+//req.body expectations for project: "userId", "project_title", "project_description"
 //"link", "projimg" 
 //for experience: "userId", "jobtitle", "jobdescription", "jobdates"
-//for education: "userId", "school", "schooldates", "degree", "course"
+//for education: "userId", "school", "school_dates", "degree", "course"
 //only userId and title/school are required for a post
 server.post('/:userid/:extras', (req, res) => {
     console.log(req.params.extras)

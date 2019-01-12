@@ -14,8 +14,8 @@ module.exports = {
         return db("users")
           .select(
             "id",
-            "firstname", 
-            "lastname",
+            "first_name", 
+            "last_name",
             "email",
             "location", 
             "summary", 
@@ -24,8 +24,8 @@ module.exports = {
             "github",
             "linkedin",
             "portfolio",
-            "topskills",
-            "addskills",
+            "top_skills",
+            "add_skills",
             "familiar",
             "filter"
           )

@@ -6,7 +6,7 @@ module.exports = {
     //TODO
     addEducation: function(id) {
         return db("education")
-            .insert({userId: id})
+            .insert({user_id: id})
     },
     //TODO
     editEducation: function(id, input) {
