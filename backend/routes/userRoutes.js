@@ -66,8 +66,8 @@ server.get('/skills/:id/:type', (req, res) => {
 //add a skill/place *from* the skill bank
 //expects user id and skill type in path params
 //expects skill/place id in req.body ex."id":"1"
-server.post('/addkeys/:userid/:type', (req, res) => {
-    db.user_helpers.getUserPlaceSkillID(req.params.userid, req.params.type).then(oldKeysList => {
+server.post('/addkeys/:user_id/:type', (req, res) => {
+    db.user_helpers.getUserPlaceSkillID(req.params.user_id, req.params.type).then(oldKeysList => {
         let oldKeys = oldKeysList[req.params.type] + `,${req.body['id']}`
         db.addKeywords(req.params.userid, req.params.type, oldKeys).then(data => {
             res.status(200).json(data)
@@ -80,11 +80,11 @@ server.post('/addkeys/:userid/:type', (req, res) => {
 //add a completely new skill/place to the skill bank
 //expects user id and skill type in path params
 //expects skill name in req.body ex. "skill": "Python" or "place":"Washington, D.C."
-server.post('/createkeys/:userid/:type', (req, res) => {
+server.post('/createkeys/:user_id/:type', (req, res) => {
     db.createKeywords(req.params.type, req.body).then(async function(data) {
-        let oldKeys = await db.user_helpers.getUserPlaceSkillID(req.params.userid, req.params.type);
+        let oldKeys = await db.user_helpers.getUserPlaceSkillID(req.params.user_id, req.params.type);
         oldKeys = oldKeys[req.params.type] + `,${data}`
-        db.addKeywords(req.params.userid, req.params.type, oldKeys).then(data => {
+        db.addKeywords(req.params.user_id, req.params.type, oldKeys).then(data => {
             res.status(200).json(data)
         }).catch(err => {
             console.log("there is an error in users/addKey/:id/:type at addKey", err)

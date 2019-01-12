@@ -5,7 +5,7 @@ const db = knex(dbconfig[process.env.DB])
 module.exports = {
     //TODO
     addPlace: function(id) {
-      return db("users")
-        .insert()
+        return db("users")
+            .insert()
     },
 }
