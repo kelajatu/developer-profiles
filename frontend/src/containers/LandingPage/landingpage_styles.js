@@ -11,6 +11,10 @@ const btn_background_hover = color_gray;
 const border_color = color_gray;
 const border_color_hover = color_black;
 
+
+
+
+
 export const Pagewrap = styled.div`
 background-size: cover;
 background-image: url(${bg_img});
@@ -46,6 +50,16 @@ export const Contentbox = styled.div`
 
 `
 export const Btn = styled.button `
+overflow: visible;
+margin: 0;
+padding: 0;
+border: 0;
+background: transparent;
+font: inherit;
+font-size: 18px;
+line-height: normal;
+cursor: pointer;
+-moz-user-select: text;
 padding: 16px 36px 22px;
 background: ${btn_background};
 color: ${btn_color};

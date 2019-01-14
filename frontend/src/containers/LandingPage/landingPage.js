@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import "./_landingpage.scss";
-import styled from 'styled-components';
 import { Pagewrap, Contentbox, Btn } from "./landingpage_styles";
 
 class LandingPage extends Component {
