@@ -1,11 +1,5 @@
 import React, { Component } from "react";
-import {
-  Route,
-  Link,
-  Redirect,
-  Switch,
-  BrowserRouter as Router
-} from "react-router-dom";
+import { Route, Link, Switch } from "react-router-dom";
 import Nav from "./components/Nav/Nav";
 import LandingPage from "./containers/landingPage";
 import BreadCrumbs from "./components/BreadCrumbs/BreadCrumbs";
