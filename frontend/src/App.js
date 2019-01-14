@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Nav from "./components/Nav/Nav";
-import LandingPage from "./containers/landingPage";
+import LandingPage from "./containers/LandingPage/landingPage";
 import BreadCrumbs from "./components/BreadCrumbs/BreadCrumbs";
 import UserCard from "./components/UserCard/UserCard";
 import UserInitProfile from "./containers/UserInitProfile";

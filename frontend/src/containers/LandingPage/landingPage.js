@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import "./_landingpage.scss";
+import styled from 'styled-components';
+import { Pagewrap, Contentbox, Btn } from "./landingpage_styles";
 
 class LandingPage extends Component {
   render() {
     return (
       <div>
-        <div className="page-wrap">
-          <div className="contentbox">
+        <Pagewrap>
+          <Contentbox>
             <h1>Welcome to DevProfiles </h1>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -15,14 +17,14 @@ class LandingPage extends Component {
               fuga fugiat impedit, cum blanditiis reiciendis unde.
             </p>
             <a href="#aboutus">
-            <button className="btn btn--stripe">
+            <Btn className="stripe">
 
                 See what we have to offer
 
-            </button>
+            </Btn>
             </a>
-          </div>
-        </div>
+          </Contentbox>
+        </Pagewrap>
         <div className="moreinfo">
           <p>
             Asymmetrical master cleanse raclette kitsch, tofu next level kogi
