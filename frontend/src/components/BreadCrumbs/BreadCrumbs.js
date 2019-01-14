@@ -1,57 +1,59 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import NavBar from "../NavBar/NavBar";
-import First from "./views/First";
-import Second from "./views/Second";
-import Third from "./views/Third";
+import React from "react";
+import "antd/dist/antd.css";
+import { Route, Switch, Link, withRouter } from "react-router-dom";
+import { Breadcrumb } from "antd";
 import "./BreadCrumbs.scss";
 
-class BreadCrumbs extends Component {
-  state = {
-    nav: [["/first", "HOME"]]
-  };
+const Items = () => (
+  <ul className="app-list">
+    <li>
+      <Link to="/user/1">User 1</Link> : <Link to="/user/1/detail">Detail</Link>
+    </li>
+    <li>
+      <Link to="/user/2">User 2</Link> : <Link to="/user/2/detail">Detail</Link>
+    </li>
+  </ul>
+);
 
-  sayHello = () => {
-    alert("hello");
-  };
+const breadcrumbNameMap = {
+  "/user": "User",
+  "/user/1": "User Association 1",
+  "/user/2": "User Association 2",
+  "/user/1/detail": "Detail 1",
+  "/user/2/detail": "Detail 2"
+};
 
-  addToNavBar = (path, displayName) => {
-    this.setState({ nav: [...this.state.nav, [path, displayName]] }, () =>
-      console.log(this.state.nav)
-    );
-  };
-
-  rollBackNavBar = destination => {
-    console.log("roll back to", destination);
-    this.setState({ nav: this.state.nav.slice(0, destination + 1) });
-  };
-
-  render() {
+const Breadcrumbs = withRouter(props => {
+  const { location } = props;
+  const pathSnippets = location.pathname.split("/").filter(i => i);
+  const extraBreadcrumbItems = pathSnippets.map((_, index) => {
+    const url = `/${pathSnippets.slice(0, index + 1).join("/")}`;
     return (
-      <Router>
-        <div className="bread-nav">
-          <NavBar nav={this.state.nav} rollBackNavBar={this.rollBackNavBar} />
-          <br />
-          <br />
-          <Route
-            className="item"
-            path="/first"
-            render={() => <First addToNavBar={this.addToNavBar} />}
-          />
-          <Route
-            className="item"
-            path="/second"
-            render={() => <Second addToNavBar={this.addToNavBar} />}
-          />
-          <Route
-            className="item"
-            path="/third"
-            render={() => <Third addToNavBar={this.addToNavBar} />}
-          />
-        </div>
-      </Router>
+      <Breadcrumb.Item key={url}>
+        <Link to={url}>{breadcrumbNameMap[url]}</Link>
+      </Breadcrumb.Item>
     );
-  }
-}
+  });
 
-export default BreadCrumbs;
+  const breadcrumbItems = [
+    <Breadcrumb.Item key="home">
+      <Link to="/">Home</Link>
+    </Breadcrumb.Item>
+  ].concat(extraBreadcrumbItems);
+
+  return (
+    <div className="demo">
+      <div className="demo-nav">
+        <Link to="/">Home</Link>
+        <Link to="/user">User</Link>
+      </div>
+      <Switch>
+        <Route path="/user" component={Items} />
+        <Route render={() => <span>Home Page</span>} />
+      </Switch>
+      <Breadcrumb>{breadcrumbItems}</Breadcrumb>
+    </div>
+  );
+});
+
+export default Breadcrumbs;
