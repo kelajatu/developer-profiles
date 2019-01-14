@@ -6,7 +6,7 @@ module.exports = {
     //TODO
     addProjects: function(id) {
         return db("projects")
-            .insert({userId: id})
+            .insert({user_id: id})
     },
     //TODO
     editProjects: function(id, input) {

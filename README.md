@@ -18,3 +18,4 @@ Front end URL: https://ecstatic-dev-profiles.netlify.com/
 
 Back end URL: https://developer-profiles.herokuapp.com/
 
+Rubric: https://docs.google.com/spreadsheets/d/1-D0SY8SkipneUox08vEdumf1OtGtX5gWTt7XQ1dBHCc/edit#gid=1885109639

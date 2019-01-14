@@ -6,7 +6,7 @@ module.exports = {
     //TODO
     addExperience: function(id) {
         return db("experience")
-            .insert({userId: id})
+            .insert({user_id: id})
     },
     //TODO
     editExperience: function(id, input) {

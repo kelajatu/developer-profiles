@@ -40,16 +40,17 @@ To run heroku logs
 * **"/users"** - get all users
 * **"/users/id"** - get specific user by id, for example:
      > `/users/1`
-* **"users/skills/id/type"** - shows all skills of specified type for given user (type options: familiar, topskills, addskills)
-    >`/users/skills/2/topskills`
+* **"users/skills/id/type"** - shows all skills of specified type for given user (type options: familiar, top_skills, add_skills)
+    >`/users/skills/2/top_skills`
 * **"/list/skills"** - retrieves complete skill bank
-* **"users/userid/extras"** - retrieves all of a given users projects, education or experience, contingent on the keyword used in place of `extras`:
+* **"users/user_id/extras"** - retrieves all of a given users projects, education or experience, contingent on the keyword used in place of `extras`:
     >`/users/1/projects`
 
 ## POST endpoints
-* **"/users/new"** - to create a new user, expects `firstname, lastname, email` in the body
+* **"/users/new"** - to create a new user, expects `first_name, last_name, email` in the body
    >
-      {"firstname": "Jane",
-      "lastname": "Doe",
+      {"first_name": "Jane",
+      "last_name": "Doe",
       "email": "janedoe@email.com"}
 
+TODO change keys refrence in routes to api
