@@ -5,127 +5,112 @@ import axios from 'axios';
 
 /*
 API / FORMATTING
-** /register - If 3rd party Oauth returns email when user registers
-might be part of /register
-will need to call db.addUser
-will need to make fname and lname optional
-oAuth returns limited user info(name, email, age, ets), some do not provide info
-*Only work with oAuth that returns SOME user info to create user
-user will be created in this step
-all other steps will be edit user
-post('/new')
-Add new user, Initial batch
-might need to make this initial batch an edit since /register created user
-might merge /new with /register
-Flow
+
+--------
+User should already be in DB from '/register' at this point
+When user registers through Auth0/passport, they will return some user info
+might need to make name/last/email optional, or only work with 3rd party
+Auth that returns at minimum an email
+-----
+
+---
+all API calls from here will use PUT:'/:id'
+---
+
+---
+it will not be just one big form
+
+image upload will have own submit to DB(onUpload or hidden save button with feedback)
+
+all user info can go in one submit:
+email,fname,lname,title,location,git,linked,portfolio,acclaim,places,summary,skills
+
+projects will have own submit
+
+education will have own submit
+
+experience will have own submit
+---
+
+---
+Possible Flow
 user registers with 3rd party oAuth
 oAuth returns token + limited user info
 user is created with limited info '/register'
-user is sent to profile(seeker) '/editUser'
-this step should be able to handle all user info
-projects, skills, location, education, experience
-x amount of info MUST be filled out for user card to be added to the developers list
-billing MUST be completed as well
+user is sent to profile(seeker) + userId from DB
+user can fill out any info - all submits will be PUT
+
+x amount of info must be filled out for user card to be added to the developers list
+billing must be completed as well
+make a progress bar to publish user profile, progress will include minimum user info + billing
+add CTA for billing, maybe button next to save, or a billing tab/link
+
 User is now free to visit any page
-'/users' - main browse page
-get all users
-'/users/:id' - expanded profile page
-get user
 ---
-server.post('/new', (req, res) => db.addUser(req.body)
-creates new user, might be part of /register
-server.get('/', (req, res) => db.getUsers()
-get all users - for card view
-excludes projects, experience, education 
-"firstname", "lastname", "email", "location",
-"summary", "title", "badge", "github",
-"linkedin", "portfolio", "topskills",
-"addskills", "familiar", "filter"
-server.get('/:id', (req, res) => db.getUsers(req.params.id)
-get single user - for expanded card view
-excludes projects, experience, education
-"firstname", "lastname", "email", "location",
-"summary", "title", "badge", "github",
-"linkedin", "portfolio", "topskills",
-"addskills", "familiar", "filter"
-might need to get the rest (projects, experience, education)
-server.get('/skills/:id/:type', (req, res) => db.getUserPlacesOrSkills(req.params.id, req.params.type)
-get skills or places, define in path as "type" either skills or places
-get places(id) OR skills(id) - choose by 'type'
-will NEED to filter for onChange, so it will not return ALL at every keystroke
-similar to Autocomplete
-* Places might not work since it already has autocomplete
-server.post('/addkeys/:userid/:type', (req, res) => db.createKeywords(req.params.type, req.body)
-add a skill to the skill bank
-post places(id) OR skills(id) - choose by 'type'
-db.createKeywords(req.params.type, req.body) adds to db depending on args(eg. type=places, body=id)
-db.addKeywords(req.params.userid, req.params.type, oldKeys) adds skills/places to user table
-erver.get('/topskills', (req, res) => db.getAllSkills() ?
+
 */
 
 
 class UserInitProfile extends Component {
 
   state = {
-    email: "", // str Required
-    firstName: "", // firstname str Required
-    lastName: "", // lastname str Required
-    profileImg: "", // upload to s3, use img link returned - s3 link will be stored in db
-    desiredTitle: "", // title str
-
-    // filter ?
+    userId: "",
+    email: "",
+    firstName: "",
+    lastName: "",
+    profileImg: "",
+    desiredTitle: "",
 
     currentLocationInput: "",
     locationAutocomplete: [],
-    currentLocation: "", // str location - Verify - location ID(string)
+    currentLocation: "",
 
-    github: "", // str
-    linkedIn: "", // str linkedin
-    portfolio: "", // str
-    acclaim: "", // str badge - Verify
+    github: "",
+    linkedIn: "",
+    portfolio: "",
+    acclaim: "",
 
     placesInterestedInput: "",
     placesAutocomplete: [],
-    placesInterested: [], // Array place - Normalize [{place: 'New York'}, {place: 'Los Angeles'}]
+    placesInterested: [],
 
-    summary: "", // str
+    summary: "",
 
-    // Server will have to filter each onChange to return matching, same as autocomplete
-    // same with other skills
     topSkillsInput: "",
     topSkillsList: [],
-    topSkills: [], // Array topskill - Normalize [{topskill: 'HTML'}, {topskill: 'CSS'}]
+    topSkills: [],
 
     additionalSkillsInput: "",
     additionalSkillsList: [],
-    additionalSkills: [], // Array addskill - Normalize [{addskill: 'HTML'}, {addskill: 'CSS'}]
+    additionalSkills: [],
 
     familiarSkillsInput: "",
     familiarSkillsList: [],
-    familiarSkills: [], // Array familiar - Normalize [{familiar: 'HTML'}, {familiar: 'CSS'}]
+    familiarSkills: [],
 
-    // will be wrapped in object
-    projectTitle: "", // str projtitle
-    projectImg: "", // str projimg - upload to s3, use img link returned - s3 link will be stored in db
-    projectLink: "", // str link
-    projectDescription: "", // str projdescription
+    projectTitle: "",
+    projectImg: "",
+    projectLink: "",
+    projectDescription: "",
 
-    // will be wrapped in object
-    jobTitle: "", // str jobtitle
-    jobDates: "", // str jobdates - Datepicker?
-    jobDescription: "", // str jobdescription
+    jobTitle: "",
+    jobDates: "",
+    jobDescription: "",
 
-    // will be wrapped in object
-    schoolName: "", // str school
-    schoolDates: "", // str schooldates - Datepicker?
-    schoolCourse: "", // str course
-    schoolDegree: "" // str degree
+    schoolName: "",
+    schoolDates: "",
+    schoolCourse: "",
+    schoolDegree: ""
   };
+
 
   onInputChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   }
   
+
+
+  // current location
   onLocationChange = (e) => {
     let newArr;
     var self = this;
@@ -152,6 +137,7 @@ class UserInitProfile extends Component {
 
 
 
+  // places interested
   onPlacesChange = (e) => {
     let newArr;
     var self = this;
@@ -185,9 +171,10 @@ class UserInitProfile extends Component {
 
     this.setState({ placesInterested: newplacesInterested, placesAutocomplete: [], placesInterestedInput: e.target.value });
   }
-  
-  
-  
+
+
+
+  // top skills
   onTopSkillsChange = e => {
     let newArr;
     var self = this;
@@ -218,6 +205,8 @@ class UserInitProfile extends Component {
   }
 
 
+
+  // additional skills
   onAdditionalSkillsChange = e => {
     let newArr;
     var self = this;
@@ -248,12 +237,16 @@ class UserInitProfile extends Component {
   }
 
 
+
+  // familiar skills
   onFamiliarSkillsChange = e => {
     let newArr;
     var self = this;
     axios
     .post("http://localhost:7000/skills", {skillInput: e.target.value})
     .then(response => {
+      // skills will prob get unloaded by this point so you will only need to filter, like the search bar
+      // same with all skills
       newArr = response.data.map(skill => skill);
       self.setState({ familiarSkillsList: newArr });
     })
@@ -279,7 +272,8 @@ class UserInitProfile extends Component {
 
 
 
-  checkOnchange = (e) => {
+  // Photo upload
+  uploadPhoto = (e) => {
     const file = e.target.files[0];
     let XHR = new XMLHttpRequest();
     let FD  = new FormData();
@@ -306,21 +300,33 @@ class UserInitProfile extends Component {
     XHR.send(FD);
   }
 
+
+
+  // Acclaim varification
   checkAcclaim(e) {
     console.log(e.target.value)
-    axios
-    .post("http://localhost:7000/acclaim", {acclaimBadge: e.target.value})
-    .then(response => {
-      console.log(response.data)
-    })
-    .catch(error => {
-      console.log(error);
-    });
+    // axios
+    // .post("http://localhost:7000/acclaim", {acclaimBadge: e.target.value})
+    // .then(response => {
+    //   console.log(response.data)
+    // })
+    // .catch(error => {
+    //   console.log(error);
+    // });
   }
 
 
+
+  // Checking package that will be sent for user info
+  checkOnSubmit = (e) => {
+    e.preventDefault()
+    console.log(this.state);
+  }
+
+
+
   render() {
-    console.log('STATEEE',this.state.profileImg)
+    console.log('STATEEE',this.state)
     return (
       <main>
         <header>
@@ -328,30 +334,37 @@ class UserInitProfile extends Component {
         </header>
 
 
-        <div>
-        <label>
-          Choose a profile picture:
-        </label>
-        <input
-          type="file"
-          accept="image/*"
-          encrypt="multipart/form-data"
-          onChange={this.checkOnchange}
-        />
-        </div>
 
-        <div>
-          {this.state.profileImg === "" ?
-            null
-            :
-            <img src={this.state.profileImg} alt="P"/>
-          }
-        </div>
+          {/* image - see if you can send '/:id' param on uploadPhoto */}
+          <div>
+            <label>
+              Choose a profile picture:
+            </label>
+            <input
+              type="file"
+              accept="image/*"
+              encrypt="multipart/form-data"
+              onChange={this.uploadPhoto}
+            />
+          </div>
+          {/* Show photo on Photo upload */}
+          <div>
+            {this.state.profileImg === "" ?
+              null
+              :
+              <img src={this.state.profileImg} alt="P"/>
+            }
+          </div>
 
-        <form className="main-form" onSubmit={this.submitForm}>
 
+
+        {/* Main form - does not have to encapsulate everything, submit will be based on state */}
+        <form className="main-form" onSubmit={this.checkOnSubmit}>
+
+          {/* Seperating sections with fieldset*/}
           <fieldset className="user-info">
 
+            {/* email - autofill if auth returns */}
             <label htmlFor="userEmail">
               Email:
             </label>
@@ -365,8 +378,11 @@ class UserInitProfile extends Component {
               required
             />
             
+
             <br/>
 
+
+            {/* firstname - autofill if auth returns */}
             <label htmlFor="userFirstName">
               First Name:
             </label>
@@ -380,10 +396,13 @@ class UserInitProfile extends Component {
               required
             />
           
+
             <br/>
 
+
+            {/* lastname - autofill if auth returns */}
             <label htmlFor="userLastName">
-              Last Name: *
+              Last Name:
             </label>
             <input
               type="text"
@@ -395,8 +414,12 @@ class UserInitProfile extends Component {
               required
             />
           
+
             <br/>
 
+
+            {/* title/filter - Autocomplete from DB bucket already in state */}
+            {/* only one title, maybe use options instead since there won't be many */}
             <label htmlFor="userDesiredTitle">
               Desired Title:
             </label>
@@ -409,14 +432,14 @@ class UserInitProfile extends Component {
               onChange={this.onInputChange}
               required
             />
-            
-            <br/>
+
+
             <br/>
             <br/>
             <br/>
 
-            {/* Will Need Autocomplete - Auto Verification - Required - 
-            might not need another fn to verify, might be able to verify on input change/location select */}
+
+            {/* location - Autocomplete from google - saves location ID */}
             <label htmlFor="usercurrentLocation">
               Current Location:
             </label>
@@ -440,10 +463,14 @@ class UserInitProfile extends Component {
           </fieldset>
 
 
+          <br/>
+          <br/>
+          <br/>
+
 
           <fieldset className="user-social">
 
-            {/* Optional */}
+            {/* github */}
             <label htmlFor="userGithub">
               Github:
             </label>
@@ -456,8 +483,11 @@ class UserInitProfile extends Component {
               onChange={this.onInputChange}
             />
             
+
             <br/>
-            {/* Optional */}
+
+
+            {/* linkedin */}
             <label htmlFor="userLinkedIn">
               LinkedIn:
             </label>
@@ -470,8 +500,11 @@ class UserInitProfile extends Component {
               onChange={this.onInputChange}
             />
             
+
             <br/>
-            {/* Optional */}
+
+
+            {/* portfolio */}
             <label htmlFor="userPortfolio">
               Portfolio:
             </label>
@@ -484,9 +517,11 @@ class UserInitProfile extends Component {
               onChange={this.onInputChange}
             />
 
+
             <br/>
 
-            {/* Will Need Verification - Optional - run fn once user submits */}
+
+            {/* badge - verify onBlur */}
             <label htmlFor="userAcclaimBadge">
               Acclaim Badge:
             </label>
@@ -502,15 +537,16 @@ class UserInitProfile extends Component {
           
           </fieldset>
 
+
           <br/>
           <br/>
           <br/>
-          <br/>
+
 
           <fieldset className="user-bio">
 
-            {/* Multiple Inputs - Normalize for DB - Optional - this will be a combination
-            of location verification + skills tag structure */}
+            {/* places - Autocomplete from google - saves location ID */}
+            {/* Multiple Inputs - Normalize for DB, string of place IDs */}
             <label htmlFor="userPlacesInterested">
               Places Interested:
             </label>
@@ -532,13 +568,16 @@ class UserInitProfile extends Component {
 
 
             <br/>
-            {/* Required */}
+
+
+            {/* summary - maybe not limit length, and just split it like lambda notes */}
             <label htmlFor="userSummary">
               Summary:
             </label>
             <textarea
               rows="4"
               cols="50"
+              maxLength="128"
               id="userSummary"
               placeholder="This is 128 characters or so describing how
               awesome I am and why you should like me. Similar
@@ -548,9 +587,12 @@ class UserInitProfile extends Component {
               onChange={this.onInputChange}
             />
               
+
             <br/>
 
-            {/* Multiple Inputs - Normalize for DB - Optional */}
+
+            {/* topskills - Autocomplete from DB bucket already in state */}
+            {/* Multiple Inputs - Normalize for DB, string of skill IDs */}
             <label htmlFor="userTopSkills">
               Top Skills:
             </label>
@@ -570,9 +612,12 @@ class UserInitProfile extends Component {
               })
             }
           
+
             <br/>
 
-            {/* Multiple Inputs - Normalize for DB - Optional */}
+
+            {/* addskills - Autocomplete from DB bucket already in state */}
+            {/* Multiple Inputs - Normalize for DB, string of skill IDs */}
             <label htmlFor="userAdditionalSkills">
               Additional Skills:
             </label>
@@ -592,9 +637,12 @@ class UserInitProfile extends Component {
               })
             }
           
+          
             <br/>
 
-            {/* Multiple Inputs - Normalize for DB - Optional */}
+            
+            {/* familiar - Autocomplete from DB bucket already in state */}
+            {/* Multiple Inputs - Normalize for DB, string of skill IDs */}
             <label htmlFor="userFamiliarSkills">
               Familiar With:
             </label>
@@ -616,14 +664,16 @@ class UserInitProfile extends Component {
 
           </fieldset>
 
-          <br/>
+
           <br/>
           <br/>
           <br/>
 
-          {/* Optional */}
+
+          {/* projects table */}
           <fieldset className="user-projects">
 
+          {/* projtitle */}
           <label htmlFor="userProjectTitle">
             Project Name:
           </label>
@@ -638,7 +688,7 @@ class UserInitProfile extends Component {
           
           <br/>
 
-          {/* Upload Functionality */}
+          {/* projimg - Upload Functionality */}
           <label htmlFor="userProjectImg">
             Project Image Upload:
           </label>
@@ -653,6 +703,7 @@ class UserInitProfile extends Component {
           
           <br/>
 
+          {/* link */}
           <label htmlFor="userProjectLink">
             Project Link:
           </label>
@@ -667,6 +718,7 @@ class UserInitProfile extends Component {
 
           <br/>
 
+          {/* projdescription */}
           <label htmlFor="userProjectDescription">
             Summary:
           </label>
@@ -681,16 +733,19 @@ class UserInitProfile extends Component {
             value={this.state.projectDescription}
             onChange={this.onInputChange}
           />
+
           </fieldset>
 
-          <br/>
+
           <br/>
           <br/>
           <br/>
 
-          {/* Optional */}
+
+          {/* experience table */}
           <fieldset className="user-experience">
 
+            {/* jobtitle */}
             <label htmlFor="userJobTitle">
               Job Title:
             </label>
@@ -702,9 +757,10 @@ class UserInitProfile extends Component {
               value={this.state.jobTitle}
               onChange={this.onInputChange}
             />
-            
+
             <br/>
             
+            {/* jobdates - year/month options? */}
             <label htmlFor="userJobDates">
               Job Dates:
             </label>
@@ -719,6 +775,7 @@ class UserInitProfile extends Component {
             
             <br/>
             
+            {/* jobdescription */}
             <label htmlFor="userJobDescription">
               Job Description:
             </label>
@@ -734,19 +791,20 @@ class UserInitProfile extends Component {
               onChange={this.onInputChange}
             />
 
-
           </fieldset>
 
-          <br/>
+
           <br/>
           <br/>
           <br/>
 
-          {/* Optional */}
+
+          {/* education table */}
           <fieldset className="user-education">
 
+            {/* school */}
             <label htmlFor="userSchoolName">
-              Job Title:
+              School Name:
             </label>
             <input
               type="text"
@@ -759,6 +817,7 @@ class UserInitProfile extends Component {
             
             <br/>
             
+            {/* schooldates - year/month options? */}
             <label htmlFor="userSchoolDates">
               Dates Attended:
             </label>
@@ -773,6 +832,7 @@ class UserInitProfile extends Component {
             
             <br/>
             
+            {/* course */}
             <label htmlFor="userSchoolCourse">
               School Course:
             </label>
@@ -786,7 +846,8 @@ class UserInitProfile extends Component {
             />
             
             <br/>
-            
+
+            {/* degree */}
             <label htmlFor="userSchoolDegree">
               Dates Attended:
             </label>
@@ -799,10 +860,9 @@ class UserInitProfile extends Component {
               onChange={this.onInputChange}
             />
 
-          
           </fieldset>
-
-
+        
+        <button type="submit">SUBMIT</button>
         </form>
 
       </main>
