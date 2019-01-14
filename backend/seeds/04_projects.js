@@ -10,6 +10,7 @@ exports.seed = function(knex, Promise) {
           userId: num,
           projtitle: faker.random.word(),
           link: faker.internet.url(),
+          projimg: faker.image.imageUrl(),
           projdescription: faker.lorem.paragraph(),  
         })
         num--;
