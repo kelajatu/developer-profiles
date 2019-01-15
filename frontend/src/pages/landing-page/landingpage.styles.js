@@ -2,19 +2,7 @@ import styled from "styled-components";
 import bg_img from "./img/devprof.jpg";
 // bg_img credit: https://www.pexels.com/photo/white-smartphone-beside-silver-laptop-computer-1036808/
 
-import { 
-  border_color, 
-  color_black, 
-  color_gray, 
-  btn_background,
-  btn_color_hover, 
-  btn_background_hover, 
-  border_color_hover, 
-  stripe_height, 
-  btn_color
-} from '../../styles/colors.js'
 
-// ------
 export const LandingPageDiv = styled.div`
   background: orange;
   h1 {
@@ -59,9 +47,9 @@ export const Btn = styled.div`
   cursor: pointer;
   -moz-user-select: text;
   padding: 16px 36px 22px;
-  background: ${btn_background};
-  color: ${btn_color};
-  border: 2px solid ${border_color};
+  background: var(--btn_background);
+  color: var(--btn_color);
+  border: 2px solid var(--border_color);
   border-radius: 6px;
   margin-bottom: 16px;
   transition: all 0.5s ease;
@@ -73,38 +61,38 @@ export const Btn = styled.div`
     &:after {
       content: "";
       display: block;
-      height: ${stripe_height};
+      height: var(--stripe_height);
       width: 100%;
       background-image: repeating-linear-gradient(
         45deg,
-        ${border_color},
-        ${border_color} 1px,
+        var(--border_color),
+        var(--border_color) 1px,
         transparent 2px,
         transparent 5px
       );
       -webkit-backface-visibility: hidden;
       backface-visibility: hidden;
-      border-top: 1px solid ${border_color};
+      border-top: 1px solid var(--border_color);
       position: absolute;
       left: 0;
       bottom: 0;
-      background-size: ${stripe_height} ${stripe_height};
+      background-size: var(--stripe_height) var(--stripe_height);
     }
 
     &:hover {
-      background-color: ${btn_background_hover};
-      color: ${btn_color_hover};
+      background-color: var(--btn_background_hover);
+      color: var(--btn_color_hover);
       border-color: #000;
 
       &:after {
         background-image: repeating-linear-gradient(
           45deg,
-          ${btn_color_hover},
-          ${btn_color_hover} 1px,
+          var(--btn_color_hover),
+          var(--btn_color_hover) 1px,
           transparent 2px,
           transparent 5px
         );
-        border-top: 1px solid ${border_color_hover};
+        border-top: 1px solid var(--border_color_hover);
         animation: stripe-slide 12s infinite linear forwards;
       }
     }

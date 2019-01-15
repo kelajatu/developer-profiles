@@ -1,5 +1,5 @@
 import { PublicFacingPageDiv } from './PublicFacingPage.style'
-import UserCard from '../../components/UserCard/UserCard'
+import UserCard from '../../components/user-card/UserCard'
 import React, { Component } from 'react'
 
 class PublicFacingPage extends Component {

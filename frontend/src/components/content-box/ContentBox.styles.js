@@ -1,4 +1,3 @@
-import {btn_background_hover, btn_color, border_color} from '../../styles/colors.js'
 import styled from 'styled-components'
 
 export const ContentBoxSection = styled.section`
@@ -11,9 +10,9 @@ export const ContentBoxSection = styled.section`
     text-decoration: none;
     cursor: pointer;
     &:hover {
-      background-color: ${btn_background_hover};
-      color: ${btn_color};
+      background-color: var(--btn_background_hover);
+      color: var(--btn_color);
     }
-    border-color: ${border_color};
+    border-color: var(--border_color);
   }
 `;
