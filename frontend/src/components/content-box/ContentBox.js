@@ -1,7 +1,5 @@
 import { ContentBoxSection } from './ContentBox.styles'
-import UserCard from '../../components/UserCard/UserCard'
 import React, { Component } from 'react'
-import {Aboutus} from '../../styles/colors.js'
 
 class ContentBox extends Component {
     render() { 

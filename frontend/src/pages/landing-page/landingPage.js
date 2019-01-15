@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ContentBox from '../../components/ContentBox/ContentBox'
+import ContentBox from '../../components/content-box/ContentBox'
 import {
   Pagewrap,
   Btn,
