@@ -33,7 +33,7 @@ module.exports = {
       },
     
     //grabs set of IDs from user skills/places column
-    getUserPlaceSkillID: function(id, type) {
+    getUserSkillID: function(id, type) {
         return db("users")
             .where({id: id})
             .select(`${type}`)

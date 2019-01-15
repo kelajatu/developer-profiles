@@ -52,10 +52,10 @@ server.delete('/:id', (req, res) => {
 })
 
 
-//get skills or places
-//expects type in path param as either "top_skills" "add_skills" "familiar" or "places"
-server.get('/skills/:id/:type', (req, res) => {
-    db.getUserPlacesOrSkills(req.params.id, req.params.type).then(skills => {
+//get skills
+//expects type in path param as either "top_skills" "add_skills" or "familiar" 
+server.get('/:id/:type', (req, res) => {
+    db.getUserSkills(req.params.id, req.params.type).then(skills => {
         res.status(200).json(skills)
     }).catch(err => {
         console.log("there is an error in users/skills/:id/:type", err)
@@ -63,36 +63,36 @@ server.get('/skills/:id/:type', (req, res) => {
     })
 })
 
-//add a skill/place *from* the skill bank
+//add a skill *from* the skill bank
 //expects user id and skill type in path params
-//expects skill/place id in req.body ex."id":"1"
-server.post('/addkeys/:user_id/:type', (req, res) => {
-    db.user_helpers.getUserPlaceSkillID(req.params.user_id, req.params.type).then(oldKeysList => {
-        let oldKeys = oldKeysList[req.params.type] + `,${req.body['id']}`
-        db.addKeywords(req.params.userid, req.params.type, oldKeys).then(data => {
+//expects skill id in req.body ex."id":"1"
+server.post('/:user_id/addskills/:type', (req, res) => {
+    db.user_helpers.getUserSkillID(req.params.user_id, req.params.type).then(oldSkillsList => {
+        let oldSkills = oldSkillsList[req.params.type] + `,${req.body['id']}`
+        db.addKeywords(req.params.userid, req.params.type, oldSkills).then(data => {
             res.status(200).json(data)
         })}).catch(err => {
-            console.log("error adding from key bank", err)
-            res.status(500).json({message: "error adding from key bank", err: err})
+            console.log("error adding from skill bank", err)
+            res.status(500).json({message: "error adding from skill bank", err: err})
     })
 })
 
-//add a completely new skill/place to the skill bank
+//add a completely new skill to the skill bank
 //expects user id and skill type in path params
-//expects skill name in req.body ex. "skill": "Python" or "place":"Washington, D.C."
-server.post('/createkeys/:user_id/:type', (req, res) => {
+//expects skill name in req.body ex. "skill": "Python" 
+server.post('/:user_id/createskill/:type', (req, res) => {
     db.createKeywords(req.params.type, req.body).then(async function(data) {
-        let oldKeys = await db.user_helpers.getUserPlaceSkillID(req.params.user_id, req.params.type);
-        oldKeys = oldKeys[req.params.type] + `,${data}`
-        db.addKeywords(req.params.user_id, req.params.type, oldKeys).then(data => {
+        let oldSkills = await db.user_helpers.getUserSkillID(req.params.user_id, req.params.type);
+        oldSkills = oldSkills[req.params.type] + `,${data}`
+        db.addKeywords(req.params.user_id, req.params.type, oldSkills).then(data => {
             res.status(200).json(data)
         }).catch(err => {
-            console.log("there is an error in users/addKey/:id/:type at addKey", err)
-            res.status(500).json({message: "there is an error in users/addKey/:id/:type at addKey", err: err})
+            console.log("there is an error in users/addskill/:id/:type at addKey", err)
+            res.status(500).json({message: "there is an error in users/addskill/:id/:type at addKey", err: err})
         })
     }).catch(err => {
-        console.log("there is an error in users/addKey/:id/:type at createKey", err)
-        res.status(500).json({message: "there is an error in users/addKey/:id/:type at createKey", err: err})
+        console.log("there is an error in users/createskill/:id/:type at createKey", err)
+        res.status(500).json({message: "there is an error in users/createskill/:id/:type at createKey", err: err})
     })
 })
 
@@ -106,14 +106,13 @@ server.get('/:user_id/:extras', (req, res) => {
     })
 })
 
-//TODO 
-//post/put/delete for extras
+
 //add project, experience, or education
-//req.body expectations for project: "userId", "project_title", "project_description"
-//"link", "projimg" 
-//for experience: "userId", "jobtitle", "jobdescription", "jobdates"
-//for education: "userId", "school", "school_dates", "degree", "course"
-//only userId and title/school are required for a post
+//req.body expectations for project: "user_id", "project_title", "project_description"
+//"link", "project_img" 
+//for experience: "user_id", "job_title", "job_description", "job_dates"
+//for education: "user_id", "school", "school_dates", "degree", "course"
+//only user_id and title/school are required for a post
 server.post('/:user_id/:extras', (req, res) => {
     db.addExtra(req.params.extras, req.body).then(extra => {
         res.status(200).json(extra)

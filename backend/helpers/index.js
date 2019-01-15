@@ -20,7 +20,7 @@ module.exports = {
 
     //uses array of IDs from user skills/places column and grabs the 
     //skills/places associated with those IDs in a batch
-    getUserPlacesOrSkills: async function(id, type){
+    getUserSkills: async function(id, type){
       let parent;
       if (type == "places") {
           parent = "places"
