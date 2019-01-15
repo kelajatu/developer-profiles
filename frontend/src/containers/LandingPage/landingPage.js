@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { Pagewrap, Contentbox, Btn } from "./landingpage_styles";
+import {
+  Pagewrap,
+  Contentbox,
+  Btn,
+  Moreinfo,
+  Learnmore,
+  Aboutus
+} from "./landingpage_styles";
 
 class LandingPage extends Component {
   render() {
@@ -14,50 +21,41 @@ class LandingPage extends Component {
               asperiores odit explicabo ipsa eligendi. Veritatis tempora quos
               fuga fugiat impedit, cum blanditiis reiciendis unde.
             </p>
-            <a href="#aboutus">
-            <Btn className="stripe">
-
-                See what we have to offer
-
-            </Btn>
+            <a href= {`#${Aboutus}`}>
+              <Btn className="stripe">Recruiters</Btn>
+            </a>
+            <a href="#learnmore">
+              <Btn className="stripe">Job Seekers</Btn>
             </a>
           </Contentbox>
         </Pagewrap>
-        <div className="moreinfo">
-          <p>
-            Asymmetrical master cleanse raclette kitsch, tofu next level kogi
-            poutine knausgaard art party kickstarter bushwick. Qui sartorial
-            cupidatat retro. Fugiat seitan pour-over, actually nostrud
-            knausgaard brooklyn jianbing listicle you probably haven't heard of
-            them food truck pok pok roof party incididunt godard. Cronut tumblr
-            deep v whatever keffiyeh fugiat fanny pack kogi umami raclette in
-            qui. Copper mug glossier labore seitan sunt marfa man braid iceland
-            lyft gastropub distillery occupy lomo roof party. Jianbing vinyl
-            wayfarers slow-carb four dollar toast, chartreuse ullamco sint tbh.
-            Ethical ramps food truck, put a bird on it thundercats vexillologist
-            nulla 8-bit velit incididunt post-ironic selvage tempor taiyaki
-            retro. Do duis scenester vegan, jianbing kogi fashion axe unicorn
-            excepteur. Non street art tattooed, coloring book pitchfork lyft
-            squid. Green juice exercitation shoreditch slow-carb cray, cronut
-            tattooed four loko ut 90's hell of pickled brooklyn. Vinyl sint
-            taxidermy bicycle rights asymmetrical readymade coloring book lomo
-            XOXO. Nostrud pug normcore, mollit minim proident fashion axe cillum
-            vice tumblr activated charcoal artisan nisi godard.
-          </p>
-          <p id="aboutus">
-          Lorem ipsum dolor amet plaid YOLO unicorn ramps tousled. Street art
-            crucifix scenester, unicorn food truck shoreditch helvetica taiyaki
-            master cleanse DIY hell of put a bird on it truffaut. Vice raw denim
-            enamel pin reprehenderit typewriter, poutine voluptate lumbersexual
-            williamsburg. Umami next level slow-carb adipisicing, sed man bun
-            laboris food truck voluptate raw denim. Fam artisan pabst enamel pin
-            trust fund, slow-carb raclette ut coloring book heirloom mollit
-            succulents. Heirloom put a bird on it portland twee, activated
-            charcoal labore laborum.
-          </p>
-
-
-        </div>
+        <Moreinfo>
+          <Aboutus>
+            <h2 className="aboutus">Asymmetrical master</h2> cleanse raclette kitsch, tofu next
+            level kogi poutine knausgaard art party kickstarter bushwick. Qui
+            sartorial cupidatat retro. Taxidermy hot chicken cliche et, ut fanny
+            pack vice vegan cardigan squid consectetur chartreuse PBR&B.
+            Waistcoat brunch readymade, listicle labore ugh selfies kitsch
+            polaroid PBR&B occupy yr. Vice slow-carb health goth do mustache
+            sartorial subway tile. Incididunt man braid deep v ugh gastropub.
+            Fugiat seitan pour-over, actually nostrud knausgaard brooklyn
+            jianbing listicle you probably haven't heard of them food truck pok
+            pok roof party incididunt godard. Cronut tumblr deep v whatever
+            keffiyeh fugiat fanny pack kogi umami raclette in qui.
+          </Aboutus>
+          <Learnmore>
+          <h2 className="learnmore">Street art crucifix</h2>dolor amet plaid YOLO unicorn ramps tousled.
+             scenester, unicorn food truck shoreditch
+            helvetica taiyaki master cleanse DIY hell of put a bird on it
+            truffaut. Helvetica cloud bread pickled roof party. Man braid quinoa
+            etsy af officia. Occaecat scenester pok pok minim, +1 cold-pressed
+            vaporware sint fanny pack forage. Vegan aliqua helvetica hashtag
+            XOXO art party. Truffaut shaman messenger bag man braid heirloom
+            snackwave nostrud VHS twee ethical.Vice raw denim enamel pin
+            reprehenderit typewriter, poutine voluptate lumbersexual
+            williamsburg.
+          </Learnmore>
+        </Moreinfo>
       </div>
     );
   }
