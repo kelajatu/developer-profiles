@@ -2,23 +2,24 @@ import styled from "styled-components";
 import bg_img from "./img/devprof.jpg";
 // bg_img credit: https://www.pexels.com/photo/white-smartphone-beside-silver-laptop-computer-1036808/
 
-// Variables
-
-const color_black = "#000";
-const color_gray = "#666";
-const stripe_height = "7px";
-const btn_color = color_gray;
-const btn_background = "#fff";
-const btn_color_hover = "#fff";
-const btn_background_hover = color_gray;
-const border_color = color_gray;
-const border_color_hover = color_black;
+import { 
+  border_color, 
+  color_black, 
+  color_gray, 
+  btn_background,
+  btn_color_hover, 
+  btn_background_hover, 
+  border_color_hover, 
+  stripe_height, 
+  btn_color
+} from '../../styles/colors.js'
 
 // ------
 export const LandingPageDiv = styled.div`
   background: orange;
   h1 {
     background: blue;
+    font-size: 30px;
   }
   p {
     color: pink;
@@ -45,22 +46,7 @@ export const Pagewrap = styled.div`
   }
 `;
 
-export const Contentbox = styled.section`
-  position: relative;
-  text-align: center;
-  padding: 5em;
-  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.18);
-  a {
-    color: none;
-    text-decoration: none;
-    cursor: pointer;
-    &:hover {
-      background-color: ${btn_background_hover};
-      color: ${btn_color};
-    }
-    border-color: ${border_color};
-  }
-`;
+
 export const Btn = styled.div`
   overflow: visible;
   margin: 0;

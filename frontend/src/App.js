@@ -9,7 +9,7 @@ import UserInitProfile from "./pages/EditProfileView/UserInitProfile";
 import Auth from './components/Auth/Auth1'
 import Callback from './components/Auth/Callback'
 import Sucess from './components/Auth/Sucess.js'
-import { AppDiv } from './App_styles'
+import { AppDiv } from './App.styles'
 
 const Home = () => (
   <div>
