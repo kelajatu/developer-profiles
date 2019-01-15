@@ -4,11 +4,12 @@ import Nav from "./components/Nav/Nav";
 import LandingPage from "./pages/LandingPage/landingPage";
 import BreadCrumbs from "./components/BreadCrumbs/BreadCrumbs";
 import UserCard from "./components/UserCard/UserCard";
+import PublicFacingPage from "./pages/PublicFacingPage/PublicFacingPage";
 import UserInitProfile from "./pages/EditProfileView/UserInitProfile";
 import Auth from './components/Auth/Auth1'
 import Callback from './components/Auth/Callback'
 import Sucess from './components/Auth/Sucess.js'
-import { AppDiv } from './App_styles'
+import { AppDiv } from './App.styles'
 
 const Home = () => (
   <div>
@@ -55,15 +56,13 @@ class App extends Component {
       <AppDiv>
         <ul>
           <li>
-            <CustomLink exact={true} to="/">
-              Home
-            </CustomLink>
+            <CustomLink exact={true} to="/">Landing Page</CustomLink>
           </li>
           <li>
-            <CustomLink to="/usercard">User card</CustomLink>
+            <CustomLink to="/public">Public</CustomLink>
           </li>
           <li>
-            <CustomLink to="/userprofile">User profile</CustomLink>
+            <CustomLink to="/editprofile">Edit profile</CustomLink>
           </li>
           <li>
             <CustomLink to="/billing">Billing</CustomLink>
@@ -71,8 +70,10 @@ class App extends Component {
         </ul>
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/usercard" component={Usercard} />
-          <Route path="/userprofile" component={Userprofile} />
+          {/* <Route path="/usercard" component={Usercard} /> */}
+          <Route path='/public' component={PublicFacingPage} />
+          <Route path='/editprofile' component={Userprofile} />
+          {/* <Route path="/userprofile" component={Userprofile} /> */}
           <Route path="/billing" component={Billing} />
           <Route render={() => <div> Page does not exist. </div>} />
         </Switch>

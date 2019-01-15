@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 
-import "./reset.css";
+// import "./reset.css";
 import App from "./App";
 // import Auth from './components/Auth/Auth1'
 

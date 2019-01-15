@@ -1,39 +1,24 @@
 import React, { Component } from "react";
+import ContentBox from '../../components/ContentBox/ContentBox'
 import {
   Pagewrap,
-  Contentbox,
   Btn,
   Moreinfo,
   Learnmore,
   Aboutus,
   LandingPageDiv,
-} from "./landingpage_styles";
+} from "./landingpage.styles";
 
 class LandingPage extends Component {
   render() {
     return (
       <LandingPageDiv>
-      <div>
+
         <Pagewrap>
-          <Contentbox>
-            <h1>Welcome to DevProfiles </h1>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Quibusdam veniam, veritatis est blanditiis autem perferendis,
-              asperiores odit explicabo ipsa eligendi. Veritatis tempora quos
-              fuga fugiat impedit, cum blanditiis reiciendis unde.
-            </p>
-            <a href= {`#${Aboutus}`}>
-              <Btn className="stripe">Recruiters</Btn>
-            </a>
-            <a href="#learnmore">
-              <Btn className="stripe">Job Seekers</Btn>
-            </a>
-          </Contentbox>
+            <ContentBox />
         </Pagewrap>
         <Moreinfo>
           <Aboutus>
-
             <h2 className="aboutus">Asymmetrical master</h2> <p>
               cleanse raclette kitsch, tofu next
             level kogi poutine knausgaard art party kickstarter bushwick. Qui
@@ -61,7 +46,6 @@ class LandingPage extends Component {
             williamsburg.
           </Learnmore>
         </Moreinfo>
-      </div>
       </LandingPageDiv>
     );
   }
