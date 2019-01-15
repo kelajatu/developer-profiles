@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import bg_img from "./devprof.jpg";
+import bg_img from "./img/devprof.jpg";
 // bg_img credit: https://www.pexels.com/photo/white-smartphone-beside-silver-laptop-computer-1036808/
 
 // Variables
@@ -13,7 +13,17 @@ const btn_color_hover = "#fff";
 const btn_background_hover = color_gray;
 const border_color = color_gray;
 const border_color_hover = color_black;
+
 // ------
+export const LandingPageDiv = styled.div`
+  background: orange;
+  h1 {
+    background: blue;
+  }
+  p {
+    color: pink;
+  }
+`
 
 export const Pagewrap = styled.div`
   background-size: cover;
@@ -27,12 +37,14 @@ export const Pagewrap = styled.div`
   position: relative;
   text-align: center;
   padding: 5em;
+
   h1 {
     font-size: 5rem;
     letter-spacing: 5px;
     margin-bottom: 0.4em;
   }
 `;
+
 export const Contentbox = styled.section`
   position: relative;
   text-align: center;
@@ -114,17 +126,17 @@ export const Btn = styled.div`
 `;
 
 export const Moreinfo = styled.div`
-display:flex;
-flex-direction: column;
-color: purple;
-border: 1px solid pink;
+  display:flex;
+  flex-direction: column;
+  color: purple;
+  border: 1px solid black;
 `
 
 export const Aboutus = styled.div`
-color: darkgray;
-border: 1px solid black;
+  color: darkgray;
+  border: 1px solid black;
 `
 export const Learnmore = styled.div`
-color: red;
-border: 1px solid blue;
+  color: red;
+  border: 1px solid black;
 `

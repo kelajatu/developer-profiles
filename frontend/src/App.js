@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 import { Route, Link, Switch } from "react-router-dom";
 import Nav from "./components/Nav/Nav";
-import LandingPage from "./containers/LandingPage/landingPage";
+import LandingPage from "./pages/LandingPage/landingPage";
 import BreadCrumbs from "./components/BreadCrumbs/BreadCrumbs";
 import UserCard from "./components/UserCard/UserCard";
-import UserInitProfile from "./containers/UserInitProfile";
+import UserInitProfile from "./pages/EditProfileView/UserInitProfile";
 import Auth from './components/Auth/Auth1'
 import Callback from './components/Auth/Callback'
 import Sucess from './components/Auth/Sucess.js'
-import { Route } from 'react-router-dom'
-
+import { AppDiv } from './App_styles'
 
 const Home = () => (
   <div>
@@ -51,10 +50,9 @@ const CustomLink = ({ children, to, exact }) => (
 );
 
 class App extends Component {
-  
   render() {
     return (
-      <div>
+      <AppDiv>
         <ul>
           <li>
             <CustomLink exact={true} to="/">
@@ -78,7 +76,7 @@ class App extends Component {
           <Route path="/billing" component={Billing} />
           <Route render={() => <div> Page does not exist. </div>} />
         </Switch>
-      </div>
+      </AppDiv>
     );
   }
 }
