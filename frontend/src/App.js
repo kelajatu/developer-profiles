@@ -5,6 +5,8 @@ import LandingPage from "./containers/LandingPage/landingPage";
 import BreadCrumbs from "./components/BreadCrumbs/BreadCrumbs";
 import UserCard from "./components/UserCard/UserCard";
 import UserInitProfile from "./containers/UserInitProfile";
+import NewUserInitBilling from "./containers/NewUserInitBilling";
+import Auth from './containers/Auth';
 
 const Home = () => (
   <div>
