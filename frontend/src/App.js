@@ -5,11 +5,10 @@ import LandingPage from "./containers/LandingPage/landingPage";
 import BreadCrumbs from "./components/BreadCrumbs/BreadCrumbs";
 import UserCard from "./components/UserCard/UserCard";
 import UserInitProfile from "./containers/UserInitProfile";
-import Auth from './components/Auth/Auth1'
-import Callback from './components/Auth/Callback'
-import Sucess from './components/Auth/Sucess.js'
-import { Route } from 'react-router-dom'
-
+import Auth from "./components/Auth/Auth1";
+import Callback from "./components/Auth/Callback";
+import Sucess from "./components/Auth/Sucess.js";
+import Stripe from "./components/Stripe/Stripe";
 
 const Home = () => (
   <div>
@@ -33,7 +32,9 @@ const Userprofile = () => (
 
 const Billing = () => (
   <div>
-    <h1>Billing Page</h1>
+    <h1>
+      <Stripe />
+    </h1>
   </div>
 );
 
@@ -51,7 +52,6 @@ const CustomLink = ({ children, to, exact }) => (
 );
 
 class App extends Component {
-  
   render() {
     return (
       <div>
