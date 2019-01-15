@@ -27,7 +27,8 @@ module.exports = {
                 "top_skills",
                 "add_skills",
                 "familiar",
-                "filter"
+                "filter",
+                "image"
             )
       },
     
