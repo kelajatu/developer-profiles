@@ -5,8 +5,11 @@ import LandingPage from "./containers/LandingPage/landingPage";
 import BreadCrumbs from "./components/BreadCrumbs/BreadCrumbs";
 import UserCard from "./components/UserCard/UserCard";
 import UserInitProfile from "./containers/UserInitProfile";
-import NewUserInitBilling from "./containers/NewUserInitBilling";
-import Auth from './containers/Auth';
+import Auth from './components/Auth/Auth1'
+import Callback from './components/Auth/Callback'
+import Sucess from './components/Auth/Sucess.js'
+import { Route } from 'react-router-dom'
+
 
 const Home = () => (
   <div>
@@ -48,6 +51,7 @@ const CustomLink = ({ children, to, exact }) => (
 );
 
 class App extends Component {
+  
   render() {
     return (
       <div>
