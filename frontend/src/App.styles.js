@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
 export const AppDiv = styled.div`
-   background: green;
+   /* background: green; */
    
 `

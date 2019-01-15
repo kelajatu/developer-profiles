@@ -1,4 +1,4 @@
-import { PublicFacingPageDiv } from './PublicFacingPage.style'
+import { PublicFacingPageDiv } from './PublicFacingPage.styles'
 import UserCard from '../../components/UserCard/UserCard'
 import React, { Component } from 'react'
 

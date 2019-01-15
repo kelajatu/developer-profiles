@@ -3,12 +3,12 @@ import { Route, Link, Switch } from "react-router-dom";
 import Nav from "./components/Nav/Nav";
 import LandingPage from "./pages/LandingPage/landingPage";
 import BreadCrumbs from "./components/BreadCrumbs/BreadCrumbs";
-import UserCard from "./components/UserCard/UserCard";
+// import UserCard from "./components/UserCard/UserCard";
 import PublicFacingPage from "./pages/PublicFacingPage/PublicFacingPage";
 import UserInitProfile from "./pages/EditProfileView/UserInitProfile";
-import Auth from './components/Auth/Auth1'
-import Callback from './components/Auth/Callback'
-import Sucess from './components/Auth/Sucess.js'
+// import Auth from './components/Auth/Auth1'
+// import Callback from './components/Auth/Callback'
+// import Sucess from './components/Auth/Sucess.js'
 import { AppDiv } from './App.styles'
 
 const Home = () => (
@@ -16,12 +16,6 @@ const Home = () => (
     <BreadCrumbs />
     <Nav />
     <LandingPage />
-  </div>
-);
-
-const Usercard = () => (
-  <div>
-    <UserCard />
   </div>
 );
 
@@ -55,18 +49,10 @@ class App extends Component {
     return (
       <AppDiv>
         <ul>
-          <li>
-            <CustomLink exact={true} to="/">Landing Page</CustomLink>
-          </li>
-          <li>
-            <CustomLink to="/public">Public</CustomLink>
-          </li>
-          <li>
-            <CustomLink to="/editprofile">Edit profile</CustomLink>
-          </li>
-          <li>
-            <CustomLink to="/billing">Billing</CustomLink>
-          </li>
+          <li><CustomLink exact={true} to="/">Landing Page</CustomLink></li>
+          <li><CustomLink to="/public">Public</CustomLink> </li>
+          <li><CustomLink to="/editprofile">Edit profile</CustomLink></li>
+          <li><CustomLink to="/billing">Billing</CustomLink></li>
         </ul>
         <Switch>
           <Route path="/" exact component={Home} />
