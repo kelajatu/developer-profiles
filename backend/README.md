@@ -40,7 +40,7 @@ To run heroku logs
 * `/users` - get all users
 * `/users/id` - get specific user by id, for example:
      > `/users/1`
-* `users/id/type` - shows all skills of specified type for given user (type options: familiar, top_skills, add_skills)
+* `users/id/skills/type` - shows all skills of specified type for given user (type options: familiar, top_skills, add_skills)
     >`/users/2/top_skills`
 * `/list/skills` - retrieves complete skill bank
 * `users/id/extras` - retrieves all of a given users projects, education or experience, contingent on the keyword used in place of `extras`:

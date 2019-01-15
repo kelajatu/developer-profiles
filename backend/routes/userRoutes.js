@@ -54,12 +54,12 @@ server.delete('/:id', (req, res) => {
 
 //get skills
 //expects type in path param as either "top_skills" "add_skills" or "familiar" 
-server.get('/:id/:type', (req, res) => {
+server.get('/:id/skills/:type', (req, res) => {
     db.getUserSkills(req.params.id, req.params.type).then(skills => {
         res.status(200).json(skills)
     }).catch(err => {
-        console.log("there is an error in users/skills/:id/:type", err)
-        res.status(500).json({message: "there is an error in users/skills/:id/:type", err: err})
+        console.log("there is an error in users/:id/:type", err)
+        res.status(500).json({message: "there is an error in users/:id/:type", err: err})
     })
 })
 
