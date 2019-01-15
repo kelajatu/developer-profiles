@@ -5,12 +5,14 @@ import {
   Btn,
   Moreinfo,
   Learnmore,
-  Aboutus
+  Aboutus,
+  LandingPageDiv,
 } from "./landingpage_styles";
 
 class LandingPage extends Component {
   render() {
     return (
+      <LandingPageDiv>
       <div>
         <Pagewrap>
           <Contentbox>
@@ -31,7 +33,9 @@ class LandingPage extends Component {
         </Pagewrap>
         <Moreinfo>
           <Aboutus>
-            <h2 className="aboutus">Asymmetrical master</h2> cleanse raclette kitsch, tofu next
+
+            <h2 className="aboutus">Asymmetrical master</h2> <p>
+              cleanse raclette kitsch, tofu next
             level kogi poutine knausgaard art party kickstarter bushwick. Qui
             sartorial cupidatat retro. Taxidermy hot chicken cliche et, ut fanny
             pack vice vegan cardigan squid consectetur chartreuse PBR&B.
@@ -42,6 +46,7 @@ class LandingPage extends Component {
             jianbing listicle you probably haven't heard of them food truck pok
             pok roof party incididunt godard. Cronut tumblr deep v whatever
             keffiyeh fugiat fanny pack kogi umami raclette in qui.
+              </p>
           </Aboutus>
           <Learnmore>
           <h2 className="learnmore">Street art crucifix</h2>dolor amet plaid YOLO unicorn ramps tousled.
@@ -57,6 +62,7 @@ class LandingPage extends Component {
           </Learnmore>
         </Moreinfo>
       </div>
+      </LandingPageDiv>
     );
   }
 }

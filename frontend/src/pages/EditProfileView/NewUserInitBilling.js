@@ -3,7 +3,6 @@ import axios from 'axios'
 
 class NewUserInitBilling extends Component {
 
-
   onClickk = () => {
     var handler = window.StripeCheckout.configure({
         key: 'pk_test_V4TVCnAGCgyfBK9pXODIWhfA',
@@ -16,7 +15,7 @@ class NewUserInitBilling extends Component {
           axios.post('http://localhost:7000/billing', {stripeToken: token.id}).then(res => console.log(res)).catch(err => console.log(err))
         }
       });
-      
+
       document.getElementById('customButton').addEventListener('click', function(e) {
         // Open Checkout with further options:
         handler.open({
@@ -27,7 +26,7 @@ class NewUserInitBilling extends Component {
         e.preventDefault();
       });
   }
-  
+
   render() {
     return (
       <div>
