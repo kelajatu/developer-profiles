@@ -1,3 +1,7 @@
+require('dotenv').config()
+const knex = require("knex");
+const dbconfig = require("../knexfile");
+const db = knex(dbconfig[process.env.DB])
 const express = require("express");
 const axios = require("axios");
 const aws = require("aws-sdk");
@@ -76,6 +80,19 @@ server.post("/matrix", (req, res) => {
         console.log(err);
         res.send({ err });
     });
+});
+
+server.post("/acclaim/:id", (req, res) => {
+    //use later to add the acclaim image to the db
+    let id = req.params.id
+    console.log(req.body)
+    axios.get(`https://api.youracclaim.com/v1/obi/badge_assertions/${req.body.badge}`).then(response => {
+        console.log(response.data)
+        res.send(response.data)
+    }).catch(err => {
+    console.log(err);
+    res.send({ err });
+    });  
 });
 
 module.exports = server 

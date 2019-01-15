@@ -7,7 +7,7 @@ server.use(express.json())
 
 let PORT = process.env.PORT
 if (PORT == null || PORT == ""){
-    PORT = 8000;
+    PORT = 7000;
 }
 
 server.get('/', (req, res) => {
