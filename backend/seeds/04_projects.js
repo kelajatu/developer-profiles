@@ -1,3 +1,4 @@
+var faker = require('faker')
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
   return knex('projects')
@@ -8,6 +9,7 @@ exports.seed = function(knex, Promise) {
           while(num > 0){
               arr.push({
                   user_id: num,
+                  project_img: faker.image.imageUrl(),
                   project_title: faker.random.word(),
                   link: faker.internet.url(),
                   project_description: faker.lorem.paragraph(),  

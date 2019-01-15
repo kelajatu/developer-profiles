@@ -9,12 +9,13 @@ exports.seed = function(knex, Promise) {
             let num = 500;
             while(num > 0){
                 userArr.push({
-                  email: faker.name.findName(),
+                  email: faker.internet.email(),
                   first_name: faker.name.firstName(),
                   last_name: faker.name.lastName(),
+                  image: faker.image.imageUrl(),
                   title: faker.name.title(),
                   filter: faker.name.jobArea(),
-                  location: `${faker.address.city()}, ${faker.address.state()}`, 
+                  location: `${faker.address.city()}, ${faker.address.stateAbbr()}`, 
                   github: "github.com", 
                   linkedin: "linkedin.com", 
                   portfolio: "coolbanana.com", 
