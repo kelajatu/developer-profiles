@@ -54,7 +54,7 @@ User is now free to visit any page
 class UserInitProfile extends Component {
 
   state = {
-    userId: "",
+    userId: 1,
     email: "",
     firstName: "",
     lastName: "",
@@ -303,16 +303,17 @@ class UserInitProfile extends Component {
 
 
   // Acclaim varification
-  checkAcclaim(e) {
-    console.log(e.target.value)
-    // axios
-    // .post("http://localhost:7000/acclaim", {acclaimBadge: e.target.value})
-    // .then(response => {
-    //   console.log(response.data)
-    // })
-    // .catch(error => {
-    //   console.log(error);
-    // });
+  checkAcclaim(acclaimBadge) {
+    let badge = acclaimBadge.slice(35)
+    console.log("badgeID:", badge)
+    axios
+    .post(`http://localhost:7000/api/acclaim/${this.state.userId}`, {badge: badge})
+    .then(response => {
+      console.log(response.data)
+    })
+    .catch(error => {
+      console.log(error);
+    });
   }
 
 
@@ -532,7 +533,7 @@ class UserInitProfile extends Component {
               name="acclaim"
               value={this.state.acclaim}
               onChange={this.onInputChange}
-              onBlur={this.checkAcclaim}
+              onBlur={() => this.checkAcclaim(this.state.acclaim)}
             />
           
           </fieldset>
