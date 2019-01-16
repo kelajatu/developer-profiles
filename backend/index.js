@@ -4,7 +4,7 @@ const stripe = require("stripe")("pk_test_8GJbtgDBTy9PWsnFvDsQo8e7");
 const server = express();
 require("dotenv").config();
 
-express.use(require("body-parser").text());
+server.use(require("body-parser").text());
 server.use(express.json());
 
 let PORT = process.env.PORT;
