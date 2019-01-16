@@ -3,7 +3,7 @@ import React, { Component, Fragment } from "react";
 import { Route, withRouter, Switch } from "react-router-dom";
 
 import Auth from './auth/Auth';
-import Nav from "./components/nav/Nav";
+import Nav from "./components/Nav/Nav";
 import LandingPage from "./pages/landing-page/landingPage";
 import PageUnauthorized from './pages/404/PageUnauthorized';
 import PageNotFound from './pages/404/PageNotFound';
