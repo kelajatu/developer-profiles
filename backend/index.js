@@ -18,7 +18,7 @@ server.get("/", (req, res) => {
 
 server.use("/", routes);
 
-express.post("/charge", async (req, res) => {
+server.post("/charge", async (req, res) => {
   try {
     let { status } = await stripe.charges.create({
       amount: 2000,
