@@ -1,7 +1,6 @@
-import auth0 from 'auth0-js';
-import jwtDecode from 'jwt-decode';
-import axios from 'axios';
-
+import auth0 from "auth0-js";
+import jwtDecode from "jwt-decode";
+import axios from "axios";
 
 export default class Auth {
   auth0 = new auth0.WebAuth({
@@ -19,28 +18,25 @@ export default class Auth {
   }
 
   login() {
-    console.log('login ?')
+    console.log("login ?");
     this.auth0.authorize();
   }
 
   handleAuthentication(props) {
     this.auth0.parseHash((err, authResults) => {
       if (authResults && authResults.accessToken && authResults.idToken) {
-        let expiresAt = JSON.stringify((authResults.expiresIn) * 1000 + new Date().getTime());
-        localStorage.setItem('access_token', authResults.accessToken);
-        localStorage.setItem('id_token', authResults.idToken);
-        localStorage.setItem('expires_at', expiresAt);
+        let expiresAt = JSON.stringify(
+          authResults.expiresIn * 1000 + new Date().getTime()
+        );
+        localStorage.setItem("access_token", authResults.accessToken);
+        localStorage.setItem("id_token", authResults.idToken);
+        localStorage.setItem("expires_at", expiresAt);
         const user = this.getProfile();
-        console.log(user)
         const userInfo = {
           first_name: user.given_name || "",
           last_name: user.family_name || "",
           email: user.email
         }
-        // DB call to create user
-        // if id == id => dashboard
-        // else create user
-        // db return user info
         if(user.email === null){
           // send warning or something?
           console.log("YO! there isn't an email on this object however you choose to sign in. you need that.")
@@ -53,14 +49,14 @@ export default class Auth {
             props.history.push('/dashboard');
         }
       } else if (err) {
-        props.history.push('/');
+        props.history.push("/");
       }
-    })
+    });
   }
 
   isAuthenticated() {
-    console.log('isAuthenticated ?')
-    let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+    console.log("isAuthenticated ?");
+    let expiresAt = JSON.parse(localStorage.getItem("expires_at"));
     return new Date().getTime() < expiresAt;
   }
 
@@ -72,13 +68,14 @@ export default class Auth {
       returnTo: 'http://localhost:3000',
       clientID: 'vmrL9giX33pl1mkLLBojm2uAUOj14Ju1'
     });
+
   }
 
   getProfile() {
     if (localStorage.getItem("id_token")) {
-      return jwtDecode(localStorage.getItem("id_token"))
+      return jwtDecode(localStorage.getItem("id_token"));
     } else {
-      return {status: 'No user'}
+      return { status: "No user" };
     }
   }
 }
