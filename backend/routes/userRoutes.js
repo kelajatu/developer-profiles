@@ -27,8 +27,12 @@ server.get('/:id', (req, res) => {
 //email must be unique in database
 //empty values will fill with null
 server.post('/new', (req, res) => {
-    db.user_helpers.addUser(req.body).then(user => {
-        res.status(200).json(user)
+    db.user_helpers.addUser(req.body).then(id => {
+        db.user_helpers.getUsers(req.body.auth_id).then(user => 
+            res.status(200).json(user)
+        ).catch(err => {
+            console.log(err)
+        })
     }).catch(err => {
         console.log("error posting data at POST users/new", err)
         res.status(500).json({ message: "error posting data at POST users/new", err: err });
