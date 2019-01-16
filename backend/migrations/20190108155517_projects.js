@@ -5,7 +5,7 @@ exports.up = function(knex, Promise) {
       .notNullable();
     table.string("link", 1000);
     table.string("project_description", 1000);
-    table.string("projimg", 1000);
+    table.string("project_img", 1000);
     table.integer("user_id")
       .unsigned()
       .notNullable()

@@ -7,7 +7,7 @@ module.exports = {
         //if id: return all information on user for focused profile page
         if (id) {
             return db("users")
-                .where({id: id});
+                .where({auth_id: id});
         }
     
         //if all users: excludes projects, experience, education for card view
@@ -27,12 +27,13 @@ module.exports = {
                 "top_skills",
                 "add_skills",
                 "familiar",
-                "filter"
+                "filter",
+                "image"
             )
       },
     
     //grabs set of IDs from user skills/places column
-    getUserPlaceSkillID: function(id, type) {
+    getUserSkillID: function(id, type) {
         return db("users")
             .where({id: id})
             .select(`${type}`)

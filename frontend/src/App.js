@@ -1,86 +1,47 @@
-import React, { Component } from "react";
-import { Route, Link, Switch } from "react-router-dom";
-import Nav from "./components/Nav/Nav";
-import LandingPage from "./containers/LandingPage/landingPage";
-import BreadCrumbs from "./components/BreadCrumbs/BreadCrumbs";
-import UserCard from "./components/UserCard/UserCard";
-import UserInitProfile from "./containers/UserInitProfile";
-import Auth from "./components/Auth/Auth1";
-import Callback from "./components/Auth/Callback";
-import Sucess from "./components/Auth/Sucess.js";
-import Stripe from "./components/Stripe/Stripe";
 
-const Home = () => (
-  <div>
-    <BreadCrumbs />
-    <Nav />
-    <LandingPage />
-  </div>
-);
+import React, { Component, Fragment } from "react";
+import { Route, withRouter, Switch } from "react-router-dom";
 
-const Usercard = () => (
-  <div>
-    <UserCard />
-  </div>
-);
+import Auth from './auth/Auth';
+import Nav from "./components/nav/Nav";
+import LandingPage from "./pages/landing-page/landingPage";
+import PageUnauthorized from './pages/404/PageUnauthorized';
+import PageNotFound from './pages/404/PageNotFound';
+import UserDashboardContainer from './pages/user-dashboard/UserDashboardContainer';
+import PublicFacingPage from './pages/main-page/PublicFacingPage';
+import Callback from "./auth/Callback";
 
-const Userprofile = () => (
-  <div>
-    <UserInitProfile />
-  </div>
-);
+import { GlobalStyle } from "./global-styles/GlobalStyles";
 
-const Billing = () => (
-  <div>
-    <h1>
-      <Stripe />
-    </h1>
-  </div>
-);
-
-const CustomLink = ({ children, to, exact }) => (
-  <Route
-    path={to}
-    exact={exact}
-    children={({ match }) => (
-      <div className={match ? "active" : ""}>
-        {match ? "> " : ""}
-        <Link to={to}>{children}</Link>
-      </div>
-    )}
-  />
-);
+// need to find a way to rerender when user logs in
+const auth = new Auth();
 
 class App extends Component {
+  state = {
+    auth
+  }
+
   render() {
     return (
-      <div>
-        <ul>
-          <li>
-            <CustomLink exact={true} to="/">
-              Home
-            </CustomLink>
-          </li>
-          <li>
-            <CustomLink to="/usercard">User card</CustomLink>
-          </li>
-          <li>
-            <CustomLink to="/userprofile">User profile</CustomLink>
-          </li>
-          <li>
-            <CustomLink to="/billing">Billing</CustomLink>
-          </li>
-        </ul>
+      <Fragment>
+        <GlobalStyle />
+        <Nav {...this.props} {...this.state} />
         <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/usercard" component={Usercard} />
-          <Route path="/userprofile" component={Userprofile} />
-          <Route path="/billing" component={Billing} />
-          <Route render={() => <div> Page does not exist. </div>} />
+          <Route exact path="/" render={props => <LandingPage {...props} {...this.state} /> } />
+          <Route path="/dashboard" render={props => (
+            this.state.auth.isAuthenticated() ? (
+              <UserDashboardContainer {...props} {...this.state} />
+              ) : (
+              <PageUnauthorized {...props} {...this.state} />
+            )
+          )}/>
+          <Route path="/callback" render={props => <Callback {...props} {...this.state} />  } />
+          <Route path="/public" render={props => <PublicFacingPage {...props} {...this.state} />  } />
+          <Route component={PageNotFound} />
         </Switch>
-      </div>
+      </Fragment>
     );
   }
 }
 
-export default App;
+export default withRouter(App);

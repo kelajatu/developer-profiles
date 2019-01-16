@@ -1,37 +1,25 @@
 import React, { Component } from "react";
+import ContentBox from '../../components/content-box/ContentBox'
 import {
   Pagewrap,
-  Contentbox,
   Btn,
   Moreinfo,
   Learnmore,
-  Aboutus
-} from "./landingpage_styles";
+  Aboutus,
+  LandingPageDiv,
+} from "./landingpage.styles";
 
 class LandingPage extends Component {
   render() {
     return (
-      <div>
+      <LandingPageDiv>
         <Pagewrap>
-          <Contentbox>
-            <h1>Welcome to DevProfiles </h1>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Quibusdam veniam, veritatis est blanditiis autem perferendis,
-              asperiores odit explicabo ipsa eligendi. Veritatis tempora quos
-              fuga fugiat impedit, cum blanditiis reiciendis unde.
-            </p>
-            <a href= {`#${Aboutus}`}>
-              <Btn className="stripe">Recruiters</Btn>
-            </a>
-            <a href="#learnmore">
-              <Btn className="stripe">Job Seekers</Btn>
-            </a>
-          </Contentbox>
+            <ContentBox />
         </Pagewrap>
         <Moreinfo>
           <Aboutus>
-            <h2 className="aboutus">Asymmetrical master</h2> cleanse raclette kitsch, tofu next
+            <h2 id="aboutus">Asymmetrical master</h2> <p>
+              cleanse raclette kitsch, tofu next
             level kogi poutine knausgaard art party kickstarter bushwick. Qui
             sartorial cupidatat retro. Taxidermy hot chicken cliche et, ut fanny
             pack vice vegan cardigan squid consectetur chartreuse PBR&B.
@@ -42,9 +30,10 @@ class LandingPage extends Component {
             jianbing listicle you probably haven't heard of them food truck pok
             pok roof party incididunt godard. Cronut tumblr deep v whatever
             keffiyeh fugiat fanny pack kogi umami raclette in qui.
+              </p>
           </Aboutus>
           <Learnmore>
-          <h2 className="learnmore">Street art crucifix</h2>dolor amet plaid YOLO unicorn ramps tousled.
+          <h2 id="learnmore">Street art crucifix</h2>dolor amet plaid YOLO unicorn ramps tousled.
              scenester, unicorn food truck shoreditch
             helvetica taiyaki master cleanse DIY hell of put a bird on it
             truffaut. Helvetica cloud bread pickled roof party. Man braid quinoa
@@ -56,7 +45,7 @@ class LandingPage extends Component {
             williamsburg.
           </Learnmore>
         </Moreinfo>
-      </div>
+      </LandingPageDiv>
     );
   }
 }

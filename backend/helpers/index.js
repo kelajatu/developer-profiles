@@ -20,18 +20,12 @@ module.exports = {
 
     //uses array of IDs from user skills/places column and grabs the 
     //skills/places associated with those IDs in a batch
-    getUserPlacesOrSkills: async function(id, type){
-      let parent;
-      if (type == "places") {
-          parent = "places"
-      } else {
-          parent = "skills"
-      }
-      let skills_places = await user_helpers.getUserPlaceSkillID(id, type)
-      skills_places = skills_places[type].split(",");
-      skills_places = skills_places.map(string => Number(string))
-      return db(`${parent}`)
-          .whereIn('id', skills_places)
+    getUserSkills: async function(id, type){
+      let currentSkills = await user_helpers.getUserSkillID(id, type)
+      currentSkills = currentSkills[type].split(",");
+      currentSkills = currentSkills.map(string => Number(string))
+      return db("skills")
+          .whereIn('id', currentSkills)
     },
     addKeywords: function(id, type, keywordsArr) {
         return db("users")
@@ -39,13 +33,7 @@ module.exports = {
             .update({[type]: keywordsArr})
     },
     createKeywords: function(type, keyword) {
-        let parent;
-        if (type == "places") {
-            parent = "places"
-        } else {
-            parent = "skills"
-        }
-        return db(`${parent}`)
+        return db("skills")
             .insert(keyword)
     },
     getExtras: function(id, type) {
