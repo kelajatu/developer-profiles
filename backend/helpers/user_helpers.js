@@ -7,7 +7,7 @@ module.exports = {
         //if id: return all information on user for focused profile page
         if (id) {
             return db("users")
-                .where({id: id});
+                .where({auth_id: id});
         }
     
         //if all users: excludes projects, experience, education for card view

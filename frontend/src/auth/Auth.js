@@ -1,5 +1,6 @@
 import auth0 from 'auth0-js';
 import jwtDecode from 'jwt-decode';
+import axios from 'axios';
 
 
 export default class Auth {
@@ -9,7 +10,7 @@ export default class Auth {
     redirectUri: "http://localhost:3000/callback",
     audience: "https://dev-profiles.auth0.com/userinfo",
     responseType: "token id_token",
-    scope: "openid profile"
+    scope: "openid profile email"
   });
 
   constructor() {
@@ -22,15 +23,26 @@ export default class Auth {
   }
 
   handleAuthentication(props) {
-    console.log(props)
-    console.log(props.history)
     this.auth0.parseHash((err, authResults) => {
       if (authResults && authResults.accessToken && authResults.idToken) {
-        console.log('handleAuthentication ?')
         let expiresAt = JSON.stringify((authResults.expiresIn) * 1000 + new Date().getTime());
         localStorage.setItem('access_token', authResults.accessToken);
         localStorage.setItem('id_token', authResults.idToken);
         localStorage.setItem('expires_at', expiresAt);
+        const user = this.getProfile();
+        console.log(user)
+        // DB call to create user
+        // if id == id => dashboard
+        // else create user
+        // db return user info
+        axios.post('http://localhost:7000/users/new', {
+          first_name: user.given_name,
+          auth_id: user.sub
+        })
+        .then(res => {
+          console.log('RETURN DATA', res.data)
+        })
+        .catch(err => console.log(err));
         props.history.push('/dashboard');
       } else if (err) {
         props.history.push('/');
@@ -48,7 +60,10 @@ export default class Auth {
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
-    props.history.push('/');
+    this.auth0.logout({
+      returnTo: 'http://localhost:3000',
+      clientID: 'vmrL9giX33pl1mkLLBojm2uAUOj14Ju1'
+    });
   }
 
   getProfile() {
