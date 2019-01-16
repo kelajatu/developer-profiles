@@ -10,7 +10,7 @@ export default class Auth {
     redirectUri: "http://localhost:3000/callback",
     audience: "https://dev-profiles.auth0.com/userinfo",
     responseType: "token id_token",
-    scope: "openid profile"
+    scope: "openid profile email"
   });
 
   constructor() {
@@ -60,7 +60,10 @@ export default class Auth {
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
-    props.history.push('/');
+    this.auth0.logout({
+      returnTo: 'http://localhost:3000',
+      clientID: 'vmrL9giX33pl1mkLLBojm2uAUOj14Ju1'
+    });
   }
 
   getProfile() {
