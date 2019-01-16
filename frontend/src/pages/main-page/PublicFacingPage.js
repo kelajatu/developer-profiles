@@ -1,5 +1,6 @@
 import { PublicFacingPageDiv } from './PublicFacingPage.style'
 import UserCard from '../../components/user-card/UserCard'
+import FilterBox from '../../components/Filter/filter'
 import React, { Component } from 'react'
 import axios from 'axios';
 
@@ -19,6 +20,7 @@ class PublicFacingPage extends Component {
     render() { 
         return (
         <PublicFacingPageDiv>
+          <FilterBox />
            {this.state.users.map(user => <UserCard 
            first_name={user.first_name} 
            last_name={user.last_name} 

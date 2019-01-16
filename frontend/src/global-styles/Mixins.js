@@ -16,3 +16,16 @@ export function centerFlex(flexDirection = 'row') {
     align-items: center;
   `;
 }
+
+export function filterSection() {
+  return `
+    padding: 10px;
+    border: 3px solid orange;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    h1{
+      font-size: 30px;
+    }
+  `;
+}
