@@ -22,7 +22,7 @@ class PublicFacingPage extends Component {
            {this.state.users.map(user => <UserCard 
            first_name={user.first_name} 
            last_name={user.last_name} 
-           image={user.image} 
+           image={`https://picsum.photos/200/300/?image=${user.id+10}`} 
            summary={user.summary} 
            title={user.title}
            location={user.location}/>)}
