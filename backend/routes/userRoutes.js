@@ -19,7 +19,7 @@ server.get('/:id', (req, res) => {
     }).catch(err => {
         console.log("error fetching data at GET users/:id", err)
         res.status(500).json({ message: "error fetching data at GET users/:id", err: err });
-    })    
+    })
 })
 
 //add user
