@@ -13,7 +13,7 @@ export default class Nav extends Component {
         <div onClick={this.props.auth.login} className="nav-link">
           <a href="#">Sign In</a>
         </div>
-        <div onClick={() => this.props.auth.logout({...this.props})} className="nav-link">
+        <div onClick={this.props.auth.logout} className="nav-link">
           <a href="#">Logout</a>
         </div>
         <div className="nav-link">

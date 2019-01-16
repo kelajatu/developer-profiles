@@ -15,6 +15,7 @@ export default class Auth {
 
   constructor() {
     this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
   login() {
@@ -31,19 +32,26 @@ export default class Auth {
         localStorage.setItem('expires_at', expiresAt);
         const user = this.getProfile();
         console.log(user)
+        const userInfo = {
+          first_name: user.given_name || "",
+          last_name: user.family_name || "",
+          email: user.email
+        }
         // DB call to create user
         // if id == id => dashboard
         // else create user
         // db return user info
-        axios.post('http://localhost:7000/users/new', {
-          first_name: user.given_name,
-          auth_id: user.sub
-        })
-        .then(res => {
-          console.log('RETURN DATA', res.data)
-        })
-        .catch(err => console.log(err));
-        props.history.push('/dashboard');
+        if(user.email === null){
+          // send warning or something?
+          console.log("YO! there isn't an email on this object however you choose to sign in. you need that.")
+        } else {
+            axios.post('http://localhost:7000/users/new', userInfo)
+            .then(res => {
+              console.log('RETURN DATA', res.data)
+            })
+            .catch(err => console.log(err));
+            props.history.push('/dashboard');
+        }
       } else if (err) {
         props.history.push('/');
       }
@@ -56,7 +64,7 @@ export default class Auth {
     return new Date().getTime() < expiresAt;
   }
 
-  logout(props) {
+  logout() {
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
