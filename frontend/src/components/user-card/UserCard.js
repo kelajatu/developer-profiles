@@ -42,15 +42,15 @@ class UserCard extends React.Component{
                 <div className="left-side">
                     <div className="bio">
                         <div className="photo">
-                            photo
+                        <img src={props.image} alt="user avatar"/>
                         </div>
                         <div className="user-intro">
-                            <h2>Pat Smith</h2>
-                            <p className="location">Washington, DC</p>
-                            <p>this is a bio of 128 characters or words or something but the point is that a lot of words go here but not too many.</p>
+                            <h2>{`${props.first_name} ${props.last_name}`}</h2>
+                            <p className="location">{props.location}</p>
+                            <p>{props.summary}</p>
                         </div>
                     </div>
-                    <h3>Desired Title</h3>
+                    <h3>{props.title}</h3>
                     <div className="keywords">
                         {this.state ? this.state.arr.map(word => {
                             return (<div key={word.id} className="keyword" style={{fontSize: word.weight }}>
