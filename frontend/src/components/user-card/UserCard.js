@@ -46,8 +46,8 @@ class UserCard extends React.Component{
                         </div>
                         <div className="user-intro">
                             <h2>Pat Smith</h2>
-                            <p>Washington, DC</p>
-                            <p>this is a bio of 128 characters or words or something but the point is that a lot of words go here but not to many.</p>
+                            <p className="location">Washington, DC</p>
+                            <p>this is a bio of 128 characters or words or something but the point is that a lot of words go here but not too many.</p>
                         </div>
                     </div>
                     <h3>Desired Title</h3>
@@ -60,11 +60,10 @@ class UserCard extends React.Component{
                     </div>
                 </div>
                 <div className="links">
-                    <div className="link">1</div>
-                    <div className="link">2</div>
-                    <div className="link">3</div>
-                    <div className="link">4</div>
-                    <div className="link">5</div>
+                    <div className="badge"></div>
+                    <i className="fab fa-github"></i>
+                    <i class="fab fa-linkedin"></i>
+                    <i class="fas fa-code"></i>
                 </div>
             </UserCardDiv>
         )
@@ -72,98 +71,94 @@ class UserCard extends React.Component{
 }
 
 const UserCardDiv = styled.div`
-    border: 1px solid black;
+    font-family: 'Source Sans Pro', sans-serif;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background: white;
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     height: 300px;
-    max-width: 500px;
+    width: 500px;
     margin: 20px;
     .left-side {
-        /* border: 1px solid green; */
-        box-sizing: border-box;
         width: 90%;
         overflow: hidden;
         height: 100%;
-        margin: 8px;
+        margin-left: 15px;
+        padding-top: 8px;
         h2 {
             font-size: 30px;
         }
         h3 {
             font-size: 22px;
-            padding: 0, 5px;
-            border-top: 1px solid black;
-            border-bottom: 1px solid black;
+            padding: 5px 5px;
+            border-top: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
         }
         .bio {
-            /* border: 1px solid blue; */
-            box-sizing: border-box;
             display: flex;
             flex-direction: row;
             margin: 0;
             p {
-                /* border: 1px solid red; */
                 font-size: 13px;
                 margin: 3px;
             }
             .user-intro {
-                /* border: 1px solid blue; */
-                box-sizing: border-box;
                 display: flex;
                 flex-direction: column;
                 margin: 0;
-                padding: 10px;
+                padding: 10px 0 10px 10px;
+                width: 70%;
+            }
+            .location {
+                color: limegreen;
+                padding: 5px 0;
             }
             .photo {
                 display: flex;
+                border-radius: 100px;
                 justify-content: center;
                 align-items: center;
-                width: 200px;
-                height: 130px;
-                background: orange;
+                width: 100px;
+                height: 100px;
+                background: lightgray;
                 margin: 10px;
             }
         }
         .keywords {
-            /* border: 1px solid pink; */
-            box-sizing: border-box;
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             flex-wrap: wrap;
             padding: 10px, 0;
+            margin-top: 20px;
             .keyword {
-                /* border: 1px solid green; */
-                display: flex;
-                justify-content: center;
-                align-items: center;
                 padding: 1px;
                 margin: 2px;
             }
         }
     }
+   
     .links {
-        /* border: 1px solid purple; */
-        box-sizing: border-box;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        width: 10%;
+        align-items: center;
+        width: 15%;
         height: 100%;
-        .link {
-            /* border: 1px solid blue; */
-            box-sizing: border-box;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-            margin: 2px;
+        .fab, .fas {
+            font-size: 40px;
             &:hover{
-                background: lightgray;
-                cursor: pointer;
-            }
+                    color: gray;
+                    cursor: pointer;
+                }
+        }
+        .fas {
+            font-size: 35px;
+            margin-bottom: 40px;
         }
     }
 `;
