@@ -1,3 +1,4 @@
+
 import React, { Component, Fragment } from "react";
 import { Route, withRouter, Switch } from "react-router-dom";
 
@@ -11,7 +12,6 @@ import PublicFacingPage from './pages/main-page/PublicFacingPage';
 import Callback from "./auth/Callback";
 
 import { GlobalStyle } from "./global-styles/GlobalStyles";
-
 
 // need to find a way to rerender when user logs in
 const auth = new Auth();
