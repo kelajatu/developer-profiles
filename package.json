@@ -23,6 +23,7 @@
         "nodemon": "^1.18.9",
         "pg": "^7.7.1",
         "sqlite3": "^4.0.4",
+        "stripe": "^6.20.0",
         "styled-components": "^4.1.3"
     }
 }
