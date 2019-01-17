@@ -61,42 +61,42 @@ class UserInitProfile extends Component {
     profileImg: "",
     desiredTitle: "",
 
+
     currentLocationInput: "",
     locationAutocomplete: [],
     currentLocation: "",
-
     github: "",
     linkedIn: "",
     portfolio: "",
     acclaim: "",
 
+
     placesInterestedInput: "",
     placesAutocomplete: [],
     placesInterested: "",
-
     summary: "",
-
     topSkillsInput: "",
     topSkillsList: [],
     topSkills: "",
-
     additionalSkillsInput: "",
     additionalSkillsList: [],
     additionalSkills: "",
-
     familiarSkillsInput: "",
     familiarSkillsList: [],
     familiarSkills: "",
+
 
     projectTitle: "",
     projectImg: "",
     projectLink: "",
     projectDescription: "",
 
+
     jobTitle: "",
     jobDates: "",
     jobDescription: "",
 
+    
     schoolName: "",
     schoolDates: "",
     schoolCourse: "",
