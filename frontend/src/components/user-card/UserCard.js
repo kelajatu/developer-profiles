@@ -41,9 +41,7 @@ class UserCard extends Component{
             <UserCardDiv>
                 <div className="left-side">
                     <div className="bio">
-                        <div className="photo">
-                        <img src={this.props.image} alt="user avatar"/>
-                        </div>
+                        <img className="photo"src={this.props.image} alt="user avatar"/>
                         <div className="user-intro">
                             <h2>{`${this.props.first_name} ${this.props.last_name}`}</h2>
                             <p className="location">{this.props.location}</p>
@@ -60,7 +58,9 @@ class UserCard extends Component{
                     </div>
                 </div>
                 <div className="links">
-                    <div className="badge"></div>
+                    <div className="badge">
+                    <img src={this.props.acclaim} alt="acclaim badge"/>
+                    </div>
                     <i className="fab fa-github"></i>
                     <i className="fab fa-linkedin"></i>
                     <i className="fas fa-code"></i>
@@ -149,7 +149,7 @@ const UserCardDiv = styled.div`
         align-items: center;
         width: 15%;
         height: 100%;
-        .fab, .fas {
+        .fab, .fas, {
             font-size: 40px;
             &:hover{
                     color: gray;

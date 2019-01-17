@@ -346,7 +346,7 @@ class UserInitProfile extends Component {
     let badge = acclaimBadge.slice(35)
     console.log("badgeID:", badge)
     axios
-    .post(`http://localhost:7000/api/acclaim/${this.state.userId}`, {badge: badge})
+    .post(`https://developer-profiles.herokuapp.com/api/acclaim/${this.state.userId}`, {badge: badge})
     .then(response => {
       console.log(response.data)
     })
