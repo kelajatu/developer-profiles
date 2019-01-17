@@ -22,7 +22,7 @@ class WhereToFindYou extends Component {
     let newArr;
     var self = this;
     axios
-    .post("http://localhost:7000/api/location", {inputLocation: e.target.value})
+    .post("https://developer-profiles.herokuapp.com/api/location", {inputLocation: e.target.value})
     .then(response => {
       console.log(response.data.predictions)
       newArr = response.data.predictions.map(location => {

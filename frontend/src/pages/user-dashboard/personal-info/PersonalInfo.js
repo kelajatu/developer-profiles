@@ -37,7 +37,7 @@ class PersonalInfo extends Component {
     });
 
     // Set up our request
-    XHR.open('POST', 'http://localhost:7000/api/image-upload');
+    XHR.open('POST', 'https://developer-profiles.herokuapp.com/api/image-upload');
 
     // Send our FormData object; HTTP headers are set automatically
     XHR.send(FD);
