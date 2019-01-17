@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
-import { centerFlex } from '../../../global-styles/Mixins';
 
 
 class Experience extends Component {

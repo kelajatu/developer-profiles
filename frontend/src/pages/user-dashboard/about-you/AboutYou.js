@@ -28,7 +28,7 @@ class AboutYou extends Component {
       let newArr;
       var self = this;
       axios
-      .post("http://localhost:7000/api/location", {inputLocation: e.target.value})
+      .post("https://developer-profiles.herokuapp.com/api/location", {inputLocation: e.target.value})
       .then(response => {
         newArr = response.data.predictions.map(location => {
           return {
@@ -63,7 +63,7 @@ class AboutYou extends Component {
       let newArr;
       var self = this;
       axios
-      .post("http://localhost:7000/api/skills", {skillInput: e.target.value})
+      .post("https://developer-profiles.herokuapp.com/api/skills", {skillInput: e.target.value})
       .then(response => {
         newArr = response.data.map(skill => skill);
         self.setState({ topSkillsList: newArr });
@@ -96,7 +96,7 @@ class AboutYou extends Component {
       let newArr;
       var self = this;
       axios
-      .post("http://localhost:7000/api/skills", {skillInput: e.target.value})
+      .post("https://developer-profiles.herokuapp.com/api/skills", {skillInput: e.target.value})
       .then(response => {
         newArr = response.data.map(skill => skill);
         self.setState({ additionalSkillsList: newArr });
@@ -129,7 +129,7 @@ class AboutYou extends Component {
       let newArr;
       var self = this;
       axios
-      .post("http://localhost:7000/api/skills", {skillInput: e.target.value})
+      .post("https://developer-profiles.herokuapp.com/api/skills", {skillInput: e.target.value})
       .then(response => {
         // skills will prob get unloaded by this point so you will only need to filter, like the search bar
         // same with all skills
