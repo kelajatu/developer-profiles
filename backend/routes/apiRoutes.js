@@ -14,8 +14,8 @@ server.use(helmet());
 server.use(cors());
 
 aws.config.update({
-  secretAccessKey: 'QN5NBaeg67iVvKgcf9SG4NnQIkJnhisWcLjX1+NG',
-  accessKeyId: 'AKIAJG3CCM4YUNPQFO5A',
+  secretAccessKey: 'secret',
+  accessKeyId: 'secret',
   region: 'us-east-2'
 });
 
@@ -51,7 +51,7 @@ server.post('/image-upload', (req, res) => {
 });
 
 // google key, need to move to .env
-const key = 'AIzaSyDWoXKzvzbj5PthnTW6YyjLjWn72qULEFg'
+const key = 'secret'
 
 server.post('/location', (req, res) => {
 
