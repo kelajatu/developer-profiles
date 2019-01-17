@@ -9,7 +9,7 @@ const axios = require('axios');
 const aws = require('aws-sdk');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
-const stripe = require("stripe")("sk_test_8pjRwsgG5R9yBCotTX8Mh4jj");
+const stripe = require("stripe")(process.env.STRIPE_TEST);
 
 const server = express();
 
@@ -18,8 +18,8 @@ server.use(helmet());
 server.use(cors());
 
 aws.config.update({
-  secretAccessKey: 'secret',
-  accessKeyId: 'secret',
+  secretAccessKey: process.env.AWS_PIC_SECRET_KEY,
+  accessKeyId: process.env.AWS_PIC_ACCESS_KEY,
   region: 'us-east-2'
 });
 
@@ -55,7 +55,7 @@ server.post('/image-upload', (req, res) => {
 });
 
 // google key, need to move to .env
-const key = 'secret'
+const key = process.env.GOOGLE_AUTO_COMPLETE
 
 server.post('/location', (req, res) => {
 

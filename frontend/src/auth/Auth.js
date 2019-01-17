@@ -65,7 +65,7 @@ export default class Auth {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     this.auth0.logout({
-      returnTo: 'http://localhost:3000',
+      returnTo: 'https://ecstatic-dev-profiles.netlify.com',
       clientID: 'vmrL9giX33pl1mkLLBojm2uAUOj14Ju1'
     });
 
