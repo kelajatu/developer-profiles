@@ -7,6 +7,7 @@ class PublicFacingPage extends Component {
     constructor(props){
         super(props)
         this.state = {
+            filters: [],
             fullStack: false,
             ios: false,
             android: false,
@@ -19,6 +20,16 @@ class PublicFacingPage extends Component {
     }
 
     toggleCheckMarks(name){
+        let newArr = this.state.filters
+        if(newArr.includes(name)){
+            let index = newArr.indexOf(name)
+            console.log(index)
+            newArr.splice(index, 1)
+            console.log(newArr)
+        }else {
+            newArr.push(name)
+            console.log(newArr)
+        }
         this.setState({...this.state, [name]:!this.state[name]})
     }
 
@@ -26,7 +37,7 @@ class PublicFacingPage extends Component {
         return (
             <PublicFacingPageDiv>
                 <FilterBox params={this.state} toggleCheckMarks={this.toggleCheckMarks} />
-                <UserCards />
+                <UserCards params={this.state} />
             </PublicFacingPageDiv> 
         );
     }

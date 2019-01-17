@@ -11,7 +11,6 @@ export default class JobTitles extends Component {
     }
 
     render(){
-        console.log(this.props)
         return(
             <JobTitlesDiv> 
                <div className="filters">

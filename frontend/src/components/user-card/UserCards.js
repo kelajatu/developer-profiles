@@ -7,19 +7,36 @@ export default class UserCards extends Component {
     constructor(props){
         super(props)
         this.state = {
-            users: []
+            users: [],
+            raw: [],
         }
     }
 
     componentDidMount() {
         axios.get('https://developer-profiles.herokuapp.com/users').then(response => {
-            this.setState({users: response.data})
+            this.setState({raw: response.data})
         }).catch(error => {
-            console.log(error);
+            console.log(error)
+        })
+    }
+
+    componentWillReceiveProps(){
+        // let tempArr = [],
+        console.log("CRP", this.state)
+        let tempArr = this.state.raw.filter(item => {
+            //for loop with each filter
+            if(this.props.params.ios){
+                return item.filter === "iOS"
+            }
+        })
+
+        this.setState({
+            users: tempArr
         })
     }
 
     render(){
+        console.log(this.state)
         return(
             <UserCardsDiv> 
                 {this.state.users.map(user => <UserCard 
