@@ -12,7 +12,7 @@ class NewUserInitBilling extends Component {
           // You can access the token ID with `token.id`.
           // Get the token ID to your server-side code for use.
           console.log(token.id)
-          axios.post('http://localhost:7000/billing', {stripeToken: token.id}).then(res => console.log(res)).catch(err => console.log(err))
+          //axios.post('http://localhost:7000/billing', {stripeToken: token.id}).then(res => console.log(res)).catch(err => console.log(err))
         }
       });
 

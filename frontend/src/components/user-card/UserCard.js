@@ -42,15 +42,15 @@ class UserCard extends React.Component{
                 <div className="left-side">
                     <div className="bio">
                         <div className="photo">
-                        <img src={props.image} alt="user avatar"/>
+                        <img src={this.props.image} alt="user avatar"/>
                         </div>
                         <div className="user-intro">
-                            <h2>{`${props.first_name} ${props.last_name}`}</h2>
-                            <p className="location">{props.location}</p>
-                            <p>{props.summary}</p>
+                            <h2>{`${this.props.first_name} ${this.props.last_name}`}</h2>
+                            <p className="location">{this.props.location}</p>
+                            <p>{this.props.summary}</p>
                         </div>
                     </div>
-                    <h3>{props.title}</h3>
+                    <h3>{this.props.title}</h3>
                     <div className="keywords">
                         {this.state ? this.state.arr.map(word => {
                             return (<div key={word.id} className="keyword" style={{fontSize: word.weight }}>
