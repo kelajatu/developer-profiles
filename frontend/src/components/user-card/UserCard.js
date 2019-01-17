@@ -124,7 +124,7 @@ const UserCardDiv = styled.div`
                 align-items: center;
                 width: 100px;
                 height: 100px;
-                background: lightgray;
+                background-image: cover;
                 margin: 10px;
             }
         }
