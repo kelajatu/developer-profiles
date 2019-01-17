@@ -2,8 +2,11 @@ var faker = require("faker");
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  let filterOptions = ["Full Stack Web", "iOS", "Android", "UI/UX"];
-  let rand = [(Math.random() * filterOptions.length) | 0];
+  function randomFilterValue() {
+    let filterOptions = ["Full Stack Web", "iOS", "Android", "UI/UX"]
+    let rand = [(Math.random() * filterOptions.length) | 0]
+    return filterOptions[rand]
+  }
   return knex("users")
     .del()
     .then(function() {
@@ -16,7 +19,7 @@ exports.seed = function(knex, Promise) {
           last_name: faker.name.lastName(),
           image: faker.image.imageUrl(),
           title: faker.name.title(),
-          filter: filterOptions[rand],
+          filter: randomFilterValue(),
           location: `${faker.address.city()}, ${faker.address.stateAbbr()}`,
           github: "github.com",
           linkedin: "linkedin.com",
