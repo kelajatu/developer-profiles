@@ -22,11 +22,11 @@ class PublicFacingPage extends Component {
         this.toggleCheckMarks = this.toggleCheckMarks.bind(this)
     }
     componentDidMount() {
-        // axios.get('https://developer-profiles.herokuapp.com/users').then(response => {
-        //     this.setState({users: response.data})
-        // }).catch(error => {
-        //     console.log(error);
-        // })
+        axios.get('https://developer-profiles.herokuapp.com/users').then(response => {
+            this.setState({users: response.data})
+        }).catch(error => {
+            console.log(error);
+        })
     }
 
     toggleCheckMarks(name){
@@ -39,14 +39,15 @@ class PublicFacingPage extends Component {
         <PublicFacingPageDiv>
             <FilterBox params={this.state.params} toggleCheckMarks={this.toggleCheckMarks} />
             <div>
-                {/* {this.state.users.map(user => <UserCard 
+                {this.state.users.map(user => <UserCard 
+                    acclaim={user.acclaim}
                     key={user.id}
                     first_name={user.first_name} 
                     last_name={user.last_name} 
                     image={`https://picsum.photos/200/300/?image=${user.id % 50}`} 
                     summary={user.summary} 
                     title={user.title}
-                    location={user.location}/>)} */}
+                    location={user.location}/>)}
             </div>
         </PublicFacingPageDiv>  );
     }

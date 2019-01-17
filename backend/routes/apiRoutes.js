@@ -1,3 +1,5 @@
+const dbconfig = require("../knexfile");
+const db = knex(dbconfig[process.env.DB])
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
@@ -93,7 +95,9 @@ server.post("/acclaim/:id", (req, res) => {
     let id = req.params.id
     console.log(req.body)
     axios.get(`https://api.youracclaim.com/v1/obi/badge_assertions/${req.body.badge}`).then(response => {
-        console.log(response.data)
+        db("users")
+        .where({id: id})
+        .update({acclaim: response.data.image})
         res.send(response.data)
     }).catch(err => {
     console.log(err);
