@@ -1,3 +1,50 @@
+/*
+API / FORMATTING
+
+--------
+User should already be in DB from '/register' at this point
+When user registers through Auth0/passport, they will return some user info
+might need to make name/last/email optional, or only work with 3rd party
+Auth that returns at minimum an email
+-----
+
+---
+all API calls from here will use PUT:'/:id'
+---
+
+---
+it will not be just one big form
+
+image upload will have own submit to DB(onUpload or hidden save button with feedback)
+
+all user info can go in one submit:
+email,fname,lname,title,location,git,linked,portfolio,acclaim,places,summary,skills
+
+projects will have own submit
+
+education will have own submit
+
+experience will have own submit
+---
+
+---
+Possible Flow
+user registers with 3rd party oAuth
+oAuth returns token + limited user info
+user is created with limited info '/register'
+user is sent to profile(seeker) + userId from DB
+user can fill out any info - all submits will be PUT
+
+x amount of info must be filled out for user card to be added to the developers list
+billing must be completed as well
+make a progress bar to publish user profile, progress will include minimum user info + billing
+add CTA for billing, maybe button next to save, or a billing tab/link
+
+User is now free to visit any page
+---
+
+*/
+
 import React, { Component } from 'react'
 import { Route } from 'react-router-dom';
 import styled from 'styled-components';
@@ -14,7 +61,11 @@ import Experience from './experience/Experience';
 import Education from './education/Education';
 
 
+
 class UserDashboardContainer extends Component {
+  state = {
+    userId: 1,
+  }
   render() {
     console.log(this.props.match)
     return (
