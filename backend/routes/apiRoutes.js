@@ -99,7 +99,7 @@ server.post("/acclaim/:id", (req, res) => {
     axios.get(`https://api.youracclaim.com/v1/obi/badge_assertions/${req.body.badge}`).then(response => {
         db("users")
         .where({id: id})
-        .update({acclaim: response.data.image})
+        .update({badge: response.data.image})
         res.send(response.data)
     }).catch(err => {
     console.log(err);

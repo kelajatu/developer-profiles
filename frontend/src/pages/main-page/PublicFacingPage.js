@@ -40,7 +40,7 @@ class PublicFacingPage extends Component {
             <FilterBox params={this.state.params} toggleCheckMarks={this.toggleCheckMarks} />
             <div>
                 {this.state.users.map(user => <UserCard 
-                    acclaim={user.acclaim}
+                    acclaim={user.badge}
                     key={user.id}
                     first_name={user.first_name} 
                     last_name={user.last_name} 

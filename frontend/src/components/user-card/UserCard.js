@@ -59,7 +59,7 @@ class UserCard extends Component{
                 </div>
                 <div className="links">
                     <div className="badge">
-                    <img src={this.props.acclaim} alt="acclaim badge"/>
+                    <img src={this.props.badge} alt="acclaim badge"/>
                     </div>
                     <i className="fab fa-github"></i>
                     <i className="fab fa-linkedin"></i>

@@ -13,12 +13,12 @@ server.get('/', (req, res) => {
 })
 
 //get specific user for user profile
-server.get('/:id', (req, res) => {
-    db.user_helpers.getUsers(req.params.id).then(user => {
+server.get('/:email', (req, res) => {
+    db.user_helpers.getUsers(req.params.email).then(user => {
         res.status(200).json(user)
     }).catch(err => {
-        console.log("error fetching data at GET users/:id", err)
-        res.status(500).json({ message: "error fetching data at GET users/:id", err: err });
+        console.log("error fetching data at GET users/:email", err)
+        res.status(500).json({ message: "error fetching data at GET users/:email", err: err });
     })
 })
 
