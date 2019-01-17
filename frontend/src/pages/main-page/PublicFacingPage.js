@@ -8,10 +8,6 @@ class PublicFacingPage extends Component {
         super(props)
         this.state = {
             filters: [],
-            fullStack: false,
-            ios: false,
-            android: false,
-            uiux: false,
             locatedDistance: 25,
             locatedCity: 'Denver',
             relocateCity: 'Albuquerque'
@@ -23,20 +19,23 @@ class PublicFacingPage extends Component {
         let newArr = this.state.filters
         if(newArr.includes(name)){
             let index = newArr.indexOf(name)
-            console.log(index)
             newArr.splice(index, 1)
-            console.log(newArr)
         }else {
             newArr.push(name)
-            console.log(newArr)
         }
         this.setState({...this.state, [name]:!this.state[name]})
+    }
+
+    updateLength(num){
+        this.setState({
+            number: num
+        })
     }
 
     render() { 
         return (
             <PublicFacingPageDiv>
-                <FilterBox params={this.state} toggleCheckMarks={this.toggleCheckMarks} />
+                <FilterBox params={this.state} updateLength={this.updateLength} toggleCheckMarks={this.toggleCheckMarks} />
                 <UserCards params={this.state} />
             </PublicFacingPageDiv> 
         );

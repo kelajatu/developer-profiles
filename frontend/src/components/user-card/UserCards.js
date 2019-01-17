@@ -21,25 +21,23 @@ export default class UserCards extends Component {
     }
 
     componentWillReceiveProps(){
-        // let tempArr = [],
-        console.log("CRP", this.state)
         let tempArr = this.state.raw.filter(item => {
-            //for loop with each filter
             return this.props.params.filters.includes(item.filter)
         })
         if(tempArr.length === 0){
             tempArr = this.state.raw
         }
         this.setState({
-            users: tempArr
+            users: tempArr,
         })
+        this.props.updateLength(tempArr.length)
     }
 
     render(){
-        console.log(this.state)
         return(
             <UserCardsDiv> 
                 {this.state.users.map(user => <UserCard 
+                    acclaim={user.badge}
                     key={user.id}
                     first_name={user.first_name} 
                     last_name={user.last_name} 
