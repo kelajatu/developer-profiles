@@ -21,9 +21,14 @@ const PreviewContainer = styled.header`
   margin-left: 220px;
   margin-bottom: 100px;
   padding-top: 50px;
+  padding-left: 100px;
   display: flex;
   justify-content: space-around;
+  align-items: flex-start;
   flex-wrap: wrap;
+  section {
+      width: 43%;
+    }
 `;
 
 export default UserCardPreview;
