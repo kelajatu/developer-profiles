@@ -14,7 +14,7 @@ export default class UserCards extends Component {
 
     componentDidMount() {
         axios.get('https://developer-profiles.herokuapp.com/users').then(response => {
-            this.setState({raw: response.data})
+            this.setState({raw: response.data, users: response.data})
         }).catch(error => {
             console.log(error)
         })
@@ -25,11 +25,11 @@ export default class UserCards extends Component {
         console.log("CRP", this.state)
         let tempArr = this.state.raw.filter(item => {
             //for loop with each filter
-            if(this.props.params.ios){
-                return item.filter === "iOS"
-            }
+            return this.props.params.filters.includes(item.filter)
         })
-
+        if(tempArr.length === 0){
+            tempArr = this.state.raw
+        }
         this.setState({
             users: tempArr
         })
