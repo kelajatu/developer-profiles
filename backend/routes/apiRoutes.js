@@ -1,3 +1,5 @@
+require('dotenv').config()
+const knex = require("knex");
 const dbconfig = require("../knexfile");
 const db = knex(dbconfig[process.env.DB])
 const express = require('express');
