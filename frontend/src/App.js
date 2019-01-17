@@ -2,14 +2,14 @@ import React, { Component, Fragment } from "react";
 import { Route, withRouter, Switch } from "react-router-dom";
 
 import Auth from "./auth/Auth";
-import Nav from "./components/Nav/Nav";
+import Nav from "./components/nav/Nav";
 import LandingPage from "./pages/landing-page/landingPage";
 import PageUnauthorized from "./pages/404/PageUnauthorized";
 import PageNotFound from "./pages/404/PageNotFound";
 import UserDashboardContainer from "./pages/user-dashboard/UserDashboardContainer";
 import PublicFacingPage from "./pages/main-page/PublicFacingPage";
 import Callback from "./auth/Callback";
-import Stripe from "./components/Stripe/Stripe";
+// import Stripe from "./components/Stripe/Stripe";
 
 import { GlobalStyle } from "./global-styles/GlobalStyles";
 
@@ -50,7 +50,7 @@ class App extends Component {
             path="/public"
             render={props => <PublicFacingPage {...props} {...this.state} />}
           />
-          <Route path="/billing" render={props => <Stripe />} />
+          {/* <Route path="/billing" render={props => <Stripe />} /> */}
           <Route component={PageNotFound} />
         </Switch>
       </Fragment>

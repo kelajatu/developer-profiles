@@ -1660,7 +1660,6 @@ lodash.debounce@^4.0.8:
 lodash.isplainobject@^4.0.6:
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz#7c526a52d89b45c45cc690b88163be0497f550cb"
-  integrity sha1-fFJqUtibRcRcxpC4gWO+BJf1UMs=
 
 lodash@^4.17.10, lodash@^4.17.11:
   version "4.17.11"
@@ -2205,7 +2204,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.4:
+prop-types@^15.5.10, prop-types@^15.5.4:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
   dependencies:
@@ -2280,6 +2279,12 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.7:
 react-is@^16.6.0:
   version "16.7.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.7.0.tgz#c1bd21c64f1f1364c6f70695ec02d69392f41bfa"
+
+react-stripe-elements@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-stripe-elements/-/react-stripe-elements-2.0.1.tgz#197db4762c57bf73a07d852564ebdbac52954094"
+  dependencies:
+    prop-types "^15.5.10"
 
 readable-stream@1.1.x:
   version "1.1.14"
@@ -2665,7 +2670,6 @@ strip-json-comments@~2.0.1:
 stripe@^6.20.0:
   version "6.20.0"
   resolved "https://registry.yarnpkg.com/stripe/-/stripe-6.20.0.tgz#b862165da39507194962e8b91131fbf537fd81c1"
-  integrity sha512-a/F/hyuQpUKuiY1zyK1PcLiWBsEUR8WbsAJ7UP1xHTPyWrRZV0zWGAjhL1p0SKXPfuC5EMYNKUplmod7pBBsyg==
   dependencies:
     lodash.isplainobject "^4.0.6"
     qs "~6.5.1"

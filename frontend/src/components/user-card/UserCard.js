@@ -41,7 +41,9 @@ class UserCard extends React.Component{
             <UserCardDiv>
                 <div className="left-side">
                     <div className="bio">
-                        <img className="photo" src={this.props.image} alt="user avatar"/>
+                        <div className="photo">
+                        <img src={this.props.image} alt="user avatar"/>
+                        </div>
                         <div className="user-intro">
                             <h2>{`${this.props.first_name} ${this.props.last_name}`}</h2>
                             <p className="location">{this.props.location}</p>

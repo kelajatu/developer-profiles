@@ -72,21 +72,21 @@ class UserInitProfile extends Component {
 
     placesInterestedInput: "",
     placesAutocomplete: [],
-    placesInterested: [],
+    placesInterested: "",
 
     summary: "",
 
     topSkillsInput: "",
     topSkillsList: [],
-    topSkills: [],
+    topSkills: "",
 
     additionalSkillsInput: "",
     additionalSkillsList: [],
-    additionalSkills: [],
+    additionalSkills: "",
 
     familiarSkillsInput: "",
     familiarSkillsList: [],
-    familiarSkills: [],
+    familiarSkills: "",
 
     projectTitle: "",
     projectImg: "",
@@ -110,13 +110,16 @@ class UserInitProfile extends Component {
   
 
 
+
+
   // current location
   onLocationChange = (e) => {
     let newArr;
     var self = this;
     axios
-    .post("http://localhost:7000/location", {inputLocation: e.target.value})
+    .post("http://localhost:7000/api/location", {inputLocation: e.target.value})
     .then(response => {
+      console.log(response.data.predictions)
       newArr = response.data.predictions.map(location => {
         return {
           name: location.description,
@@ -132,8 +135,11 @@ class UserInitProfile extends Component {
   }
 
   chooseCurrentLocation = (e) => {
+    console.log(e.target.dataset.name)
     this.setState({ currentLocation: e.target.value, locationAutocomplete: [], currentLocationInput: e.target.value });
   }
+
+
 
 
 
@@ -142,7 +148,7 @@ class UserInitProfile extends Component {
     let newArr;
     var self = this;
     axios
-    .post("http://localhost:7000/location", {inputLocation: e.target.value})
+    .post("http://localhost:7000/api/location", {inputLocation: e.target.value})
     .then(response => {
       newArr = response.data.predictions.map(location => {
         return {
@@ -161,17 +167,15 @@ class UserInitProfile extends Component {
   choosePlacesInterested = (e) => {
     let newplacesInterested;
 
-    if (this.state.placesInterested.length === 0) {
-      newplacesInterested = [];
-      newplacesInterested.push(e.target.value);
+    if (this.state.placesInterested === '') {
+      newplacesInterested = '';
+      newplacesInterested += e.target.value;
     } else {
       newplacesInterested = this.state.placesInterested.slice();
-      newplacesInterested.push(e.target.value);
+      newplacesInterested = newplacesInterested + ',' + e.target.value;
     }
-
-    this.setState({ placesInterested: newplacesInterested, placesAutocomplete: [], placesInterestedInput: e.target.value });
+    this.setState({ placesInterested: newplacesInterested, placesAutocomplete: [], placesInterestedInput: "" });
   }
-
 
 
   // top skills
@@ -179,7 +183,7 @@ class UserInitProfile extends Component {
     let newArr;
     var self = this;
     axios
-    .post("http://localhost:7000/skills", {skillInput: e.target.value})
+    .post("http://localhost:7000/api/skills", {skillInput: e.target.value})
     .then(response => {
       newArr = response.data.map(skill => skill);
       self.setState({ topSkillsList: newArr });
@@ -189,20 +193,21 @@ class UserInitProfile extends Component {
     });
     this.setState({ [e.target.name]: e.target.value });
   }
-  
+
   chooseTopSkills = (e) => {
     let newtopSkills;
 
     if (this.state.topSkills.length === 0) {
-      newtopSkills = [];
-      newtopSkills.push(e.target.value);
+      newtopSkills = '';
+      newtopSkills += e.target.value;
     } else {
       newtopSkills = this.state.topSkills.slice();
-      newtopSkills.push(e.target.value);
+      newtopSkills = newtopSkills + ',' + e.target.value;
     }
-
-    this.setState({ topSkills: newtopSkills, topSkillsList: [], topSkillsInput: e.target.value });
+    this.setState({ topSkills: newtopSkills, topSkillsList: [], topSkillsInput: '' });
   }
+
+
 
 
 
@@ -211,7 +216,7 @@ class UserInitProfile extends Component {
     let newArr;
     var self = this;
     axios
-    .post("http://localhost:7000/skills", {skillInput: e.target.value})
+    .post("http://localhost:7000/api/skills", {skillInput: e.target.value})
     .then(response => {
       newArr = response.data.map(skill => skill);
       self.setState({ additionalSkillsList: newArr });
@@ -226,15 +231,16 @@ class UserInitProfile extends Component {
     let newadditionalSkills;
 
     if (this.state.additionalSkills.length === 0) {
-      newadditionalSkills = [];
-      newadditionalSkills.push(e.target.value);
+      newadditionalSkills = '';
+      newadditionalSkills += e.target.value;
     } else {
       newadditionalSkills = this.state.additionalSkills.slice();
-      newadditionalSkills.push(e.target.value);
+      newadditionalSkills = newadditionalSkills + ',' + e.target.value;
     }
-
-    this.setState({ additionalSkills: newadditionalSkills, additionalSkillsList: [], additionalSkillsInput: e.target.value });
+    this.setState({ additionalSkills: newadditionalSkills, additionalSkillsList: [], additionalSkillsInput: '' });
   }
+
+
 
 
 
@@ -243,7 +249,7 @@ class UserInitProfile extends Component {
     let newArr;
     var self = this;
     axios
-    .post("http://localhost:7000/skills", {skillInput: e.target.value})
+    .post("http://localhost:7000/api/skills", {skillInput: e.target.value})
     .then(response => {
       // skills will prob get unloaded by this point so you will only need to filter, like the search bar
       // same with all skills
@@ -260,15 +266,16 @@ class UserInitProfile extends Component {
     let newfamiliarSkills;
 
     if (this.state.familiarSkills.length === 0) {
-      newfamiliarSkills = [];
-      newfamiliarSkills.push(e.target.value);
+      newfamiliarSkills = '';
+      newfamiliarSkills += e.target.value;
     } else {
       newfamiliarSkills = this.state.familiarSkills.slice();
-      newfamiliarSkills.push(e.target.value);
+      newfamiliarSkills =newfamiliarSkills + ',' + e.target.value;
     }
-
-    this.setState({ familiarSkills: newfamiliarSkills, familiarSkillsList: [], familiarSkillsInput: e.target.value });
+    this.setState({ familiarSkills: newfamiliarSkills, familiarSkillsList: [], familiarSkillsInput: '' });
   }
+
+
 
 
 
@@ -294,11 +301,43 @@ class UserInitProfile extends Component {
     });
 
     // Set up our request
-    XHR.open('POST', 'http://localhost:7000/image-upload');
+    XHR.open('POST', 'http://localhost:7000/api/image-upload');
 
     // Send our FormData object; HTTP headers are set automatically
     XHR.send(FD);
   }
+
+
+  // Photo upload
+  uploadPhotoProj = (e) => {
+    const file = e.target.files[0];
+    let XHR = new XMLHttpRequest();
+    let FD  = new FormData();
+
+    // Push our data into our FormData object
+    FD.append('image', file);
+
+    var self = this;
+    // Define what happens on successful data submission
+    XHR.addEventListener('load', function(event) {
+      let url = JSON.parse(event.target.responseText);
+      self.setState({projectImg: url.imgUrl})
+    });
+
+    // Define what happens in case of error
+    XHR.addEventListener('error', function(event) {
+      alert('Oops! Something went wrong.');
+    });
+
+    // Set up our request
+    XHR.open('POST', 'http://localhost:7000/api/image-upload');
+
+    // Send our FormData object; HTTP headers are set automatically
+    XHR.send(FD);
+  }
+
+
+
 
 
 
@@ -318,6 +357,8 @@ class UserInitProfile extends Component {
 
 
 
+
+
   // Checking package that will be sent for user info
   checkOnSubmit = (e) => {
     e.preventDefault()
@@ -326,22 +367,23 @@ class UserInitProfile extends Component {
 
 
 
+
+
   render() {
-    console.log('STATEEE',this.state)
+    console.log(this.state);
     return (
       <main>
         <header>
           Hello
         </header>
 
-
-
           {/* image - see if you can send '/:id' param on uploadPhoto */}
           <div>
-            <label>
+            <label htmlFor="userProfileImg">
               Choose a profile picture:
             </label>
             <input
+              id="userProfileImg"
               type="file"
               accept="image/*"
               encrypt="multipart/form-data"
@@ -457,7 +499,7 @@ class UserInitProfile extends Component {
               null
               :
               this.state.locationAutocomplete.map(location => {
-                return (<option onClick={this.chooseCurrentLocation} key={location.id} value={location.name}>{location.name}</option>);
+                return (<option onClick={this.chooseCurrentLocation} key={location.id} value={location.id}>{location.name}</option>);
               })
             }
 
@@ -563,7 +605,7 @@ class UserInitProfile extends Component {
               null
               :
               this.state.placesAutocomplete.map(location => {
-                return (<option onClick={this.choosePlacesInterested} key={location.id} value={location.name}>{location.name}</option>);
+                return (<option onClick={this.choosePlacesInterested} key={location.id} data-name="asd" value={location.id}>{location.name}</option>);
               })
             }
 
@@ -690,17 +732,27 @@ class UserInitProfile extends Component {
           <br/>
 
           {/* projimg - Upload Functionality */}
-          <label htmlFor="userProjectImg">
-            Project Image Upload:
-          </label>
-          <input
-            type="text"
-            id="userProjectImg"
-            placeholder="Upload Meee"
-            name="projectImg"
-            value={this.state.projectImg}
-            onChange={this.onInputChange}
-          />
+          {/* image - see if you can send '/:id' param on uploadPhoto */}
+          <div>
+            <label htmlFor="userProjectImg">
+              Choose a project picture:
+            </label>
+            <input
+              id="userProjectImg"
+              type="file"
+              accept="image/*"
+              encrypt="multipart/form-data"
+              onChange={this.uploadPhotoProj}
+            />
+          </div>
+          {/* Show photo on Photo upload */}
+          <div>
+            {this.state.projectImg === "" ?
+              null
+              :
+              <img src={this.state.projectImg} alt="P"/>
+            }
+          </div>
           
           <br/>
 
