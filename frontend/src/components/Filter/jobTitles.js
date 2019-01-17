@@ -10,31 +10,33 @@ export default class JobTitles extends Component {
         }
     }
 
+    updateTitles(e){
+        console.log(e.target)
+    }
+
     render(){
         return(
             <JobTitlesDiv> 
                <div className="filters">
                     <h1>Filters</h1>
-                    <div className="filters-container">
-                        <label class="container">
-                            <span class="checkmark"></span>
-                            <input type="checkbox"/>One
+                    <form  onChange={this.updateTitles} className="filters-container">
+                        <label className="container">
+                            <span className="checkmark"></span>
+                            <input type="checkbox"/>Full Stack Web
                         </label>
-                        <label class="container">
-                            <span class="checkmark"></span>
-                            <input type="checkbox"/>Two
+                        <label className="container">
+                            <span className="checkmark"></span>
+                            <input type="checkbox"/>iOS
                         </label>
-
-                        <label class="container">
-                            <span class="checkmark"></span>
-                            <input type="checkbox"/>Three
+                        <label className="container">
+                            <span className="checkmark"></span>
+                            <input type="checkbox"/>Android
                         </label>
-
-                        <label class="container">
-                            <span class="checkmark"></span>
-                            <input type="checkbox"/>Four
+                        <label className="container">
+                            <span className="checkmark"></span>
+                            <input type="checkbox"/>UI/UX
                         </label>
-                    </div>
+                    </form>
                 </div>
             </JobTitlesDiv>
         )

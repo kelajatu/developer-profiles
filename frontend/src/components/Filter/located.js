@@ -14,11 +14,11 @@ export default class Located extends Component {
         return(
             <LocatedDiv> 
                  <h1>Located</h1>
-                    <label class="container">
+                    <label className="container">
                         <input type="checkbox"/>within
                         <input type="number" step="10" /> miles of
                         <input type="search" />
-                        <span class="checkmark"></span>
+                        <span className="checkmark"></span>
                     </label>
             </LocatedDiv>
         )

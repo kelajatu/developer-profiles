@@ -4,13 +4,11 @@ import "./Nav.scss";
 
 export default class Nav extends Component {
   render() {
-    console.log('NAV',this.props)
     return (
       <div className="nav">
         <div onClick={this.props.auth.login} className="nav-link">
           <a href="/public">View Profiles</a>
         </div>
-
         {this.props.auth.isAuthenticated() ? 
             <Fragment>
                 <div className="nav-link">
@@ -24,5 +22,4 @@ export default class Nav extends Component {
       </div>
     );
   }
-}
-;
+};
