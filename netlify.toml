@@ -1,6 +1,7 @@
 [Settings]
 ID = "c52c7c4d-6e5c-405d-bfb0-21dc22f89b9d"
 
+
 # Settings in the [build] context are global and are applied to all contexts unless otherwise overridden by more specific contexts.  
 
 [build]
@@ -11,3 +12,4 @@ ID = "c52c7c4d-6e5c-405d-bfb0-21dc22f89b9d"
   publish = "frontend/build/"
   # This will be your default build command
   command = "yarn build"
+

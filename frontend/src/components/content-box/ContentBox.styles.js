@@ -17,7 +17,6 @@ export const ContentBoxSection = styled.section`
   }
 `;
 
-
 export const Btn = styled.div`
   overflow: visible;
   margin: 0;

@@ -3,11 +3,11 @@ const dbconfig = require("../knexfile");
 const db = knex(dbconfig[process.env.DB])
 
 module.exports = {
-    getUsers: function(id) {
+    getUsers: function(email) {
         //if id: return all information on user for focused profile page
-        if (id) {
+        if (email) {
             return db("users")
-                .where({auth_id: id});
+                .where({email: email}).first();
         }
     
         //if all users: excludes projects, experience, education for card view
@@ -42,8 +42,8 @@ module.exports = {
 
     // ==== add functions ====
     addUser: function(user) {
-        return db("users")
-            .insert(user)
+      return db("users")
+        .insert(user, ['id', 'email', 'first_name', 'last_name'])
     },
 
     editUser: function(id, input) {
