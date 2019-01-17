@@ -15,23 +15,21 @@ export default class FilterBox extends Component {
     render(){
         return(
             <FilterBoxDiv> 
-                <JobTitles />
-                <Located />
-                <Relocate />
+                <JobTitles 
+                toggleCheckMarks={this.props.toggleCheckMarks}
+                params={this.props.params} />
+                <Located params={this.props.params} />
+                <Relocate params={this.props.params} />
             </FilterBoxDiv>
         )
     }
 }
 
 const FilterBoxDiv = styled.div`
-    border: 1px solid red;
+    /* border: 1px solid red; */
     width: 20%;
     height: auto;
     display: flex;
     flex-direction: column;
     margin: 25px;
-    .filter-section{
-        padding: 10px;
-    }
-
 `

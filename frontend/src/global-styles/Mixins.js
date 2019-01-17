@@ -20,7 +20,7 @@ export function centerFlex(flexDirection = 'row') {
 export function filterSection() {
   return `
     padding: 10px;
-    border: 3px solid orange;
+    border: 1px solid black;
     background: white;
     display: flex;
     flex-direction: column;

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {Component} from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
+// import axios from 'axios';
 
-class UserCard extends React.Component{
+class UserCard extends Component{
     makeSkillsArr(){
         let newArr = [];
         let string = 'Lorem ipsum dolor sit amet agam brute vim ne Id quod vocibus eum ius duis doctus persequeris an Te sea prompta democritum dissentiunt cu quo eros nemore facete Et vis possim percipitur appellantur est quas efficiantur theophrastus ea Cum te tation torquatoss'
@@ -22,19 +22,19 @@ class UserCard extends React.Component{
 
     componentDidMount(){
       this.makeSkillsArr()
-      this.getUserInfo()
+    //   this.getUserInfo()
     }
 
-    getUserInfo = () => {
-        axios
-        .get("https://developer-profiles.herokuapp.com/users")
-        .then(response => {
-          console.log(response.data)
-        })
-        .catch(error => {
-          console.log(error);
-        });
-      }
+    // getUserInfo = () => {
+    //     axios
+    //     .get("https://developer-profiles.herokuapp.com/users")
+    //     .then(response => {
+    //       console.log(response.data)
+    //     })
+    //     .catch(error => {
+    //       console.log(error);
+    //     });
+    //   }
 
     render(){
         return (
@@ -62,8 +62,8 @@ class UserCard extends React.Component{
                 <div className="links">
                     <div className="badge"></div>
                     <i className="fab fa-github"></i>
-                    <i class="fab fa-linkedin"></i>
-                    <i class="fas fa-code"></i>
+                    <i className="fab fa-linkedin"></i>
+                    <i className="fas fa-code"></i>
                 </div>
             </UserCardDiv>
         )

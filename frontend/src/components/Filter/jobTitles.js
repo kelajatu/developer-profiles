@@ -11,30 +11,49 @@ export default class JobTitles extends Component {
     }
 
     render(){
+        console.log(this.props)
         return(
             <JobTitlesDiv> 
                <div className="filters">
                     <h1>Filters</h1>
-                    <div className="filters-container">
-                        <label class="container">
-                            <span class="checkmark"></span>
-                            <input type="checkbox"/>One
+                    <form className="filters-container">
+                        <label>
+                            <span 
+                                className="checkmark" 
+                                checked={this.props.params.fullStack} />
+                            <input 
+                                onChange={() => this.props.toggleCheckMarks("fullStack")}  
+                                type="checkbox" 
+                                name="fullStack" />Full Stack Web
                         </label>
-                        <label class="container">
-                            <span class="checkmark"></span>
-                            <input type="checkbox"/>Two
+                        <label>
+                            <span 
+                                className="checkmark" 
+                                checked={this.props.params.ios} />
+                            <input 
+                                onChange={() => this.props.toggleCheckMarks("ios")} 
+                                type="checkbox" 
+                                name="ios" />iOS
                         </label>
-
-                        <label class="container">
-                            <span class="checkmark"></span>
-                            <input type="checkbox"/>Three
+                        <label>
+                            <span 
+                                className="checkmark" 
+                                checked={this.props.params.android} />
+                            <input 
+                                onChange={() => this.props.toggleCheckMarks("android")}  
+                                type="checkbox" 
+                                name="android" />Android
                         </label>
-
-                        <label class="container">
-                            <span class="checkmark"></span>
-                            <input type="checkbox"/>Four
+                        <label>
+                            <span 
+                                className="checkmark" 
+                                checked={this.props.params.uiux} />
+                            <input 
+                                onChange={() => this.props.toggleCheckMarks("uiux")}  
+                                type="checkbox" 
+                                name="uiux" />UI/UX
                         </label>
-                    </div>
+                    </form>
                 </div>
             </JobTitlesDiv>
         )
