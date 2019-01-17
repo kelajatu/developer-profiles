@@ -1,1 +1,87 @@
 
+## Available Scripts
+
+In the project directory, you can run:
+
+### `npm start`
+
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
+
+### `npm test`
+
+Launches the test runner in the interactive watch mode.<br>
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.<br>
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+
+### Analyzing the Bundle Size
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+
+### Making a Progressive Web App
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+
+### Advanced Configuration
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+
+### Deployment
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+### `npm run build` fails to minify
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+# Jurgens Notes
+
+#### Bread Crumbs
+
+- Utilizing React’s Router api is the most obvious and straightforward approach to Breadcrumbs.
+- Create a Nav as a container component to encapsulate the the ensuring breadcrumbs.
+- Functionally render the props based on the amount of items to be passed through.
+- Create a presentational component that will consume predefined routes from an array and render them with the corresponding route. Wrap your routes in a switch case in the event there is no match.
+- Export your Breadcrumbs class and make sure to wrap the <App/> component with <Router/> tags for DOM rendering.
+
+#### Stripe Integration
+
+- For sufficing the ability of a user to checkout we chose Stripe’s Checkout integration. Functionally we went with posting a one time charge.
+- You first need to set up a Stripe account and set your dashboard to test mode. You utilized ‘react-stripe-checkout’ and ‘axios’ to run the functionality.
+- Next we created a functional component called stripeBtn.js that when clicked will open up the Stripe’s checkout modal.
+- Within this class we create a variable to hold pur publishable key which is obtained from your Stripe dashboard.
+- Our component returns a StripeCheckout element that comes ‘react-stripe-checkout’ with it’s props passed to customize the modal and other transactions details.
+- The onToken function sends our card info to Stripe and returns a token object. It further also send the token and the amount to the backend in the body with an axios request to finish the transaction.
+- We lastly import the component into our App.js
