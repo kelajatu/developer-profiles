@@ -61,42 +61,42 @@ class UserInitProfile extends Component {
     profileImg: "",
     desiredTitle: "",
 
+
     currentLocationInput: "",
     locationAutocomplete: [],
     currentLocation: "",
-
     github: "",
     linkedIn: "",
     portfolio: "",
     acclaim: "",
 
+
     placesInterestedInput: "",
     placesAutocomplete: [],
     placesInterested: "",
-
     summary: "",
-
     topSkillsInput: "",
     topSkillsList: [],
     topSkills: "",
-
     additionalSkillsInput: "",
     additionalSkillsList: [],
     additionalSkills: "",
-
     familiarSkillsInput: "",
     familiarSkillsList: [],
     familiarSkills: "",
+
 
     projectTitle: "",
     projectImg: "",
     projectLink: "",
     projectDescription: "",
 
+
     jobTitle: "",
     jobDates: "",
     jobDescription: "",
 
+    
     schoolName: "",
     schoolDates: "",
     schoolCourse: "",
@@ -346,7 +346,7 @@ class UserInitProfile extends Component {
     let badge = acclaimBadge.slice(35)
     console.log("badgeID:", badge)
     axios
-    .post(`http://localhost:7000/api/acclaim/${this.state.userId}`, {badge: badge})
+    .post(`https://developer-profiles.herokuapp.com/api/acclaim/${this.state.userId}`, {badge: badge})
     .then(response => {
       console.log(response.data)
     })
