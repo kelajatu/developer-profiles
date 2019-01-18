@@ -17,7 +17,7 @@ import Billing from './billing/Billing';
 
 class UserDashboardContainer extends Component {
   state = {
-    userId: 2,
+    userId: null,
   }
 
   componentDidMount() {
