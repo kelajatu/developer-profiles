@@ -2,7 +2,7 @@ import { ContentBoxSection, Btn } from './ContentBox.styles'
 import React, { Component } from 'react'
 
 class ContentBox extends Component {
-    render() { 
+    render() {
         return (
             <ContentBoxSection>
                 <h1>Welcome to DevProfiles </h1>
@@ -10,7 +10,7 @@ class ContentBox extends Component {
                 fuga fugiat impedit, cum blanditiis reiciendisunde.
                 </p>
                 <a href="#aboutus">
-                    <Btn className="stripe">Recruiters</Btn>
+                    <Btn>Recruiters</Btn>
                 </a>
                 <a href="#learnmore">
                     <Btn className="stripe">Job Seekers</Btn>
@@ -19,5 +19,5 @@ class ContentBox extends Component {
         );
     }
 }
- 
+
 export default ContentBox;
