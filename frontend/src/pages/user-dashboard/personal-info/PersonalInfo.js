@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
+import axios from 'axios';
 
 
 class PersonalInfo extends Component {
@@ -45,7 +46,18 @@ class PersonalInfo extends Component {
 
   checkOnSubmit = (e) => {
     e.preventDefault()
-    console.log(this.state);
+    const {email, firstName, lastName, profileImg, desiredTitle} = this.state;
+    const lePackage = {
+      email,
+      first_name: firstName,
+      last_name: lastName,
+      title: profileImg,
+      image: desiredTitle
+    }
+    console.log('PACK', lePackage)
+    axios.put('https://developer-profiles.herokuapp.com/users/1', lePackage)
+      .then(res => console.log(res.data))
+      .catch(err => console.log(err))
   }
 
   render() {

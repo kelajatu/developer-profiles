@@ -67,10 +67,9 @@ export default class Auth {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     this.auth0.logout({
-      returnTo: process.env.REACT_APP_AUTH0_REDIRECT,
+      returnTo: process.env.REACT_APP_AUTH_REDIRECT,
       clientID: 'vmrL9giX33pl1mkLLBojm2uAUOj14Ju1'
     });
-
   }
 
   getProfile() {
