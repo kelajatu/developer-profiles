@@ -1,6 +1,8 @@
 require('dotenv').config()
 const knex = require("knex");
 const dbconfig = require("../knexfile");
+// need helper to get all skills
+const dbHelper = require('../helpers/index.js')
 const db = knex(dbconfig[process.env.DB])
 const express = require('express');
 const helmet = require('helmet');
@@ -92,7 +94,7 @@ server.post('/matrix', (req, res) => {
 });
 
 
-server.post("/acclaim/:id", (req, res) => {
+server.put("/acclaim/:id", (req, res) => {
     //use later to add the acclaim image to the db
     let id = req.params.id
     console.log(req.body)
@@ -104,7 +106,7 @@ server.post("/acclaim/:id", (req, res) => {
     }).catch(err => {
     console.log(err);
     res.send({ err });
-    });  
+    });
 });
 
 
@@ -121,10 +123,29 @@ server.post('/billing', (req, res) => {
 });
 
 
-server.post('/skills', (req, res) => {
-  console.log(req.body.skillInput) // <- filter input 
-  const skills = ['one','two','three']; // <- package into arr
-  res.send(skills) // <= send arr to the client
-});
+// Will not need this
+// server.post('/skills', (req, res) => {
+//   dbHelper.skills_helpers.getAllSkills()
+//     .then(res => {
+
+//       console.log(res.data)
+//     })
+//     .catch(err => console.log(err))
+
+//   let filteredPosts = this.props.notes.filter(note => {
+//     return (
+//       note.title
+//         .toLocaleLowerCase()
+//         .includes(this.state.searchNotes.toLocaleLowerCase()) ||
+//       note.description
+//         .toLocaleLowerCase()
+//         .includes(this.state.searchNotes.toLocaleLowerCase())
+//     );
+//   });
+
+//   console.log(req.body.skillInput) // <- filter input 
+//   const skills = ['one','two','three']; // <- package into arr
+//   res.send(skills) // <= send arr to the client
+// });
 
 module.exports = server 

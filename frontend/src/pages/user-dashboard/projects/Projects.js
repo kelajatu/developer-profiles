@@ -11,6 +11,13 @@ class Projects extends Component {
     projectDescription: "",
   }
 
+  componentDidMount() {
+    // for returning users
+    // get data from session storage
+    // hydrate state
+    // remove from session storage
+  }
+
   onInputChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   }

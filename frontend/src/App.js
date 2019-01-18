@@ -21,6 +21,15 @@ class App extends Component {
     auth
   };
 
+  // componentDidMount() {
+  //   // renew session
+  //   const { renewSession } = this.state.auth;
+
+  //   if (localStorage.getItem('id_token') === 'true') {
+  //     renewSession();
+  //   }
+  // }
+
   render() {
     return (
       <Fragment>
