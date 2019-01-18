@@ -19,146 +19,154 @@ class AboutYou extends Component {
     familiarSkills: "",
   }
 
-    onInputChange = (e) => {
-      this.setState({ [e.target.name]: e.target.value });
-    }
 
-    // places interested
-    onPlacesChange = (e) => {
-      let newArr;
-      var self = this;
-      axios
-      .post("https://developer-profiles.herokuapp.com/api/location", {inputLocation: e.target.value})
-      .then(response => {
-        newArr = response.data.predictions.map(location => {
-          return {
-            name: location.description,
-            id: location.id
-          };
-        });
-        self.setState({ placesAutocomplete: newArr });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-      this.setState({ [e.target.name]: e.target.value });
-    }
-  
-    choosePlacesInterested = (e) => {
-      let newplacesInterested;
-  
-      if (this.state.placesInterested === '') {
-        newplacesInterested = '';
-        newplacesInterested += e.target.value;
-      } else {
-        newplacesInterested = this.state.placesInterested.slice();
-        newplacesInterested = newplacesInterested + ',' + e.target.value;
-      }
-      this.setState({ placesInterested: newplacesInterested, placesAutocomplete: [], placesInterestedInput: "" });
-    }
-  
-  
-    // top skills
-    onTopSkillsChange = e => {
-      let newArr;
-      var self = this;
-      axios
-      .post("https://developer-profiles.herokuapp.com/api/skills", {skillInput: e.target.value})
-      .then(response => {
-        newArr = response.data.map(skill => skill);
-        self.setState({ topSkillsList: newArr });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-      this.setState({ [e.target.name]: e.target.value });
-    }
-  
-    chooseTopSkills = (e) => {
-      let newtopSkills;
-  
-      if (this.state.topSkills.length === 0) {
-        newtopSkills = '';
-        newtopSkills += e.target.value;
-      } else {
-        newtopSkills = this.state.topSkills.slice();
-        newtopSkills = newtopSkills + ',' + e.target.value;
-      }
-      this.setState({ topSkills: newtopSkills, topSkillsList: [], topSkillsInput: '' });
-    }
-  
-  
-  
-  
-  
-    // additional skills
-    onAdditionalSkillsChange = e => {
-      let newArr;
-      var self = this;
-      axios
-      .post("https://developer-profiles.herokuapp.com/api/skills", {skillInput: e.target.value})
-      .then(response => {
-        newArr = response.data.map(skill => skill);
-        self.setState({ additionalSkillsList: newArr });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-      this.setState({ [e.target.name]: e.target.value });
-    }
-    
-    chooseAdditionalSkills = (e) => {
-      let newadditionalSkills;
-  
-      if (this.state.additionalSkills.length === 0) {
-        newadditionalSkills = '';
-        newadditionalSkills += e.target.value;
-      } else {
-        newadditionalSkills = this.state.additionalSkills.slice();
-        newadditionalSkills = newadditionalSkills + ',' + e.target.value;
-      }
-      this.setState({ additionalSkills: newadditionalSkills, additionalSkillsList: [], additionalSkillsInput: '' });
-    }
-  
-  
-  
-  
-  
-    // familiar skills
-    onFamiliarSkillsChange = e => {
-      let newArr;
-      var self = this;
-      axios
-      .post("https://developer-profiles.herokuapp.com/api/skills", {skillInput: e.target.value})
-      .then(response => {
-        // skills will prob get unloaded by this point so you will only need to filter, like the search bar
-        // same with all skills
-        newArr = response.data.map(skill => skill);
-        self.setState({ familiarSkillsList: newArr });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-      this.setState({ [e.target.name]: e.target.value });
-    }
-    
-    chooseFamiliarSkills = (e) => {
-      let newfamiliarSkills;
-  
-      if (this.state.familiarSkills.length === 0) {
-        newfamiliarSkills = '';
-        newfamiliarSkills += e.target.value;
-      } else {
-        newfamiliarSkills = this.state.familiarSkills.slice();
-        newfamiliarSkills =newfamiliarSkills + ',' + e.target.value;
-      }
-      this.setState({ familiarSkills: newfamiliarSkills, familiarSkillsList: [], familiarSkillsInput: '' });
-    }
+  componentDidMount() {
+    // for returning users
+    // get data from session storage
+    // hydrate state
+    // remove from session storage
+  }
 
-    checkOnSubmit = (e) => {
-      e.preventDefault()
-      console.log(this.state);
+  onInputChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  // places interested
+  onPlacesChange = (e) => {
+    let newArr;
+    var self = this;
+    axios
+    .post("https://developer-profiles.herokuapp.com/api/location", {inputLocation: e.target.value})
+    .then(response => {
+      newArr = response.data.predictions.map(location => {
+        return {
+          name: location.description,
+          id: location.id
+        };
+      });
+      self.setState({ placesAutocomplete: newArr });
+    })
+    .catch(error => {
+      console.log(error);
+    });
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  choosePlacesInterested = (e) => {
+    let newplacesInterested;
+
+    if (this.state.placesInterested === '') {
+      newplacesInterested = '';
+      newplacesInterested += e.target.value;
+    } else {
+      newplacesInterested = this.state.placesInterested.slice();
+      newplacesInterested = newplacesInterested + ',' + e.target.value;
     }
+    this.setState({ placesInterested: newplacesInterested, placesAutocomplete: [], placesInterestedInput: "" });
+  }
+
+
+  // top skills
+  onTopSkillsChange = e => {
+    let newArr;
+    var self = this;
+    axios
+    .post("https://developer-profiles.herokuapp.com/api/skills", {skillInput: e.target.value})
+    .then(response => {
+      newArr = response.data.map(skill => skill);
+      self.setState({ topSkillsList: newArr });
+    })
+    .catch(error => {
+      console.log(error);
+    });
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  chooseTopSkills = (e) => {
+    let newtopSkills;
+
+    if (this.state.topSkills.length === 0) {
+      newtopSkills = '';
+      newtopSkills += e.target.value;
+    } else {
+      newtopSkills = this.state.topSkills.slice();
+      newtopSkills = newtopSkills + ',' + e.target.value;
+    }
+    this.setState({ topSkills: newtopSkills, topSkillsList: [], topSkillsInput: '' });
+  }
+
+
+
+
+
+  // additional skills
+  onAdditionalSkillsChange = e => {
+    let newArr;
+    var self = this;
+    axios
+    .post("https://developer-profiles.herokuapp.com/api/skills", {skillInput: e.target.value})
+    .then(response => {
+      newArr = response.data.map(skill => skill);
+      self.setState({ additionalSkillsList: newArr });
+    })
+    .catch(error => {
+      console.log(error);
+    });
+    this.setState({ [e.target.name]: e.target.value });
+  }
+  
+  chooseAdditionalSkills = (e) => {
+    let newadditionalSkills;
+
+    if (this.state.additionalSkills.length === 0) {
+      newadditionalSkills = '';
+      newadditionalSkills += e.target.value;
+    } else {
+      newadditionalSkills = this.state.additionalSkills.slice();
+      newadditionalSkills = newadditionalSkills + ',' + e.target.value;
+    }
+    this.setState({ additionalSkills: newadditionalSkills, additionalSkillsList: [], additionalSkillsInput: '' });
+  }
+
+
+
+
+
+  // familiar skills
+  onFamiliarSkillsChange = e => {
+    let newArr;
+    var self = this;
+    axios
+    .post("https://developer-profiles.herokuapp.com/api/skills", {skillInput: e.target.value})
+    .then(response => {
+      // skills will prob get unloaded by this point so you will only need to filter, like the search bar
+      // same with all skills
+      newArr = response.data.map(skill => skill);
+      self.setState({ familiarSkillsList: newArr });
+    })
+    .catch(error => {
+      console.log(error);
+    });
+    this.setState({ [e.target.name]: e.target.value });
+  }
+  
+  chooseFamiliarSkills = (e) => {
+    let newfamiliarSkills;
+
+    if (this.state.familiarSkills.length === 0) {
+      newfamiliarSkills = '';
+      newfamiliarSkills += e.target.value;
+    } else {
+      newfamiliarSkills = this.state.familiarSkills.slice();
+      newfamiliarSkills =newfamiliarSkills + ',' + e.target.value;
+    }
+    this.setState({ familiarSkills: newfamiliarSkills, familiarSkillsList: [], familiarSkillsInput: '' });
+  }
+
+  checkOnSubmit = (e) => {
+    e.preventDefault()
+    console.log(this.state);
+  }
   
 
   render() {

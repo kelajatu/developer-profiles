@@ -5,6 +5,17 @@ import { centerFlex } from '../../../global-styles/Mixins';
 
 
 class Billing extends Component {
+  state = {
+    
+  }
+
+  componentDidMount() {
+    // for returning users
+    // get data from session storage
+    // hydrate state
+    // remove from session storage
+  }
+
   onClickk = () => {
     var handler = window.StripeCheckout.configure({
       key: 'pk_test_V4TVCnAGCgyfBK9pXODIWhfA',

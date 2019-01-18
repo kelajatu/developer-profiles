@@ -9,9 +9,16 @@ class WhereToFindYou extends Component {
     locationAutocomplete: [],
     currentLocation: "",
     github: "",
-    linkedIn: "",
+    linkedin: "",
     portfolio: "",
     acclaim: "",
+  }
+
+  componentDidMount() {
+    // for returning users
+    // get data from session storage
+    // hydrate state
+    // remove from session storage
   }
 
   onInputChange = (e) => {
@@ -44,11 +51,13 @@ class WhereToFindYou extends Component {
     this.setState({ currentLocation: e.target.value, locationAutocomplete: [], currentLocationInput: e.target.value });
   }
 
-   checkAcclaim(acclaimBadge) {
-    let badge = acclaimBadge.slice(35)
-    console.log("badgeID:", badge)
+  // using put for axios call
+  checkAcclaim = (acclaimBadge) => {
+    let regex = /https:\/\/www.youracclaim.com\/badges\//;
+    let badge = acclaimBadge.replace(regex, '')
+    console.log(badge)
     axios
-    .post(`https://developer-profiles.herokuapp.com/api/acclaim/${this.state.userId}`, {badge: badge})
+    .put(`https://developer-profiles.herokuapp.com/api/acclaim/${this.props.userId}`, {badge})
     .then(response => {
       console.log(response.data)
     })
@@ -57,9 +66,20 @@ class WhereToFindYou extends Component {
     });
   }
 
+  // send to db
   checkOnSubmit = (e) => {
     e.preventDefault()
-    console.log(this.state);
+    const { currentLocation, github, linkedin, portfolio } = this.state;
+    const lePackage = {
+      location: currentLocation,
+      github,
+      linkedin,
+      portfolio,
+    }
+    console.log(lePackage)
+    axios.put(`https://developer-profiles.herokuapp.com/users/${this.props.userId}`, lePackage)
+      .then(res => console.log(res.data))
+      .catch(err => console.log(err))
   }
 
   render() {
@@ -112,8 +132,8 @@ class WhereToFindYou extends Component {
                 type="text"
                 id="userLinkedIn"
                 placeholder="www.linkedIn.com/me"
-                name="linkedIn"
-                value={this.state.linkedIn}
+                name="linkedin"
+                value={this.state.linkedin}
                 onChange={this.onInputChange}
               />
               <br/>

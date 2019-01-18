@@ -9,27 +9,32 @@ class PersonalInfo extends Component {
     firstName: "",
     lastName: "",
     profileImg: "",
-    desiredTitle: "",
+    desiredTitle: "", // title vs filter?
+  }
+
+  componentDidMount() {
+    // for new/returning users
+    // get user data from session storage
+    // hydrate state
+    // remove from session storage
   }
 
   onInputChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  // Photo upload
   uploadPhoto = (e) => {
     const file = e.target.files[0];
     let XHR = new XMLHttpRequest();
     let FD  = new FormData();
-
-    // Push our data into our FormData object
     FD.append('image', file);
 
-    var self = this;
     // Define what happens on successful data submission
+    var self = this;
     XHR.addEventListener('load', function(event) {
       let url = JSON.parse(event.target.responseText);
       self.setState({profileImg: url.imgUrl})
+      // send URL to DB if you cant before
     });
 
     // Define what happens in case of error
@@ -37,13 +42,12 @@ class PersonalInfo extends Component {
       alert('Oops! Something went wrong.');
     });
 
-    // Set up our request
     XHR.open('POST', 'https://developer-profiles.herokuapp.com/api/image-upload');
 
-    // Send our FormData object; HTTP headers are set automatically
     XHR.send(FD);
   }
 
+  // send to db
   checkOnSubmit = (e) => {
     e.preventDefault()
     const {email, firstName, lastName, profileImg, desiredTitle} = this.state;
@@ -51,11 +55,11 @@ class PersonalInfo extends Component {
       email,
       first_name: firstName,
       last_name: lastName,
-      title: profileImg,
-      image: desiredTitle
+      image: profileImg,
+      title: desiredTitle // title vs filter?
     }
-    console.log('PACK', lePackage)
-    axios.put('https://developer-profiles.herokuapp.com/users/1', lePackage)
+    console.log(lePackage)
+    axios.put(`https://developer-profiles.herokuapp.com/users/${this.props.userId}`, lePackage)
       .then(res => console.log(res.data))
       .catch(err => console.log(err))
   }
@@ -119,7 +123,7 @@ class PersonalInfo extends Component {
 
               {/* title/filter - Autocomplete from DB bucket already in state */}
               {/* only one title, maybe use options instead since there won't be many */}
-              <label htmlFor="userDesiredTitle">
+              {/* <label htmlFor="userDesiredTitle">
                 Desired Title:
               </label>
               <input
@@ -130,13 +134,30 @@ class PersonalInfo extends Component {
                 value={this.state.desiredTitle}
                 onChange={this.onInputChange}
                 required
-              />
+              /> */}
+              {/* CardExpirationMonth - required */}
+            <label htmlFor="userDesiredTitle">
+              Desired Title:
+            </label>
+            <select
+              id="userDesiredTitle"
+              name="desiredTitle"
+              value={this.state.desiredTitle}
+              onChange={this.onInputChange}
+              required
+            >
+              <option value="default">==Select an Option==</option>
+              <option value="Full Stack Web">Full Stack Web</option>
+              <option value="iOS">iOS</option>
+              <option value="Android">Android</option>
+              <option value="UI/UX">UI/UX</option>
+            </select>
               <button type="submit">Save Info</button>
             </form>
           </section>
 
           <section>
-            {/* image - see if you can send '/:id' param on uploadPhoto */}
+            {/* image */}
             <div>
               <label htmlFor="userProfileImg">
                 Choose a profile picture:

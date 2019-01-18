@@ -45,6 +45,9 @@ export default class Auth {
           ///NEEDS TO BE LOCAL HOST ENV
             axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/new`, userInfo)
             .then(res => {
+              // if it returns user data, add to session storage and
+              // pick up to autofill personal info section
+              // might need to hydrate more sections for returning users
               console.log('RETURN DATA', res.data)
             })
             .catch(err => console.log(err));
@@ -61,6 +64,19 @@ export default class Auth {
     let expiresAt = JSON.parse(localStorage.getItem("expires_at"));
     return new Date().getTime() < expiresAt;
   }
+
+  // renew session for current logged in users
+  // renewSession() {
+  //   this.auth0.checkSession({}, (err, authResult) => {
+  //      if (authResult && authResult.accessToken && authResult.idToken) {
+  //        this.setSession(authResult);
+  //      } else if (err) {
+  //        this.logout();
+  //        console.log(err);
+  //        alert(`Could not get a new token (${err.error}: ${err.error_description}).`);
+  //      }
+  //   });
+  // }
 
   logout() {
     localStorage.removeItem('access_token');
