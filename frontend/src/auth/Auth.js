@@ -6,7 +6,8 @@ export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: "dev-profiles.auth0.com",
     clientID: "vmrL9giX33pl1mkLLBojm2uAUOj14Ju1",
-    redirectUri: "http://localhost:3000/callback",
+    //NEEDS TO BE LOCAL HOST ENV
+    redirectUri: process.env.REACT_APP_AUTH_REDIRECT,
     audience: "https://dev-profiles.auth0.com/userinfo",
     responseType: "token id_token",
     scope: "openid profile email"
@@ -41,7 +42,8 @@ export default class Auth {
           // send warning or something?
           console.log("YO! there isn't an email on this object however you choose to sign in. you need that.")
         } else {
-            axios.post('http://localhost:7000/users/new', userInfo)
+          ///NEEDS TO BE LOCAL HOST ENV
+            axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/new`, userInfo)
             .then(res => {
               console.log('RETURN DATA', res.data)
             })
@@ -65,7 +67,7 @@ export default class Auth {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     this.auth0.logout({
-      returnTo: 'https://ecstatic-dev-profiles.netlify.com',
+      returnTo: process.env.REACT_APP_AUTH0_REDIRECT,
       clientID: 'vmrL9giX33pl1mkLLBojm2uAUOj14Ju1'
     });
 
