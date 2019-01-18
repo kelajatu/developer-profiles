@@ -29,6 +29,10 @@ function UserDashboardNav(props) {
       <NavLink to={`${props.match.url}/education`} activeClassName="selected">
         Education
       </NavLink>
+      
+      <NavLink to={`${props.match.url}/billing`} activeClassName="selected">
+        Billing
+      </NavLink>
     </NavContainer>
   )
 }
