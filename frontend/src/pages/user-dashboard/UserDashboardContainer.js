@@ -59,6 +59,7 @@ import AboutYou from './about-you/AboutYou';
 import Projects from './projects/Projects';
 import Experience from './experience/Experience';
 import Education from './education/Education';
+import Billing from './billing/Billing';
 
 
 
@@ -80,6 +81,7 @@ class UserDashboardContainer extends Component {
         <Route path={`${this.props.match.path}/projects`} render={props => <Projects {...props} />} />
         <Route path={`${this.props.match.path}/experience`} render={props => <Experience {...props} />} />
         <Route path={`${this.props.match.path}/education`} render={props => <Education {...props} />} />
+        <Route path={`${this.props.match.path}/billing`} render={props => <Billing {...props} />} />
       </DashboardContainer>
     )
   }
