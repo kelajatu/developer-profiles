@@ -18,7 +18,7 @@ class AboutYou extends Component {
     familiarSkillsList: [],
     familiarSkills: "",
   }
-
+  
 
   componentDidMount() {
     // for returning users
@@ -129,9 +129,6 @@ class AboutYou extends Component {
   }
 
 
-
-
-
   // familiar skills
   onFamiliarSkillsChange = e => {
     let newArr;
@@ -165,9 +162,19 @@ class AboutYou extends Component {
 
   checkOnSubmit = (e) => {
     e.preventDefault()
-    console.log(this.state);
+    const { placesInterested, summary, topSkills, additionalSkills, familiarSkills } = this.state;
+    const lePackage = {
+      places: placesInterested,
+      summary,
+      top_skills: topSkills,
+      add_skills: additionalSkills,
+      familiar: familiarSkills
+    }
+    console.log(lePackage)
+    axios.put(`https://developer-profiles.herokuapp.com/users/${this.props.userId}`, lePackage)
+      .then(res => console.log(res.data))
+      .catch(err => console.log(err))
   }
-  
 
   render() {
     return (

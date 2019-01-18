@@ -9,6 +9,12 @@ class Projects extends Component {
     projectImg: "",
     projectLink: "",
     projectDescription: "",
+    projects: [{
+      projectTitle: "titleOne",
+      projectImg: "image",
+      projectLink: "linkk",
+      projectDescription: "descriptionn",
+    }]
   }
 
   componentDidMount() {
@@ -51,7 +57,17 @@ class Projects extends Component {
 
   checkOnSubmit = (e) => {
     e.preventDefault()
-    console.log(this.state);
+    const { projectTitle, projectImg, projectLink, projectDescription } = this.state;
+    const lePackage = {
+      project_title: projectTitle,
+      project_img: projectImg,
+      link: projectLink,
+      project_description: projectDescription
+    }
+    console.log(lePackage)
+    axios.put(`https://developer-profiles.herokuapp.com/users/${this.props.userId}`, lePackage)
+      .then(res => console.log(res.data))
+      .catch(err => console.log(err))
   }
 
   render() {

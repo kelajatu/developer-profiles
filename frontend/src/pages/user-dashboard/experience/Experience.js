@@ -7,6 +7,11 @@ class Experience extends Component {
     jobTitle: "",
     jobDates: "",
     jobDescription: "",
+    experience: [{
+      jobTitle: "titleOne",
+      jobDates: "dates",
+      jobDescription: "descr"
+    }]
   }
 
   componentDidMount() {
@@ -23,7 +28,16 @@ class Experience extends Component {
   // Checking package that will be sent for user info
   checkOnSubmit = (e) => {
     e.preventDefault()
-    console.log(this.state);
+    const { jobTitle, jobDates, jobDescription } = this.state;
+    const lePackage = {
+      job_title: jobTitle,
+      job_dates: jobDates,
+      job_description: jobDescription,
+    }
+    console.log(lePackage)
+    axios.put(`https://developer-profiles.herokuapp.com/users/${this.props.userId}`, lePackage)
+      .then(res => console.log(res.data))
+      .catch(err => console.log(err))
   }
 
   render() {

@@ -7,7 +7,13 @@ class Education extends Component {
     schoolName: "",
     schoolDates: "",
     schoolCourse: "",
-    schoolDegree: ""
+    schoolDegree: "",
+    education: [{
+      schoolName: "titleOne",
+      schoolDates: "dates",
+      schoolCourse: "course",
+      schoolDegree: "degree",
+    }]
   }
 
   componentDidMount() {
@@ -24,7 +30,17 @@ class Education extends Component {
   // Checking package that will be sent for user info
   checkOnSubmit = (e) => {
     e.preventDefault()
-    console.log(this.state);
+    const { schoolName, schoolDates, schoolCourse, schoolDegree } = this.state;
+    const lePackage = {
+      school: schoolName,
+      school_dates: schoolDates,
+      degree: schoolCourse,
+      course: schoolDegree
+    }
+    console.log(lePackage)
+    axios.put(`https://developer-profiles.herokuapp.com/users/${this.props.userId}`, lePackage)
+      .then(res => console.log(res.data))
+      .catch(err => console.log(err))
   }
 
   render() {
