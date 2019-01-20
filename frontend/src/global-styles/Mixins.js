@@ -28,3 +28,36 @@ export function filterSection() {
     }
   `;
 }
+
+export function labelArea() {
+  return `
+    color: rgba(42,42,42,.8);
+    display: block;
+    font-size: 1.7rem;
+    margin-bottom: 8px;
+    font-weight: bold;
+    line-height: 23px;
+  `;
+}
+
+export function inputArea() {
+  return `
+    line-height: 23px;
+    font-family: inherit;
+    font-size: 1.7rem;
+    color: rgb(42,42,42);
+    padding: 15px;
+    width: 90%;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background: white;
+    background-color: rgba(255,255,255,.8);
+    &::placeholder {
+      font-size: 1.4rem;
+      line-height: 23px;
+      font-family: inherit;
+      opacity: .8;
+    }
+  `;
+}

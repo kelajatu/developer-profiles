@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
 import axios from 'axios';
+import { inputArea, labelArea } from '../../../global-styles/Mixins';
 
 class Education extends Component {
   state = {
@@ -57,7 +58,6 @@ class Education extends Component {
               <label htmlFor="userSchoolName">
                 School Name:
               </label>
-              <br/>
               <input
                 type="text"
                 id="userSchoolName"
@@ -73,7 +73,6 @@ class Education extends Component {
               <label htmlFor="userSchoolDates">
                 Dates Attended:
               </label>
-              <br/>
               <input
                 type="text"
                 id="userSchoolDates"
@@ -89,7 +88,6 @@ class Education extends Component {
               <label htmlFor="userSchoolCourse">
                 School Course:
               </label>
-              <br/>
               <input
                 type="text"
                 id="userSchoolCourse"
@@ -105,7 +103,6 @@ class Education extends Component {
               <label htmlFor="userSchoolDegree">
                 Dates Attended:
               </label>
-              <br/>
               <input
                 type="text"
                 id="userSchoolDegree"
@@ -142,21 +139,16 @@ const MainFormContainer = styled.main`
 `;
 
 const FormSection = styled.section`
+  width: 43%;
   margin-bottom: 100px;
   div {
     margin-bottom: 30px;
   }
   label {
-    margin-bottom: 5px;
+    ${labelArea()};
   }
   input {
-    padding: 15px;
-    width: 90%;
-    border: none;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    background: white;
-    background-color: rgba(255,255,255,.8);
+    ${inputArea()};
   }
 `;
 

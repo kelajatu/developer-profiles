@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
 import axios from 'axios';
+import { inputArea, labelArea } from '../../../global-styles/Mixins';
 
 class AboutYou extends Component {
   state = {
     placesInterestedInput: "",
     placesAutocomplete: [],
-    placesInterested: "",
+    placesInterested: [],
     summary: "",
     topSkillsInput: "",
     topSkillsList: [],
@@ -53,16 +54,30 @@ class AboutYou extends Component {
   }
 
   choosePlacesInterested = (e) => {
-    let newplacesInterested;
+    console.log(e.target.dataset.id)
+    console.log(e.target.dataset.name)
+    const { id, name } = e.target.dataset
 
-    if (this.state.placesInterested === '') {
-      newplacesInterested = '';
-      newplacesInterested += e.target.value;
-    } else {
-      newplacesInterested = this.state.placesInterested.slice();
-      newplacesInterested = newplacesInterested + ',' + e.target.value;
-    }
-    this.setState({ placesInterested: newplacesInterested, placesAutocomplete: [], placesInterestedInput: "" });
+    let newPlacesInterestedObj = {
+      name,
+      id
+    };
+    let newPlacesInterestedArr = []
+    
+    // array of objects for db
+    // if (this.state.userPlacesInterested.length === 0) {
+
+    //   newplacesInterested = '';
+    //   newplacesInterested += e.target.value;
+
+    // } else {
+
+    //   newplacesInterested = this.state.userPlacesInterested.slice();
+    //   newplacesInterested = newplacesInterested + ',' + e.target.value;
+
+    // }
+
+    this.setState({ placesAutocomplete: [], placesInterestedInput: "" });
   }
 
 
@@ -187,27 +202,35 @@ class AboutYou extends Component {
             <form onSubmit={this.checkOnSubmit}>
 
               <div>
-                {/* places - Autocomplete from google - saves location ID */}
-                {/* Multiple Inputs - Normalize for DB, string of place IDs */}
-                <label htmlFor="userPlacesInterested">
+                <div>
+                  {/* places - Autocomplete from google - saves location ID */}
+                  {/* Multiple Inputs - Normalize for DB, string of place IDs */}
+                  <label htmlFor="userPlacesInterested">
                   Places Interested:
-                </label>
-                <br/>
-                <input
-                  type="text"
-                  id="userPlacesInterested"
-                  placeholder="Remote, Atlanta, Washington, San Francisco"
-                  name="placesInterestedInput"
-                  value={this.state.placesInterestedInput}
-                  onChange={this.onPlacesChange}
-                />
-                {this.state.placesAutocomplete.length === 0 ?
-                  null
-                  :
-                  this.state.placesAutocomplete.map(location => {
-                    return (<option onClick={this.choosePlacesInterested} key={location.id} data-name="asd" value={location.id}>{location.name}</option>);
-                  })
-                }
+                  </label>
+                  <input
+                    type="text"
+                    autoComplete="off"
+                    id="userPlacesInterested"
+                    placeholder="Remote, Atlanta, Washington, San Francisco"
+                    name="placesInterestedInput"
+                    value={this.state.placesInterestedInput}
+                    onChange={this.onPlacesChange}
+                  />
+                  <div className="option">
+                    {this.state.placesAutocomplete.length === 0 ?
+                      null
+                      :
+                      this.state.placesAutocomplete.map(location => {
+                        return (
+                          <span onClick={this.choosePlacesInterested} key={location.id} data-id={location.id} data-name={location.name}>
+                            {location.name}
+                          </span>
+                        );
+                      })
+                    }
+                  </div>
+                </div>
               </div>
 
               
@@ -216,10 +239,7 @@ class AboutYou extends Component {
                 <label htmlFor="userSummary">
                   Summary:
                 </label>
-                <br/>
                 <textarea
-                  rows="4"
-                  cols="50"
                   maxLength="128"
                   id="userSummary"
                   placeholder="This is 128 characters or so describing how
@@ -237,7 +257,6 @@ class AboutYou extends Component {
                 <label htmlFor="userTopSkills">
                   Top Skills:
                 </label>
-                <br/>
                 <input
                   type="text"
                   id="userTopSkills"
@@ -261,7 +280,6 @@ class AboutYou extends Component {
                 <label htmlFor="userAdditionalSkills">
                   Additional Skills:
                 </label>
-                <br/>
                 <input
                   type="text"
                   id="userAdditionalSkills"
@@ -285,7 +303,6 @@ class AboutYou extends Component {
                 <label htmlFor="userFamiliarSkills">
                   Familiar With:
                 </label>
-                <br/>
                 <input
                   type="text"
                   id="userFamiliarSkills"
@@ -348,17 +365,29 @@ const FormSection = styled.section`
   div {
     margin-bottom: 30px;
   }
-  label {
-    margin-bottom: 5px;
+  label, span {
+    ${labelArea()};
   }
-  input {
-    padding: 15px;
-    width: 90%;
-    border: none;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    background: white;
-    background-color: rgba(255,255,255,.8);
+  .option {
+    width: 95%;
+    span {
+      padding: 10px 0 10px 10px;
+      width: 95%;
+      &:hover {
+        background-color: rgba(173,216,230, .5);
+        cursor: pointer;
+      }
+      &:first-child {
+        margin-top: 20px;
+      }
+    }
+  }
+  input, textarea {
+    ${inputArea()};
+  }
+  textarea {
+    padding: 15px 15px 60px;
+    resize: none;
   }
 `;
 

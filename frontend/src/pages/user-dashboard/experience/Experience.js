@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
 import axios from 'axios';
+import { inputArea, labelArea } from '../../../global-styles/Mixins';
 
 
 class Experience extends Component {
@@ -55,7 +56,6 @@ class Experience extends Component {
               <label htmlFor="userJobTitle">
                 Job Title:
               </label>
-              <br/>
               <input
                 type="text"
                 id="userJobTitle"
@@ -71,7 +71,6 @@ class Experience extends Component {
               <label htmlFor="userJobDates">
                 Job Dates:
               </label>
-              <br/>
               <input
                 type="text"
                 id="userJobDates"
@@ -87,10 +86,7 @@ class Experience extends Component {
               <label htmlFor="userJobDescription">
                 Job Description:
               </label>
-              <br/>
               <textarea
-                rows="4"
-                cols="50"
                 id="userJobDescription"
                 placeholder="Some Job Description - This is 128 characters or so describing how
                 awesome I am and why you should like me. Similar
@@ -127,21 +123,20 @@ const MainFormContainer = styled.main`
 `;
 
 const FormSection = styled.section`
+  width: 43%; 
   margin-bottom: 100px;
   div {
     margin-bottom: 30px;
   }
   label {
-    margin-bottom: 5px;
+    ${labelArea()};
   }
-  input {
-    padding: 15px;
-    width: 90%;
-    border: none;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    background: white;
-    background-color: rgba(255,255,255,.8);
+  input, textarea {
+    ${inputArea()};
+  }
+  textarea {
+    padding: 15px 15px 60px;
+    resize: vertical;
   }
 `;
 

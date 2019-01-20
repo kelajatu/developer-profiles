@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
 import axios from 'axios';
+import { inputArea, labelArea } from '../../../global-styles/Mixins';
 
 
 class PersonalInfo extends Component {
@@ -79,7 +80,6 @@ class PersonalInfo extends Component {
                 <label htmlFor="userEmail">
                   Email:
                 </label>
-                <br/>
                 <input
                   type="email"
                   id="userEmail"
@@ -87,7 +87,6 @@ class PersonalInfo extends Component {
                   name="email"
                   value={this.state.email}
                   onChange={this.onInputChange}
-                  required
                 />
               </div>
 
@@ -96,7 +95,6 @@ class PersonalInfo extends Component {
                 <label htmlFor="userFirstName">
                   First Name:
                 </label>
-                <br/>
                 <input
                   type="text"
                   id="userFirstName"
@@ -104,7 +102,6 @@ class PersonalInfo extends Component {
                   name="firstName"
                   value={this.state.firstName}
                   onChange={this.onInputChange}
-                  required
                 />
               </div>
 
@@ -113,7 +110,6 @@ class PersonalInfo extends Component {
                 <label htmlFor="userLastName">
                   Last Name:
                 </label>
-                <br/>
                 <input
                   type="text"
                   id="userLastName"
@@ -121,7 +117,6 @@ class PersonalInfo extends Component {
                   name="lastName"
                   value={this.state.lastName}
                   onChange={this.onInputChange}
-                  required
                 />
               </div>
             
@@ -138,18 +133,15 @@ class PersonalInfo extends Component {
                   name="desiredTitle"
                   value={this.state.desiredTitle}
                   onChange={this.onInputChange}
-                  required
                 /> */}
                 <label htmlFor="userDesiredTitle">
                   Desired Title:
                 </label>
-                <br/>
                 <select
                   id="userDesiredTitle"
                   name="desiredTitle"
                   value={this.state.desiredTitle}
                   onChange={this.onInputChange}
-                  required
                 >
                   <option value="default">==Select an Option==</option>
                   <option value="Full Stack Web">Full Stack Web</option>
@@ -168,7 +160,6 @@ class PersonalInfo extends Component {
               <label htmlFor="userProfileImg">
                 Choose a profile picture:
               </label>
-              <br/>
               <input
                 id="userProfileImg"
                 type="file"
@@ -220,16 +211,10 @@ const FormSection = styled.section`
     margin-bottom: 30px;
   }
   label {
-    margin-bottom: 5px;
+    ${labelArea()};
   }
   input {
-    padding: 15px;
-    width: 90%;
-    border: none;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    background: white;
-    background-color: rgba(255,255,255,.8);
+    ${inputArea()};
   }
 `;
 

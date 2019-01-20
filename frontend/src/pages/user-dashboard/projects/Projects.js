@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
 import axios from 'axios';
+import { inputArea, labelArea } from '../../../global-styles/Mixins';
 
 
 class Projects extends Component {
@@ -85,7 +86,6 @@ class Projects extends Component {
                 <label htmlFor="userProjectTitle">
                   Project Name:
                 </label>
-                <br/>
                 <input
                   type="text"
                   id="userProjectTitle"
@@ -101,7 +101,6 @@ class Projects extends Component {
                 <label htmlFor="userProjectLink">
                   Project Link:
                 </label>
-                <br/>
                 <input
                   type="text"
                   id="userProjectLink"
@@ -117,10 +116,7 @@ class Projects extends Component {
                 <label htmlFor="userProjectDescription">
                   Summary:
                 </label>
-                <br/>
                 <textarea
-                  rows="4"
-                  cols="50"
                   id="userProjectDescription"
                   placeholder="Some Project Description - This is 128 characters or so describing how
                   awesome I am and why you should like me. Similar
@@ -141,7 +137,6 @@ class Projects extends Component {
               <label htmlFor="userProjectImg">
                 Choose a project picture:
               </label>
-              <br/>
               <input
                 id="userProjectImg"
                 type="file"
@@ -197,16 +192,14 @@ const FormSection = styled.section`
     margin-bottom: 30px;
   }
   label {
-    margin-bottom: 5px;
+    ${labelArea()};
   }
-  input {
-    padding: 15px;
-    width: 90%;
-    border: none;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    background: white;
-    background-color: rgba(255,255,255,.8);
+  input, textarea {
+    ${inputArea()};
+  }
+  textarea {
+    padding: 15px 15px 60px;
+    resize: vertical;
   }
 `;
 

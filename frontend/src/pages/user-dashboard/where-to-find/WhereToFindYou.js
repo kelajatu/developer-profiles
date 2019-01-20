@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
 import axios from 'axios';
+import { inputArea, labelArea } from '../../../global-styles/Mixins';
 
 
 class WhereToFindYou extends Component {
   state = {
     currentLocationInput: "",
     locationAutocomplete: [],
-    currentLocation: "",
+    currentLocation: {},
     github: "",
     linkedin: "",
     portfolio: "",
@@ -47,8 +48,17 @@ class WhereToFindYou extends Component {
   }
 
   chooseCurrentLocation = (e) => {
-    console.log(e.target.dataset.name)
-    this.setState({ currentLocation: e.target.value, locationAutocomplete: [], currentLocationInput: e.target.value });
+    // object for db
+    const { id, name } = e.target.dataset
+    let newPlacesInterestedObj = {
+      name,
+      id
+    };
+    this.setState({
+      currentLocation: newPlacesInterestedObj,
+      locationAutocomplete: [],
+      currentLocationInput: ''
+    });
   }
 
   // using put for axios call
@@ -59,6 +69,7 @@ class WhereToFindYou extends Component {
     axios
     .put(`https://developer-profiles.herokuapp.com/api/acclaim/${this.props.userId}`, {badge})
     .then(response => {
+      // add/save aclaim image / validate
       console.log(response.data)
     })
     .catch(error => {
@@ -91,35 +102,41 @@ class WhereToFindYou extends Component {
         <div className="container">
           <FormSection>
             <form onSubmit={this.checkOnSubmit}>
+
+
               <div>
                 {/* location - Autocomplete from google - saves location ID */}
                 <label htmlFor="usercurrentLocation">
                   Current Location:
                 </label>
-                <br/>
                 <input
                   type="text"
+                  autoComplete="off"
                   id="usercurrentLocation"
                   placeholder="Washington, DC"
                   name="currentLocationInput"
                   value={this.state.currentLocationInput}
                   onChange={this.onLocationChange}
-                  required
                 />
-                {this.state.locationAutocomplete.length === 0 ?
-                  null
-                  :
-                  this.state.locationAutocomplete.map(location => {
-                    return (<option onClick={this.chooseCurrentLocation} key={location.id} value={location.id}>{location.name}</option>);
-                  })
-                }
+                <div className="option">
+                  {this.state.locationAutocomplete.length === 0 ?
+                    null
+                    :
+                    this.state.locationAutocomplete.map(location => {
+                      return (
+                        <span onClick={this.chooseCurrentLocation} key={location.id} data-id={location.id} data-name={location.name}>
+                          {location.name}
+                        </span>
+                      );
+                    })
+                  }
+                </div>
               </div>
 
               <div>
                 <label htmlFor="userGithub">
                   Github:
                 </label>
-                <br/>
                 <input
                   type="text"
                   id="userGithub"
@@ -134,7 +151,6 @@ class WhereToFindYou extends Component {
                 <label htmlFor="userLinkedIn">
                   LinkedIn:
                 </label>
-                <br/>
                 <input
                   type="text"
                   id="userLinkedIn"
@@ -149,7 +165,6 @@ class WhereToFindYou extends Component {
                 <label htmlFor="userPortfolio">
                   Portfolio:
                 </label>
-                <br/>
                 <input
                   type="text"
                   id="userPortfolio"
@@ -164,7 +179,6 @@ class WhereToFindYou extends Component {
                 <label htmlFor="userAcclaimBadge">
                   Acclaim Badge:
                 </label>
-                <br/>
                 <input
                   type="text"
                   id="userAcclaimBadge"
@@ -178,9 +192,10 @@ class WhereToFindYou extends Component {
               <button type="submit">Save Info</button>
             </form>
           </FormSection>
-          <section>
+          <PreviewSection>
             <h3>Your Current Location</h3>
-          </section>
+            <p>{this.state.currentLocation.name}</p>
+          </PreviewSection>
         </div>
       </MainFormContainer>
     )
@@ -217,17 +232,35 @@ const FormSection = styled.section`
   div {
     margin-bottom: 30px;
   }
-  label {
-    margin-bottom: 5px;
+  label, span {
+    ${labelArea()};
+  }
+  .option {
+    width: 95%;
+    span {
+      padding: 10px 0 10px 10px;
+      width: 95%;
+      &:hover {
+        background-color: rgba(173,216,230, .5);
+        cursor: pointer;
+      }
+      &:first-child {
+        margin-top: 20px;
+      }
+    }
   }
   input {
-    padding: 15px;
-    width: 90%;
-    border: none;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    background: white;
-    background-color: rgba(255,255,255,.8);
+    ${inputArea()};
+  }
+`;
+
+const PreviewSection = styled.section`
+  h3 {
+    margin-bottom: 30px;
+  }
+  p {
+    font-size: 1.7rem;
+    color: rgb(42,42,42);
   }
 `;
 
