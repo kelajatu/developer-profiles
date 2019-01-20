@@ -89,13 +89,14 @@ class WhereToFindYou extends Component {
           <h1>Where To Find You</h1>
         </header>
         <div className="container">
-          <section>
+          <FormSection>
             <form onSubmit={this.checkOnSubmit}>
               <div>
                 {/* location - Autocomplete from google - saves location ID */}
                 <label htmlFor="usercurrentLocation">
                   Current Location:
                 </label>
+                <br/>
                 <input
                   type="text"
                   id="usercurrentLocation"
@@ -113,57 +114,70 @@ class WhereToFindYou extends Component {
                   })
                 }
               </div>
-              <label htmlFor="userGithub">
-                Github:
-              </label>
-              <input
-                type="text"
-                id="userGithub"
-                placeholder="coolProgrammer123"
-                name="github"
-                value={this.state.github}
-                onChange={this.onInputChange}
-              />
-              <br/>
-              <label htmlFor="userLinkedIn">
-                LinkedIn:
-              </label>
-              <input
-                type="text"
-                id="userLinkedIn"
-                placeholder="www.linkedIn.com/me"
-                name="linkedin"
-                value={this.state.linkedin}
-                onChange={this.onInputChange}
-              />
-              <br/>
-              <label htmlFor="userPortfolio">
-                Portfolio:
-              </label>
-              <input
-                type="text"
-                id="userPortfolio"
-                placeholder="www.myportfolio.com"
-                name="portfolio"
-                value={this.state.portfolio}
-                onChange={this.onInputChange}
-              />
-              <br/>
-              <label htmlFor="userAcclaimBadge">
-                Acclaim Badge:
-              </label>
-              <input
-                type="text"
-                id="userAcclaimBadge"
-                placeholder="www.myportfolio.com"
-                name="acclaim"
-                value={this.state.acclaim}
-                onChange={this.onInputChange}
-                onBlur={() => this.checkAcclaim(this.state.acclaim)}
-              />
+
+              <div>
+                <label htmlFor="userGithub">
+                  Github:
+                </label>
+                <br/>
+                <input
+                  type="text"
+                  id="userGithub"
+                  placeholder="coolProgrammer123"
+                  name="github"
+                  value={this.state.github}
+                  onChange={this.onInputChange}
+                />
+              </div>
+
+              <div>
+                <label htmlFor="userLinkedIn">
+                  LinkedIn:
+                </label>
+                <br/>
+                <input
+                  type="text"
+                  id="userLinkedIn"
+                  placeholder="www.linkedIn.com/me"
+                  name="linkedin"
+                  value={this.state.linkedin}
+                  onChange={this.onInputChange}
+                />
+              </div>
+
+              <div>
+                <label htmlFor="userPortfolio">
+                  Portfolio:
+                </label>
+                <br/>
+                <input
+                  type="text"
+                  id="userPortfolio"
+                  placeholder="www.myportfolio.com"
+                  name="portfolio"
+                  value={this.state.portfolio}
+                  onChange={this.onInputChange}
+                />
+              </div>
+
+              <div>
+                <label htmlFor="userAcclaimBadge">
+                  Acclaim Badge:
+                </label>
+                <br/>
+                <input
+                  type="text"
+                  id="userAcclaimBadge"
+                  placeholder="www.myportfolio.com"
+                  name="acclaim"
+                  value={this.state.acclaim}
+                  onChange={this.onInputChange}
+                  onBlur={() => this.checkAcclaim(this.state.acclaim)}
+                />
+              </div>
               <button type="submit">Save Info</button>
             </form>
-          </section>
+          </FormSection>
           <section>
             <h3>Your Current Location</h3>
           </section>
@@ -174,14 +188,15 @@ class WhereToFindYou extends Component {
 }
 
 const MainFormContainer = styled.main`
-  width: calc(100% - 220px);
-  margin-left: 220px;
+  width: calc(100% - 300px);
+  margin-left: 300px;
   margin-bottom: 100px;
   padding-top: 50px;
   padding-left: 100px;
   h1 {
     font-size: 5rem;
     color: rgb(42,42,42);
+    margin-bottom: 50px;
   }
   h3 {
     font-size: 2.8rem;
@@ -189,12 +204,30 @@ const MainFormContainer = styled.main`
   }
   .container {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: flex-start;
     flex-wrap: wrap;
     section {
       width: 43%;
     }
+  }
+`;
+
+const FormSection = styled.section`
+  div {
+    margin-bottom: 30px;
+  }
+  label {
+    margin-bottom: 5px;
+  }
+  input {
+    padding: 15px;
+    width: 90%;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background: white;
+    background-color: rgba(255,255,255,.8);
   }
 `;
 

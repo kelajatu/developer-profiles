@@ -17,10 +17,11 @@ export default class FilterBox extends Component {
             <FilterBoxDiv> 
                 {this.props.params.number ? 
                 <h2>Showing: <strong>{this.props.params.number}</strong> profiles</h2>
-                : null }
+                : null}
                 <JobTitles 
-                toggleCheckMarks={this.props.toggleCheckMarks}
-                params={this.props.params} />
+                  toggleCheckMarks={this.props.toggleCheckMarks}
+                  params={this.props.params}
+                />
                 <Located params={this.props.params} />
                 <Relocate params={this.props.params} />
             </FilterBoxDiv>
@@ -28,11 +29,14 @@ export default class FilterBox extends Component {
     }
 }
 
-const FilterBoxDiv = styled.div`
-    /* border: 1px solid red; */
-    width: 20%;
-    height: auto;
+const FilterBoxDiv = styled.aside`
+    background-color: white;
+    position: fixed;
+    z-index: 10;
+    width: 300px;
+    height: 100vh;
+    padding-top: 130px;
+    border-right: solid .5px #dbdee2;
     display: flex;
     flex-direction: column;
-    margin: 25px;
 `

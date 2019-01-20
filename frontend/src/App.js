@@ -9,11 +9,10 @@ import PageNotFound from "./pages/404/PageNotFound";
 import UserDashboardContainer from "./pages/user-dashboard/UserDashboardContainer";
 import PublicFacingPage from "./pages/main-page/PublicFacingPage";
 import Callback from "./auth/Callback";
-// import Stripe from "./components/Stripe/Stripe";
 
 import { GlobalStyle } from "./global-styles/GlobalStyles";
 
-// need to find a way to rerender when user logs in
+// need to find a way to rerender when user logs in - rerender when you pick up user info from session storage
 const auth = new Auth();
 
 class App extends Component {

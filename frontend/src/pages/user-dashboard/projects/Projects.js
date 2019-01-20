@@ -77,52 +77,63 @@ class Projects extends Component {
           <h1>Projects</h1>
         </header>
         <div className="container">
-          <section>
+          <FormSection>
             <form onSubmit={this.checkOnSubmit}>
-              {/* projtitle */}
-              <label htmlFor="userProjectTitle">
-                Project Name:
-              </label>
-              <input
-                type="text"
-                id="userProjectTitle"
-                placeholder="My Cool Project"
-                name="projectTitle"
-                value={this.state.projectTitle}
-                onChange={this.onInputChange}
-              />
-              <br/>
-              {/* link */}
-              <label htmlFor="userProjectLink">
-                Project Link:
-              </label>
-              <input
-                type="text"
-                id="userProjectLink"
-                placeholder="www.mysite.com"
-                name="projectLink"
-                value={this.state.projectLink}
-                onChange={this.onInputChange}
-              />
-              <br/>
-              {/* projdescription */}
-              <label htmlFor="userProjectDescription">
-                Summary:
-              </label>
-              <textarea
-                rows="4"
-                cols="50"
-                id="userProjectDescription"
-                placeholder="Some Project Description - This is 128 characters or so describing how
-                awesome I am and why you should like me. Similar
-                to what I put on my LinkedIn!"
-                name="projectDescription"
-                value={this.state.projectDescription}
-                onChange={this.onInputChange}
-              />
+
+              <div>
+                {/* projtitle */}
+                <label htmlFor="userProjectTitle">
+                  Project Name:
+                </label>
+                <br/>
+                <input
+                  type="text"
+                  id="userProjectTitle"
+                  placeholder="My Cool Project"
+                  name="projectTitle"
+                  value={this.state.projectTitle}
+                  onChange={this.onInputChange}
+                />
+              </div>
+
+              <div>
+                {/* link */}
+                <label htmlFor="userProjectLink">
+                  Project Link:
+                </label>
+                <br/>
+                <input
+                  type="text"
+                  id="userProjectLink"
+                  placeholder="www.mysite.com"
+                  name="projectLink"
+                  value={this.state.projectLink}
+                  onChange={this.onInputChange}
+                />
+              </div>
+
+              <div>
+                {/* projdescription */}
+                <label htmlFor="userProjectDescription">
+                  Summary:
+                </label>
+                <br/>
+                <textarea
+                  rows="4"
+                  cols="50"
+                  id="userProjectDescription"
+                  placeholder="Some Project Description - This is 128 characters or so describing how
+                  awesome I am and why you should like me. Similar
+                  to what I put on my LinkedIn!"
+                  name="projectDescription"
+                  value={this.state.projectDescription}
+                  onChange={this.onInputChange}
+                />
+              </div>
+
               <button type="submit">Save Info</button>
             </form>
-          </section>
+          </FormSection>
           <section>
             {/* projimg - Upload Functionality */}
             {/* image - see if you can send '/:id' param on uploadPhoto */}
@@ -130,6 +141,7 @@ class Projects extends Component {
               <label htmlFor="userProjectImg">
                 Choose a project picture:
               </label>
+              <br/>
               <input
                 id="userProjectImg"
                 type="file"
@@ -148,23 +160,21 @@ class Projects extends Component {
             </div>
           </section>
         </div>
-        <div>
-          <h1>Your Projects</h1>
-        </div>
       </MainFormContainer>
     )
   }
 }
 
 const MainFormContainer = styled.main`
-  width: calc(100% - 220px);
-  margin-left: 220px;
+  width: calc(100% - 300px);
+  margin-left: 300px;
   margin-bottom: 100px;
   padding-top: 50px;
   padding-left: 100px;
   h1 {
     font-size: 5rem;
     color: rgb(42,42,42);
+    margin-bottom: 50px;
   }
   h3 {
     font-size: 2.8rem;
@@ -172,13 +182,31 @@ const MainFormContainer = styled.main`
   }
   .container {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: flex-start;
     flex-wrap: wrap;
     margin-bottom: 100px;
     section {
       width: 43%;
     }
+  }
+`;
+
+const FormSection = styled.section`
+  div {
+    margin-bottom: 30px;
+  }
+  label {
+    margin-bottom: 5px;
+  }
+  input {
+    padding: 15px;
+    width: 90%;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background: white;
+    background-color: rgba(255,255,255,.8);
   }
 `;
 

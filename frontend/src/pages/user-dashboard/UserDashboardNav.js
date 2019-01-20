@@ -6,6 +6,10 @@ import { link } from '../../global-styles/Mixins';
 function UserDashboardNav(props) {
   return (
     <NavContainer>
+      <NavLink exact to={`/dashboard`} activeClassName="selected">
+        Home
+      </NavLink>
+      
       <NavLink to={`${props.match.url}/personal-info`} activeClassName="selected">
         Personal Info
       </NavLink>
@@ -38,7 +42,7 @@ function UserDashboardNav(props) {
 }
 
 const NavContainer = styled.nav`
-  width: 220px;
+  width: 300px;
   height: 100vh;
   background: white;
   padding: 130px 0 0;

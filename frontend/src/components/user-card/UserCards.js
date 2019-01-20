@@ -2,6 +2,7 @@ import React , { Component } from 'react'
 import styled from 'styled-components'
 import UserCard from '../../components/user-card/UserCard'
 import axios from 'axios';
+import { centerFlex } from '../../global-styles/Mixins';
 
 export default class UserCards extends Component {
     constructor(props){
@@ -35,7 +36,7 @@ export default class UserCards extends Component {
 
     render(){
         return(
-            <UserCardsDiv> 
+            <UserCardsDiv>
                 {this.state.users.map(user => <UserCard 
                     acclaim={user.badge}
                     key={user.id}
@@ -51,5 +52,8 @@ export default class UserCards extends Component {
 }
 
 const UserCardsDiv = styled.div`
-    border: 1px solid red;
+    width: calc(100% - 300px);
+    margin-left: 300px;
+    padding-top: 130px;
+    ${centerFlex('column')};
 `

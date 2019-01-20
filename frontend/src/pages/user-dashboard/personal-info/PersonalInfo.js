@@ -71,90 +71,96 @@ class PersonalInfo extends Component {
           <h1>Personal Info</h1>
         </header>
         <div className="container">
-          <section>
+          <FormSection>
             <form onSubmit={this.checkOnSubmit}>
+
               {/* email - autofill if auth returns */}
-              <label htmlFor="userEmail">
-                Email:
-              </label>
-              <input
-                type="email"
-                id="userEmail"
-                placeholder="user@gmail.com"
-                name="email"
-                value={this.state.email}
-                onChange={this.onInputChange}
-                required
-              />
+              <div>
+                <label htmlFor="userEmail">
+                  Email:
+                </label>
+                <br/>
+                <input
+                  type="email"
+                  id="userEmail"
+                  placeholder="user@gmail.com"
+                  name="email"
+                  value={this.state.email}
+                  onChange={this.onInputChange}
+                  required
+                />
+              </div>
 
-              <br/>
+              <div>
+                {/* firstname - autofill if auth returns */}
+                <label htmlFor="userFirstName">
+                  First Name:
+                </label>
+                <br/>
+                <input
+                  type="text"
+                  id="userFirstName"
+                  placeholder="john"
+                  name="firstName"
+                  value={this.state.firstName}
+                  onChange={this.onInputChange}
+                  required
+                />
+              </div>
 
-              {/* firstname - autofill if auth returns */}
-              <label htmlFor="userFirstName">
-                First Name:
-              </label>
-              <input
-                type="text"
-                id="userFirstName"
-                placeholder="john"
-                name="firstName"
-                value={this.state.firstName}
-                onChange={this.onInputChange}
-                required
-              />
-
-              <br/>
-
-              {/* lastname - autofill if auth returns */}
-              <label htmlFor="userLastName">
-                Last Name:
-              </label>
-              <input
-                type="text"
-                id="userLastName"
-                placeholder="doe"
-                name="lastName"
-                value={this.state.lastName}
-                onChange={this.onInputChange}
-                required
-              />
+              <div>
+                {/* lastname - autofill if auth returns */}
+                <label htmlFor="userLastName">
+                  Last Name:
+                </label>
+                <br/>
+                <input
+                  type="text"
+                  id="userLastName"
+                  placeholder="doe"
+                  name="lastName"
+                  value={this.state.lastName}
+                  onChange={this.onInputChange}
+                  required
+                />
+              </div>
             
-              <br/>
+              <div>
 
-              {/* title/filter - Autocomplete from DB bucket already in state */}
-              {/* only one title, maybe use options instead since there won't be many */}
-              {/* <label htmlFor="userDesiredTitle">
-                Desired Title:
-              </label>
-              <input
-                type="text"
-                id="userDesiredTitle"
-                placeholder="software engineer"
-                name="desiredTitle"
-                value={this.state.desiredTitle}
-                onChange={this.onInputChange}
-                required
-              /> */}
-              {/* CardExpirationMonth - required */}
-            <label htmlFor="userDesiredTitle">
-              Desired Title:
-            </label>
-            <select
-              id="userDesiredTitle"
-              name="desiredTitle"
-              value={this.state.desiredTitle}
-              onChange={this.onInputChange}
-              required
-            >
-              <option value="default">==Select an Option==</option>
-              <option value="Full Stack Web">Full Stack Web</option>
-              <option value="iOS">iOS</option>
-              <option value="Android">Android</option>
-              <option value="UI/UX">UI/UX</option>
-            </select>
+                {/* title/filter - Possible autocomplete to match other forms */}
+                {/* <label htmlFor="userDesiredTitle">
+                  Desired Title:
+                </label>
+                <input
+                  type="text"
+                  id="userDesiredTitle"
+                  placeholder="software engineer"
+                  name="desiredTitle"
+                  value={this.state.desiredTitle}
+                  onChange={this.onInputChange}
+                  required
+                /> */}
+                <label htmlFor="userDesiredTitle">
+                  Desired Title:
+                </label>
+                <br/>
+                <select
+                  id="userDesiredTitle"
+                  name="desiredTitle"
+                  value={this.state.desiredTitle}
+                  onChange={this.onInputChange}
+                  required
+                >
+                  <option value="default">==Select an Option==</option>
+                  <option value="Full Stack Web">Full Stack Web</option>
+                  <option value="iOS">iOS</option>
+                  <option value="Android">Android</option>
+                  <option value="UI/UX">UI/UX</option>
+                </select>
+              </div>
               <button type="submit">Save Info</button>
             </form>
-          </section>
+          </FormSection>
 
           <section>
             {/* image */}
@@ -162,6 +168,7 @@ class PersonalInfo extends Component {
               <label htmlFor="userProfileImg">
                 Choose a profile picture:
               </label>
+              <br/>
               <input
                 id="userProfileImg"
                 type="file"
@@ -187,23 +194,42 @@ class PersonalInfo extends Component {
 }
 
 const MainFormContainer = styled.main`
-  width: calc(100% - 220px);
-  margin-left: 220px;
+  width: calc(100% - 300px);
+  margin-left: 300px;
   margin-bottom: 100px;
   padding-top: 50px;
   padding-left: 100px;
   h1 {
     font-size: 5rem;
     color: rgb(42,42,42);
+    margin-bottom: 50px;
   }
   .container {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: flex-start;
     flex-wrap: wrap;
     section {
       width: 43%;
     }
+  }
+`;
+
+const FormSection = styled.section`
+  div {
+    margin-bottom: 30px;
+  }
+  label {
+    margin-bottom: 5px;
+  }
+  input {
+    padding: 15px;
+    width: 90%;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background: white;
+    background-color: rgba(255,255,255,.8);
   }
 `;
 

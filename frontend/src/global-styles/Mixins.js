@@ -19,9 +19,8 @@ export function centerFlex(flexDirection = 'row') {
 
 export function filterSection() {
   return `
+    width: 95%;
     padding: 10px;
-    border: 1px solid black;
-    background: white;
     display: flex;
     flex-direction: column;
     h1{

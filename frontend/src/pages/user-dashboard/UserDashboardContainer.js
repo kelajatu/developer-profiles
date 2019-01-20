@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import UserDashboardNav from './UserDashboardNav'
 import UserCardPreview from './UserCardPreview'
+import UserCardProgress from './UserCardProgress'
 import UserDashboardIntro from './UserDashboardIntro'
 
 import PersonalInfo from './personal-info/PersonalInfo';
@@ -29,7 +30,7 @@ class UserDashboardContainer extends Component {
     return (
       <DashboardContainer>
         <UserDashboardNav {...this.props} />
-        <UserCardPreview {...this.props} />
+        <UserCardProgress {...this.props} />
         <hr/>
         <Route exact path={`${this.props.match.path}/`} render={props => <UserDashboardIntro {...props} />} />
         <Route path={`${this.props.match.path}/personal-info`} render={props => <PersonalInfo {...props} />} />
@@ -39,6 +40,8 @@ class UserDashboardContainer extends Component {
         <Route path={`${this.props.match.path}/experience`} render={props => <Experience {...props} />} />
         <Route path={`${this.props.match.path}/education`} render={props => <Education {...props} />} />
         <Route path={`${this.props.match.path}/billing`} render={props => <Billing {...props} />} />
+        <hr/>
+        <UserCardPreview {...this.props} />
       </DashboardContainer>
     )
   }

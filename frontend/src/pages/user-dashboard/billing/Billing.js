@@ -14,9 +14,6 @@ class Billing extends Component {
     // get data from session storage
     // hydrate state
     // remove from session storage
-  }
-
-  onClickk = () => {
     var handler = window.StripeCheckout.configure({
       key: 'pk_test_V4TVCnAGCgyfBK9pXODIWhfA',
       image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
@@ -43,7 +40,6 @@ class Billing extends Component {
   render() {
     return (
       <MainFormContainer>
-        <button onClick={this.onClickk}>Click to open Billing section and to GET stripe init</button>
         <button id="customButton">Purchase</button>
       </MainFormContainer>
     )
@@ -51,8 +47,8 @@ class Billing extends Component {
 }
 
 const MainFormContainer = styled.main`
-  width: calc(100% - 220px);
-  margin-left: 220px;
+  width: calc(100% - 300px);
+  margin-left: 300px;
   margin-bottom: 100px;
   padding-top: 50px;
   ${centerFlex()};

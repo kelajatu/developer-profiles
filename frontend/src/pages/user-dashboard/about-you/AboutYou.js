@@ -183,119 +183,129 @@ class AboutYou extends Component {
           <h1>About You</h1>
         </header>
         <div className="container">
-          <section>
+          <FormSection>
             <form onSubmit={this.checkOnSubmit}>
-              {/* places - Autocomplete from google - saves location ID */}
-              {/* Multiple Inputs - Normalize for DB, string of place IDs */}
-              <label htmlFor="userPlacesInterested">
-                Places Interested:
-              </label>
-              <input
-                type="text"
-                id="userPlacesInterested"
-                placeholder="Remote, Atlanta, Washington, San Francisco"
-                name="placesInterestedInput"
-                value={this.state.placesInterestedInput}
-                onChange={this.onPlacesChange}
-              />
-              {this.state.placesAutocomplete.length === 0 ?
-                null
-                :
-                this.state.placesAutocomplete.map(location => {
-                  return (<option onClick={this.choosePlacesInterested} key={location.id} data-name="asd" value={location.id}>{location.name}</option>);
-                })
-              }
 
-              <br/>
+              <div>
+                {/* places - Autocomplete from google - saves location ID */}
+                {/* Multiple Inputs - Normalize for DB, string of place IDs */}
+                <label htmlFor="userPlacesInterested">
+                  Places Interested:
+                </label>
+                <br/>
+                <input
+                  type="text"
+                  id="userPlacesInterested"
+                  placeholder="Remote, Atlanta, Washington, San Francisco"
+                  name="placesInterestedInput"
+                  value={this.state.placesInterestedInput}
+                  onChange={this.onPlacesChange}
+                />
+                {this.state.placesAutocomplete.length === 0 ?
+                  null
+                  :
+                  this.state.placesAutocomplete.map(location => {
+                    return (<option onClick={this.choosePlacesInterested} key={location.id} data-name="asd" value={location.id}>{location.name}</option>);
+                  })
+                }
+              </div>
 
-              {/* summary - maybe not limit length, and just split it like lambda notes */}
-              <label htmlFor="userSummary">
-                Summary:
-              </label>
-              <textarea
-                rows="4"
-                cols="50"
-                maxLength="128"
-                id="userSummary"
-                placeholder="This is 128 characters or so describing how
-                awesome I am and why you should like me. Similar
-                to what I put on my LinkedIn!"
-                name="summary"
-                value={this.state.summary}
-                onChange={this.onInputChange}
-              />
-                
-              <br/>
-
-              {/* topskills - Autocomplete from DB bucket already in state */}
-              {/* Multiple Inputs - Normalize for DB, string of skill IDs */}
-              <label htmlFor="userTopSkills">
-                Top Skills:
-              </label>
-              <input
-                type="text"
-                id="userTopSkills"
-                placeholder="Put 5 skills here, they are the biggest on your profile"
-                name="topSkillsInput"
-                value={this.state.topSkillsInput}
-                onChange={this.onTopSkillsChange}
-              />
-              {this.state.topSkillsList.length === 0 ?
-                null
-                :
-                this.state.topSkillsList.map(skill => {
-                  return (<option onClick={this.chooseTopSkills} key={skill} value={skill}>{skill}</option>);
-                })
-              }
-            
-              <br/>
-
-              {/* addskills - Autocomplete from DB bucket already in state */}
-              {/* Multiple Inputs - Normalize for DB, string of skill IDs */}
-              <label htmlFor="userAdditionalSkills">
-                Additional Skills:
-              </label>
-              <input
-                type="text"
-                id="userAdditionalSkills"
-                placeholder="Put more skills here. They will be medium on your profile"
-                name="additionalSkillsInput"
-                value={this.state.additionalSkillsInput}
-                onChange={this.onAdditionalSkillsChange}
-              />
-              {this.state.additionalSkillsList.length === 0 ?
-                null
-                :
-                this.state.additionalSkillsList.map(skill => {
-                  return (<option onClick={this.chooseAdditionalSkills} key={skill} value={skill}>{skill}</option>);
-                })
-              }
-            
-              <br/>
               
-              {/* familiar - Autocomplete from DB bucket already in state */}
-              {/* Multiple Inputs - Normalize for DB, string of skill IDs */}
-              <label htmlFor="userFamiliarSkills">
-                Familiar With:
-              </label>
-              <input
-                type="text"
-                id="userFamiliarSkills"
-                placeholder="Put remaining skills here. They will be small on your profile"
-                name="familiarSkillsInput"
-                value={this.state.familiarSkillsInput}
-                onChange={this.onFamiliarSkillsChange}
-              />
-              {this.state.familiarSkillsList.length === 0 ?
-                null
-                :
-                this.state.familiarSkillsList.map(skill => {
-                  return (<option onClick={this.chooseFamiliarSkills} key={skill} value={skill}>{skill}</option>);
-                })
-              }
+              <div>
+                {/* summary - maybe not limit length, and just split it like lambda notes */}
+                <label htmlFor="userSummary">
+                  Summary:
+                </label>
+                <br/>
+                <textarea
+                  rows="4"
+                  cols="50"
+                  maxLength="128"
+                  id="userSummary"
+                  placeholder="This is 128 characters or so describing how
+                  awesome I am and why you should like me. Similar
+                  to what I put on my LinkedIn!"
+                  name="summary"
+                  value={this.state.summary}
+                  onChange={this.onInputChange}
+                />
+              </div>
+                
+              <div>
+                {/* topskills - Autocomplete from DB bucket already in state */}
+                {/* Multiple Inputs - Normalize for DB, string of skill IDs */}
+                <label htmlFor="userTopSkills">
+                  Top Skills:
+                </label>
+                <br/>
+                <input
+                  type="text"
+                  id="userTopSkills"
+                  placeholder="Put 5 skills here, they are the biggest on your profile"
+                  name="topSkillsInput"
+                  value={this.state.topSkillsInput}
+                  onChange={this.onTopSkillsChange}
+                />
+                {this.state.topSkillsList.length === 0 ?
+                  null
+                  :
+                  this.state.topSkillsList.map(skill => {
+                    return (<option onClick={this.chooseTopSkills} key={skill} value={skill}>{skill}</option>);
+                  })
+                }
+              </div>
+            
+              <div>
+                {/* addskills - Autocomplete from DB bucket already in state */}
+                {/* Multiple Inputs - Normalize for DB, string of skill IDs */}
+                <label htmlFor="userAdditionalSkills">
+                  Additional Skills:
+                </label>
+                <br/>
+                <input
+                  type="text"
+                  id="userAdditionalSkills"
+                  placeholder="Put more skills here. They will be medium on your profile"
+                  name="additionalSkillsInput"
+                  value={this.state.additionalSkillsInput}
+                  onChange={this.onAdditionalSkillsChange}
+                />
+                {this.state.additionalSkillsList.length === 0 ?
+                  null
+                  :
+                  this.state.additionalSkillsList.map(skill => {
+                    return (<option onClick={this.chooseAdditionalSkills} key={skill} value={skill}>{skill}</option>);
+                  })
+                }
+              </div>
+            
+              <div>
+                {/* familiar - Autocomplete from DB bucket already in state */}
+                {/* Multiple Inputs - Normalize for DB, string of skill IDs */}
+                <label htmlFor="userFamiliarSkills">
+                  Familiar With:
+                </label>
+                <br/>
+                <input
+                  type="text"
+                  id="userFamiliarSkills"
+                  placeholder="Put remaining skills here. They will be small on your profile"
+                  name="familiarSkillsInput"
+                  value={this.state.familiarSkillsInput}
+                  onChange={this.onFamiliarSkillsChange}
+                />
+                {this.state.familiarSkillsList.length === 0 ?
+                  null
+                  :
+                  this.state.familiarSkillsList.map(skill => {
+                    return (<option onClick={this.chooseFamiliarSkills} key={skill} value={skill}>{skill}</option>);
+                  })
+                }
+              </div>
+
               <button type="submit">Save Info</button>
             </form>
-          </section>
+          </FormSection>
           <section>
             <h3>Your Places Interested</h3>
             <h3>Your Top Skills</h3>
@@ -309,14 +319,15 @@ class AboutYou extends Component {
 }
 
 const MainFormContainer = styled.main`
-  width: calc(100% - 220px);
-  margin-left: 220px;
+  width: calc(100% - 300px);
+  margin-left: 300px;
   margin-bottom: 100px;
   padding-top: 50px;
   padding-left: 100px;
   h1 {
     font-size: 5rem;
     color: rgb(42,42,42);
+    margin-bottom: 50px;
   }
   h3 {
     font-size: 2.8rem;
@@ -324,12 +335,30 @@ const MainFormContainer = styled.main`
   }
   .container {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: flex-start;
     flex-wrap: wrap;
     section {
       width: 43%;
     }
+  }
+`;
+
+const FormSection = styled.section`
+  div {
+    margin-bottom: 30px;
+  }
+  label {
+    margin-bottom: 5px;
+  }
+  input {
+    padding: 15px;
+    width: 90%;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background: white;
+    background-color: rgba(255,255,255,.8);
   }
 `;
 

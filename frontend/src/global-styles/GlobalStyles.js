@@ -80,7 +80,6 @@ export const GlobalStyle = createGlobalStyle`
   html {
     box-sizing: border-box;
     font-family: sans-serif;
-    font-size: 62.5%;
   }
   *, *:before, *:after {
     box-sizing: inherit;
@@ -90,5 +89,6 @@ export const GlobalStyle = createGlobalStyle`
   html, body, #root {
     width: 100%;
     height: 100%;
+    background-color: #F4F7FC;
   }
 `;

@@ -47,76 +47,102 @@ class Experience extends Component {
         <header>
           <h1>Experience</h1>
         </header>
-        <div className="container">
+        <FormSection>
           <form onSubmit={this.checkOnSubmit}>
-            {/* jobtitle */}
-            <label htmlFor="userJobTitle">
-              Job Title:
-            </label>
-            <input
-              type="text"
-              id="userJobTitle"
-              placeholder="Software Engineer"
-              name="jobTitle"
-              value={this.state.jobTitle}
-              onChange={this.onInputChange}
-            />
-            <br/>
-            {/* jobdates - year/month options? */}
-            <label htmlFor="userJobDates">
-              Job Dates:
-            </label>
-            <input
-              type="text"
-              id="userJobDates"
-              placeholder="2017-2019"
-              name="jobDates"
-              value={this.state.jobDates}
-              onChange={this.onInputChange}
-            />
-            <br/>
-            {/* jobdescription */}
-            <label htmlFor="userJobDescription">
-              Job Description:
-            </label>
-            <textarea
-              rows="4"
-              cols="50"
-              id="userJobDescription"
-              placeholder="Some Job Description - This is 128 characters or so describing how
-              awesome I am and why you should like me. Similar
-              to what I put on my LinkedIn!"
-              name="jobDescription"
-              value={this.state.jobDescription}
-              onChange={this.onInputChange}
-            />
+
+            <div>
+              {/* jobtitle */}
+              <label htmlFor="userJobTitle">
+                Job Title:
+              </label>
+              <br/>
+              <input
+                type="text"
+                id="userJobTitle"
+                placeholder="Software Engineer"
+                name="jobTitle"
+                value={this.state.jobTitle}
+                onChange={this.onInputChange}
+              />
+            </div>
+
+            <div>
+              {/* jobdates - year/month options? */}
+              <label htmlFor="userJobDates">
+                Job Dates:
+              </label>
+              <br/>
+              <input
+                type="text"
+                id="userJobDates"
+                placeholder="2017-2019"
+                name="jobDates"
+                value={this.state.jobDates}
+                onChange={this.onInputChange}
+              />
+            </div>
+
+            <div>
+              {/* jobdescription */}
+              <label htmlFor="userJobDescription">
+                Job Description:
+              </label>
+              <br/>
+              <textarea
+                rows="4"
+                cols="50"
+                id="userJobDescription"
+                placeholder="Some Job Description - This is 128 characters or so describing how
+                awesome I am and why you should like me. Similar
+                to what I put on my LinkedIn!"
+                name="jobDescription"
+                value={this.state.jobDescription}
+                onChange={this.onInputChange}
+              />
+            </div>
+
             <button type="submit">Save Info</button>
           </form>
-        </div>
-        <div>
-          <h1>Your Experience</h1>
-        </div>
+        </FormSection>
       </MainFormContainer>
     )
   }
 }
 
 const MainFormContainer = styled.main`
-  width: calc(100% - 220px);
-  margin-left: 220px;
+  width: calc(100% - 300px);
+  margin-left: 300px;
   margin-bottom: 100px;
   padding-top: 50px;
   padding-left: 100px;
   h1 {
     font-size: 5rem;
     color: rgb(42,42,42);
+    margin-bottom: 50px;
   }
   h3 {
     font-size: 2.8rem;
     color: rgb(42,42,42);
   }
-  .container {
-    margin-bottom: 100px;
+`;
+
+const FormSection = styled.section`
+  margin-bottom: 100px;
+  div {
+    margin-bottom: 30px;
+  }
+  label {
+    margin-bottom: 5px;
+  }
+  input {
+    padding: 15px;
+    width: 90%;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background: white;
+    background-color: rgba(255,255,255,.8);
   }
 `;
+
 export default Experience;

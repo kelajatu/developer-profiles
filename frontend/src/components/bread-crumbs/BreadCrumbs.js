@@ -2,7 +2,7 @@ import React from "react";
 import "antd/dist/antd.css";
 import { Route, Switch, Link, withRouter } from "react-router-dom";
 import { Breadcrumb } from "antd";
-import "./BreadCrumbs.scss";
+import styled from 'styled-components'
 
 const Items = () => (
   <ul className="app-list">
@@ -42,7 +42,7 @@ const Breadcrumbs = withRouter(props => {
   ].concat(extraBreadcrumbItems);
 
   return (
-    <div className="demo">
+    <Demo>
       <div className="demo-nav">
         <Link to="/">Home</Link>
         <Link to="/user">User</Link>
@@ -52,8 +52,27 @@ const Breadcrumbs = withRouter(props => {
         <Route render={() => <span>Home Page</span>} />
       </Switch>
       <Breadcrumb>{breadcrumbItems}</Breadcrumb>
-    </div>
+    </Demo>
   );
 });
+
+const Demo = styled.div`
+  margin: 16px;
+
+  .demo-nav {
+    height: 30px;
+    line-height: 30px;
+    margin-bottom: 16px;
+    background: #f8f8f8;
+
+    a {
+      padding: 0 1%;
+
+      .app-list {
+        margin-top: 16px;
+      }
+    }
+  }
+`;
 
 export default Breadcrumbs;
