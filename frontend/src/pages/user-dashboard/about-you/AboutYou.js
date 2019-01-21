@@ -54,8 +54,6 @@ class AboutYou extends Component {
   }
 
   choosePlacesInterested = (e) => {
-    console.log(e.target.dataset.id)
-    console.log(e.target.dataset.name)
     const { id, name } = e.target.dataset
 
     let newPlacesInterestedObj = {
@@ -64,20 +62,21 @@ class AboutYou extends Component {
     };
     let newPlacesInterestedArr = []
     
-    // array of objects for db
-    // if (this.state.userPlacesInterested.length === 0) {
+    if (this.state.placesInterested.length === 0) {
+      newPlacesInterestedArr.push(newPlacesInterestedObj);
+    } else {
+      newPlacesInterestedArr = this.state.placesInterested.slice();
+      newPlacesInterestedArr.push(newPlacesInterestedObj);
+    }
+    this.setState({ placesInterested: newPlacesInterestedArr, placesAutocomplete: [], placesInterestedInput: "" });
+  }
 
-    //   newplacesInterested = '';
-    //   newplacesInterested += e.target.value;
-
-    // } else {
-
-    //   newplacesInterested = this.state.userPlacesInterested.slice();
-    //   newplacesInterested = newplacesInterested + ',' + e.target.value;
-
-    // }
-
-    this.setState({ placesAutocomplete: [], placesInterestedInput: "" });
+  removePlace = (e) => {
+    let newPlacesInterestedArr = this.state.placesInterested.slice();
+    newPlacesInterestedArr = newPlacesInterestedArr.filter(place => {
+      return place.id !== e.target.dataset.id
+    });
+    this.setState({ placesInterested: newPlacesInterestedArr });
   }
 
 
@@ -223,7 +222,7 @@ class AboutYou extends Component {
                       :
                       this.state.placesAutocomplete.map(location => {
                         return (
-                          <span onClick={this.choosePlacesInterested} key={location.id} data-id={location.id} data-name={location.name}>
+                          <span tabIndex="0" onClick={this.choosePlacesInterested} key={location.id} data-id={location.id} data-name={location.name}>
                             {location.name}
                           </span>
                         );
@@ -323,12 +322,31 @@ class AboutYou extends Component {
               <button type="submit">Save Info</button>
             </form>
           </FormSection>
-          <section>
-            <h3>Your Places Interested</h3>
-            <h3>Your Top Skills</h3>
-            <h3>Your Additional Skills</h3>
-            <h3>Your Familiar Skills</h3>
-          </section>
+          <PreviewSection>
+            <div>
+              <h3>Your Places Interested</h3>
+              {this.state.placesInterested.length === 0 ?
+                <p>No places listed</p>
+                :
+                this.state.placesInterested.map(place => {
+                  return (
+                    <p className="selection" key={place.id}>
+                      <span><i data-id={place.id} onClick={this.removePlace} className="fa fa-times-circle"></i></span> {place.name}
+                    </p>
+                  )
+                })
+              }
+            </div>
+            <div>
+              <h3>Your Top Skills</h3>
+            </div>
+            <div>
+              <h3>Your Additional Skills</h3>
+            </div>
+            <div>
+              <h3>Your Familiar Skills</h3>
+            </div>
+          </PreviewSection>
         </div>
       </MainFormContainer>
     )
@@ -341,6 +359,10 @@ const MainFormContainer = styled.main`
   margin-bottom: 100px;
   padding-top: 50px;
   padding-left: 100px;
+  @media (max-width: 1400px) {
+    width: calc(100% - 80px);
+    margin-left: 80px;
+  }
   h1 {
     font-size: 5rem;
     color: rgb(42,42,42);
@@ -356,12 +378,13 @@ const MainFormContainer = styled.main`
     align-items: flex-start;
     flex-wrap: wrap;
     section {
-      width: 43%;
+      width: 45%;
     }
   }
 `;
 
 const FormSection = styled.section`
+  width: 43%;
   div {
     margin-bottom: 30px;
   }
@@ -388,6 +411,34 @@ const FormSection = styled.section`
   textarea {
     padding: 15px 15px 60px;
     resize: none;
+  }
+`;
+
+const PreviewSection = styled.section`
+  div {
+    padding: 20px;
+    width: 100%;
+    margin-bottom: 50px;
+  }
+  h3 {
+    margin-bottom: 25px;
+  }
+  p {
+    font-size: 1.7rem;
+    color: rgb(42,42,42);
+    line-height: 23px;
+    margin-bottom: 15px;
+  }
+  span {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .selection {
+    &:hover {
+      background-color: rgba(173,216,230, .5);
+      cursor: pointer;
+    }
   }
 `;
 

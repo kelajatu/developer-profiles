@@ -19,6 +19,7 @@ import Billing from './billing/Billing';
 class UserDashboardContainer extends Component {
   state = {
     userId: null,
+    userProgress: '50%'
   }
 
   componentDidMount() {
@@ -30,7 +31,7 @@ class UserDashboardContainer extends Component {
     return (
       <DashboardContainer>
         <UserDashboardNav {...this.props} />
-        <UserCardProgress {...this.props} />
+        <UserCardProgress {...this.props} {...this.state} />
         <hr/>
         <Route exact path={`${this.props.match.path}/`} render={props => <UserDashboardIntro {...props} />} />
         <Route path={`${this.props.match.path}/personal-info`} render={props => <PersonalInfo {...props} />} />

@@ -151,8 +151,8 @@ const UserCardDiv = styled.div`
         .fab, .fas, {
             font-size: 40px;
             &:hover{
-                    color: gray;
-                }
+                  color: gray;
+              }
         }
         .fas {
             font-size: 35px;

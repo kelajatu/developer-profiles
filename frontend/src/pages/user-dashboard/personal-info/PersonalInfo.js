@@ -156,26 +156,30 @@ class PersonalInfo extends Component {
 
           <section>
             {/* image */}
-            <div>
+            <ImageForm>
               <label htmlFor="userProfileImg">
                 Choose a profile picture:
               </label>
-              <input
-                id="userProfileImg"
-                type="file"
-                accept="image/*"
-                encrypt="multipart/form-data"
-                onChange={this.uploadPhoto}
-              />
-            </div>
-            {/* Show photo on Photo upload */}
-            <div>
-              {this.state.profileImg === "" ?
-                null
-                :
-                <img src={this.state.profileImg} alt="P"/>
-              }
-            </div>
+              <br/>
+              <div className="upload-container">
+                {this.state.profileImg === "" ?
+                  <input
+                    id="userProfileImg"
+                    type="file"
+                    accept="image/*"
+                    encrypt="multipart/form-data"
+                    onChange={this.uploadPhoto}
+                  />
+                  :
+                  null
+                }
+                {this.state.profileImg === "" ?
+                  null
+                  :
+                  <img src={this.state.profileImg} alt="P"/>
+                }
+              </div>
+            </ImageForm>
           </section>
         </div>
 
@@ -190,6 +194,10 @@ const MainFormContainer = styled.main`
   margin-bottom: 100px;
   padding-top: 50px;
   padding-left: 100px;
+  @media (max-width: 1400px) {
+    width: calc(100% - 80px);
+    margin-left: 80px;
+  }
   h1 {
     font-size: 5rem;
     color: rgb(42,42,42);
@@ -201,12 +209,13 @@ const MainFormContainer = styled.main`
     align-items: flex-start;
     flex-wrap: wrap;
     section {
-      width: 43%;
+      width: 45%;
     }
   }
 `;
 
 const FormSection = styled.section`
+  width: 43%;
   div {
     margin-bottom: 30px;
   }
@@ -215,6 +224,26 @@ const FormSection = styled.section`
   }
   input {
     ${inputArea()};
+  }
+  `;
+
+
+const ImageForm = styled.form`
+  label {
+    ${labelArea()};
+  }
+  .upload-container {
+    width: 400px;
+    height: 400px;
+    border: solid;
+    input[type=file] {
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+    }
+    img {
+      width: 100%;
+    }
   }
 `;
 

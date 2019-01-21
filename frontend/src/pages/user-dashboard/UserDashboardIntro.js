@@ -22,6 +22,10 @@ const MainFormContainer = styled.main`
   margin-bottom: 100px;
   padding-top: 130px;
   ${centerFlex()};
+  @media (max-width: 1400px) {
+    width: calc(100% - 80px);
+    margin-left: 80px;
+  }
 `;
 
 export default UserDashboardIntro;

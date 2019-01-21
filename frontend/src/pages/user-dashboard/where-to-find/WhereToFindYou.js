@@ -8,7 +8,7 @@ class WhereToFindYou extends Component {
   state = {
     currentLocationInput: "",
     locationAutocomplete: [],
-    currentLocation: {},
+    currentLocation: null,
     github: "",
     linkedin: "",
     portfolio: "",
@@ -45,6 +45,12 @@ class WhereToFindYou extends Component {
       console.log(error);
     });
     this.setState({ [e.target.name]: e.target.value });
+  }
+
+  chooseOnEnter = (e) => {
+    if (e.keyCode === 13) {
+      this.chooseCurrentLocation(e);
+    }
   }
 
   chooseCurrentLocation = (e) => {
@@ -118,13 +124,21 @@ class WhereToFindYou extends Component {
                   value={this.state.currentLocationInput}
                   onChange={this.onLocationChange}
                 />
-                <div className="option">
+                <div className="option" htmlFor="placeSuggestions">
                   {this.state.locationAutocomplete.length === 0 ?
                     null
                     :
                     this.state.locationAutocomplete.map(location => {
                       return (
-                        <span onClick={this.chooseCurrentLocation} key={location.id} data-id={location.id} data-name={location.name}>
+                        <span
+                          id="placeSuggestions"
+                          key={location.id}
+                          tabIndex="0"
+                          data-name={location.name}
+                          data-id={location.id}
+                          onKeyUp={this.chooseOnEnter}
+                          onClick={this.chooseCurrentLocation}
+                        >
                           {location.name}
                         </span>
                       );
@@ -194,7 +208,11 @@ class WhereToFindYou extends Component {
           </FormSection>
           <PreviewSection>
             <h3>Your Current Location</h3>
-            <p>{this.state.currentLocation.name}</p>
+            {this.state.currentLocation === null ?
+              <p>No Location Listed</p>
+              :
+              <p>{this.state.currentLocation.name}</p>
+            }
           </PreviewSection>
         </div>
       </MainFormContainer>
@@ -208,6 +226,10 @@ const MainFormContainer = styled.main`
   margin-bottom: 100px;
   padding-top: 50px;
   padding-left: 100px;
+  @media (max-width: 1400px) {
+    width: calc(100% - 80px);
+    margin-left: 80px;
+  }
   h1 {
     font-size: 5rem;
     color: rgb(42,42,42);
@@ -223,12 +245,13 @@ const MainFormContainer = styled.main`
     align-items: flex-start;
     flex-wrap: wrap;
     section {
-      width: 43%;
+      width: 45%;
     }
   }
 `;
 
 const FormSection = styled.section`
+  width: 43%;
   div {
     margin-bottom: 30px;
   }

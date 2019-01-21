@@ -111,10 +111,15 @@ const MainFormContainer = styled.main`
   margin-bottom: 100px;
   padding-top: 50px;
   padding-left: 100px;
+  @media (max-width: 1400px) {
+    width: calc(100% - 80px);
+    margin-left: 80px;
+  }
   h1 {
     font-size: 5rem;
     color: rgb(42,42,42);
     margin-bottom: 50px;
+    text-align: center;
   }
   h3 {
     font-size: 2.8rem;
@@ -123,8 +128,9 @@ const MainFormContainer = styled.main`
 `;
 
 const FormSection = styled.section`
-  width: 43%; 
+  width: 50%;
   margin-bottom: 100px;
+  margin: auto;
   div {
     margin-bottom: 30px;
   }

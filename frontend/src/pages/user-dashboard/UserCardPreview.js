@@ -66,8 +66,11 @@ const PreviewContainer = styled.header`
   margin-left: 300px;
   margin-bottom: 100px;
   padding-top: 50px;
-  padding-left: 100px;
   ${centerFlex()};
+  @media (max-width: 1400px) {
+    width: calc(100% - 80px);
+    margin-left: 80px;
+  }
 `;
 
 

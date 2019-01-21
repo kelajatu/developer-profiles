@@ -133,26 +133,30 @@ class Projects extends Component {
           <section>
             {/* projimg - Upload Functionality */}
             {/* image - see if you can send '/:id' param on uploadPhoto */}
-            <div>
+            <ImageForm>
               <label htmlFor="userProjectImg">
                 Choose a project picture:
               </label>
-              <input
-                id="userProjectImg"
-                type="file"
-                accept="image/*"
-                encrypt="multipart/form-data"
-                onChange={this.uploadPhotoProj}
-              />
-            </div>
-            {/* Show photo on Photo upload */}
-            <div>
-              {this.state.projectImg === "" ?
-                null
-                :
-                <img src={this.state.projectImg} alt="P"/>
-              }
-            </div>
+              <br/>
+              <div className="upload-container">
+                {this.state.projectImg === "" ?
+                  <input
+                    id="userProjectImg"
+                    type="file"
+                    accept="image/*"
+                    encrypt="multipart/form-data"
+                    onChange={this.uploadPhotoProj}
+                  />
+                  :
+                  null
+                }
+                {this.state.projectImg === "" ?
+                  null
+                  :
+                  <img src={this.state.projectImg} alt="P"/>
+                }
+              </div>
+            </ImageForm>
           </section>
         </div>
       </MainFormContainer>
@@ -166,6 +170,10 @@ const MainFormContainer = styled.main`
   margin-bottom: 100px;
   padding-top: 50px;
   padding-left: 100px;
+  @media (max-width: 1400px) {
+    width: calc(100% - 80px);
+    margin-left: 80px;
+  }
   h1 {
     font-size: 5rem;
     color: rgb(42,42,42);
@@ -182,12 +190,13 @@ const MainFormContainer = styled.main`
     flex-wrap: wrap;
     margin-bottom: 100px;
     section {
-      width: 43%;
+      width: 45%;
     }
   }
 `;
 
 const FormSection = styled.section`
+  width: 43%;
   div {
     margin-bottom: 30px;
   }
@@ -200,6 +209,25 @@ const FormSection = styled.section`
   textarea {
     padding: 15px 15px 60px;
     resize: vertical;
+  }
+`;
+
+const ImageForm = styled.form`
+  label {
+    ${labelArea()};
+  }
+  .upload-container {
+    width: 400px;
+    height: 400px;
+    border: solid;
+    input[type=file] {
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+    }
+    img {
+      width: 100%;
+    }
   }
 `;
 
