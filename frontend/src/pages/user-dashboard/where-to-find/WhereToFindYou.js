@@ -15,6 +15,11 @@ class WhereToFindYou extends Component {
     acclaim: "",
   }
 
+  // still send db location ids string
+  // use place detail to decode the ids
+  // https://developers.google.com/places/web-service/details
+  // https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJN1t_tDeuEmsRUsoyG83frY4&fields=formatted_address&key=YOUR_API_KEY
+
   componentDidMount() {
     // for returning users
     // get data from session storage

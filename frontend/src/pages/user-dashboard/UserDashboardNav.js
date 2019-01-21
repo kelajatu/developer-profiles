@@ -69,6 +69,9 @@ const NavContainer = styled.nav`
       ${centerFlex()};
       padding: 25px 20px;
     }
+    &:hover {
+      color: gray;
+    }
   }
   i {
     width: 30px;

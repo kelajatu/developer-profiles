@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
 import axios from 'axios';
-import { inputArea, labelArea } from '../../../global-styles/Mixins';
+import { inputArea, labelArea, centerFlex } from '../../../global-styles/Mixins';
 
 
 class Projects extends Component {
@@ -71,6 +71,11 @@ class Projects extends Component {
       .catch(err => console.log(err))
   }
 
+  deleteImage = () => {
+    // delete from db
+    this.setState({projectImg: ""})
+  }
+
   render() {
     return (
       <MainFormContainer>
@@ -137,9 +142,10 @@ class Projects extends Component {
               <label htmlFor="userProjectImg">
                 Choose a project picture:
               </label>
-              <br/>
               <div className="upload-container">
                 {this.state.projectImg === "" ?
+                <div className="input-container">
+                  <span><i className="fa fa-upload fa-7x"></i><br/><p>350x350</p></span>
                   <input
                     id="userProjectImg"
                     type="file"
@@ -147,13 +153,17 @@ class Projects extends Component {
                     encrypt="multipart/form-data"
                     onChange={this.uploadPhotoProj}
                   />
+                </div>
                   :
                   null
                 }
                 {this.state.projectImg === "" ?
                   null
                   :
-                  <img src={this.state.projectImg} alt="P"/>
+                  <div className="image-container">
+                    <span onClick={this.deleteImage}><i className="fa fa-times-circle fa-3x"></i></span>
+                    <img src={this.state.projectImg} alt="P"/>
+                  </div>
                 }
               </div>
             </ImageForm>
@@ -217,16 +227,61 @@ const ImageForm = styled.form`
     ${labelArea()};
   }
   .upload-container {
-    width: 400px;
-    height: 400px;
-    border: solid;
-    input[type=file] {
+    width: 350px;
+    height: 350px;
+    border: solid .5px #dbdee2;
+    .input-container {
       width: 100%;
       height: 100%;
-      opacity: 0;
+      input[type=file] {
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        &:hover {
+          cursor: pointer;
+          color: gray;
+        }
+      }
+      span {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      p {
+        text-align: center;
+        font-size: 1.4rem;
+        line-height: 23px;
+        font-family: inherit;
+        font-weight: bold;
+        color: rgb(42,42,42);
+        opacity: .8;
+      }
+      &:hover {
+        cursor: pointer;
+        color: gray;
+      }
     }
-    img {
+    .image-container {
       width: 100%;
+      height: 100%;
+      span {
+        position: absolute;
+        height: 50px;
+        width: 50px;
+        top: 1%;
+        right: 1%;
+        z-index: 20;
+        ${centerFlex()};
+        &:hover {
+          cursor: pointer;
+          color: gray;
+        }
+      }
+      img {
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 `;

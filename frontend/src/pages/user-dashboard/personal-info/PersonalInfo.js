@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
 import axios from 'axios';
-import { inputArea, labelArea } from '../../../global-styles/Mixins';
+import { inputArea, labelArea, centerFlex } from '../../../global-styles/Mixins';
 
 
 class PersonalInfo extends Component {
@@ -65,6 +65,11 @@ class PersonalInfo extends Component {
       .catch(err => console.log(err))
   }
 
+  deleteImage = () => {
+    // delete from db
+    this.setState({profileImg: ""})
+  }
+
   render() {
     return (
       <MainFormContainer>
@@ -120,7 +125,7 @@ class PersonalInfo extends Component {
                 />
               </div>
             
-              <div>
+              <div className="selectOptions">
 
                 {/* title/filter - Possible autocomplete to match other forms */}
                 {/* <label htmlFor="userDesiredTitle">
@@ -160,23 +165,28 @@ class PersonalInfo extends Component {
               <label htmlFor="userProfileImg">
                 Choose a profile picture:
               </label>
-              <br/>
               <div className="upload-container">
                 {this.state.profileImg === "" ?
-                  <input
-                    id="userProfileImg"
-                    type="file"
-                    accept="image/*"
-                    encrypt="multipart/form-data"
-                    onChange={this.uploadPhoto}
-                  />
+                  <div className="input-container">
+                    <span><i className="fa fa-upload fa-7x"></i><br/><p>350x350</p></span>
+                    <input
+                      id="userProfileImg"
+                      type="file"
+                      accept="image/*"
+                      encrypt="multipart/form-data"
+                      onChange={this.uploadPhoto}
+                    />
+                  </div>
                   :
                   null
                 }
                 {this.state.profileImg === "" ?
                   null
                   :
-                  <img src={this.state.profileImg} alt="P"/>
+                  <div className="image-container">
+                    <span onClick={this.deleteImage}><i className="fa fa-times-circle fa-3x"></i></span>
+                    <img src={this.state.profileImg} alt="P"/>
+                  </div>
                 }
               </div>
             </ImageForm>
@@ -225,6 +235,12 @@ const FormSection = styled.section`
   input {
     ${inputArea()};
   }
+  .selectOptions {
+    select {
+      appearance: none;
+      ${inputArea()};
+    }
+  }
   `;
 
 
@@ -233,16 +249,61 @@ const ImageForm = styled.form`
     ${labelArea()};
   }
   .upload-container {
-    width: 400px;
-    height: 400px;
-    border: solid;
-    input[type=file] {
+    width: 350px;
+    height: 350px;
+    border: solid .5px #dbdee2;
+    .input-container {
       width: 100%;
       height: 100%;
-      opacity: 0;
+      input[type=file] {
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        &:hover {
+          cursor: pointer;
+          color: gray;
+        }
+      }
+      span {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      p {
+        text-align: center;
+        font-size: 1.4rem;
+        line-height: 23px;
+        font-family: inherit;
+        font-weight: bold;
+        color: rgb(42,42,42);
+        opacity: .8;
+      }
+      &:hover {
+        cursor: pointer;
+        color: gray;
+      }
     }
-    img {
+    .image-container {
       width: 100%;
+      height: 100%;
+      span {
+        position: absolute;
+        height: 50px;
+        width: 50px;
+        top: 1%;
+        right: 1%;
+        z-index: 20;
+        ${centerFlex()};
+        &:hover {
+          cursor: pointer;
+          color: gray;
+        }
+      }
+      img {
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 `;

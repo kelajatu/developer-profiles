@@ -47,9 +47,7 @@ const ProgressContainer = styled.div`
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   margin-bottom: 10px;
   .progress {
-    background: #52c234; /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #52c234, #144b00); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #52c234, #144b00); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #52c234, #144b00);
     border: solid .5px #52c234;
     height: 50px;
     border-radius: 50px;
