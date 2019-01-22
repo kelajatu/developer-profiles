@@ -14,7 +14,7 @@ export default class Relocate extends Component {
         return(
             <RelocateDiv> 
                 <h1>Will Relocate to:</h1>
-                <input type="search" />
+                <input type="search" placeholder="Anywhere" />
             </RelocateDiv>
         )
     }

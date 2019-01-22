@@ -16,7 +16,7 @@ export default class Located extends Component {
                  <h1>Located</h1>
                     <label className="container">
                         <input type="checkbox"/>within
-                        <input type="number" step="10" /> miles of
+                        <input type="number" step="5" placeholder="5" /> miles of
                         <input type="search" />
                         <span className="checkmark"></span>
                     </label>
