@@ -32,17 +32,19 @@ class Experience extends Component {
     e.preventDefault()
     const { jobTitle, jobDates, jobDescription } = this.state;
     const lePackage = {
+      user_id: this.props.userInfo.id,
       job_title: jobTitle,
       job_dates: jobDates,
       job_description: jobDescription,
     }
     console.log(lePackage)
-    axios.put(`https://developer-profiles.herokuapp.com/users/${this.props.userId}`, lePackage)
+    axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/experience`, lePackage)
       .then(res => console.log(res.data))
       .catch(err => console.log(err))
   }
 
   render() {
+    console.log('EX', this.props.userInfo)
     return (
       <MainFormContainer>
         <header>

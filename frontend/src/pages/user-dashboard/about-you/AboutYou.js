@@ -185,12 +185,13 @@ class AboutYou extends Component {
       familiar: familiarSkills
     }
     console.log(lePackage)
-    axios.put(`https://developer-profiles.herokuapp.com/users/${this.props.userId}`, lePackage)
+    axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
       .then(res => console.log(res.data))
       .catch(err => console.log(err))
   }
 
   render() {
+    console.log('About', this.props.userInfo)
     return (
       <MainFormContainer>
         <header>

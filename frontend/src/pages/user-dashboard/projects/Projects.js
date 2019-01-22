@@ -60,13 +60,14 @@ class Projects extends Component {
     e.preventDefault()
     const { projectTitle, projectImg, projectLink, projectDescription } = this.state;
     const lePackage = {
+      user_id: this.props.userInfo.id,
       project_title: projectTitle,
       project_img: projectImg,
       link: projectLink,
       project_description: projectDescription
     }
     console.log(lePackage)
-    axios.put(`https://developer-profiles.herokuapp.com/users/${this.props.userId}`, lePackage)
+    axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/projects`, lePackage)
       .then(res => console.log(res.data))
       .catch(err => console.log(err))
   }
@@ -77,6 +78,7 @@ class Projects extends Component {
   }
 
   render() {
+    console.log('P', this.props.userInfo)
     return (
       <MainFormContainer>
         <header>

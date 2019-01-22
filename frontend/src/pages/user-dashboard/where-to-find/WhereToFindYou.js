@@ -78,7 +78,7 @@ class WhereToFindYou extends Component {
     let badge = acclaimBadge.replace(regex, '')
     console.log(badge)
     axios
-    .put(`https://developer-profiles.herokuapp.com/api/acclaim/${this.props.userId}`, {badge})
+    .put(`https://developer-profiles.herokuapp.com/api/acclaim/${this.props.userInfo.id}`, {badge})
     .then(response => {
       // add/save aclaim image / validate
       console.log(response.data)
@@ -99,12 +99,13 @@ class WhereToFindYou extends Component {
       portfolio,
     }
     console.log(lePackage)
-    axios.put(`https://developer-profiles.herokuapp.com/users/${this.props.userId}`, lePackage)
+    axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
       .then(res => console.log(res.data))
       .catch(err => console.log(err))
   }
 
   render() {
+    console.log('WHERE', this.props.userInfo)
     return (
       <MainFormContainer>
         <header>
