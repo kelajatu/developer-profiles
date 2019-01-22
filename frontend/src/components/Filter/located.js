@@ -2,6 +2,7 @@ import React , { Component } from 'react'
 import styled from 'styled-components'
 import { filterSection } from '../../global-styles/Mixins'
 import { LocationAuto } from './locationAuto'
+
 export default class Located extends Component {
     constructor(props){
         super(props)
@@ -11,14 +12,13 @@ export default class Located extends Component {
     }
 
     render(){
-        console.log(this.props)
         return(
             <LocatedDiv> 
                  <h1>Located</h1>
                     <label className="container">
                         <input type="checkbox"/>within
                         <input type="number" step="5" placeholder="5" /> miles of
-                        <LocationAuto />
+                        <LocationAuto placeholder='Albuquerque, N.M.'/>
                         <span className="checkmark"></span>
                     </label>
             </LocatedDiv>

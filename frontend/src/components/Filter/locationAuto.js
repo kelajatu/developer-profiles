@@ -3,7 +3,13 @@ import styled from 'styled-components'
 import axios from 'axios'
 
 export class LocationAuto extends Component {
-    state = {}
+    constructor(props){
+        super(props)
+        this.state = {}
+    }
+
+    //THIS COMPONENT takes the following props 
+        //placeholder
 
     triggerAutoComplete = (e) => {
         this.setState({ [e.target.name]: e.target.value });
@@ -42,9 +48,9 @@ export class LocationAuto extends Component {
                     type="text" 
                     autoComplete="off" 
                     value={this.state.located} 
-                    placeholder="Albuquerque, NM"
+                    placeholder={this.props.placeholder}
                     name='located' 
-                    onChange={this.triggerAutoComplete} />
+                    onChange={this.triggerAutoComplete}>{this.value}</input>
                 <div className="option" htmlFor="located">
                         {this.state.locationSuggestions && 
                             this.state.locationSuggestions.length > 0 ?
