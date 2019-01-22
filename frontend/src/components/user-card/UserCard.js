@@ -75,14 +75,13 @@ const UserCardDiv = styled.div`
     border-radius: 5px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     background: white;
-    box-sizing: border-box;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     height: 300px;
     width: 500px;
-    margin: 20px;
+    margin-bottom: 30px;
     .left-side {
         width: 90%;
         overflow: hidden;
@@ -149,12 +148,11 @@ const UserCardDiv = styled.div`
         align-items: center;
         width: 15%;
         height: 100%;
-        .fab, .fas, {
+        .fab, .fas {
             font-size: 40px;
-            &:hover{
-                    color: gray;
-                    cursor: pointer;
-                }
+            /* &:hover{
+                  color: gray;
+              } */
         }
         .fas {
             font-size: 35px;

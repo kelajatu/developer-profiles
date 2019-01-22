@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
+import axios from 'axios';
+import { inputArea, labelArea } from '../../../global-styles/Mixins';
 
 
 class Experience extends Component {
@@ -7,6 +9,11 @@ class Experience extends Component {
     jobTitle: "",
     jobDates: "",
     jobDescription: "",
+    experience: [{
+      jobTitle: "titleOne",
+      jobDates: "dates",
+      jobDescription: "descr"
+    }]
   }
 
   componentDidMount() {
@@ -23,7 +30,16 @@ class Experience extends Component {
   // Checking package that will be sent for user info
   checkOnSubmit = (e) => {
     e.preventDefault()
-    console.log(this.state);
+    const { jobTitle, jobDates, jobDescription } = this.state;
+    const lePackage = {
+      job_title: jobTitle,
+      job_dates: jobDates,
+      job_description: jobDescription,
+    }
+    console.log(lePackage)
+    axios.put(`https://developer-profiles.herokuapp.com/users/${this.props.userId}`, lePackage)
+      .then(res => console.log(res.data))
+      .catch(err => console.log(err))
   }
 
   render() {
@@ -32,76 +48,102 @@ class Experience extends Component {
         <header>
           <h1>Experience</h1>
         </header>
-        <div className="container">
+        <FormSection>
           <form onSubmit={this.checkOnSubmit}>
-            {/* jobtitle */}
-            <label htmlFor="userJobTitle">
-              Job Title:
-            </label>
-            <input
-              type="text"
-              id="userJobTitle"
-              placeholder="Software Engineer"
-              name="jobTitle"
-              value={this.state.jobTitle}
-              onChange={this.onInputChange}
-            />
-            <br/>
-            {/* jobdates - year/month options? */}
-            <label htmlFor="userJobDates">
-              Job Dates:
-            </label>
-            <input
-              type="text"
-              id="userJobDates"
-              placeholder="2017-2019"
-              name="jobDates"
-              value={this.state.jobDates}
-              onChange={this.onInputChange}
-            />
-            <br/>
-            {/* jobdescription */}
-            <label htmlFor="userJobDescription">
-              Job Description:
-            </label>
-            <textarea
-              rows="4"
-              cols="50"
-              id="userJobDescription"
-              placeholder="Some Job Description - This is 128 characters or so describing how
-              awesome I am and why you should like me. Similar
-              to what I put on my LinkedIn!"
-              name="jobDescription"
-              value={this.state.jobDescription}
-              onChange={this.onInputChange}
-            />
+
+            <div>
+              {/* jobtitle */}
+              <label htmlFor="userJobTitle">
+                Job Title:
+              </label>
+              <input
+                type="text"
+                id="userJobTitle"
+                placeholder="Software Engineer"
+                name="jobTitle"
+                value={this.state.jobTitle}
+                onChange={this.onInputChange}
+              />
+            </div>
+
+            <div>
+              {/* jobdates - year/month options? */}
+              <label htmlFor="userJobDates">
+                Job Dates:
+              </label>
+              <input
+                type="text"
+                id="userJobDates"
+                placeholder="2017-2019"
+                name="jobDates"
+                value={this.state.jobDates}
+                onChange={this.onInputChange}
+              />
+            </div>
+
+            <div>
+              {/* jobdescription */}
+              <label htmlFor="userJobDescription">
+                Job Description:
+              </label>
+              <textarea
+                id="userJobDescription"
+                placeholder="Some Job Description - This is 128 characters or so describing how
+                awesome I am and why you should like me. Similar
+                to what I put on my LinkedIn!"
+                name="jobDescription"
+                value={this.state.jobDescription}
+                onChange={this.onInputChange}
+              />
+            </div>
+
             <button type="submit">Save Info</button>
           </form>
-        </div>
-        <div>
-          <h1>Your Experience</h1>
-        </div>
+        </FormSection>
       </MainFormContainer>
     )
   }
 }
 
 const MainFormContainer = styled.main`
-  width: calc(100% - 220px);
-  margin-left: 220px;
+  width: calc(100% - 300px);
+  margin-left: 300px;
   margin-bottom: 100px;
   padding-top: 50px;
   padding-left: 100px;
+  @media (max-width: 1400px) {
+    width: calc(100% - 80px);
+    margin-left: 80px;
+  }
   h1 {
     font-size: 5rem;
     color: rgb(42,42,42);
+    margin-bottom: 50px;
+    text-align: center;
   }
   h3 {
     font-size: 2.8rem;
     color: rgb(42,42,42);
   }
-  .container {
-    margin-bottom: 100px;
+`;
+
+const FormSection = styled.section`
+  width: 50%;
+  margin-bottom: 100px;
+  margin: auto;
+  div {
+    margin-bottom: 30px;
+  }
+  label {
+    ${labelArea()};
+  }
+  input, textarea {
+    ${inputArea()};
+  }
+  textarea {
+    padding: 15px 15px 60px;
+    resize: vertical;
   }
 `;
+
 export default Experience;

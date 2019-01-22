@@ -8,7 +8,6 @@ export const ContentBoxSection = styled.section`
   a {
     color: none;
     text-decoration: none;
-    cursor: pointer;
     &:hover {
       background-color: var(--btn_background_hover);
       color: var(--btn_color);
@@ -26,7 +25,6 @@ export const Btn = styled.div`
   font: inherit;
   font-size: 18px;
   line-height: normal;
-  cursor: pointer;
   -moz-user-select: text;
   padding: 16px 36px 22px;
   background: var(--btn_background);

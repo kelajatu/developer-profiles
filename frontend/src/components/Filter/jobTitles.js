@@ -13,47 +13,47 @@ export default class JobTitles extends Component {
     render(){
         return(
             <JobTitlesDiv> 
-               <div className="filters">
+                  <header>
                     <h1>Filters</h1>
-                    <form className="filters-container">
-                        <label>
-                            <span 
-                                className="checkmark" 
-                                checked={this.props.params.fullStack} />
-                            <input 
-                                onChange={() => this.props.toggleCheckMarks("Full Stack Web")}  
-                                type="checkbox" 
-                                name="Full Stack Web" />Full Stack Web
-                        </label>
-                        <label>
-                            <span 
-                                className="checkmark" 
-                                checked={this.props.params.ios} />
-                            <input 
-                                onChange={() => this.props.toggleCheckMarks("iOS")} 
-                                type="checkbox" 
-                                name="iOS" />iOS
-                        </label>
-                        <label>
-                            <span 
-                                className="checkmark" 
-                                checked={this.props.params.android} />
-                            <input 
-                                onChange={() => this.props.toggleCheckMarks("Android")}  
-                                type="checkbox" 
-                                name="Android" />Android
-                        </label>
-                        <label>
-                            <span 
-                                className="checkmark" 
-                                checked={this.props.params.uiux} />
-                            <input 
-                                onChange={() => this.props.toggleCheckMarks("UI/UX")}  
-                                type="checkbox" 
-                                name="UI/UX" />UI/UX
-                        </label>
-                    </form>
-                </div>
+                  </header>
+                  <form className="filters-container">
+                      <label>
+                          <span 
+                              className="checkmark" 
+                              checked={this.props.params.fullStack} />
+                          <input 
+                              onChange={() => this.props.toggleCheckMarks("Full Stack Web")}  
+                              type="checkbox" 
+                              name="Full Stack Web" />Full Stack Web
+                      </label>
+                      <label>
+                          <span 
+                              className="checkmark" 
+                              checked={this.props.params.ios} />
+                          <input 
+                              onChange={() => this.props.toggleCheckMarks("iOS")} 
+                              type="checkbox" 
+                              name="iOS" />iOS
+                      </label>
+                      <label>
+                          <span 
+                              className="checkmark" 
+                              checked={this.props.params.android} />
+                          <input 
+                              onChange={() => this.props.toggleCheckMarks("Android")}  
+                              type="checkbox" 
+                              name="Android" />Android
+                      </label>
+                      <label>
+                          <span 
+                              className="checkmark" 
+                              checked={this.props.params.uiux} />
+                          <input 
+                              onChange={() => this.props.toggleCheckMarks("UI/UX")}  
+                              type="checkbox" 
+                              name="UI/UX" />UI/UX
+                      </label>
+                  </form>
             </JobTitlesDiv>
         )
     }
@@ -61,8 +61,8 @@ export default class JobTitles extends Component {
 
 const JobTitlesDiv = styled.div`
     ${filterSection()}
-    .filters-container{
-        display: flex;
-        flex-direction: column;
+    .filters-container {
+      display: flex;
+      flex-direction: column;
     }
 `

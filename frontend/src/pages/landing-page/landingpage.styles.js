@@ -3,7 +3,6 @@ import bg_img from "./img/devprof.jpg";
 // bg_img credit: https://www.pexels.com/photo/white-smartphone-beside-silver-laptop-computer-1036808/
 
 export const LandingPageDiv = styled.div`
-  /* background: orange; */
   h1 {
     /* background: blue; */
     font-size: 30px;

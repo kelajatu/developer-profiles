@@ -124,28 +124,28 @@ server.post('/billing', (req, res) => {
 
 
 // Will not need this
-// server.post('/skills', (req, res) => {
-//   dbHelper.skills_helpers.getAllSkills()
-//     .then(res => {
+server.post('/skills', (req, res) => {
+  // dbHelper.skills_helpers.getAllSkills()
+  //   .then(res => {
 
-//       console.log(res.data)
-//     })
-//     .catch(err => console.log(err))
+  //     console.log(res.data)
+  //   })
+  //   .catch(err => console.log(err))
 
-//   let filteredPosts = this.props.notes.filter(note => {
-//     return (
-//       note.title
-//         .toLocaleLowerCase()
-//         .includes(this.state.searchNotes.toLocaleLowerCase()) ||
-//       note.description
-//         .toLocaleLowerCase()
-//         .includes(this.state.searchNotes.toLocaleLowerCase())
-//     );
-//   });
+  // let filteredPosts = this.props.notes.filter(note => {
+  //   return (
+  //     note.title
+  //       .toLocaleLowerCase()
+  //       .includes(this.state.searchNotes.toLocaleLowerCase()) ||
+  //     note.description
+  //       .toLocaleLowerCase()
+  //       .includes(this.state.searchNotes.toLocaleLowerCase())
+  //   );
+  // });
 
-//   console.log(req.body.skillInput) // <- filter input 
-//   const skills = ['one','two','three']; // <- package into arr
-//   res.send(skills) // <= send arr to the client
-// });
+  console.log(req.body.skillInput) // <- filter input
+  const skills = ['one','two','three']; // <- package into arr
+  res.send(skills) // <= send arr to the client
+});
 
 module.exports = server 

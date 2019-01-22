@@ -80,15 +80,15 @@ export const GlobalStyle = createGlobalStyle`
   html {
     box-sizing: border-box;
     font-family: sans-serif;
-    font-size: 62.5%;
   }
   *, *:before, *:after {
     box-sizing: inherit;
     position: relative;
-    transition: all 0.2s ease;
+    transition: all 0.1s ease;
   }
   html, body, #root {
     width: 100%;
     height: 100%;
+    background-color: #F4F7FC;
   }
 `;

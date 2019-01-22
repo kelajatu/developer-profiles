@@ -17,11 +17,15 @@ class UserDashboardIntro extends Component {
 }
 
 const MainFormContainer = styled.main`
-  width: calc(100% - 220px);
-  margin-left: 220px;
+  width: calc(100% - 300px);
+  margin-left: 300px;
   margin-bottom: 100px;
-  padding-top: 50px;
+  padding-top: 130px;
   ${centerFlex()};
+  @media (max-width: 1400px) {
+    width: calc(100% - 80px);
+    margin-left: 80px;
+  }
 `;
 
 export default UserDashboardIntro;
