@@ -43,7 +43,7 @@ class PersonalInfo extends Component {
       alert('Oops! Something went wrong.');
     });
 
-    XHR.open('POST', 'https://developer-profiles.herokuapp.com/api/image-upload');
+    XHR.open('POST', `${process.env.REACT_APP_BACKEND_SERVER}/api/image-upload`);
 
     XHR.send(FD);
   }
