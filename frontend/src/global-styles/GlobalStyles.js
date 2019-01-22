@@ -66,12 +66,12 @@ export const GlobalStyle = createGlobalStyle`
   */
 
   :root {
-    --color_black: "#000";
-    --color_gray: "#666";
-    --stripe_height: "7px";
-    --btn_color: "#666";
-    --btn_background: "#fff";
-    --btn_color_hover: "#fff";
+    --color_black: #000;
+    --color_gray: #666;
+    --stripe_height: 7px;
+    --btn_color: #666;
+    --btn_background: #fff;
+    --btn_color_hover: #fff;
     --btn_background_hover: var(--color_gray);
     --border_color: var(--color_gray);
     --border_color_hover: var(--color_black);
