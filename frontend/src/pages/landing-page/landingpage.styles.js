@@ -4,11 +4,11 @@ import bg_img from "./img/devprof.jpg";
 
 export const LandingPageDiv = styled.div`
   h1 {
-    background: blue;
+    /* background: blue; */
     font-size: 30px;
   }
   p {
-    color: pink;
+    /* color: pink; */
   }
 `
 
@@ -43,6 +43,6 @@ export const Aboutus = styled.div`
   border: 1px solid black;
 `
 export const Learnmore = styled.div`
-  color: red;
+  color: darkgray;
   border: 1px solid black;
 `
