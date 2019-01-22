@@ -21,13 +21,13 @@ class PublicFacingPage extends Component {
     }
 
     componentDidMount(){
-        console.log("CDM")
         axios.get('https://developer-profiles.herokuapp.com/users').then(response => {
             this.setState({
                 allUsers: response.data, 
                 modUsers: response.data, 
-                loading: false 
+                loading: false
             })
+            this.updateLength(this.state.modUsers.length)
         }).catch(error => {
             console.log(error)
         })
