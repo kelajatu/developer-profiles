@@ -114,8 +114,6 @@ class WhereToFindYou extends Component {
         <div className="container">
           <FormSection>
             <form onSubmit={this.checkOnSubmit}>
-
-
               <div>
                 {/* location - Autocomplete from google - saves location ID */}
                 <label htmlFor="usercurrentLocation">
