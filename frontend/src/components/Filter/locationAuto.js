@@ -5,7 +5,9 @@ import axios from 'axios'
 export class LocationAuto extends Component {
     constructor(props){
         super(props)
-        this.state = {}
+        this.state = {
+            location: '',
+        }
     }
 
     //THIS COMPONENT takes the following props 
@@ -36,7 +38,7 @@ export class LocationAuto extends Component {
 
     selectSuggestion = (e) => {
         this.setState({
-            located: e.target.dataset.name,
+            location: e.target.dataset.name,
             locationSuggestions: [],
         });
     }
@@ -47,9 +49,9 @@ export class LocationAuto extends Component {
                 <input 
                     type="text" 
                     autoComplete="off" 
-                    value={this.state.located} 
+                    value={this.state.location} 
                     placeholder={this.props.placeholder}
-                    name='located' 
+                    name='location' 
                     onChange={this.triggerAutoComplete}>{this.value}</input>
                 <div className="option" htmlFor="located">
                         {this.state.locationSuggestions && 
@@ -63,7 +65,7 @@ export class LocationAuto extends Component {
                                         data-name={location.name}
                                         data-id={location.id}
                                         onKeyUp={this.chooseOnEnter}
-                                        onClick={this.selectSuggestion} >    
+                                        onClick={this.selectSuggestion} >
                                     {location.name}
                                     </span>
                                 );

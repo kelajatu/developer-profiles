@@ -13,7 +13,7 @@ export default class Located extends Component {
 
     render(){
         return(
-            <LocatedDiv> 
+            <LocatedDiv>
                  <h1>Located</h1>
                     <label className="container">
                         <input type="checkbox"/>within
