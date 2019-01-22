@@ -148,7 +148,7 @@ const UserCardDiv = styled.div`
         align-items: center;
         width: 15%;
         height: 100%;
-        .fab, .fas, {
+        .fab, .fas {
             font-size: 40px;
             /* &:hover{
                   color: gray;

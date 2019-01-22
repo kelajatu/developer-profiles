@@ -201,34 +201,32 @@ class AboutYou extends Component {
             <form onSubmit={this.checkOnSubmit}>
 
               <div>
-                <div>
-                  {/* places - Autocomplete from google - saves location ID */}
-                  {/* Multiple Inputs - Normalize for DB, string of place IDs */}
-                  <label htmlFor="userPlacesInterested">
-                  Places Interested:
-                  </label>
-                  <input
-                    type="text"
-                    autoComplete="off"
-                    id="userPlacesInterested"
-                    placeholder="Remote, Atlanta, Washington, San Francisco"
-                    name="placesInterestedInput"
-                    value={this.state.placesInterestedInput}
-                    onChange={this.onPlacesChange}
-                  />
-                  <div className="option">
-                    {this.state.placesAutocomplete.length === 0 ?
-                      null
-                      :
-                      this.state.placesAutocomplete.map(location => {
-                        return (
-                          <span tabIndex="0" onClick={this.choosePlacesInterested} key={location.id} data-id={location.id} data-name={location.name}>
-                            {location.name}
-                          </span>
-                        );
-                      })
-                    }
-                  </div>
+                {/* places - Autocomplete from google - saves location ID */}
+                {/* Multiple Inputs - Normalize for DB, string of place IDs */}
+                <label htmlFor="userPlacesInterested">
+                Places Interested:
+                </label>
+                <input
+                  type="text"
+                  autoComplete="off"
+                  id="userPlacesInterested"
+                  placeholder="Remote, Atlanta, Washington, San Francisco"
+                  name="placesInterestedInput"
+                  value={this.state.placesInterestedInput}
+                  onChange={this.onPlacesChange}
+                />
+                <div className="option">
+                  {this.state.placesAutocomplete.length === 0 ?
+                    null
+                    :
+                    this.state.placesAutocomplete.map(location => {
+                      return (
+                        <span tabIndex="0" onClick={this.choosePlacesInterested} key={location.id} data-id={location.id} data-name={location.name}>
+                          {location.name}
+                        </span>
+                      );
+                    })
+                  }
                 </div>
               </div>
 
@@ -393,6 +391,9 @@ const FormSection = styled.section`
   }
   .option {
     width: 95%;
+    background-color: white;
+    border: solid;
+    border-top: none;
     span {
       padding: 10px 0 10px 10px;
       width: 95%;
