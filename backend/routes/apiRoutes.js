@@ -2,8 +2,7 @@ require('dotenv').config()
 const knex = require("knex");
 const dbconfig = require("../knexfile");
 // need helper to get all skills
-const dbHelper = require('../helpers/index.js')
-const db = knex(dbconfig[process.env.DB])
+const db = require('../helpers/index.js')
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
@@ -93,16 +92,16 @@ server.post('/matrix', (req, res) => {
   })
 });
 
-
+//need to also save acclaim badge url from user input to new slot on table-- to be added
 server.put("/acclaim/:id", (req, res) => {
     //use later to add the acclaim image to the db
     let id = req.params.id
     console.log(req.body)
     axios.get(`https://api.youracclaim.com/v1/obi/badge_assertions/${req.body.badge}`).then(response => {
-        db("users")
-        .where({id: id})
-        .update({badge: response.data.image})
-        res.send(response.data)
+        db.user_helpers.editUser(id, {badge: response.data.image}).then(data => {
+          console.log(data)
+        res.status(200).json(data)
+        })
     }).catch(err => {
     console.log(err);
     res.send({ err });
