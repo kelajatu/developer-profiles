@@ -7,7 +7,7 @@ class AboutYou extends Component {
   state = {
     placesInterestedInput: "",
     placesAutocomplete: [],
-    placesInterested: [],
+    placesInterested: '',
     summary: "",
     topSkillsInput: "",
     topSkillsList: [],
@@ -37,7 +37,7 @@ class AboutYou extends Component {
     let newArr;
     var self = this;
     axios
-    .post("https://developer-profiles.herokuapp.com/api/location", {inputLocation: e.target.value})
+    .post(`${process.env.REACT_APP_BACKEND_SERVER}/api/location`, {inputLocation: e.target.value})
     .then(response => {
       newArr = response.data.predictions.map(location => {
         return {
@@ -55,29 +55,26 @@ class AboutYou extends Component {
 
   choosePlacesInterested = (e) => {
     const { id, name } = e.target.dataset
-
-    let newPlacesInterestedObj = {
-      name,
-      id
-    };
-    let newPlacesInterestedArr = []
+    let newPlacesInterested;
     
-    if (this.state.placesInterested.length === 0) {
-      newPlacesInterestedArr.push(newPlacesInterestedObj);
+    if (this.state.placesInterested === '') {
+      newPlacesInterested = '';
+      newPlacesInterested = newPlacesInterested += id;
     } else {
-      newPlacesInterestedArr = this.state.placesInterested.slice();
-      newPlacesInterestedArr.push(newPlacesInterestedObj);
+      newPlacesInterested = this.state.placesInterested.slice();
+      newPlacesInterested = newPlacesInterested + ',' + id;
     }
-    this.setState({ placesInterested: newPlacesInterestedArr, placesAutocomplete: [], placesInterestedInput: "" });
+    // create object to hold id and name
+    this.setState({ placesInterested: newPlacesInterested, placesAutocomplete: [], placesInterestedInput: "" });
   }
 
-  removePlace = (e) => {
-    let newPlacesInterestedArr = this.state.placesInterested.slice();
-    newPlacesInterestedArr = newPlacesInterestedArr.filter(place => {
-      return place.id !== e.target.dataset.id
-    });
-    this.setState({ placesInterested: newPlacesInterestedArr });
-  }
+  // removePlace = (e) => {
+  //   let newPlacesInterestedArr = this.state.placesInterested.slice();
+  //   newPlacesInterestedArr = newPlacesInterestedArr.filter(place => {
+  //     return place.id !== e.target.dataset.id
+  //   });
+  //   this.setState({ placesInterested: newPlacesInterestedArr });
+  // }
 
 
   // top skills
@@ -85,7 +82,7 @@ class AboutYou extends Component {
     let newArr;
     var self = this;
     axios
-    .post("https://developer-profiles.herokuapp.com/api/skills", {skillInput: e.target.value})
+    .post(`${process.env.REACT_APP_BACKEND_SERVER}/api/skills`, {skillInput: e.target.value})
     .then(response => {
       newArr = response.data.map(skill => skill);
       self.setState({ topSkillsList: newArr });
@@ -118,7 +115,7 @@ class AboutYou extends Component {
     let newArr;
     var self = this;
     axios
-    .post("https://developer-profiles.herokuapp.com/api/skills", {skillInput: e.target.value})
+    .post(`${process.env.REACT_APP_BACKEND_SERVER}/api/skills`, {skillInput: e.target.value})
     .then(response => {
       newArr = response.data.map(skill => skill);
       self.setState({ additionalSkillsList: newArr });
@@ -148,7 +145,7 @@ class AboutYou extends Component {
     let newArr;
     var self = this;
     axios
-    .post("https://developer-profiles.herokuapp.com/api/skills", {skillInput: e.target.value})
+    .post(`${process.env.REACT_APP_BACKEND_SERVER}/api/skills`, {skillInput: e.target.value})
     .then(response => {
       // skills will prob get unloaded by this point so you will only need to filter, like the search bar
       // same with all skills
@@ -185,12 +182,13 @@ class AboutYou extends Component {
       familiar: familiarSkills
     }
     console.log(lePackage)
-    axios.put(`https://developer-profiles.herokuapp.com/users/${this.props.userId}`, lePackage)
+    axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
       .then(res => console.log(res.data))
       .catch(err => console.log(err))
   }
 
   render() {
+    console.log('About', this.props.userInfo)
     return (
       <MainFormContainer>
         <header>
@@ -321,7 +319,7 @@ class AboutYou extends Component {
             </form>
           </FormSection>
           <PreviewSection>
-            <div>
+            {/* <div>
               <h3>Your Places Interested</h3>
               {this.state.placesInterested.length === 0 ?
                 <p>No places listed</p>
@@ -334,7 +332,7 @@ class AboutYou extends Component {
                   )
                 })
               }
-            </div>
+            </div> */}
             <div>
               <h3>Your Top Skills</h3>
             </div>

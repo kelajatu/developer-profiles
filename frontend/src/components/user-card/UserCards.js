@@ -1,7 +1,6 @@
 import React , { Component } from 'react'
 import styled from 'styled-components'
 import UserCard from '../../components/user-card/UserCard'
-import axios from 'axios';
 import { centerFlex } from '../../global-styles/Mixins';
 
 export default class UserCards extends Component {
@@ -14,31 +13,9 @@ export default class UserCards extends Component {
         }
     }
 
-    componentDidMount() {
-        this.setState({loading: true})
-        axios.get('https://developer-profiles.herokuapp.com/users').then(response => {
-            this.setState({raw: response.data, users: response.data, loading: false})
-        }).catch(error => {
-            console.log(error)
-        })
-    }
-
-    // componentWillReceiveProps(){
-    //     let tempArr = this.state.raw.filter(item => {
-    //         return this.props.params.filters.includes(item.filter)
-    //     })
-    //     if(tempArr.length === 0){
-    //         tempArr = this.state.raw
-    //     }
-    //     this.setState({
-    //         users: tempArr,
-    //     })
-    //     this.props.updateLength(tempArr.length)
-    // }
-
     render(){
 
-      if (this.state.loading) {
+      if (this.props.loading) {
         return (
           <LoaderContainer>
             <h1>Loading...</h1>
@@ -47,12 +24,12 @@ export default class UserCards extends Component {
       } else {
         return (
           <UserCardsDiv>
-              {this.state.users.map(user => <UserCard 
+              {this.props.modUsers.map(user => <UserCard 
                   acclaim={user.badge}
                   key={user.id}
                   first_name={user.first_name} 
                   last_name={user.last_name} 
-                  image={`https://picsum.photos/200/300/?image=${user.id % 50}`} 
+                  image={`https://picsum.photos/200/300/?image=${user.id % 50}`}
                   summary={user.summary} 
                   title={user.title}
                   location={user.location}/>)}

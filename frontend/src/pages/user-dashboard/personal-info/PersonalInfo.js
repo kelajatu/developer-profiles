@@ -43,12 +43,15 @@ class PersonalInfo extends Component {
       alert('Oops! Something went wrong.');
     });
 
-    XHR.open('POST', 'https://developer-profiles.herokuapp.com/api/image-upload');
+    XHR.open('POST', `${process.env.REACT_APP_BACKEND_SERVER}/api/image-upload`);
 
     XHR.send(FD);
   }
 
   // send to db
+  // *****  Email can ONLY be changed if user signed up with email/pass  ******
+  // ***** Email NEEDS to be updated in Auth as well *****
+  // Causes error when email is empty
   checkOnSubmit = (e) => {
     e.preventDefault()
     const {email, firstName, lastName, profileImg, desiredTitle} = this.state;
@@ -60,7 +63,7 @@ class PersonalInfo extends Component {
       title: desiredTitle // title vs filter?
     }
     console.log(lePackage)
-    axios.put(`https://developer-profiles.herokuapp.com/users/${this.props.userId}`, lePackage)
+    axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
       .then(res => console.log(res.data))
       .catch(err => console.log(err))
   }
@@ -71,6 +74,7 @@ class PersonalInfo extends Component {
   }
 
   render() {
+    console.log('P-info', this.props.userInfo)
     return (
       <MainFormContainer>
         <header>

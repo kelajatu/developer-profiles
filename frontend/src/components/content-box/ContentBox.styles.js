@@ -1,25 +1,41 @@
 import styled from 'styled-components'
 
 export const ContentBoxSection = styled.section`
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-image: var(--my-gradient);
+  position: absolute;
   text-align: center;
   padding: 5em;
+  width: 100%;
+  height: 750px;
+  border: 10px solid black;
   box-shadow: 0 10px 36px rgba(0, 0, 0, 0.18);
   a {
     color: none;
     text-decoration: none;
-    &:hover {
-      background-color: var(--btn_background_hover);
-      color: var(--btn_color);
-    }
-    border-color: var(--border_color);
+    display:flex;
+    justify-content: center;
+    align-items: center;
   }
 `;
 
+export const ButtonContainer = styled.div`
+display: flex;
+`
 export const Btn = styled.div`
+  @keyframes stripe-slide {
+  0% {
+    background-position: 0% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
   overflow: visible;
+  width: 150px;
+  /* text-align:center; */
   margin: 0;
-  padding: 0;
   border: 0;
   width: 100px;
   background: transparent;
@@ -27,17 +43,19 @@ export const Btn = styled.div`
   font-size: 18px;
   line-height: normal;
   -moz-user-select: text;
-  padding: 16px 20px 22px;
+  padding: 16px 0px 22px;
   background: var(--btn_background);
   color: var(--btn_color);
   border: 2px solid var(--border_color);
-  border-radius: 6px;
+  border-radius: 36px;
   margin-bottom: 16px;
   transition: all 0.5s ease;
 
   &.stripe {
     overflow: hidden;
     position: relative;
+
+
 
     &:after {
       content: "";
@@ -62,8 +80,11 @@ export const Btn = styled.div`
 
     &:hover {
       background-color: var(--btn_background_hover);
+      /* overflow: hidden; */
       color: var(--btn_color_hover);
       border-color: #000;
+      border-radius: 36px;
+
 
       &:after {
         background-image: repeating-linear-gradient(

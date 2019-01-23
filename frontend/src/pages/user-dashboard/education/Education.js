@@ -33,18 +33,20 @@ class Education extends Component {
     e.preventDefault()
     const { schoolName, schoolDates, schoolCourse, schoolDegree } = this.state;
     const lePackage = {
+      user_id: this.props.userInfo.id,
       school: schoolName,
       school_dates: schoolDates,
       degree: schoolCourse,
       course: schoolDegree
     }
     console.log(lePackage)
-    axios.put(`https://developer-profiles.herokuapp.com/users/${this.props.userId}`, lePackage)
+    axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/education`, lePackage)
       .then(res => console.log(res.data))
       .catch(err => console.log(err))
   }
 
   render() {
+    console.log('ED', this.props.userInfo)
     return (
       <MainFormContainer>
         <header>

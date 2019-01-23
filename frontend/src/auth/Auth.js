@@ -19,7 +19,6 @@ export default class Auth {
   }
 
   login() {
-    console.log("login ?");
     this.auth0.authorize();
   }
 
@@ -49,9 +48,14 @@ export default class Auth {
               // pick up to autofill personal info section
               // might need to hydrate more sections for returning users
               console.log('RETURN DATA', res.data)
+              if (Array.isArray(res.data)) {
+                sessionStorage.setItem('userInfo', JSON.stringify(res.data[0]));
+              } else {
+                sessionStorage.setItem('userInfo', JSON.stringify(res.data));
+              }
+              props.history.push('/dashboard');
             })
             .catch(err => console.log(err));
-            props.history.push('/dashboard');
         }
       } else if (err) {
         props.history.push("/");
@@ -60,7 +64,6 @@ export default class Auth {
   }
 
   isAuthenticated() {
-    // console.log("isAuthenticated ?");
     let expiresAt = JSON.parse(localStorage.getItem("expires_at"));
     return new Date().getTime() < expiresAt;
   }
