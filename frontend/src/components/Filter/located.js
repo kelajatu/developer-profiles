@@ -25,11 +25,11 @@ export default class Located extends Component {
         return(
             <LocatedDiv>
                  <h1>Located</h1>
-//                     <div className="container">
+{/* //                     <div className="container">
 //                         <CheckBox onChange="ta-be-continued"/><span>within {this.state.distance}</span>
 //                         <RangeInput min={5} max={300} step="5" onChange={(event)=>this.setState({distance:event.target.value})}/> <span>miles of </span>
 //                     </div>
-//                     <TextInput/>
+//                     <TextInput/> */}
                     <label className="container">
                         {/* <input type="checkbox"/>within */}
                         <input 
