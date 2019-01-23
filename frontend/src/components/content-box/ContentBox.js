@@ -1,4 +1,4 @@
-import { ContentBoxSection, ButtonContainer, Btn } from "./ContentBox.styles";
+import { ContentBoxSection, ButtonContainer, Btn,} from "./ContentBox.styles";
 import React, { Component } from "react";
 
 class ContentBox extends Component {

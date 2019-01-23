@@ -23,8 +23,8 @@ export const Pagewrap = styled.div`
   height: 100vh;
   /* position: relative; */
   text-align: center;
- padding-top: 5em;
- padding-bottom: 5em;
+ /* padding-top: 5em;
+ padding-bottom: 5em; */
   h1 {
     font-size: 5rem;
     letter-spacing: 5px;
