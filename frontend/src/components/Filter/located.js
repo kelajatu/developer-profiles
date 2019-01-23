@@ -18,7 +18,11 @@ export default class Located extends Component {
                     <label className="container">
                         <input type="checkbox"/>within
                         <input type="number" step="5" placeholder="5" /> miles of
-                        <LocationAuto placeholder='Albuquerque, N.M.'/>
+                        <LocationAuto 
+                            name="locatedCity"
+                            id="locatedCityId"
+                            updatePublicPageState={this.props.updatePublicPageState}
+                            placeholder='Albuquerque, N.M.'/>
                         <span className="checkmark"></span>
                     </label>
             </LocatedDiv>

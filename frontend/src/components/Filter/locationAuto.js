@@ -6,12 +6,14 @@ export class LocationAuto extends Component {
     constructor(props){
         super(props)
         this.state = {
-            location: '',
+            [this.props.name]: '',
         }
     }
 
-    //THIS COMPONENT takes the following props 
+    //THIS COMPONENT needs the following props 
         //placeholder
+        //name
+        //id - (optional for constructing state to send to a parent component)
 
     triggerAutoComplete = (e) => {
         this.setState({ [e.target.name]: e.target.value });
@@ -38,28 +40,37 @@ export class LocationAuto extends Component {
 
     selectSuggestion = (e) => {
         this.setState({
-            location: e.target.dataset.name,
+           [this.props.name]: e.target.dataset.name,
             locationSuggestions: [],
         });
+        console.log(e.target)
+        this.props.updatePublicPageState({
+            [this.props.name]: e.target.dataset.name,
+            [this.props.id]: e.target.dataset.id
+        }) 
     }
 
     render(){
+        console.log(this.props.name)
         return(
             <LocationAutoDiv> 
                 <input 
                     type="text" 
                     autoComplete="off" 
-                    value={this.state.location} 
+                    value={`${this.state[this.props.name]}`} 
                     placeholder={this.props.placeholder}
-                    name='location' 
+                    name={this.props.name} 
+                    id={this.props.id}
                     onChange={this.triggerAutoComplete}>{this.value}</input>
                 <div className="option" htmlFor="located">
                         {this.state.locationSuggestions && 
                             this.state.locationSuggestions.length > 0 ?
                             this.state.locationSuggestions.map(location => {
+                                console.log(this.props.name)
                                 return (
                                     <span
-                                        id="locationSuggestions"
+                                        name={this.props.name}
+                                        id={this.props.id}
                                         key={location.id}
                                         tabIndex="0"
                                         data-name={location.name}

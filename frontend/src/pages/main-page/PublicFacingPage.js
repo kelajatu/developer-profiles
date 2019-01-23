@@ -11,7 +11,9 @@ class PublicFacingPage extends Component {
             filters: [],
             locatedDistance: 25,
             locatedCity: 'Denver',
+            locatedCityId: null,
             relocateCity: 'Albuquerque',
+            relocateCityId: null,
             updateRequired: false,
             loading: true,
             allUsers: [],
@@ -55,6 +57,11 @@ class PublicFacingPage extends Component {
         })
     }
 
+    updatePublicPageState = (update) => {
+        console.log('updatePublicPageState', update)
+        this.setState(update)
+    }
+
     filter = () => {
         let tempArr = this.state.allUsers.filter(item => {
             return this.state.filters.includes(item.filter)
@@ -62,7 +69,6 @@ class PublicFacingPage extends Component {
         if(tempArr.length === 0){
             tempArr = this.state.allUsers
         }
-        console.log('filter')
         this.setState({
             modUsers: tempArr,
         })
@@ -70,11 +76,10 @@ class PublicFacingPage extends Component {
     }
 
     render() { 
-        console.log(this.state.modUsers.length)
-        console.log(this.state.modUsers[0])
+        console.log(this.state)
         return (
             <PublicFacingPageDiv>
-                <FilterBox params={this.state} toggleCheckMarks={this.toggleCheckMarks} />
+                <FilterBox params={this.state} toggleCheckMarks={this.toggleCheckMarks} updatePublicPageState={this.updatePublicPageState} />
                 <UserCards modUsers={this.state.modUsers} loading={this.state.loading} />
             </PublicFacingPageDiv> 
         );

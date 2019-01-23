@@ -15,7 +15,10 @@ export default class Relocate extends Component {
         return(
             <RelocateDiv> 
                 <h1>Will Relocate to:</h1>
-                <LocationAuto placeholder='Anywhere, U.S.A.' />
+                <LocationAuto 
+                    name="relocateCity"
+                    id="relocateCityId"
+                    placeholder='Anywhere, U.S.A.' />
             </RelocateDiv>
         )
     }

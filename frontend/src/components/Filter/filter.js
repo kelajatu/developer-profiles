@@ -19,12 +19,16 @@ export default class FilterBox extends Component {
                 <h1>Showing: <strong>{this.props.params.number}</strong> profiles</h1>
                 : <h2>null</h2>}
                 <JobTitles 
+                    updatePublicPageState={this.props.updatePublicPageState}
                     toggleCheckMarks={this.props.toggleCheckMarks}
                     params={this.props.params} />
                 <Located 
+                    updatePublicPageState={this.props.updatePublicPageState}
                     params={this.props.params} 
                     />
-                <Relocate params={this.props.params} />
+                <Relocate 
+                    updatePublicPageState={this.props.updatePublicPageState} 
+                    params={this.props.params} />
             </FilterBoxDiv>
         )
     }
