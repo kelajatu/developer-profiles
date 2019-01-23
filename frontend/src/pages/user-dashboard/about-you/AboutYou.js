@@ -56,15 +56,13 @@ class AboutYou extends Component {
   choosePlacesInterested = (e) => {
     const { id, name } = e.target.dataset
     let newPlacesInterested;
-    
     if (this.state.placesInterested === '') {
       newPlacesInterested = '';
-      newPlacesInterested = newPlacesInterested += id;
+      newPlacesInterested = id + '_' + name;
     } else {
       newPlacesInterested = this.state.placesInterested.slice();
-      newPlacesInterested = newPlacesInterested + ',' + id;
+      newPlacesInterested = newPlacesInterested + '|' + id + '_' + name;
     }
-    // create object to hold id and name
     this.setState({ placesInterested: newPlacesInterested, placesAutocomplete: [], placesInterestedInput: "" });
   }
 

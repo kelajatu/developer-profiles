@@ -131,15 +131,11 @@ server.post('/skills', (req, res) => {
   //   })
   //   .catch(err => console.log(err))
 
-  // let filteredPosts = this.props.notes.filter(note => {
+  // let filteredPosts = this.props.skills(skill => {
   //   return (
-  //     note.title
+  //     skill.name
   //       .toLocaleLowerCase()
-  //       .includes(this.state.searchNotes.toLocaleLowerCase()) ||
-  //     note.description
-  //       .toLocaleLowerCase()
-  //       .includes(this.state.searchNotes.toLocaleLowerCase())
-  //   );
+  //       .includes(e.target.value)
   // });
 
   console.log(req.body.skillInput) // <- filter input

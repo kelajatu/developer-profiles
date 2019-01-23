@@ -29,15 +29,35 @@ class UserDashboardContainer extends Component {
     .then(res => {
       const userInfo = res.data;
       console.log('CHECKK',userInfo)
+
+      // breaking up locations
+      const userLocationSplit = userInfo.location.split('_');
+      const userLocationObj = {
+        locationId: userLocationSplit[0],
+        locationName: userLocationSplit[1]
+      }
+      const userPlacesSplit = userInfo.places.split('|');
+      let userPlacesArr = [];
+      userPlacesSplit.forEach(place => {
+        let placesHolder = place.split('_')
+        let placeObjHolder = {
+          locationId: placesHolder[0],
+          locationName: placesHolder[1]
+        }
+        userPlacesArr.push(placeObjHolder)
+      })
+      console.log(userPlacesArr)
+
+      // getting edu, exp, proj
       const userProjects = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/projects`)
       const userExperience = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/experience`)
       const userEducation = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/education`)
       Promise.all([userProjects, userExperience, userEducation])
       .then(values => {
-        
+
         // now you have userInfo + all 3(edu,exp,proj)
         console.log('PROMISEEEE',values)
-        this.setState({userProgress: 'updatedUserProgress', ...userInfo})
+        this.setState({userProgress: 'updatedUserProgress', ...userInfo, userLocationObj, userPlacesArr})
       })
       .catch(err => console.log(err))
       })
