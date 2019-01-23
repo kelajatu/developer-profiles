@@ -5,7 +5,6 @@ import request from "superagent";
 class InfiniteUsers extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       error: false,
       hasMore: true,
@@ -18,17 +17,18 @@ class InfiniteUsers extends Component {
         loadUsers,
         state: { error, isLoading, hasMore }
       } = this;
+
+      if (error || isLoading || !hasMore) return;
+
+      if (
+        window.innerHeight + document.documentElement.scrollTop ===
+        document.documentElement.offsetHeight
+      ) {
+        loadUsers();
+      }
     };
-
-    if (error || isLoading || !hasMore) return;
-
-    if (
-      window.innerHeight + document.documentElement.scrollTop ===
-      document.documentElement.offsetHeight
-    ) {
-      loadUsers();
-    }
   }
+
   componentWillMount() {
     this.loadUsers();
   }
@@ -36,18 +36,18 @@ class InfiniteUsers extends Component {
   loadUsers = () => {
     this.setState({ isLoading: true }, () => {
       request
-        .get("https://randomuser.me/api/?results=10")
+        .get("https://developer-profiles.herokuapp.com/users?results=1")
         .then(results => {
-          const nextUsers = results.body.results.map(user => ({
+          // Creates a massaged array of user data
+          const nextUsers = results.body.map(user => ({
             email: user.email,
-            name: Object.values(user.name).join(" "),
-            photo: user.picture.medium,
-            username: user.login.username,
-            uuid: user.login.uuid
+            name: `${user.first_name} ${user.last_name}`,
+            title: user.title,
+            linkedIn: user.linkedin
           }));
-
+          // Merges the next users into our existing users
           this.setState({
-            hasMore: this.state.users.length < 100,
+            hasMore: this.state.users.length < 10,
             isLoading: false,
             users: [...this.state.users, ...nextUsers]
           });
@@ -60,28 +60,20 @@ class InfiniteUsers extends Component {
         });
     });
   };
+
   render() {
     const { error, hasMore, isLoading, users } = this.state;
+
     return (
       <div>
-        <h1>Infinite Users</h1>
-        <p>Scroll down to load more</p>
+        <h1>Infinite Users!</h1>
+        <p>Scroll down to load more!!</p>
         {users.map(user => (
-          <Fragment key={user.username}>
+          <Fragment key={user.linkedIn}>
             <hr />
             <div style={{ display: "flex" }}>
-              <img
-                src={user.photo}
-                alt={user.username}
-                style={{
-                  borderRadius: "50%",
-                  height: 72,
-                  marginRight: 20,
-                  width: 72
-                }}
-              />
               <div>
-                <h2 style={{ marginTop: 0 }}>@{user.username}</h2>
+                <h2 style={{ marginTop: 0 }}>{user.title}</h2>
                 <p>Name: {user.name}</p>
                 <p>Email: {user.email}</p>
               </div>
@@ -91,7 +83,7 @@ class InfiniteUsers extends Component {
         <hr />
         {error && <div style={{ color: "#900" }}>{error}</div>}
         {isLoading && <div>Loading...</div>}
-        {!hasMore && <div>End</div>}
+        {!hasMore && <div>You did it! You reached the end!</div>}
       </div>
     );
   }
