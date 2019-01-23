@@ -3,6 +3,7 @@ import FilterBox from '../../components/Filter/filter'
 import React, { Component } from 'react'
 import UserCards from '../../components/user-card/UserCards';
 import axios from 'axios';
+import { unpackLocations } from '../../utilities/locations.utl'
 
 class PublicFacingPage extends Component {
     constructor(props){
@@ -27,6 +28,18 @@ class PublicFacingPage extends Component {
                 loading: false,
                 cardsDisplaying: response.data.length
             })
+        }).then(res2 => {
+            let allUsers = this.state.allUsers;
+            allUsers.forEach(user => {
+                console.log(user.location)
+                console.log(user.places)
+                let location = unpackLocations(user.location)
+                user.location = location
+            })
+            this.setState({
+                allUsers: allUsers
+            })
+            console.log(this.state.allUsers)
         }).catch(error => {
             console.log(error)
         })
@@ -58,6 +71,7 @@ class PublicFacingPage extends Component {
             //this part will not work until the backend has the location id for the users
             if(this.state.locatedCity){
                 return item.locationId === this.state.locatedCityId
+                //should def have location Id
             }
             if(this.state.relocatedCityId){
                 return item.locationId === this.state.relocatedCityId

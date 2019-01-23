@@ -44,7 +44,7 @@ class UserCard extends Component{
                         <img className="photo"src={this.props.image} alt="user avatar"/>
                         <div className="user-intro">
                             <h2>{`${this.props.first_name} ${this.props.last_name}`}</h2>
-                            <p className="location">{this.props.location}</p>
+                            <p className="location">{this.props.location? this.props.location.locationName : null}</p>
                             <p>{this.props.summary}</p>
                         </div>
                     </div>

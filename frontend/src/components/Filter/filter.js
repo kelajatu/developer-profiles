@@ -7,9 +7,7 @@ import Relocate from './relocate'
 export default class FilterBox extends Component {
     constructor(props){
         super(props)
-        this.state = {
-
-        }
+        this.state = {}
     }
 
     render(){

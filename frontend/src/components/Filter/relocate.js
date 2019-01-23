@@ -7,8 +7,7 @@ import { LocationAuto } from './locationAuto'
 export default class Relocate extends Component {
     constructor(props){
         super(props)
-        this.state = {
-        }
+        this.state = {}
     }
 
     render(){
