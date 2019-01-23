@@ -23,14 +23,15 @@ class UserDashboardContainer extends Component {
   }
 
   componentDidMount() {
-    if (sessionStorage.getItem('userInfo')) {
-      const userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
-      // get projects, education, experience
+    const userInfo = this.props.auth.getProfile();
+    const userEmail = userInfo.email;
+    axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userEmail}`)
+    .then(res => {
+      const userInfo = res.data;
       console.log('CHECKK',userInfo)
       const userProjects = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/projects`)
       const userExperience = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/experience`)
       const userEducation = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/education`)
-      
       Promise.all([userProjects, userExperience, userEducation])
       .then(values => {
         
@@ -39,31 +40,8 @@ class UserDashboardContainer extends Component {
         this.setState({userProgress: 'updatedUserProgress', ...userInfo})
       })
       .catch(err => console.log(err))
-    } else {
-      const userInfo = this.props.auth.getProfile();
-      const userEmail = userInfo.email;
-      axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userEmail}`)
-      .then(res => {
-        const userInfo = res.data;
-        console.log('CHECKK',userInfo)
-        const userProjects = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/projects`)
-        const userExperience = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/experience`)
-        const userEducation = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/education`)
-        Promise.all([userProjects, userExperience, userEducation])
-        .then(values => {
-          
-          // now you have userInfo + all 3(edu,exp,proj)
-          console.log('PROMISEEEE',values)
-          this.setState({userProgress: 'updatedUserProgress', ...userInfo})
-        })
-        .catch(err => console.log(err))
-        })
-        .catch(err => console.log(err))
-
-
-
-        
-    }
+      })
+      .catch(err => console.log(err))
   }
 
   render() {
