@@ -50,7 +50,7 @@ class Projects extends Component {
     });
 
     // Set up our request
-    XHR.open('POST', 'https://developer-profiles.herokuapp.com/api/image-upload');
+    XHR.open('POST', `${process.env.REACT_APP_BACKEND_SERVER}/api/image-upload`);
 
     // Send our FormData object; HTTP headers are set automatically
     XHR.send(FD);

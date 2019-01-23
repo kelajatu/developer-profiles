@@ -19,12 +19,23 @@ export function centerFlex(flexDirection = 'row') {
 
 export function filterSection() {
   return `
-    width: 95%;
+    width: 99%;
     padding: 10px;
     display: flex;
     flex-direction: column;
+    font-size: 15px;
     h1{
-      font-size: 30px;
+      font-size: 25px;
+      margin-bottom: 5px;
+    }
+    .container {
+      display: flex;
+    }
+    span {
+      display: flex;
+      align-items: center;
+      width: 140px;
+      font-size: 13px;
     }
   `;
 }
