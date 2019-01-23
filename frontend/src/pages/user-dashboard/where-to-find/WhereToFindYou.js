@@ -8,7 +8,9 @@ class WhereToFindYou extends Component {
   state = {
     currentLocationInput: "",
     locationAutocomplete: [],
-    currentLocation: null,
+    currentLocation: '',
+
+    
     github: "",
     linkedin: "",
     portfolio: "",

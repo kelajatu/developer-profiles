@@ -7,7 +7,7 @@ class AboutYou extends Component {
   state = {
     placesInterestedInput: "",
     placesAutocomplete: [],
-    placesInterested: [],
+    placesInterested: '',
     summary: "",
     topSkillsInput: "",
     topSkillsList: [],
@@ -55,29 +55,26 @@ class AboutYou extends Component {
 
   choosePlacesInterested = (e) => {
     const { id, name } = e.target.dataset
-
-    let newPlacesInterestedObj = {
-      name,
-      id
-    };
-    let newPlacesInterestedArr = []
+    let newPlacesInterested;
     
-    if (this.state.placesInterested.length === 0) {
-      newPlacesInterestedArr.push(newPlacesInterestedObj);
+    if (this.state.placesInterested === '') {
+      newPlacesInterested = '';
+      newPlacesInterested = newPlacesInterested += id;
     } else {
-      newPlacesInterestedArr = this.state.placesInterested.slice();
-      newPlacesInterestedArr.push(newPlacesInterestedObj);
+      newPlacesInterested = this.state.placesInterested.slice();
+      newPlacesInterested = newPlacesInterested + ',' + id;
     }
-    this.setState({ placesInterested: newPlacesInterestedArr, placesAutocomplete: [], placesInterestedInput: "" });
+    // create object to hold id and name
+    this.setState({ placesInterested: newPlacesInterested, placesAutocomplete: [], placesInterestedInput: "" });
   }
 
-  removePlace = (e) => {
-    let newPlacesInterestedArr = this.state.placesInterested.slice();
-    newPlacesInterestedArr = newPlacesInterestedArr.filter(place => {
-      return place.id !== e.target.dataset.id
-    });
-    this.setState({ placesInterested: newPlacesInterestedArr });
-  }
+  // removePlace = (e) => {
+  //   let newPlacesInterestedArr = this.state.placesInterested.slice();
+  //   newPlacesInterestedArr = newPlacesInterestedArr.filter(place => {
+  //     return place.id !== e.target.dataset.id
+  //   });
+  //   this.setState({ placesInterested: newPlacesInterestedArr });
+  // }
 
 
   // top skills
@@ -322,7 +319,7 @@ class AboutYou extends Component {
             </form>
           </FormSection>
           <PreviewSection>
-            <div>
+            {/* <div>
               <h3>Your Places Interested</h3>
               {this.state.placesInterested.length === 0 ?
                 <p>No places listed</p>
@@ -335,7 +332,7 @@ class AboutYou extends Component {
                   )
                 })
               }
-            </div>
+            </div> */}
             <div>
               <h3>Your Top Skills</h3>
             </div>
