@@ -15,8 +15,12 @@ export default class Relocate extends Component {
         return(
             <RelocateDiv> 
                 <h1>Will Relocate to:</h1>
-//                 <TextInput type="search" />
-                <LocationAuto placeholder='Anywhere, U.S.A.' />
+                <LocationAuto 
+                    name="relocateCity"
+                    id="relocateCityId"
+                    placeholder='Anywhere, U.S.A.'
+                    updatePublicPageState={this.props.updatePublicPageState} 
+                    />
             </RelocateDiv>
         )
     }

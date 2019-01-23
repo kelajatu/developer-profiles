@@ -9,10 +9,9 @@ class PublicFacingPage extends Component {
         super(props)
         this.state = {
             filters: [],
-            locatedDistance: 25,
-            locatedCity: 'Denver',
-            relocateCity: 'Albuquerque',
-            updateRequired: false,
+            cardsDisplaying: 'all', 
+            // updateRequired: false,
+            milesFrom: 5,
             loading: true,
             allUsers: [],
             modUsers: [],
@@ -25,16 +24,16 @@ class PublicFacingPage extends Component {
             this.setState({
                 allUsers: response.data, 
                 modUsers: response.data, 
-                loading: false
+                loading: false,
+                cardsDisplaying: response.data.length
             })
-            this.updateLength(this.state.modUsers.length)
         }).catch(error => {
             console.log(error)
         })
     }
 
     toggleCheckMarks(name){
-        let newArr = this.state.filters
+        let newArr = this.state.filters || []
         if(newArr.includes(name)){
             let index = newArr.indexOf(name)
             newArr.splice(index, 1)
@@ -49,33 +48,42 @@ class PublicFacingPage extends Component {
         this.filter()
     }
 
-    updateLength = (num) => {
-        this.setState({
-            number: num
-        })
+    updatePublicPageState = (update) => {
+        // console.log('updatePublicPageState', update)
+        this.setState(update)
     }
 
     filter = () => {
-        let tempArr = this.state.allUsers.filter(item => {
+        let newArr = this.state.allUsers.filter(item => {
+            //this part will not work until the backend has the location id for the users
+            if(this.state.locatedCity){
+                return item.locationId === this.state.locatedCityId
+            }
+            if(this.state.relocatedCityId){
+                return item.locationId === this.state.relocatedCityId
+            }
             return this.state.filters.includes(item.filter)
         })
-        if(tempArr.length === 0){
-            tempArr = this.state.allUsers
+        if(newArr.length === 0){
+            newArr = this.state.allUsers
         }
-        console.log('filter')
         this.setState({
-            modUsers: tempArr,
+            modUsers: newArr,
+            cardsDisplaying: newArr.length
         })
-        this.updateLength(tempArr.length)
     }
 
     render() { 
-        console.log(this.state.modUsers.length)
-        console.log(this.state.modUsers[0])
+        console.log(this.state)
         return (
             <PublicFacingPageDiv>
-                <FilterBox params={this.state} toggleCheckMarks={this.toggleCheckMarks} />
-                <UserCards modUsers={this.state.modUsers} loading={this.state.loading} />
+                <FilterBox 
+                    params={this.state} 
+                    toggleCheckMarks={this.toggleCheckMarks} 
+                    updatePublicPageState={this.updatePublicPageState} />
+                <UserCards 
+                    modUsers={this.state.modUsers} 
+                    loading={this.state.loading} />
             </PublicFacingPageDiv> 
         );
     }
