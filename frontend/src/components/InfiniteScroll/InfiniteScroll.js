@@ -29,7 +29,7 @@ class InfiniteUsers extends Component {
       loadUsers();
     }
   }
-  componentDidMount() {
+  componentWillMount() {
     this.loadUsers();
   }
 
@@ -62,5 +62,40 @@ class InfiniteUsers extends Component {
   };
   render() {
     const { error, hasMore, isLoading, users } = this.state;
+    return (
+      <div>
+        <h1>Infinite Users</h1>
+        <p>Scroll down to load more</p>
+        {users.map(user => (
+          <Fragment key={user.username}>
+            <hr />
+            <div style={{ display: "flex" }}>
+              <img
+                src={user.photo}
+                alt={user.username}
+                style={{
+                  borderRadius: "50%",
+                  height: 72,
+                  marginRight: 20,
+                  width: 72
+                }}
+              />
+              <div>
+                <h2 style={{ marginTop: 0 }}>@{user.username}</h2>
+                <p>Name: {user.name}</p>
+                <p>Email: {user.email}</p>
+              </div>
+            </div>
+          </Fragment>
+        ))}
+        <hr />
+        {error && <div style={{ color: "#900" }}>{error}</div>}
+        {isLoading && <div>Loading...</div>}
+        {!hasMore && <div>End</div>}
+      </div>
+    );
   }
 }
+
+const container = document.createElement("div");
+document.body.appendChild(container);
