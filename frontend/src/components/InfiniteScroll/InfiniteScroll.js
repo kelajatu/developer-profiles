@@ -17,9 +17,7 @@ class InfiniteUsers extends Component {
         loadUsers,
         state: { error, isLoading, hasMore }
       } = this;
-
       if (error || isLoading || !hasMore) return;
-
       if (
         window.innerHeight + document.documentElement.scrollTop ===
         document.documentElement.offsetHeight
@@ -36,7 +34,7 @@ class InfiniteUsers extends Component {
   loadUsers = () => {
     this.setState({ isLoading: true }, () => {
       request
-        .get("https://developer-profiles.herokuapp.com/users?results=1")
+        .get("https://developer-profiles.herokuapp.com/users?results=10")
         .then(results => {
           // Creates a massaged array of user data
           const nextUsers = results.body.map(user => ({
@@ -66,8 +64,7 @@ class InfiniteUsers extends Component {
 
     return (
       <div>
-        <h1>Infinite Users!</h1>
-        <p>Scroll down to load more!!</p>
+        <h1>Dev Profiles</h1>
         {users.map(user => (
           <Fragment key={user.linkedIn}>
             <hr />
@@ -83,7 +80,7 @@ class InfiniteUsers extends Component {
         <hr />
         {error && <div style={{ color: "#900" }}>{error}</div>}
         {isLoading && <div>Loading...</div>}
-        {!hasMore && <div>You did it! You reached the end!</div>}
+        {!hasMore && <div>End of Users</div>}
       </div>
     );
   }
@@ -91,3 +88,5 @@ class InfiniteUsers extends Component {
 
 const container = document.createElement("div");
 document.body.appendChild(container);
+
+export default InfiniteUsers;
