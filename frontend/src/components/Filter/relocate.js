@@ -1,12 +1,12 @@
 import React , { Component } from 'react'
 import styled from 'styled-components'
-import { filterSection } from '../../global-styles/Mixins'
+import { filterSection} from '../../global-styles/Mixins'
+import { TextInput } from 'grommet';
 
 export default class Relocate extends Component {
     constructor(props){
         super(props)
         this.state = {
-
         }
     }
 
@@ -14,7 +14,7 @@ export default class Relocate extends Component {
         return(
             <RelocateDiv> 
                 <h1>Will Relocate to:</h1>
-                <input type="search" />
+                <TextInput type="search" />
             </RelocateDiv>
         )
     }

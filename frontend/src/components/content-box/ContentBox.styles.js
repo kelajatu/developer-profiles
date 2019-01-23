@@ -21,12 +21,13 @@ export const Btn = styled.div`
   margin: 0;
   padding: 0;
   border: 0;
+  width: 100px;
   background: transparent;
   font: inherit;
   font-size: 18px;
   line-height: normal;
   -moz-user-select: text;
-  padding: 16px 36px 22px;
+  padding: 16px 20px 22px;
   background: var(--btn_background);
   color: var(--btn_color);
   border: 2px solid var(--border_color);

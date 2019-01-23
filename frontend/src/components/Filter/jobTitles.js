@@ -1,7 +1,8 @@
 import React , { Component } from 'react'
 import styled from 'styled-components'
 import { filterSection } from '../../global-styles/Mixins'
-    
+import {CheckBox} from 'grommet';
+
 export default class JobTitles extends Component {
     constructor(props){
         super(props)
@@ -17,42 +18,29 @@ export default class JobTitles extends Component {
                     <h1>Filters</h1>
                   </header>
                   <form className="filters-container">
-                      <label>
-                          <span 
-                              className="checkmark" 
-                              checked={this.props.params.fullStack} />
-                          <input 
-                              onChange={() => this.props.toggleCheckMarks("Full Stack Web")}  
-                              type="checkbox" 
-                              name="Full Stack Web" />Full Stack Web
-                      </label>
-                      <label>
-                          <span 
-                              className="checkmark" 
-                              checked={this.props.params.ios} />
-                          <input 
-                              onChange={() => this.props.toggleCheckMarks("iOS")} 
-                              type="checkbox" 
-                              name="iOS" />iOS
-                      </label>
-                      <label>
-                          <span 
-                              className="checkmark" 
-                              checked={this.props.params.android} />
-                          <input 
-                              onChange={() => this.props.toggleCheckMarks("Android")}  
-                              type="checkbox" 
-                              name="Android" />Android
-                      </label>
-                      <label>
-                          <span 
-                              className="checkmark" 
-                              checked={this.props.params.uiux} />
-                          <input 
-                              onChange={() => this.props.toggleCheckMarks("UI/UX")}  
-                              type="checkbox" 
-                              name="UI/UX" />UI/UX
-                      </label>
+                      <CheckBox                         
+                        checked={this.props.params.fullStack} 
+                        label='Full Stack Web'
+                        onChange={() => this.props.toggleCheckMarks("Full Stack Web")}                              
+                      />
+                      <CheckBox
+                        className="checkmark" 
+                        checked={this.props.params.ios}
+                        label='iOS'
+                        onChange={() => this.props.toggleCheckMarks("iOS")} 
+                       />
+                      <CheckBox
+                        className="checkmark" 
+                        checked={this.props.params.android}
+                        label='Android'
+                        onChange={() => this.props.toggleCheckMarks("Android")}  
+                      />
+                      <CheckBox
+                        className="checkmark" 
+                        checked={this.props.params.uiux}
+                        label='UI/UX'
+                        onChange={() => this.props.toggleCheckMarks("UI/UX")}  
+                      />
                   </form>
             </JobTitlesDiv>
         )
