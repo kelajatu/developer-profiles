@@ -23,6 +23,8 @@ export const Pagewrap = styled.div`
   height: 100vh;
   /* position: relative; */
   text-align: center;
+  background-image: var(--fade-gradient),var(--my-gradient);
+  border: 1px solid red;
  /* padding-top: 5em;
  padding-bottom: 5em; */
   h1 {
