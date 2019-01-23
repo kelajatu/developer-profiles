@@ -29,24 +29,27 @@ class UserDashboardContainer extends Component {
     .then(res => {
       const userInfo = res.data;
       console.log('CHECKK',userInfo)
-
+      
       // breaking up locations
-      const userLocationSplit = userInfo.location.split('_');
-      const userLocationObj = {
-        locationId: userLocationSplit[0],
-        locationName: userLocationSplit[1]
-      }
-      const userPlacesSplit = userInfo.places.split('|');
-      let userPlacesArr = [];
-      userPlacesSplit.forEach(place => {
-        let placesHolder = place.split('_')
-        let placeObjHolder = {
-          locationId: placesHolder[0],
-          locationName: placesHolder[1]
+      if (userInfo.location !== null) {
+        var userLocationSplit = userInfo.location.split('_');
+        var userLocationObj = {
+          locationId: userLocationSplit[0],
+          locationName: userLocationSplit[1]
         }
-        userPlacesArr.push(placeObjHolder)
-      })
-      console.log(userPlacesArr)
+      }
+      if (userInfo.places !== null) {
+        const userPlacesSplit = userInfo.places.split('|');
+        var userPlacesArr = [];
+        userPlacesSplit.forEach(place => {
+          let placesHolder = place.split('_')
+          let placeObjHolder = {
+            locationId: placesHolder[0],
+            locationName: placesHolder[1]
+          }
+          userPlacesArr.push(placeObjHolder)
+        })
+      }
 
       // getting edu, exp, proj
       const userProjects = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/projects`)

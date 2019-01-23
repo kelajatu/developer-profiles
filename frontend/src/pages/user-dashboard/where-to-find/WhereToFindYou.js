@@ -93,7 +93,7 @@ class WhereToFindYou extends Component {
       linkedin,
       portfolio,
     }
-    console.log(lePackage)
+    console.log(this.props.userInfo.id)
     axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
       .then(res => console.log(res.data))
       .catch(err => console.log(err))
