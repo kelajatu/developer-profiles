@@ -17,10 +17,6 @@ class WhereToFindYou extends Component {
     acclaim: "",
   }
 
-  // still send db location ids string
-  // use place detail to decode the ids
-  // https://developers.google.com/places/web-service/details
-  // https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJN1t_tDeuEmsRUsoyG83frY4&fields=formatted_address&key=YOUR_API_KEY
 
   componentDidMount() {
     // for returning users
@@ -61,9 +57,11 @@ class WhereToFindYou extends Component {
   }
 
   chooseCurrentLocation = (e) => {
-    const { id } = e.target.dataset
+    const { id, name } = e.target.dataset
+    const newCurrentLocation = id + '_' + name;
+    console.log("CHOSEN", newCurrentLocation)
     this.setState({
-      currentLocation: id,
+      currentLocation: newCurrentLocation,
       locationAutocomplete: [],
       currentLocationInput: ''
     });
@@ -102,7 +100,7 @@ class WhereToFindYou extends Component {
   }
 
   render() {
-    console.log('WHERE', this.props.userInfo)
+    console.log('WHERE', this.state)
     return (
       <MainFormContainer>
         <header>
