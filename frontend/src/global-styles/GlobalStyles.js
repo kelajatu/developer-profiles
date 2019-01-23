@@ -42,6 +42,7 @@ export const GlobalStyle = createGlobalStyle`
   }
   body {
     line-height: 1;
+    font-family: 'Source Sans Pro', sans-serif;
   }
   ol, ul {
     list-style: none;
@@ -67,10 +68,6 @@ export const GlobalStyle = createGlobalStyle`
 
   :root {
     --color_black: #000;
-    --color_cream: #fffcf0;
-    --color_dark_purple: #6a60a9;
-    --color_light_purple: #dedcee;
-    --color_gold:#fbd14b;
     --color_gray: #666;
     --stripe_height: 7px;
     --btn_color: #666;

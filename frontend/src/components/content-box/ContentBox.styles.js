@@ -37,6 +37,7 @@ export const Btn = styled.div`
   /* text-align:center; */
   margin: 0;
   border: 0;
+  width: 100px;
   background: transparent;
   font: inherit;
   font-size: 18px;
