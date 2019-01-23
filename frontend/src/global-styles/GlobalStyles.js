@@ -67,6 +67,15 @@ export const GlobalStyle = createGlobalStyle`
   */
 
   :root {
+    --color_burnt_orange: #e27d60;
+    --color_light_blue: #85cdca;
+    --color_sand: #e8a87c;
+    --color_orchid: #C38C9D;
+    --color_teal: #369688;
+
+
+
+
     --color_black: #000;
     --color_gray: #666;
     --stripe_height: 7px;
@@ -76,11 +85,11 @@ export const GlobalStyle = createGlobalStyle`
     --btn_background_hover: var(--color_gray);
     --border_color: var(--color_gray);
     --border_color_hover: var(--color_black);
-    --page_background: var(--color_cream);
-    --box_background:var(--color_dark_purple);
-    --my-gradient: linear-gradient(to right, var(--color_dark_purple), var(--color_light_purple));
+    /* --page_background: var(--color_cream);
+    --box_background:var(--color_dark_purple); */
+    --my-gradient: linear-gradient(to right, #7f7fd5, #86a8e7, #91eae4);
+    --fade-gradient:linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(245,248,252,1) 89%,rgba(244,247,252,1) 98%);
 
-  }
 
   html {
     box-sizing: border-box;

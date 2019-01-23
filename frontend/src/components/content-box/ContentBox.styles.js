@@ -3,14 +3,10 @@ import styled from 'styled-components'
 export const ContentBoxSection = styled.section`
   display: flex;
   flex-direction: column;
-  background-image: var(--my-gradient);
+  border: 10px solid pink;
   position: absolute;
-  text-align: center;
+  text-align: left;
   padding: 5em;
-  width: 100%;
-  height: 750px;
-  border: 10px solid black;
-  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.18);
   a {
     color: none;
     text-decoration: none;
