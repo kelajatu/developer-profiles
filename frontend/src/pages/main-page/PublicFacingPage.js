@@ -31,15 +31,15 @@ class PublicFacingPage extends Component {
         }).then(res2 => {
             let allUsers = this.state.allUsers;
             allUsers.forEach(user => {
-                console.log(user.location)
-                console.log(user.places)
+                // console.log(user.location)
+                // console.log(user.places)
                 let location = unpackLocations(user.location)
                 user.location = location
             })
             this.setState({
                 allUsers: allUsers
             })
-            console.log(this.state.allUsers)
+            // console.log(this.state.allUsers)
         }).catch(error => {
             console.log(error)
         })
@@ -70,11 +70,11 @@ class PublicFacingPage extends Component {
         let newArr = this.state.allUsers.filter(item => {
             //this part will not work until the backend has the location id for the users
             if(this.state.locatedCity){
-                return item.locationId === this.state.locatedCityId
+                return item.location.locationId === this.state.locatedCityId
                 //should def have location Id
             }
             if(this.state.relocatedCityId){
-                return item.locationId === this.state.relocatedCityId
+                return item.location.locationId === this.state.relocatedCityId
             }
             return this.state.filters.includes(item.filter)
         })
@@ -88,7 +88,7 @@ class PublicFacingPage extends Component {
     }
 
     render() { 
-        console.log(this.state)
+        // console.log(this.state)
         return (
             <PublicFacingPageDiv>
                 <FilterBox 
