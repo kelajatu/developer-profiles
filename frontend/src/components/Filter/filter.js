@@ -16,13 +16,14 @@ export default class FilterBox extends Component {
         return(
             <FilterBoxDiv> 
                 {this.props.params.number ? 
-                <h2>Showing: <strong>{this.props.params.number}</strong> profiles</h2>
-                : null}
+                <h1>Showing: <strong>{this.props.params.number}</strong> profiles</h1>
+                : <h2>null</h2>}
                 <JobTitles 
-                  toggleCheckMarks={this.props.toggleCheckMarks}
-                  params={this.props.params}
-                />
-                <Located params={this.props.params} />
+                    toggleCheckMarks={this.props.toggleCheckMarks}
+                    params={this.props.params} />
+                <Located 
+                    params={this.props.params} 
+                    />
                 <Relocate params={this.props.params} />
             </FilterBoxDiv>
         )

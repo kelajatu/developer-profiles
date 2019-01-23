@@ -35,7 +35,7 @@ class WhereToFindYou extends Component {
     let newArr;
     var self = this;
     axios
-    .post("https://developer-profiles.herokuapp.com/api/location", {inputLocation: e.target.value})
+    .post(`${process.env.REACT_APP_BACKEND_SERVER}/api/location`, {inputLocation: e.target.value})
     .then(response => {
       console.log(response.data.predictions)
       newArr = response.data.predictions.map(location => {
@@ -59,14 +59,9 @@ class WhereToFindYou extends Component {
   }
 
   chooseCurrentLocation = (e) => {
-    // object for db
-    const { id, name } = e.target.dataset
-    let newPlacesInterestedObj = {
-      name,
-      id
-    };
+    const { id } = e.target.dataset
     this.setState({
-      currentLocation: newPlacesInterestedObj,
+      currentLocation: id,
       locationAutocomplete: [],
       currentLocationInput: ''
     });
@@ -78,7 +73,7 @@ class WhereToFindYou extends Component {
     let badge = acclaimBadge.replace(regex, '')
     console.log(badge)
     axios
-    .put(`https://developer-profiles.herokuapp.com/api/acclaim/${this.props.userId}`, {badge})
+    .put(`${process.env.REACT_APP_BACKEND_SERVER}/api/acclaim/${this.props.userInfo.id}`, {badge})
     .then(response => {
       // add/save aclaim image / validate
       console.log(response.data)
@@ -99,12 +94,13 @@ class WhereToFindYou extends Component {
       portfolio,
     }
     console.log(lePackage)
-    axios.put(`https://developer-profiles.herokuapp.com/users/${this.props.userId}`, lePackage)
+    axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
       .then(res => console.log(res.data))
       .catch(err => console.log(err))
   }
 
   render() {
+    console.log('WHERE', this.props.userInfo)
     return (
       <MainFormContainer>
         <header>
@@ -113,8 +109,6 @@ class WhereToFindYou extends Component {
         <div className="container">
           <FormSection>
             <form onSubmit={this.checkOnSubmit}>
-
-
               <div>
                 {/* location - Autocomplete from google - saves location ID */}
                 <label htmlFor="usercurrentLocation">
