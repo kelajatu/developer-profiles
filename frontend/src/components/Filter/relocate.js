@@ -18,7 +18,9 @@ export default class Relocate extends Component {
                 <LocationAuto 
                     name="relocateCity"
                     id="relocateCityId"
-                    placeholder='Anywhere, U.S.A.' />
+                    placeholder='Anywhere, U.S.A.'
+                    updatePublicPageState={this.props.updatePublicPageState} 
+                    />
             </RelocateDiv>
         )
     }

@@ -15,9 +15,7 @@ export default class FilterBox extends Component {
     render(){
         return(
             <FilterBoxDiv> 
-                {this.props.params.number ? 
-                <h1>Showing: <strong>{this.props.params.number}</strong> profiles</h1>
-                : <h2>null</h2>}
+                <h1>Showing: <strong>{this.props.params.cardsDisplaying}</strong> profiles</h1>
                 <JobTitles 
                     updatePublicPageState={this.props.updatePublicPageState}
                     toggleCheckMarks={this.props.toggleCheckMarks}

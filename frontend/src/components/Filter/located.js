@@ -7,8 +7,17 @@ export default class Located extends Component {
     constructor(props){
         super(props)
         this.state = {
-
+            milesFrom: 5
         }
+    }
+
+    changeHandler = (e) => {
+        this.setState({
+            milesFrom: e.target.value
+        })
+        this.props.updatePublicPageState({
+            milesFrom: +e.target.value
+        })
     }
 
     render(){
@@ -16,13 +25,19 @@ export default class Located extends Component {
             <LocatedDiv>
                  <h1>Located</h1>
                     <label className="container">
-                        <input type="checkbox"/>within
-                        <input type="number" step="5" placeholder="5" /> miles of
+                        {/* <input type="checkbox"/>within */}
+                        <input 
+                            onChange={this.changeHandler} 
+                            type="number" 
+                            step="5" 
+                            value={this.state.milesFrom} 
+                            name='milesFrom'
+                            /> miles of
                         <LocationAuto 
                             name="locatedCity"
                             id="locatedCityId"
                             updatePublicPageState={this.props.updatePublicPageState}
-                            placeholder='Albuquerque, N.M.'/>
+                            placeholder='Earth'/>
                         <span className="checkmark"></span>
                     </label>
             </LocatedDiv>

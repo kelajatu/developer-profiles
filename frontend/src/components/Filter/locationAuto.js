@@ -43,7 +43,6 @@ export class LocationAuto extends Component {
            [this.props.name]: e.target.dataset.name,
             locationSuggestions: [],
         });
-        console.log(e.target)
         this.props.updatePublicPageState({
             [this.props.name]: e.target.dataset.name,
             [this.props.id]: e.target.dataset.id
@@ -51,7 +50,6 @@ export class LocationAuto extends Component {
     }
 
     render(){
-        console.log(this.props.name)
         return(
             <LocationAutoDiv> 
                 <input 
@@ -66,7 +64,6 @@ export class LocationAuto extends Component {
                         {this.state.locationSuggestions && 
                             this.state.locationSuggestions.length > 0 ?
                             this.state.locationSuggestions.map(location => {
-                                console.log(this.props.name)
                                 return (
                                     <span
                                         name={this.props.name}
