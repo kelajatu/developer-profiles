@@ -9,21 +9,22 @@ export const LandingPageDiv = styled.div`
   }
   p {
     /* color: pink; */
+    font-size: 24px;
   }
 `
 
 export const Pagewrap = styled.div`
-  background-size: cover;
-  background-image: url(${bg_img});
-  display: flex;
+  /* background-size: cover; */
+  /* display: flex;
   flex-flow: column;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
   width: 100%;
   height: 100vh;
-  position: relative;
+  /* position: relative; */
   text-align: center;
-  padding: 5em;
+ padding-top: 5em;
+ padding-bottom: 5em;
   h1 {
     font-size: 5rem;
     letter-spacing: 5px;
