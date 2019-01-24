@@ -1,5 +1,5 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const PublicFacingPageDiv = styled.div`
-    background-color: #fffcf0;
-`
+  background-color: #fff;
+`;
