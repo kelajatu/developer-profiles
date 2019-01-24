@@ -44,15 +44,6 @@ export default class Auth {
           ///NEEDS TO BE LOCAL HOST ENV
             axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/new`, userInfo)
             .then(res => {
-              // if it returns user data, add to session storage and
-              // pick up to autofill personal info section
-              // might need to hydrate more sections for returning users
-              console.log('RETURN DATA', res.data)
-              if (Array.isArray(res.data)) {
-                sessionStorage.setItem('userInfo', JSON.stringify(res.data[0]));
-              } else {
-                sessionStorage.setItem('userInfo', JSON.stringify(res.data));
-              }
               props.history.push('/dashboard');
             })
             .catch(err => console.log(err));

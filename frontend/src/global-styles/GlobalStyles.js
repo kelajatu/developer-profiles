@@ -88,7 +88,7 @@ export const GlobalStyle = createGlobalStyle`
     /* --page_background: var(--color_cream);
     --box_background:var(--color_dark_purple); */
     --my-gradient: linear-gradient(to right, #7f7fd5, #86a8e7, #91eae4);
-    --fade-gradient:linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(245,248,252,1) 89%,rgba(244,247,252,1) 98%);
+    --fade-gradient:linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 89%,rgba(255,255,255,1) 98%);
   }
 
   html {
@@ -103,6 +103,6 @@ export const GlobalStyle = createGlobalStyle`
   html, body, #root {
     width: 100%;
     height: 100%;
-    background-color: #F4F7FC;
+    background-color: white;
   }
 `;

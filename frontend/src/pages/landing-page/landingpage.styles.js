@@ -19,6 +19,7 @@ export const Pagewrap = styled.div`
   flex-flow: column;
   align-items: center;
   justify-content: center; */
+  display: flex;
   width: 100%;
   height: 100vh;
   /* position: relative; */
@@ -32,6 +33,12 @@ export const Pagewrap = styled.div`
     letter-spacing: 5px;
     margin-bottom: 0.4em;
   }
+
+  .landing {
+    background: pink;
+    border: 1px solid purple;
+  }
+
 `;
 
 export const Moreinfo = styled.div`
@@ -49,3 +56,4 @@ export const Learnmore = styled.div`
   color: darkgray;
   border: 1px solid black;
 `
+

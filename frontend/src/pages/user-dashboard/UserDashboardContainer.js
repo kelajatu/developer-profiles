@@ -25,44 +25,84 @@ class UserDashboardContainer extends Component {
 
   componentDidMount() {
     const userInfo = this.props.auth.getProfile();
+    console.log('CHECKK',userInfo)
     const userEmail = userInfo.email;
     axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userEmail}`)
     .then(res => {
       const userInfo = res.data;
       this.setState({user: res.data})
-      console.log('user:', this.state.user, 'response:', res.data)
-      
+      var userLocationObj;
+      var userPlacesArr;
       // breaking up locations
       if (userInfo.location !== null) {
-        var userLocationSplit = userInfo.location.split('_');
-        var userLocationObj = {
+        let userLocationSplit = userInfo.location.split('/');
+        userLocationObj = {
           locationId: userLocationSplit[0],
-          locationName: userLocationSplit[1]
+          locationName: userLocationSplit[1],
+          locationLat: userLocationSplit[2],
+          locationLong: userLocationSplit[3]
         }
       }
+      console.log('CUURLOCATION', userLocationObj)
+      
       if (userInfo.places !== null) {
-        const userPlacesSplit = userInfo.places.split('|');
-        var userPlacesArr = [];
+        let userPlacesSplit = userInfo.places.split('|');
+        userPlacesArr = [];
         userPlacesSplit.forEach(place => {
-          let placesHolder = place.split('_')
+          let placesHolder = place.split('/')
           let placeObjHolder = {
             locationId: placesHolder[0],
-            locationName: placesHolder[1]
+            locationName: placesHolder[1],
+            locationLat: placesHolder[2],
+            locationLong: placesHolder[3]
           }
           userPlacesArr.push(placeObjHolder)
         })
       }
-
+      console.log('PLACESS', userPlacesArr)
+      
       // getting edu, exp, proj
-      const userProjects = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/projects`)
-      const userExperience = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/experience`)
-      const userEducation = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/education`)
-      Promise.all([userProjects, userExperience, userEducation])
+      const getUserProjects = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/projects`)
+      const getUserExperience = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/experience`)
+      const getUserEducation = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/education`)
+      Promise.all([getUserProjects, getUserExperience, getUserEducation])
       .then(values => {
 
-        // now you have userInfo + all 3(edu,exp,proj)
+        // now you have userInfo + locations + all 3(edu,exp,proj)
         console.log('PROMISEEEE',values)
-        this.setState({userProgress: 'updatedUserProgress', ...userInfo, userLocationObj, userPlacesArr})
+        const userProjects = values[0].data;
+        const userExperience = values[1].data;
+        const userEducation = values[2].data;
+
+        const allUserInfo = {
+          ...userInfo,
+          userProjects,
+          userExperience,
+          userEducation,
+          userLocationObj,
+          userPlacesArr
+        }
+        console.log('ALL', allUserInfo)
+        let updatedUserProgress = parseInt(this.state.userProgress);
+
+        for (let key in allUserInfo) {
+          if (
+            !(allUserInfo[key] === null ||
+            allUserInfo[key] === undefined ||
+            allUserInfo[key] === '' ||
+            (Array.isArray(allUserInfo[key]) && allUserInfo[key].length === 0))
+          ) {
+            console.log(key)
+            // need switch to add points based on what is filled in
+            // need to add billing auth key to user table
+            // remove either title or filter
+            if (key === 'image') {
+              updatedUserProgress += 5
+            }
+          }
+        }
+        updatedUserProgress = '' + updatedUserProgress + '%'
+        this.setState({userProgress: updatedUserProgress, ...allUserInfo})
       })
       .catch(err => console.log(err))
       })

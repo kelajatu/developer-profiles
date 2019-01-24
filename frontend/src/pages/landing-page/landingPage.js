@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ContentBox from '../../components/content-box/ContentBox'
+import UserCardPreview from '../user-dashboard/UserCardPreview.js'
 import {
   Pagewrap,
   Btn,
@@ -15,6 +16,8 @@ class LandingPage extends Component {
       <LandingPageDiv>
         <Pagewrap>
             <ContentBox />
+            <UserCardPreview className="landing" />
+
         </Pagewrap>
         <Moreinfo>
           <Aboutus>

@@ -18,6 +18,8 @@ server.use(express.json());
 server.use(helmet());
 server.use(cors());
 
+
+// AWS image upload
 aws.config.update({
   secretAccessKey: process.env.AWS_PIC_SECRET_KEY,
   accessKeyId: process.env.AWS_PIC_ACCESS_KEY,
@@ -25,7 +27,6 @@ aws.config.update({
 });
 
 const s3 = new aws.S3();
-
 
 const upload = multer({
   storage: multerS3({
@@ -44,7 +45,6 @@ const upload = multer({
 
 const singleImageUpload = upload.single('image');
 
-// single image upload request
 server.post('/image-upload', (req, res) => {
   console.log(req.body)
   singleImageUpload(req, res, function(err) {
@@ -55,13 +55,12 @@ server.post('/image-upload', (req, res) => {
   });
 });
 
-// google key, need to move to .env
+
+// google services
 const key = process.env.GOOGLE_AUTO_COMPLETE
 
 server.post('/location', (req, res) => {
-
-  const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${req.body.inputLocation}&key=${key}`;
-
+  const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${req.body.inputLocation}&types=(cities)&key=${key}`;
   axios.post(url)
   .then(response => {
     console.log(response.data)
@@ -73,14 +72,8 @@ server.post('/location', (req, res) => {
   })
 });
 
-// Each place has an ID, you can grab the ID from the Autocomplete, and just put an array of IDs of the origins to 
-// calculate distances, instead of having to put gio codes or text addresses
-// split array with |
-
-server.post('/matrix', (req, res) => {
-
-  const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=Washington,DC&destinations=New+York+City,NY|Los+Angeles,CA&key=${key}`;
-
+server.post('/gio', (req, res) => {
+  const url = `https://maps.googleapis.com/maps/api/place/details/json?placeid=${req.body.placeId}&fields=geometry&key=${key}`
   axios.post(url)
   .then(response => {
     console.log(response.data)
@@ -92,9 +85,9 @@ server.post('/matrix', (req, res) => {
   })
 });
 
-//need to also save acclaim badge url from user input to new slot on table-- to be added
+
+// acclaim
 server.put("/acclaim/:id", (req, res) => {
-    //use later to add the acclaim image to the db
     let id = req.params.id
     console.log(req.body)
     axios.get(`https://api.youracclaim.com/v1/obi/badge_assertions/${req.body.badge}`).then(response => {
@@ -109,6 +102,7 @@ server.put("/acclaim/:id", (req, res) => {
 });
 
 
+// stripe
 server.post('/billing', (req, res) => {
   const { stripeToken } = req.body;
   console.log(stripeToken)

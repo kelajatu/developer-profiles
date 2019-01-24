@@ -9,6 +9,9 @@ exports.up = function(knex, Promise) {
     table.string("title", 1000);
     table.string("filter");
     table.string("location", 1000);
+    table.string("location_id", 1000);
+    table.string("potential_location_ids", 1000);
+    table.string("potential_location_names", 1000);
     table.string("github");
     table.string("linkedin");
     table.string("portfolio");
