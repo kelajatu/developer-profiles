@@ -37,11 +37,18 @@ export default class FilterBox extends Component {
 const FilterBoxDiv = styled.aside`
   background-color: white;
   position: fixed;
-  z-index: 10;
+  z-index: 1;
   width: 25%;
-  height: 100vh;
+  height: 100%;
   padding-top: 130px;
   border-right: solid 0.5px #dbdee2;
   display: flex;
   flex-direction: column;
+  aside a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    display: block;
+  }
 `;
