@@ -25,7 +25,7 @@ exports.seed = function(knex, Promise) {
           area_of_work: randomFilterValue(),
           current_location_name: 'Random City name',
           current_location_lat: faker.address.latitude(),
-          current_location_lon: faker.address.logitude(),
+          current_location_lon: faker.address.longitude(),
           interested_location_names: `${faker.address.city()|faker.address.city()|faker.address.city()|faker.address.city()}`,
           public_email: faker.internet.email(),
           github: "github.com",
