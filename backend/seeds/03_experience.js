@@ -8,7 +8,7 @@ exports.seed = function(knex, Promise) {
             let num = 500;
             while(num > 0){
                 arr.push({
-                    user_id: num,
+                    id: num,
                     job_title: faker.name.jobTitle(),
                     job_dates: faker.date.between(),
                     job_description: faker.name.jobDescriptor(),  

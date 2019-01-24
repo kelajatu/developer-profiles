@@ -8,7 +8,7 @@ exports.seed = function(knex, Promise) {
           let num = 500;
           while(num > 0){
               arr.push({
-                  user_id: num,
+                  id: num,
                   project_img: faker.image.imageUrl(),
                   project_title: faker.random.word(),
                   link: faker.internet.url(),

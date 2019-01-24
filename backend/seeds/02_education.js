@@ -8,7 +8,7 @@ exports.seed = function(knex, Promise) {
             let num = 500;
             while(num > 0){
                 arr.push({
-                    user_id: num,
+                    id: num,
                     school: faker.random.word(),
                     school_dates: faker.date.between(),
                     degree: faker.lorem.word(),  
