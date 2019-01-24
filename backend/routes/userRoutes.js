@@ -89,15 +89,23 @@ server.post('/:user_id/addskills/:type', (req, res) => {
 //expects user id and skill type in path params
 //expects skill name in req.body ex. "skill": "Python" 
 server.post('/:user_id/createskill/:type', (req, res) => {
-    db.createKeywords(req.params.type, req.body).then(async function(data) {
+    db.createKeywords(req.body).then(async function(data) {
         let oldSkills = await db.user_helpers.getUserSkillID(req.params.user_id, req.params.type);
-        oldSkills = oldSkills[req.params.type] + `,${data}`
-        db.addKeywords(req.params.user_id, req.params.type, oldSkills).then(data => {
-            res.status(200).json(data)
-        }).catch(err => {
-            console.log("there is an error in users/addskill/:id/:type at addKey", err)
-            res.status(500).json({message: "there is an error in users/addskill/:id/:type at addKey", err: err})
-        })
+        if (oldSkills[req.params.type] === null) {
+            console.log(`${data}`)
+            db.addKeywords(req.params.user_id, req.params.type, `${data}`).then(resdata => {
+                console.log(resdata)
+                res.status(200).json(resdata)
+            })
+        } else {
+            oldSkills = oldSkills[req.params.type] + `,${data}`
+            db.addKeywords(req.params.user_id, req.params.type, oldSkills).then(resdata => {
+                res.status(200).json(resdata)
+            }).catch(err => {
+                console.log("there is an error in users/addskill/:id/:type at addKey", err)
+                res.status(500).json({message: "there is an error in users/addskill/:id/:type at addKey", err: err})
+            })
+        }
     }).catch(err => {
         console.log("there is an error in users/createskill/:id/:type at createKey", err)
         res.status(500).json({message: "there is an error in users/createskill/:id/:type at createKey", err: err})
