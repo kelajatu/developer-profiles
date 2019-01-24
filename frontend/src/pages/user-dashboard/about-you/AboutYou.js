@@ -42,7 +42,7 @@ class AboutYou extends Component {
       newArr = response.data.predictions.map(location => {
         return {
           name: location.description,
-          id: location.id
+          id: location.place_id
         };
       });
       self.setState({ placesAutocomplete: newArr });
@@ -55,15 +55,23 @@ class AboutYou extends Component {
 
   choosePlacesInterested = (e) => {
     const { id, name } = e.target.dataset
-    let newPlacesInterested;
-    if (this.state.placesInterested === '') {
-      newPlacesInterested = '';
-      newPlacesInterested = id + '_' + name;
-    } else {
-      newPlacesInterested = this.state.placesInterested.slice();
-      newPlacesInterested = newPlacesInterested + '|' + id + '_' + name;
-    }
-    this.setState({ placesInterested: newPlacesInterested, placesAutocomplete: [], placesInterestedInput: "" });
+
+    axios
+    .post(`${process.env.REACT_APP_BACKEND_SERVER}/api/gio`, {placeId: id})
+      .then(res => {
+        console.log(res.data.result.geometry.location)
+        const { lat, lng } = res.data.result.geometry.location;
+        let newPlacesInterested;
+        if (this.state.placesInterested === '') {
+          newPlacesInterested = '';
+          newPlacesInterested = id + '/' + name + '/' + lat + '/' + lng;
+        } else {
+          newPlacesInterested = this.state.placesInterested.slice();
+          newPlacesInterested = newPlacesInterested + '|' + id + '/' + name + '/' + lat + '/' + lng;
+        }
+        this.setState({ placesInterested: newPlacesInterested, placesAutocomplete: [], placesInterestedInput: "" });
+      })
+      .catch(err => console.log(err))
   }
 
   // removePlace = (e) => {

@@ -35,11 +35,11 @@ class WhereToFindYou extends Component {
     axios
     .post(`${process.env.REACT_APP_BACKEND_SERVER}/api/location`, {inputLocation: e.target.value})
     .then(response => {
-      console.log(response.data.predictions)
+      console.log('AAAAAAAAAAAAAAAAAA',response.data.predictions)
       newArr = response.data.predictions.map(location => {
         return {
           name: location.description,
-          id: location.id
+          id: location.place_id
         };
       });
       self.setState({ locationAutocomplete: newArr });
@@ -58,13 +58,20 @@ class WhereToFindYou extends Component {
 
   chooseCurrentLocation = (e) => {
     const { id, name } = e.target.dataset
-    const newCurrentLocation = id + '_' + name;
-    console.log("CHOSEN", newCurrentLocation)
-    this.setState({
-      currentLocation: newCurrentLocation,
-      locationAutocomplete: [],
-      currentLocationInput: ''
-    });
+    console.log(id, name)
+    axios
+    .post(`${process.env.REACT_APP_BACKEND_SERVER}/api/gio`, {placeId: id})
+      .then(res => {
+        console.log(res.data.result.geometry.location)
+        const { lat, lng } = res.data.result.geometry.location;
+        const newCurrentLocation = id + '/' + name + '/' + lat + '/' + lng;
+        this.setState({
+          currentLocation: newCurrentLocation,
+          locationAutocomplete: [],
+          currentLocationInput: ''
+        });
+      })
+      .catch(err => console.log(err))
   }
 
   // using put for axios call
