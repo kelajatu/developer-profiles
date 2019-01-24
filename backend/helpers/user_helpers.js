@@ -12,27 +12,6 @@ module.exports = {
     
         //if all users: excludes projects, experience, education for card view
         return db("users")
-            .select(
-                "id",
-                "first_name", 
-                "last_name",
-                "email",
-                "location", 
-                "location_id",
-                "potential_location_ids",
-                "potential_location_names",
-                "summary", 
-                "title",
-                "badge",
-                "github",
-                "linkedin",
-                "portfolio",
-                "top_skills",
-                "add_skills",
-                "familiar",
-                "filter",
-                "image"
-            )
       },
     
     //grabs set of IDs from user skills/places column
@@ -46,7 +25,7 @@ module.exports = {
     // ==== add functions ====
     addUser: function(user) {
       return db("users")
-        .insert(user, ['id', 'email', 'first_name', 'last_name'])
+        .insert(user, ['email', 'first_name', 'last_name'])
     },
 
     editUser: function(id, input) {
