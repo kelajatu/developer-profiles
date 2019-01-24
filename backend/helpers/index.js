@@ -32,7 +32,7 @@ module.exports = {
             .where({id: id})
             .update({[type]: keywordsArr})
     },
-    createKeywords: function(type, keyword) {
+    createKeywords: function(keyword) {
         return db("skills")
             .insert(keyword)
     },

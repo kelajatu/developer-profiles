@@ -10,14 +10,9 @@ class AboutYou extends Component {
     placesInterested: '',
     summary: "",
     topSkillsInput: "",
-    topSkillsList: [],
-    topSkills: "",
     additionalSkillsInput: "",
-    additionalSkillsList: [],
-    additionalSkills: "",
     familiarSkillsInput: "",
-    familiarSkillsList: [],
-    familiarSkills: "",
+   
   }
   
 
@@ -66,108 +61,108 @@ class AboutYou extends Component {
     this.setState({ placesInterested: newPlacesInterested, placesAutocomplete: [], placesInterestedInput: "" });
   }
 
-  // removePlace = (e) => {
-  //   let newPlacesInterestedArr = this.state.placesInterested.slice();
-  //   newPlacesInterestedArr = newPlacesInterestedArr.filter(place => {
-  //     return place.id !== e.target.dataset.id
-  //   });
-  //   this.setState({ placesInterested: newPlacesInterestedArr });
-  // }
+  removePlace = (e) => {
+    let newPlacesInterestedArr = this.state.placesInterested.slice();
+    newPlacesInterestedArr = newPlacesInterestedArr.filter(place => {
+      return place.id !== e.target.dataset.id
+    });
+    this.setState({ placesInterested: newPlacesInterestedArr });
+  }
 
 
   // top skills
-  onTopSkillsChange = e => {
-    let newArr;
-    var self = this;
-    axios
-    .post(`${process.env.REACT_APP_BACKEND_SERVER}/api/skills`, {skillInput: e.target.value})
-    .then(response => {
-      newArr = response.data.map(skill => skill);
-      self.setState({ topSkillsList: newArr });
-    })
-    .catch(error => {
-      console.log(error);
-    });
-    this.setState({ [e.target.name]: e.target.value });
-  }
+  // onTopSkillsChange = e => {
+  //   let newArr;
+  //   var self = this;
+  //   axios
+  //   .post(`${process.env.REACT_APP_BACKEND_SERVER}/api/skills`, {skillInput: e.target.value})
+  //   .then(response => {
+  //     newArr = response.data.map(skill => skill);
+  //     self.setState({ topSkillsList: newArr });
+  //   })
+  //   .catch(error => {
+  //     console.log(error);
+  //   });
+  //   this.setState({ [e.target.name]: e.target.value });
+  // }
 
-  chooseTopSkills = (e) => {
-    let newtopSkills;
+  // chooseTopSkills = (e) => {
+  //   let newtopSkills;
 
-    if (this.state.topSkills.length === 0) {
-      newtopSkills = '';
-      newtopSkills += e.target.value;
-    } else {
-      newtopSkills = this.state.topSkills.slice();
-      newtopSkills = newtopSkills + ',' + e.target.value;
-    }
-    this.setState({ topSkills: newtopSkills, topSkillsList: [], topSkillsInput: '' });
-  }
-
-
+  //   if (this.state.topSkills.length === 0) {
+  //     newtopSkills = '';
+  //     newtopSkills += e.target.value;
+  //   } else {
+  //     newtopSkills = this.state.topSkills.slice();
+  //     newtopSkills = newtopSkills + ',' + e.target.value;
+  //   }
+  //   this.setState({ topSkills: newtopSkills, topSkillsList: [], topSkillsInput: '' });
+  // }
 
 
 
-  // additional skills
-  onAdditionalSkillsChange = e => {
-    let newArr;
-    var self = this;
-    axios
-    .post(`${process.env.REACT_APP_BACKEND_SERVER}/api/skills`, {skillInput: e.target.value})
-    .then(response => {
-      newArr = response.data.map(skill => skill);
-      self.setState({ additionalSkillsList: newArr });
-    })
-    .catch(error => {
-      console.log(error);
-    });
-    this.setState({ [e.target.name]: e.target.value });
-  }
+
+
+  // // additional skills
+  // onAdditionalSkillsChange = e => {
+  //   let newArr;
+  //   var self = this;
+  //   axios
+  //   .post(`${process.env.REACT_APP_BACKEND_SERVER}/api/skills`, {skillInput: e.target.value})
+  //   .then(response => {
+  //     newArr = response.data.map(skill => skill);
+  //     self.setState({ additionalSkillsList: newArr });
+  //   })
+  //   .catch(error => {
+  //     console.log(error);
+  //   });
+  //   this.setState({ [e.target.name]: e.target.value });
+  // }
   
-  chooseAdditionalSkills = (e) => {
-    let newadditionalSkills;
+  // chooseAdditionalSkills = (e) => {
+  //   let newadditionalSkills;
 
-    if (this.state.additionalSkills.length === 0) {
-      newadditionalSkills = '';
-      newadditionalSkills += e.target.value;
-    } else {
-      newadditionalSkills = this.state.additionalSkills.slice();
-      newadditionalSkills = newadditionalSkills + ',' + e.target.value;
-    }
-    this.setState({ additionalSkills: newadditionalSkills, additionalSkillsList: [], additionalSkillsInput: '' });
-  }
+  //   if (this.state.additionalSkills.length === 0) {
+  //     newadditionalSkills = '';
+  //     newadditionalSkills += e.target.value;
+  //   } else {
+  //     newadditionalSkills = this.state.additionalSkills.slice();
+  //     newadditionalSkills = newadditionalSkills + ',' + e.target.value;
+  //   }
+  //   this.setState({ additionalSkills: newadditionalSkills, additionalSkillsList: [], additionalSkillsInput: '' });
+  // }
 
 
-  // familiar skills
-  onFamiliarSkillsChange = e => {
-    let newArr;
-    var self = this;
-    axios
-    .post(`${process.env.REACT_APP_BACKEND_SERVER}/api/skills`, {skillInput: e.target.value})
-    .then(response => {
-      // skills will prob get unloaded by this point so you will only need to filter, like the search bar
-      // same with all skills
-      newArr = response.data.map(skill => skill);
-      self.setState({ familiarSkillsList: newArr });
-    })
-    .catch(error => {
-      console.log(error);
-    });
-    this.setState({ [e.target.name]: e.target.value });
-  }
+  // // familiar skills
+  // onFamiliarSkillsChange = e => {
+  //   let newArr;
+  //   var self = this;
+  //   axios
+  //   .post(`${process.env.REACT_APP_BACKEND_SERVER}/api/skills`, {skillInput: e.target.value})
+  //   .then(response => {
+  //     // skills will prob get unloaded by this point so you will only need to filter, like the search bar
+  //     // same with all skills
+  //     newArr = response.data.map(skill => skill);
+  //     self.setState({ familiarSkillsList: newArr });
+  //   })
+  //   .catch(error => {
+  //     console.log(error);
+  //   });
+  //   this.setState({ [e.target.name]: e.target.value });
+  // }
   
-  chooseFamiliarSkills = (e) => {
-    let newfamiliarSkills;
+  // chooseFamiliarSkills = (e) => {
+  //   let newfamiliarSkills;
 
-    if (this.state.familiarSkills.length === 0) {
-      newfamiliarSkills = '';
-      newfamiliarSkills += e.target.value;
-    } else {
-      newfamiliarSkills = this.state.familiarSkills.slice();
-      newfamiliarSkills =newfamiliarSkills + ',' + e.target.value;
-    }
-    this.setState({ familiarSkills: newfamiliarSkills, familiarSkillsList: [], familiarSkillsInput: '' });
-  }
+  //   if (this.state.familiarSkills.length === 0) {
+  //     newfamiliarSkills = '';
+  //     newfamiliarSkills += e.target.value;
+  //   } else {
+  //     newfamiliarSkills = this.state.familiarSkills.slice();
+  //     newfamiliarSkills =newfamiliarSkills + ',' + e.target.value;
+  //   }
+  //   this.setState({ familiarSkills: newfamiliarSkills, familiarSkillsList: [], familiarSkillsInput: '' });
+  // }
 
   checkOnSubmit = (e) => {
     e.preventDefault()
@@ -184,6 +179,26 @@ class AboutYou extends Component {
       .then(res => console.log(res.data))
       .catch(err => console.log(err))
   }
+
+//should only need one function regardless of skill type, can get type info from input or add button id/name
+  addSkillsFromBank = (e) => {
+    axios.post(`https://developer-profiles.herokuapp.com/users/${this.props.userInfo.id}/addskills/${e.target.id}`, {"id": ""}).then(
+      skill => console.log(skill)
+    )
+  }
+
+  addSkillsNew = (e) => {
+    let skillInput = e.target.name
+    console.log(e.target.name)
+    axios.post(`https://developer-profiles.herokuapp.com/users/${this.props.userInfo.id}/createskill/${e.target.id}`, {"skill": `${this.state[skillInput]}`}).then(
+      skill => console.log(skill)
+    )
+  }
+
+  skillFilter = () => {
+    //todo
+  }
+
 
   render() {
     console.log('About', this.props.userInfo)
@@ -252,19 +267,20 @@ class AboutYou extends Component {
                 </label>
                 <input
                   type="text"
-                  id="userTopSkills"
+                  autoComplete="off"
+                  id="top_skills"
                   placeholder="Put 5 skills here, they are the biggest on your profile"
                   name="topSkillsInput"
                   value={this.state.topSkillsInput}
-                  onChange={this.onTopSkillsChange}
-                />
-                {this.state.topSkillsList.length === 0 ?
+                  onChange={this.onInputChange}
+                /><span id="top_skills" name="topSkillsInput" onClick={this.addSkillsNew}>Add New</span>
+                {/* {this.state.topSkillsList.length === 0 ?
                   null
                   :
                   this.state.topSkillsList.map(skill => {
                     return (<option onClick={this.chooseTopSkills} key={skill} value={skill}>{skill}</option>);
                   })
-                }
+                } */}
               </div>
             
               <div>
@@ -275,19 +291,19 @@ class AboutYou extends Component {
                 </label>
                 <input
                   type="text"
-                  id="userAdditionalSkills"
+                  id="add_skills"
                   placeholder="Put more skills here. They will be medium on your profile"
                   name="additionalSkillsInput"
                   value={this.state.additionalSkillsInput}
                   onChange={this.onAdditionalSkillsChange}
-                />
-                {this.state.additionalSkillsList.length === 0 ?
+                /><span id="add_skills" name="additionalSkillsInput" onClick={this.addSkillsNew}>Add New</span>
+                {/* {this.state.additionalSkillsList.length === 0 ?
                   null
                   :
                   this.state.additionalSkillsList.map(skill => {
                     return (<option onClick={this.chooseAdditionalSkills} key={skill} value={skill}>{skill}</option>);
                   })
-                }
+                } */}
               </div>
             
               <div>
@@ -298,19 +314,19 @@ class AboutYou extends Component {
                 </label>
                 <input
                   type="text"
-                  id="userFamiliarSkills"
+                  id="familiar"
                   placeholder="Put remaining skills here. They will be small on your profile"
                   name="familiarSkillsInput"
                   value={this.state.familiarSkillsInput}
                   onChange={this.onFamiliarSkillsChange}
-                />
-                {this.state.familiarSkillsList.length === 0 ?
+                /><span id="familiar" name="familiarSkillsInput" onClick={this.addSkillsNew}>Add New</span>
+                {/* {this.state.familiarSkillsList.length === 0 ?
                   null
                   :
                   this.state.familiarSkillsList.map(skill => {
                     return (<option onClick={this.chooseFamiliarSkills} key={skill} value={skill}>{skill}</option>);
                   })
-                }
+                } */}
               </div>
 
               <button type="submit">Save Info</button>

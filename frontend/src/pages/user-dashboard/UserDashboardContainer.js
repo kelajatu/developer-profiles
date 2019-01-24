@@ -19,7 +19,8 @@ import Billing from './billing/Billing';
 
 class UserDashboardContainer extends Component {
   state = {
-    userProgress: '20%'
+    userProgress: '20%',
+    user: {}
   }
 
   componentDidMount() {
@@ -28,7 +29,8 @@ class UserDashboardContainer extends Component {
     axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userEmail}`)
     .then(res => {
       const userInfo = res.data;
-      console.log('CHECKK',userInfo)
+      this.setState({user: res.data})
+      console.log('user:', this.state.user, 'response:', res.data)
       
       // breaking up locations
       if (userInfo.location !== null) {
@@ -77,7 +79,7 @@ class UserDashboardContainer extends Component {
         <Route exact path={`${this.props.match.path}/`} render={props => <UserDashboardIntro {...props} />} />
         <Route path={`${this.props.match.path}/personal-info`} render={props => <PersonalInfo {...props} userInfo={this.state} />} />
         <Route path={`${this.props.match.path}/where-to-find-you`} render={props => <WhereToFindYou {...props} userInfo={this.state} />} />
-        <Route path={`${this.props.match.path}/about-you`} render={props => <AboutYou {...props} userInfo={this.state} />} />
+        <Route path={`${this.props.match.path}/about-you`} render={props => <AboutYou {...props} userInfo={this.state.user} />} />
         <Route path={`${this.props.match.path}/projects`} render={props => <Projects {...props} userInfo={this.state} />} />
         <Route path={`${this.props.match.path}/experience`} render={props => <Experience {...props} userInfo={this.state} />} />
         <Route path={`${this.props.match.path}/education`} render={props => <Education {...props} userInfo={this.state} />} />
