@@ -35,6 +35,7 @@ module.exports = {
     createKeywords: function(keyword) {
         return db("skills")
             .insert(keyword).returning('id')
+
     },
     getExtras: function(id, type) {
         return db(`${type}`)
