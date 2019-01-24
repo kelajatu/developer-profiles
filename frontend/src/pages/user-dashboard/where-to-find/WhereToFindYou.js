@@ -8,7 +8,9 @@ class WhereToFindYou extends Component {
   state = {
     currentLocationInput: "",
     locationAutocomplete: [],
-    currentLocation: '',
+    currentLocationName: '',
+    currentLocationLat: '',
+    currentLocationLon: '',
 
     
     github: "",
@@ -35,7 +37,6 @@ class WhereToFindYou extends Component {
     axios
     .post(`${process.env.REACT_APP_BACKEND_SERVER}/api/location`, {inputLocation: e.target.value})
     .then(response => {
-      console.log('AAAAAAAAAAAAAAAAAA',response.data.predictions)
       newArr = response.data.predictions.map(location => {
         return {
           name: location.description,
@@ -64,9 +65,10 @@ class WhereToFindYou extends Component {
       .then(res => {
         console.log(res.data.result.geometry.location)
         const { lat, lng } = res.data.result.geometry.location;
-        const newCurrentLocation = id + '/' + name + '/' + lat + '/' + lng;
         this.setState({
-          currentLocation: newCurrentLocation,
+          currentLocationName: name,
+          currentLocationLat: lat,
+          currentLocationLon: lng,
           locationAutocomplete: [],
           currentLocationInput: ''
         });
@@ -93,13 +95,19 @@ class WhereToFindYou extends Component {
   // send to db
   checkOnSubmit = (e) => {
     e.preventDefault()
-    const { currentLocation, github, linkedin, portfolio } = this.state;
+
+
+    const { github, linkedin, portfolio } = this.state;
     const lePackage = {
-      location: currentLocation,
+      current_location_name: '',
+      current_location_lat: '',
+      current_location_lon: '',
       github,
       linkedin,
       portfolio,
     }
+
+
     console.log(this.props.userInfo.id)
     axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
       .then(res => console.log(res.data))

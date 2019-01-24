@@ -25,42 +25,12 @@ class UserDashboardContainer extends Component {
 
   componentDidMount() {
     const userInfo = this.props.auth.getProfile();
-    console.log('CHECKK',userInfo)
+    console.log('USER INFO',userInfo)
     const userEmail = userInfo.email;
     axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userEmail}`)
     .then(res => {
       const userInfo = res.data;
       this.setState({user: res.data})
-      var userLocationObj;
-      var userPlacesArr;
-      // breaking up locations
-      if (userInfo.location !== null) {
-        let userLocationSplit = userInfo.location.split('/');
-        userLocationObj = {
-          locationId: userLocationSplit[0],
-          locationName: userLocationSplit[1],
-          locationLat: userLocationSplit[2],
-          locationLong: userLocationSplit[3]
-        }
-      }
-      console.log('CUURLOCATION', userLocationObj)
-      
-      if (userInfo.places !== null) {
-        let userPlacesSplit = userInfo.places.split('|');
-        userPlacesArr = [];
-        userPlacesSplit.forEach(place => {
-          let placesHolder = place.split('/')
-          let placeObjHolder = {
-            locationId: placesHolder[0],
-            locationName: placesHolder[1],
-            locationLat: placesHolder[2],
-            locationLong: placesHolder[3]
-          }
-          userPlacesArr.push(placeObjHolder)
-        })
-      }
-      console.log('PLACESS', userPlacesArr)
-      
       // getting edu, exp, proj
       const getUserProjects = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/projects`)
       const getUserExperience = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/experience`)
@@ -69,7 +39,7 @@ class UserDashboardContainer extends Component {
       .then(values => {
 
         // now you have userInfo + locations + all 3(edu,exp,proj)
-        console.log('PROMISEEEE',values)
+        console.log('PROMISE',values)
         const userProjects = values[0].data;
         const userExperience = values[1].data;
         const userEducation = values[2].data;
@@ -79,10 +49,8 @@ class UserDashboardContainer extends Component {
           userProjects,
           userExperience,
           userEducation,
-          userLocationObj,
-          userPlacesArr
         }
-        console.log('ALL', allUserInfo)
+        console.log('ALLUSERINFO', allUserInfo)
         let updatedUserProgress = parseInt(this.state.userProgress);
 
         for (let key in allUserInfo) {
@@ -119,7 +87,7 @@ class UserDashboardContainer extends Component {
         <Route exact path={`${this.props.match.path}/`} render={props => <UserDashboardIntro {...props} />} />
         <Route path={`${this.props.match.path}/personal-info`} render={props => <PersonalInfo {...props} userInfo={this.state} />} />
         <Route path={`${this.props.match.path}/where-to-find-you`} render={props => <WhereToFindYou {...props} userInfo={this.state} />} />
-        <Route path={`${this.props.match.path}/about-you`} render={props => <AboutYou {...props} userInfo={this.state.user} />} />
+        <Route path={`${this.props.match.path}/about-you`} render={props => <AboutYou {...props} userInfo={this.state.user} userInfoState={this.state} />} />
         <Route path={`${this.props.match.path}/projects`} render={props => <Projects {...props} userInfo={this.state} />} />
         <Route path={`${this.props.match.path}/experience`} render={props => <Experience {...props} userInfo={this.state} />} />
         <Route path={`${this.props.match.path}/education`} render={props => <Education {...props} userInfo={this.state} />} />

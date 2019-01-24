@@ -6,11 +6,11 @@ import { inputArea, labelArea, centerFlex } from '../../../global-styles/Mixins'
 
 class PersonalInfo extends Component {
   state = {
-    email: "",
+    publicEmail: "",
     firstName: "",
     lastName: "",
     profileImg: "",
-    desiredTitle: "", // title vs filter?
+    jobField: ""
   }
 
   componentDidMount() {
@@ -54,14 +54,16 @@ class PersonalInfo extends Component {
   // Causes error when email is empty
   checkOnSubmit = (e) => {
     e.preventDefault()
-    const {email, firstName, lastName, profileImg, desiredTitle} = this.state;
+
+    const {publicEmail, firstName, lastName, profileImg, jobField} = this.state;
     const lePackage = {
-      email,
+      public_email: publicEmail,
       first_name: firstName,
       last_name: lastName,
       image: profileImg,
-      title: desiredTitle // title vs filter?
+      job_field: jobField
     }
+
     console.log(lePackage)
     axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
       .then(res => console.log(res.data))
@@ -84,17 +86,17 @@ class PersonalInfo extends Component {
           <FormSection>
             <form onSubmit={this.checkOnSubmit}>
 
-              {/* email - autofill if auth returns */}
+              {/* public email */}
               <div>
-                <label htmlFor="userEmail">
-                  Email:
+                <label htmlFor="userPublicEmail">
+                  Public Email:
                 </label>
                 <input
                   type="email"
-                  id="userEmail"
+                  id="userPublicEmail"
                   placeholder="user@gmail.com"
-                  name="email"
-                  value={this.state.email}
+                  name="publicEmail"
+                  value={this.state.publicEmail}
                   onChange={this.onInputChange}
                 />
               </div>
@@ -131,25 +133,24 @@ class PersonalInfo extends Component {
             
               <div className="selectOptions">
 
-                {/* title/filter - Possible autocomplete to match other forms */}
-                {/* <label htmlFor="userDesiredTitle">
-                  Desired Title:
+                {/* <label htmlFor="userJobField">
+                  Job Field:
                 </label>
                 <input
                   type="text"
-                  id="userDesiredTitle"
+                  id="userJobField"
                   placeholder="software engineer"
-                  name="desiredTitle"
-                  value={this.state.desiredTitle}
+                  name="jobField"
+                  value={this.state.jobField}
                   onChange={this.onInputChange}
                 /> */}
-                <label htmlFor="userDesiredTitle">
-                  Desired Title:
+                <label htmlFor="userJobField">
+                  Job Field:
                 </label>
                 <select
-                  id="userDesiredTitle"
-                  name="desiredTitle"
-                  value={this.state.desiredTitle}
+                  id="userJobField"
+                  name="jobField"
+                  value={this.state.jobField}
                   onChange={this.onInputChange}
                 >
                   <option value="default">==Select an Option==</option>
