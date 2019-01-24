@@ -11,8 +11,6 @@ class WhereToFindYou extends Component {
     currentLocationName: '',
     currentLocationLat: '',
     currentLocationLon: '',
-
-    
     github: "",
     linkedin: "",
     portfolio: "",
@@ -97,11 +95,11 @@ class WhereToFindYou extends Component {
     e.preventDefault()
 
 
-    const { github, linkedin, portfolio } = this.state;
+    const { github, linkedin, portfolio, currentLocationName, currentLocationLat, currentLocationLon } = this.state;
     const lePackage = {
-      current_location_name: '',
-      current_location_lat: '',
-      current_location_lon: '',
+      current_location_name: currentLocationName,
+      current_location_lat: currentLocationLat,
+      current_location_lon: currentLocationLon,
       github,
       linkedin,
       portfolio,

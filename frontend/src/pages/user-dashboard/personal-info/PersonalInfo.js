@@ -10,7 +10,8 @@ class PersonalInfo extends Component {
     firstName: "",
     lastName: "",
     profileImg: "",
-    jobField: ""
+    desiredTitle: "",
+    areaOfWork: ""
   }
 
   componentDidMount() {
@@ -48,20 +49,17 @@ class PersonalInfo extends Component {
     XHR.send(FD);
   }
 
-  // send to db
-  // *****  Email can ONLY be changed if user signed up with email/pass  ******
-  // ***** Email NEEDS to be updated in Auth as well *****
-  // Causes error when email is empty
   checkOnSubmit = (e) => {
     e.preventDefault()
 
-    const {publicEmail, firstName, lastName, profileImg, jobField} = this.state;
+    const {publicEmail, firstName, lastName, profileImg, areaOfWork, desiredTitle} = this.state;
     const lePackage = {
       public_email: publicEmail,
       first_name: firstName,
       last_name: lastName,
       image: profileImg,
-      job_field: jobField
+      area_of_work: areaOfWork,
+      desired_title: desiredTitle
     }
 
     console.log(lePackage)
@@ -132,27 +130,15 @@ class PersonalInfo extends Component {
               </div>
             
               <div className="selectOptions">
-
-                {/* <label htmlFor="userJobField">
-                  Job Field:
-                </label>
-                <input
-                  type="text"
-                  id="userJobField"
-                  placeholder="software engineer"
-                  name="jobField"
-                  value={this.state.jobField}
-                  onChange={this.onInputChange}
-                /> */}
-                <label htmlFor="userJobField">
-                  Job Field:
+                <label htmlFor="userAreaOfWork">
+                  Area of Work:
                 </label>
                 <select
-                  id="userJobField"
-                  name="jobField"
-                  value={this.state.jobField}
+                  id="userAreaOfWork"
+                  name="areaOfWork"
+                  value={this.state.areaOfWork}
                   onChange={this.onInputChange}
-                >
+                  >
                   <option value="default">==Select an Option==</option>
                   <option value="Full Stack Web">Full Stack Web</option>
                   <option value="iOS">iOS</option>
@@ -160,6 +146,21 @@ class PersonalInfo extends Component {
                   <option value="UI/UX">UI/UX</option>
                 </select>
               </div>
+
+              <div>
+                <label htmlFor="userDesiredTitle">
+                  Desired Title:
+                </label>
+                <input
+                  type="text"
+                  id="userDesiredTitle"
+                  placeholder="software engineer"
+                  name="desiredTitle"
+                  value={this.state.desiredTitle}
+                  onChange={this.onInputChange}
+                />
+              </div>
+
               <button type="submit">Save Info</button>
             </form>
           </FormSection>
