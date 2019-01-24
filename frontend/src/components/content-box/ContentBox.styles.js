@@ -4,7 +4,6 @@ export const ContentBoxSection = styled.section`
   display: flex;
   flex-direction: column;
   border: 10px solid pink;
-  position: absolute;
   text-align: left;
   padding: 5em;
   a {
@@ -18,6 +17,7 @@ export const ContentBoxSection = styled.section`
 
 export const ButtonContainer = styled.div`
 display: flex;
+text-align: center;
 `
 export const Btn = styled.div`
   @keyframes stripe-slide {
@@ -96,3 +96,7 @@ export const Btn = styled.div`
     }
   }
 `;
+
+export const SampleCard = styled.div `
+
+`
