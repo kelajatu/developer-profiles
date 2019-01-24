@@ -48,7 +48,7 @@ const MainNav = styled.nav`
     }
     &:after {
       height: 2px;
-      background: blue;
+      background: #9192DB;
       content: "";
       width: 0;
       position: absolute;
@@ -60,6 +60,7 @@ const MainNav = styled.nav`
     }
     &:hover,
     &:focus {
+      cursor: pointer;
       outline: none;
       &:after {
         width: calc(100% - 60px);
