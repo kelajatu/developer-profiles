@@ -7,19 +7,14 @@ exports.up = function(knex, Promise) {
     table.string("last_name", 1000)
     table.string("image", 1000);
 
-    table.string("title", 1000);
-    table.string("filter");
+    table.string("desired_title", 1000);
+    table.string("area_of_work");//replaces filter
 
-    /*
-    
-    table.string("job_field")
     table.string("current_location_name", 1000);
     table.string("current_location_lat", 1000);
     table.string("current_location_lon", 1000);
     table.string("interested_location_names", 1000);
     table.string("public_email", 1000);
-    
-    */
 
     table.string("location", 1000);
     table.string("location_id", 1000);

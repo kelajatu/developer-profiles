@@ -8,6 +8,7 @@ class AboutYou extends Component {
     placesInterestedInput: "",
     placesAutocomplete: [],
     placesInterested: '',
+
     summary: "",
     topSkillsInput: "",
     additionalSkillsInput: "",
@@ -49,166 +50,60 @@ class AboutYou extends Component {
   }
 
   choosePlacesInterested = (e) => {
-    const { id, name } = e.target.dataset
+    const { name } = e.target.dataset
 
-    axios
-    .post(`${process.env.REACT_APP_BACKEND_SERVER}/api/gio`, {placeId: id})
-      .then(res => {
-        console.log(res.data.result.geometry.location)
-        const { lat, lng } = res.data.result.geometry.location;
-        let newPlacesInterested;
-        if (this.state.placesInterested === '') {
-          newPlacesInterested = '';
-          newPlacesInterested = id + '/' + name + '/' + lat + '/' + lng;
-        } else {
-          newPlacesInterested = this.state.placesInterested.slice();
-          newPlacesInterested = newPlacesInterested + '|' + id + '/' + name + '/' + lat + '/' + lng;
-        }
-        this.setState({ placesInterested: newPlacesInterested, placesAutocomplete: [], placesInterestedInput: "" });
-      })
-      .catch(err => console.log(err))
-  }
-
-  removePlace = (e) => {
-    let newPlacesInterestedArr = this.state.placesInterested.slice();
-    newPlacesInterestedArr = newPlacesInterestedArr.filter(place => {
-      return place.id !== e.target.dataset.id
-    });
-    this.setState({ placesInterested: newPlacesInterestedArr });
-  }
-
-
-  // top skills
-  // onTopSkillsChange = e => {
-  //   let newArr;
-  //   var self = this;
-  //   axios
-  //   .post(`${process.env.REACT_APP_BACKEND_SERVER}/api/skills`, {skillInput: e.target.value})
-  //   .then(response => {
-  //     newArr = response.data.map(skill => skill);
-  //     self.setState({ topSkillsList: newArr });
-  //   })
-  //   .catch(error => {
-  //     console.log(error);
-  //   });
-  //   this.setState({ [e.target.name]: e.target.value });
-  // }
-
-  // chooseTopSkills = (e) => {
-  //   let newtopSkills;
-
-  //   if (this.state.topSkills.length === 0) {
-  //     newtopSkills = '';
-  //     newtopSkills += e.target.value;
-  //   } else {
-  //     newtopSkills = this.state.topSkills.slice();
-  //     newtopSkills = newtopSkills + ',' + e.target.value;
-  //   }
-  //   this.setState({ topSkills: newtopSkills, topSkillsList: [], topSkillsInput: '' });
-  // }
-
-
-
-
-
-  // // additional skills
-  // onAdditionalSkillsChange = e => {
-  //   let newArr;
-  //   var self = this;
-  //   axios
-  //   .post(`${process.env.REACT_APP_BACKEND_SERVER}/api/skills`, {skillInput: e.target.value})
-  //   .then(response => {
-  //     newArr = response.data.map(skill => skill);
-  //     self.setState({ additionalSkillsList: newArr });
-  //   })
-  //   .catch(error => {
-  //     console.log(error);
-  //   });
-  //   this.setState({ [e.target.name]: e.target.value });
-  // }
-  
-  // chooseAdditionalSkills = (e) => {
-  //   let newadditionalSkills;
-
-  //   if (this.state.additionalSkills.length === 0) {
-  //     newadditionalSkills = '';
-  //     newadditionalSkills += e.target.value;
-  //   } else {
-  //     newadditionalSkills = this.state.additionalSkills.slice();
-  //     newadditionalSkills = newadditionalSkills + ',' + e.target.value;
-  //   }
-  //   this.setState({ additionalSkills: newadditionalSkills, additionalSkillsList: [], additionalSkillsInput: '' });
-  // }
-
-
-  // // familiar skills
-  // onFamiliarSkillsChange = e => {
-  //   let newArr;
-  //   var self = this;
-  //   axios
-  //   .post(`${process.env.REACT_APP_BACKEND_SERVER}/api/skills`, {skillInput: e.target.value})
-  //   .then(response => {
-  //     // skills will prob get unloaded by this point so you will only need to filter, like the search bar
-  //     // same with all skills
-  //     newArr = response.data.map(skill => skill);
-  //     self.setState({ familiarSkillsList: newArr });
-  //   })
-  //   .catch(error => {
-  //     console.log(error);
-  //   });
-  //   this.setState({ [e.target.name]: e.target.value });
-  // }
-  
-  // chooseFamiliarSkills = (e) => {
-  //   let newfamiliarSkills;
-
-  //   if (this.state.familiarSkills.length === 0) {
-  //     newfamiliarSkills = '';
-  //     newfamiliarSkills += e.target.value;
-  //   } else {
-  //     newfamiliarSkills = this.state.familiarSkills.slice();
-  //     newfamiliarSkills =newfamiliarSkills + ',' + e.target.value;
-  //   }
-  //   this.setState({ familiarSkills: newfamiliarSkills, familiarSkillsList: [], familiarSkillsInput: '' });
-  // }
-
-  checkOnSubmit = (e) => {
-    e.preventDefault()
-    const { placesInterested, summary, topSkills, additionalSkills, familiarSkills } = this.state;
-    const lePackage = {
-      places: placesInterested,
-      summary,
-      top_skills: topSkills,
-      add_skills: additionalSkills,
-      familiar: familiarSkills
+    let newPlacesInterested;
+    if (this.state.placesInterested === '') {
+      newPlacesInterested = '';
+      newPlacesInterested = name
+    } else {
+      newPlacesInterested = this.state.placesInterested.slice();
+      newPlacesInterested = newPlacesInterested + '|' + name;
     }
-    console.log(lePackage)
-    axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
-      .then(res => console.log(res.data))
-      .catch(err => console.log(err))
+    this.setState({ placesInterested: newPlacesInterested, placesAutocomplete: [], placesInterestedInput: "" });
   }
 
-//should only need one function regardless of skill type, can get type info from input or add button id/name
+  // removePlace = (e) => {
+  //   let newPlacesInterestedArr = this.state.placesInterested.slice();
+  //   newPlacesInterestedArr = newPlacesInterestedArr.filter(place => {
+  //     return place.id !== e.target.dataset.id
+  //   });
+  //   this.setState({ placesInterested: newPlacesInterestedArr });
+  // }
+
+  
+  //should only need one function regardless of skill type, can get type info from input or add button id/name
   addSkillsFromBank = (e) => {
     axios.post(`https://developer-profiles.herokuapp.com/users/${this.props.userInfo.id}/addskills/${e.target.id}`, {"id": ""}).then(
       skill => console.log(skill)
-    )
-  }
+      )
+    }
+    
+    addSkillsNew = (e) => {
+      let skillInput = e.target.getAttribute('name')
+      axios.post(`https://developer-profiles.herokuapp.com/users/${this.props.userInfo.id}/createskill/${e.target.id}`, {"skill": `${this.state[skillInput]}`}).then(
+        skill => console.log(skill)
+        )
+      }
+      
+      skillFilter = () => {
+        //todo
+      }
+      
+      checkOnSubmit = (e) => {
+        e.preventDefault()
+        const { placesInterested, summary } = this.state;
+        const lePackage = {
+          interested_location_names: placesInterested,
+          summary,
+        }
+        console.log(lePackage)
+        axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
+          .then(res => console.log(res.data))
+          .catch(err => console.log(err))
+      }
 
-  addSkillsNew = (e) => {
-    let skillInput = e.target.name
-    console.log(e.target.name)
-    axios.post(`https://developer-profiles.herokuapp.com/users/${this.props.userInfo.id}/createskill/${e.target.id}`, {"skill": `${this.state[skillInput]}`}).then(
-      skill => console.log(skill)
-    )
-  }
-
-  skillFilter = () => {
-    //todo
-  }
-
-
-  render() {
+    render() {
     console.log('About', this.props.userInfo)
     return (
       <MainFormContainer>
