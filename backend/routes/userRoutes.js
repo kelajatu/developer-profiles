@@ -102,6 +102,7 @@ server.post('/:user_id/createskill/:type', (req, res) => {
         } else {
             console.log("should be a number as a string:", `${data}`)
             oldSkills = oldSkills[req.params.type] + `,${data}`
+            console.log("newskills:", oldSkills)
             db.addKeywords(req.params.user_id, req.params.type, oldSkills).then(resdata => {
                 res.status(200).json(resdata)
             }).catch(err => {
