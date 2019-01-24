@@ -91,13 +91,16 @@ server.post('/:user_id/addskills/:type', (req, res) => {
 server.post('/:user_id/createskill/:type', (req, res) => {
     db.createKeywords(req.body).then(async function(data) {
         let oldSkills = await db.user_helpers.getUserSkillID(req.params.user_id, req.params.type);
+        console.log("oldskills:", oldSkills);
+        console.log("data:", data);
         if (oldSkills[req.params.type] === null) {
-            console.log(`${data}`)
+            console.log("are u a number other than 1:", `${data}`)
             db.addKeywords(req.params.user_id, req.params.type, `${data}`).then(resdata => {
                 console.log(resdata)
                 res.status(200).json(resdata)
             })
         } else {
+            console.log("should be a number as a string:", `${data}`)
             oldSkills = oldSkills[req.params.type] + `,${data}`
             db.addKeywords(req.params.user_id, req.params.type, oldSkills).then(resdata => {
                 res.status(200).json(resdata)
