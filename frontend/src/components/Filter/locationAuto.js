@@ -15,6 +15,7 @@ export class LocationAuto extends Component {
         //name
         //id - (optional for constructing state to send to a parent component)
 
+    //this call needs to go through backend     
     triggerAutoComplete = (e) => {
         this.setState({ [e.target.name]: e.target.value });
         axios.post(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${e.target.value}&key=${process.env.REACT_APP_GOOGLE_AUTO_COMPLETE}`).then(response => {
