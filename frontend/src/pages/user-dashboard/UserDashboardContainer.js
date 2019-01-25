@@ -208,7 +208,7 @@ class UserDashboardContainer extends Component {
         <Route path={`${this.props.match.path}/education`} render={props => <Education updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
         <Route path={`${this.props.match.path}/billing`} render={props => <Billing updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
         <hr/>
-        <UserCardPreview {...this.props} />
+        <UserCardPreview {...this.props} userInfo={this.state} />
       </DashboardContainer>
     )
   }

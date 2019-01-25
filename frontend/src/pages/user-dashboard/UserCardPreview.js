@@ -31,14 +31,14 @@ class UserCardPreview extends Component {
           <UserCardDiv>
             <div className="left-side">
                 <div className="bio">
-                    <img className="photo"src="#" alt="user avatar"/>
+                    <img className="photo"src={this.props.userInfo.image} alt="user avatar"/>
                     <div className="user-intro">
-                        <h2>User Name</h2>
-                        <p className="location">Los Angeles, CA</p>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab, cum! Blanditiis ipsam reprehenderit iusto facere soluta! Ipsa, nulla? Aut cupiditate officiis quisquam quidem quae corrupti tempore culpa veritatis ipsa nam!</p>
+                        <h2>{`${this.props.userInfo.first_name} ${this.props.userInfo.last_name}`}</h2>
+                        <p className="location">{this.props.userInfo.current_location_name}</p>
+                        <p>{this.props.userInfo.summary}</p>
                     </div>
                 </div>
-                <h3>Full Stack Developer</h3>
+                <h3>{this.props.userInfo.desired_title}</h3>
                 <div className="keywords">
                     {this.state ? this.state.arr.map(word => {
                         return (<div key={word.id} className="keyword" style={{fontSize: word.weight }}>
@@ -48,8 +48,8 @@ class UserCardPreview extends Component {
                 </div>
             </div>
             <div className="links">
-                <div className="badge">
-                <img src="#" alt="acclaim badge"/>
+                <div className="badge" >
+                <img style={{width: '60px', height: '60px', marginTop: '20px'}} src={this.props.userInfo.badge} alt="acclaim badge"/>
                 </div>
                 <i className="fab fa-github"></i>
                 <i className="fab fa-linkedin"></i>
