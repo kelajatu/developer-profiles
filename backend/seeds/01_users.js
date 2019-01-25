@@ -20,7 +20,7 @@ exports.seed = function(knex, Promise) {
           email: faker.internet.email(),
           first_name: faker.name.firstName(),
           last_name: faker.name.lastName(),
-          image: faker.image.imageUrl(),
+          image: `https://picsum.photos/200/300/?image=${num + 10}`,
           desired_title: faker.name.title(),
           area_of_work: randomFilterValue(),
           current_location_name: 'Random City name',
