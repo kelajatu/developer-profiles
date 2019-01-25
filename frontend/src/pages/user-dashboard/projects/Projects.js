@@ -10,15 +10,13 @@ class Projects extends Component {
     projectImg: "",
     projectLink: "",
     projectDescription: "",
-    projects: [{
-      projectTitle: "titleOne",
-      projectImg: "image",
-      projectLink: "linkk",
-      projectDescription: "descriptionn",
-    }]
+    projects: []
   }
 
   componentDidMount() {
+    if (this.props.userInfo.userProjects) {
+      this.setState({projects: this.props.userInfo.userProjects})
+    }
     // for returning users
     // get data from session storage
     // hydrate state
@@ -68,7 +66,10 @@ class Projects extends Component {
     }
     console.log(lePackage)
     axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/projects`, lePackage)
-      .then(res => console.log(res.data))
+      .then(res => {
+        console.log(res.data)
+        this.props.updateProgress()
+      })
       .catch(err => console.log(err))
   }
 
@@ -78,7 +79,7 @@ class Projects extends Component {
   }
 
   render() {
-    console.log('P', this.props.userInfo)
+    console.log('P', this.state)
     return (
       <MainFormContainer>
         <header>

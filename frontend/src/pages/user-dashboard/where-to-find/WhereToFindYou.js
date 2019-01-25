@@ -8,17 +8,18 @@ class WhereToFindYou extends Component {
   state = {
     currentLocationInput: "",
     locationAutocomplete: [],
-    currentLocationName: '',
+    currentLocationName: this.props.userInfo.current_location_name || "",
     currentLocationLat: '',
     currentLocationLon: '',
-    github: "",
-    linkedin: "",
-    portfolio: "",
-    acclaim: "",
+    github: this.props.userInfo.github || "",
+    linkedin: this.props.userInfo.linkedin || "",
+    portfolio: this.props.userInfo.portfolio || "",
+    acclaim: this.props.userInfo.badge ? 'Verified!' : "" || "",
   }
 
 
   componentDidMount() {
+    console.log(this.props.github)
     // for returning users
     // get data from session storage
     // hydrate state
@@ -108,7 +109,10 @@ class WhereToFindYou extends Component {
 
     console.log(this.props.userInfo.id)
     axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
-      .then(res => console.log(res.data))
+      .then(res => {
+        console.log(res.data)
+        this.props.updateProgress()
+      })
       .catch(err => console.log(err))
   }
 
@@ -220,11 +224,11 @@ class WhereToFindYou extends Component {
           </FormSection>
           <PreviewSection>
             <h3>Your Current Location</h3>
-            {/*this.state.currentLocation === null ?
+            {this.state.currentLocationName === "" ?
               <p>No Location Listed</p>
               :
-              <p>{this.state.currentLocation.name}</p>
-            */}
+              <p>{this.state.currentLocationName}</p>
+            }
           </PreviewSection>
         </div>
       </MainFormContainer>

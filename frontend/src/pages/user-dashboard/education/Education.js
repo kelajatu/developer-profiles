@@ -9,15 +9,13 @@ class Education extends Component {
     schoolDates: "",
     schoolCourse: "",
     schoolDegree: "",
-    education: [{
-      schoolName: "titleOne",
-      schoolDates: "dates",
-      schoolCourse: "course",
-      schoolDegree: "degree",
-    }]
+    education: []
   }
 
   componentDidMount() {
+    if (this.props.userInfo.userEducation) {
+      this.setState({education: this.props.userInfo.userEducation})
+    }
     // for returning users
     // get data from session storage
     // hydrate state
@@ -41,7 +39,10 @@ class Education extends Component {
     }
     console.log(lePackage)
     axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/education`, lePackage)
-      .then(res => console.log(res.data))
+      .then(res => {
+        console.log(res.data)
+        this.props.updateProgress()
+      })
       .catch(err => console.log(err))
   }
 

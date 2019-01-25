@@ -6,12 +6,12 @@ import { inputArea, labelArea, centerFlex } from '../../../global-styles/Mixins'
 
 class PersonalInfo extends Component {
   state = {
-    publicEmail: "",
-    firstName: "",
-    lastName: "",
-    profileImg: "",
-    desiredTitle: "",
-    areaOfWork: ""
+    publicEmail: this.props.userInfo.public_email || "",
+    firstName: this.props.userInfo.first_name || "",
+    lastName: this.props.userInfo.last_name || "",
+    profileImg: this.props.userInfo.image || "",
+    desiredTitle: this.props.userInfo.desired_title || "",
+    areaOfWork: this.props.userInfo.area_of_work || ""
   }
 
   componentDidMount() {
@@ -64,7 +64,10 @@ class PersonalInfo extends Component {
 
     console.log(lePackage)
     axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
-      .then(res => console.log(res.data))
+      .then(res => {
+        console.log(res.data)
+        this.props.updateProgress()
+      })
       .catch(err => console.log(err))
   }
 

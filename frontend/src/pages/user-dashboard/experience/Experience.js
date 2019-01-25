@@ -9,14 +9,13 @@ class Experience extends Component {
     jobTitle: "",
     jobDates: "",
     jobDescription: "",
-    experience: [{
-      jobTitle: "titleOne",
-      jobDates: "dates",
-      jobDescription: "descr"
-    }]
+    experience: []
   }
 
   componentDidMount() {
+    if (this.props.userInfo.userExperience) {
+      this.setState({experience: this.props.userInfo.userExperience})
+    }
     // for returning users
     // get data from session storage
     // hydrate state
@@ -39,7 +38,10 @@ class Experience extends Component {
     }
     console.log(lePackage)
     axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/experience`, lePackage)
-      .then(res => console.log(res.data))
+      .then(res => {
+        console.log(res.data)
+        this.props.updateProgress()
+      })
       .catch(err => console.log(err))
   }
 

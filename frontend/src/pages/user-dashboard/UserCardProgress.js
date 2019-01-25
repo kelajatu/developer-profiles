@@ -6,13 +6,19 @@ class UserCardProgress extends Component {
   render() {
     return (
       <PreviewContainer>
-        <h1>Profile Status: Not Live</h1>
+        <h1>Profile Status: {this.props.profileStatus}</h1>
         <ProgressContainer id="progressRequirements">
           <div progress={this.props.userProgress} className="progress">
             <p>{this.props.userProgress}</p>
           </div>
         </ProgressContainer>
-        <label htmlFor="progressRequirements">Reach 80% to go live!</label>
+        <label htmlFor="progressRequirements">
+          {this.props.profileStatus === 'Live' ?
+            'Your Profile is live!'
+            :
+            'Reach 80% to go live!'
+          }
+        </label>
       </PreviewContainer>
     )
   }
