@@ -23,30 +23,16 @@ class PublicFacingPage extends Component {
             // locatedLon: '',
             // relocateCity: '',
             // relocateLat: '',
-            // relocateLon: 's',
+            // relocateLon: '',
         }
-        this.toggleCheckMarks = this.toggleCheckMarks.bind(this)
     }
 
     componentDidMount(){
-        //Need to make request to our backend with relevant filter parameteres (from state)
-        //USE Infinite scroll here and return into modUsers
-        axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users`).then(response => {
-            this.setState({
-                //all Users wont be necessary because it will be sorted in the back
-                allUsers: response.data, 
-                modUsers: response.data, 
-                loading: false,
-                //Number of cards displaying can either be deleted or sent back from backend
-                numCardsDisplaying: response.data.length
-            })
-        }).catch(error => {
-            console.log(error)
-        })
+        this.testInfinite()
     }
+
     testInfinite = () => {
         console.log("testInfinite")
-        //Need to make request to our backend with relevant filter parameteres (from state)
         //USE Infinite scroll here and return into modUsers
         let params = {
             filters: this.state.filters,
@@ -57,25 +43,21 @@ class PublicFacingPage extends Component {
             relocateLat: this.state.relocateLat,
             relocateLon: this.state.relocateLon,
         }
-        axios.post('https://developer-profiles.herokuapp.com/users/infiniteFilter', params).then(response => {
+        axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/infiniteFilter`, params).then(response => {
             console.log("response in testInfinite", response)
             this.setState({
-                //all Users wont be necessary because it will be sorted in the back
-                allUsers: response.data.usersArr, 
-                // modUsers: response.data, 
-                // loading: false,
-                //Number of cards displaying can either be deleted or sent back from backend
-                numCardsDisplaying: response.data.length
+                modUsers: response.data.usersArr, 
+                numCardsDisplaying: response.data.usersLength,
+                loading: false,
             })
         }).catch(error => {
             console.log(error)
         })
     }
 
-    //this modifies state-> filters the checkmarks array
-    //shouldnt move
-    toggleCheckMarks(name){
-        let newArr = this.state.filters || []
+    //this modifies state->filters the checkmarks array
+    toggleCheckMarks = (name) => {
+        let newArr = this.state.filters 
         if(newArr.includes(name)){
             let index = newArr.indexOf(name)
             newArr.splice(index, 1)
@@ -83,26 +65,12 @@ class PublicFacingPage extends Component {
             newArr.push(name)
         }
         //this will be trigger new request to filter
-        this.filter()
+        this.testInfinite()
     }
 
     //this is used in child components to modify publicPageState state
     updatePublicPageState = (update) => {
         this.setState(update)
-    }
-
-    //this is going to move to backend
-    filter = () => {
-        let newArr = this.state.allUsers.filter(item => {
-            return this.state.filters.includes(item.area_of_work)
-        })
-        if(newArr.length === 0){
-            newArr = this.state.allUsers
-        }
-        this.setState({
-            modUsers: newArr,
-            numCardsDisplaying: newArr.length
-        })
     }
 
     render() { 

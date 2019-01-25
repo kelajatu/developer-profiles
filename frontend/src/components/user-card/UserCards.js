@@ -14,7 +14,6 @@ export default class UserCards extends Component {
     }
 
     render(){
-
       if (this.props.loading) {
         return (
           <LoaderContainer>
