@@ -7,9 +7,7 @@ exports.seed = function(knex, Promise) {
     let rand = [(Math.random() * filterOptions.length) | 0]
     return filterOptions[rand]
   }
-  function randomLocation(){
-    let id = ['7f7b7d8118ae8db8ed3f541159ac928c484d12ad', ]
-  }
+  
   return knex("users")
     .del()
     .then(function() {

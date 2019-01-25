@@ -13,19 +13,19 @@ class InfiniteUsers extends Component {
       users: []
     };
 
-    window.onscroll = () => {
-      const {
-        loadUsers,
-        state: { error, isLoading, hasMore }
-      } = this;
-      if (error || isLoading || !hasMore) return;
-      if (
-        window.innerHeight + document.documentElement.scrollTop ===
-        document.documentElement.offsetHeight
-      ) {
-        loadUsers();
-      }
-    };
+    // window.onscroll = () => {
+    //   const {
+    //     loadUsers,
+    //     state: { error, isLoading, hasMore }
+    //   } = this;
+    //   if (error || isLoading || !hasMore) return;
+    //   if (
+    //     window.innerHeight + document.documentElement.scrollTop ===
+    //     document.documentElement.offsetHeight
+    //   ) {
+    //     loadUsers();
+    //   }
+    // };
   }
 
   componentWillMount() {

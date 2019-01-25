@@ -1,7 +1,7 @@
 import React , { Component } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
-import { CheckBox, TextInput, RangeInput } from "grommet";
+import { TextInput } from "grommet";
 
 // THIS COMPONENT needs the following props 
     //placeholder
@@ -13,15 +13,11 @@ export class LocationAuto extends Component {
         super(props)
         this.state = {
             [this.props.name]: '',
-            // currentLocationInput: "",
             locationAutocomplete: [],
-            // currentLocationName: '',
-            // currentLocationLat: '',
-            // currentLocationLon: '',
         }
     }
  
-    onLocationChange = (e) => {
+    inputHandler = (e) => {
         axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/location`, {inputLocation: e.target.value}).then(response => {
             const newArr = response.data.predictions.map(location => {
                 return {
@@ -34,15 +30,16 @@ export class LocationAuto extends Component {
             console.log(error);
         });
         this.setState({ [this.props.name]: e.target.value });
-        console.log(e.target.value)
-        this.props.updatePublicPageState({
-            [this.props.name]: e.target.value,
-        }) 
+        
         if(e.target.value.length ===0){
             this.props.updatePublicPageState({
                 [this.props.name]: e.target.value,
                 [this.props.lat]: null,
                 [this.props.lon]: null,
+            }) 
+        } else {
+            this.props.updatePublicPageState({
+                [this.props.name]: e.target.value,
             }) 
         }
       }
@@ -61,7 +58,6 @@ export class LocationAuto extends Component {
             [this.props.name]: name,
             locationAutocomplete: [],
         });
-        //send this up the chain
         this.props.updatePublicPageState({
             [this.props.lat]: lat,
             [this.props.lon]: lng,
@@ -83,7 +79,7 @@ export class LocationAuto extends Component {
                     placeholder={this.props.placeholder}
                     name={this.props.name}
                     value={this.state[this.props.name]}
-                    onChange={this.onLocationChange}
+                    onChange={this.inputHandler}
                   />
                   <div className="option" htmlFor="placeSuggestions">
                     {this.state.locationAutocomplete.length === 0 ? null :

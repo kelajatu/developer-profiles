@@ -7,7 +7,7 @@ filter = (allArray, params) => {
     console.log("params", params)
     let newArr = allArray.filter(item => {
        //filter users cards base on city here
-
+       
        //locate only , this calculated distance 
        function distance(lat1, lon1, lat2, lon2, filter) {
             if ((lat1 == lat2) && (lon1 == lon2)) {
