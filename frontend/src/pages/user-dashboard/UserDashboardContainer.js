@@ -215,7 +215,7 @@ class UserDashboardContainer extends Component {
 }
 
 const DashboardContainer = styled.main`
-  background-color: #F4F7FC;
+  /* background-color: #F4F7FC; */
   hr {
     border: solid .5px white;
     box-shadow: .1px .1px 8px .1px rgba(0,0,0,.1);
