@@ -18,11 +18,22 @@ class Billing extends Component {
       key: 'pk_test_V4TVCnAGCgyfBK9pXODIWhfA',
       image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
       locale: 'auto',
-      token: function(token) {
+      token: token => {
         // You can access the token ID with `token.id`.
         // Get the token ID to your server-side code for use.
         console.log(token.id)
-        axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/billing`, {stripeToken: token.id}).then(res => console.log(res)).catch(err => console.log(err))
+        console.log(this.props)
+        axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/billing`, {stripeToken: token.id})
+        .then(res => {
+          console.log(res.data.id)
+          axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, {stripe_token: res.data.id})
+          .then(res => {
+            console.log(res.data)
+            this.props.updateProgress()
+          })
+          .catch(err => console.log(err))
+        })
+        .catch(err => console.log(err))
       }
     });
     

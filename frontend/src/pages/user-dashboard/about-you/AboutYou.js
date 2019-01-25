@@ -7,17 +7,19 @@ class AboutYou extends Component {
   state = {
     placesInterestedInput: "",
     placesAutocomplete: [],
-    placesInterested: '',
-
-    summary: "",
+    placesInterested: this.props.userInfo.interested_location_names || "",
+    placesInterestedArr: [],
+    summary: this.props.userInfo.summary || "",
     topSkillsInput: "",
     additionalSkillsInput: "",
     familiarSkillsInput: "",
-   
   }
-  
 
   componentDidMount() {
+    console.log('FVVVVVVV',this.props.userInfo.placesInterestedArr)
+    if (this.props.userInfo.placesInterestedArr) {
+      this.setState({placesInterestedArr: this.props.userInfo.placesInterestedArr})
+    }
     // for returning users
     // get data from session storage
     // hydrate state
@@ -49,18 +51,29 @@ class AboutYou extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  chooseOnEnter = (e) => {
+    if (e.keyCode === 13) {
+      this.choosePlacesInterested(e);
+    }
+  }
+
   choosePlacesInterested = (e) => {
     const { name } = e.target.dataset
 
     let newPlacesInterested;
+    let newPlacesInterestedArr;
     if (this.state.placesInterested === '') {
       newPlacesInterested = '';
       newPlacesInterested = name
+      newPlacesInterestedArr = [];
+      newPlacesInterestedArr.push(newPlacesInterested)
     } else {
       newPlacesInterested = this.state.placesInterested.slice();
       newPlacesInterested = newPlacesInterested + '|' + name;
+      newPlacesInterestedArr = newPlacesInterested.split('|');
     }
-    this.setState({ placesInterested: newPlacesInterested, placesAutocomplete: [], placesInterestedInput: "" });
+
+    this.setState({ placesInterestedArr: newPlacesInterestedArr, placesInterested: newPlacesInterested, placesAutocomplete: [], placesInterestedInput: "" });
   }
 
   // removePlace = (e) => {
@@ -99,12 +112,15 @@ class AboutYou extends Component {
         }
         console.log(lePackage)
         axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
-          .then(res => console.log(res.data))
+          .then(res => {
+            console.log(res.data)
+            this.props.updateProgress()
+          })
           .catch(err => console.log(err))
       }
 
     render() {
-    console.log('About', this.props.userInfo)
+    console.log('AboutAAA', this.state)
     return (
       <MainFormContainer>
         <header>
@@ -135,7 +151,7 @@ class AboutYou extends Component {
                     :
                     this.state.placesAutocomplete.map(location => {
                       return (
-                        <span tabIndex="0" onClick={this.choosePlacesInterested} key={location.id} data-id={location.id} data-name={location.name}>
+                        <span onKeyUp={this.chooseOnEnter} tabIndex="0" onClick={this.choosePlacesInterested} key={location.id} data-id={location.id} data-name={location.name}>
                           {location.name}
                         </span>
                       );
@@ -236,20 +252,20 @@ class AboutYou extends Component {
             </form>
           </FormSection>
           <PreviewSection>
-            {/* <div>
+            <div>
               <h3>Your Places Interested</h3>
-              {this.state.placesInterested.length === 0 ?
+              {this.state.placesInterestedArr.length === 0 ?
                 <p>No places listed</p>
                 :
-                this.state.placesInterested.map(place => {
+                this.state.placesInterestedArr.map(place => {
                   return (
-                    <p className="selection" key={place.id}>
-                      <span><i data-id={place.id} onClick={this.removePlace} className="fa fa-times-circle"></i></span> {place.name}
+                    <p className="selection" key={place}>
+                      <span><i onClick={this.removePlace} className="fa fa-times-circle"></i></span> {place}
                     </p>
                   )
                 })
               }
-            </div> */}
+            </div>
             <div>
               <h3>Your Top Skills</h3>
             </div>
@@ -306,9 +322,6 @@ const FormSection = styled.section`
   }
   .option {
     width: 95%;
-    background-color: white;
-    border: solid;
-    border-top: none;
     span {
       padding: 10px 0 10px 10px;
       width: 95%;
