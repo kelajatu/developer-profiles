@@ -10,6 +10,7 @@ export class LocationAuto extends Component {
             
         // }
         this.state = {
+            [this.props.name]: '',
             currentLocationInput: "",
             locationAutocomplete: [],
             currentLocationName: '',
@@ -27,22 +28,18 @@ export class LocationAuto extends Component {
     
     onLocationChange = (e) => {
         let newArr;
-        var self = this;
-        axios
-        .post(`${process.env.REACT_APP_BACKEND_SERVER}/api/location`, {inputLocation: e.target.value})
-        .then(response => {
+        axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/location`, {inputLocation: e.target.value}).then(response => {
           newArr = response.data.predictions.map(location => {
             return {
               name: location.description,
               id: location.place_id
             };
           });
-          self.setState({ locationAutocomplete: newArr });
-        })
-        .catch(error => {
+          this.setState({ locationAutocomplete: newArr });
+        }).catch(error => {
           console.log(error);
         });
-        this.setState({ [e.target.name]: e.target.value });
+        this.setState({ [this.props.name]: e.target.value });
       }
     
       chooseOnEnter = (e) => {
@@ -54,24 +51,18 @@ export class LocationAuto extends Component {
       chooseCurrentLocation = (e) => {
         const { id, name } = e.target.dataset
         // console.log(id, name)
-        axios
-        .post(`${process.env.REACT_APP_BACKEND_SERVER}/api/gio`, {placeId: id})
-          .then(res => {
+        axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/gio`, {placeId: id}).then(res => {
             // console.log(res.data.result.geometry.location)
             const { lat, lng } = res.data.result.geometry.location;
             this.setState({
-              currentLocationName: name,
-              currentLocationLat: lat,
-              currentLocationLon: lng,
+              [this.props.name]: name,
               locationAutocomplete: [],
-              currentLocationInput: ''
             });
             //send this up the chain
             this.props.updatePublicPageState({
                 [this.props.lat]: lat,
                 [this.props.lon]: lng,
                 [this.props.name]: name,
-                // [this.props.id]: e.target.dataset.id
             }) 
           })
           .catch(err => console.log(err))
@@ -89,10 +80,10 @@ export class LocationAuto extends Component {
                   <input
                     type="text"
                     autoComplete="off"
-                    id="usercurrentLocation"
-                    placeholder="Washington, DC"
-                    name="currentLocationInput"
-                    value={this.state.currentLocationInput}
+                    // id="usercurrentLocation"
+                    placeholder={this.props.placeholder}
+                    name={this.props.name}
+                    value={this.state[this.props.name]}
                     onChange={this.onLocationChange}
                   />
                   <div className="option" htmlFor="placeSuggestions">

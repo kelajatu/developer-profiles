@@ -22,6 +22,7 @@ export default class Located extends Component {
   };
 
   render() {
+    console.log(this.props)
     return (
       <LocatedDiv>
         <h1>Located</h1>
@@ -44,7 +45,8 @@ export default class Located extends Component {
             name="locatedCity"
             lat="locatedLat"
             lon="locatedLon"
-            id="locatedCityId"
+            // id="locatedCityId"
+            value={this.props.publicPageState.locatedName}
             updatePublicPageState={this.props.updatePublicPageState}
             placeholder="Earth"
           />

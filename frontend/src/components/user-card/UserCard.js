@@ -41,7 +41,7 @@ class UserCard extends Component{
             <UserCardDiv>
                 <div className="left-side">
                     <div className="bio">
-                        <img className="photo"src={this.props.image} alt="user avatar"/>
+                        {/* <img className="photo"src={this.props.image} alt="user avatar"/> */}
                         <div className="user-intro">
                             <h2>{`${this.props.first_name} ${this.props.last_name}`}</h2>
                             <p className="location">{this.props.location? this.props.location.locationName : null}</p>
