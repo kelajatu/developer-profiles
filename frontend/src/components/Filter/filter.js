@@ -29,6 +29,7 @@ export default class FilterBox extends Component {
           updatePublicPageState={this.props.updatePublicPageState}
           params={this.props.params}
         />
+        <button onClick={this.props.testInfinite}>TEST ININIT SCROLL</button>
       </FilterBoxDiv>
     );
   }

@@ -7,6 +7,36 @@ filter = (allArray, params) => {
     console.log("params", params)
     let newArr = allArray.filter(item => {
        //filter users cards base on city here
+
+       //locate only , this calculated distance 
+       function distance(lat1, lon1, lat2, lon2, filter) {
+            if ((lat1 == lat2) && (lon1 == lon2)) {
+                return 0;
+            }
+            else {
+                var radlat1 = Math.PI * lat1/180;
+                var radlat2 = Math.PI * lat2/180;
+                var theta = lon1-lon2;
+                var radtheta = Math.PI * theta/180;
+                var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+                if (dist > 1) {
+                    dist = 1;
+                }
+                dist = Math.acos(dist);
+                dist = dist * 180/Math.PI;
+                dist = dist * 60 * 1.1515;
+        
+            if (dist < filter) {
+                console.log('user is within chosen miles of origin location!')
+                return dist;
+            } else {
+                console.log('user to too far!')
+                return dist;
+            }
+            }
+        }
+
+       //filters based on job area
         return params.filters.includes(item.area_of_work)
     })
     if(newArr.length === 0){
@@ -26,15 +56,6 @@ server.post('/infiniteFilter', (req, res) => {
         console.log(users)
         //users here
         //req.body will have the state from front end. 
-        // req.body = {
-        //     filters: this.state.filters,
-        //     located_name: this.state.locatedCity,
-        //     locatedLat: this.state.locatedLat,
-        //     locatedLon: this.state.locatedLon,
-        //     relocateName: this.state.relocateName,
-        //     relocateLat: this.state.relocateLat,
-        //     relocateLon: this.state.relocateLon,
-        // }
         //filters
         let returnPackage = filter(users, req.body);
         //return 10 at a time of filtered UserCards

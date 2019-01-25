@@ -23,14 +23,40 @@ class PublicFacingPage extends Component {
     }
 
     componentDidMount(){
-        //Need to make request to our backend with relevant filter parameteres (from state)
-        //USE Infinite scroll here and return into modUsers
+        
         axios.get('https://developer-profiles.herokuapp.com/users').then(response => {
             this.setState({
                 //all Users wont be necessary because it will be sorted in the back
                 allUsers: response.data, 
                 modUsers: response.data, 
                 loading: false,
+                //Number of cards displaying can either be deleted or sent back from backend
+                cardsDisplaying: response.data.length
+            })
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+    testInfinite = () => {
+        console.log("testInfinite")
+        //Need to make request to our backend with relevant filter parameteres (from state)
+        //USE Infinite scroll here and return into modUsers
+        let params = {
+            filters: this.state.filters,
+            located_name: this.state.locatedCity,
+            locatedLat: this.state.locatedLat,
+            locatedLon: this.state.locatedLon,
+            relocateName: this.state.relocateName,
+            relocateLat: this.state.relocateLat,
+            relocateLon: this.state.relocateLon,
+        }
+        axios.post('https://developer-profiles.herokuapp.com/users/infiniteFilter', params).then(response => {
+            console.log("response in testInfinite", response)
+            this.setState({
+                //all Users wont be necessary because it will be sorted in the back
+                allUsers: response.data.usersArr, 
+                // modUsers: response.data, 
+                // loading: false,
                 //Number of cards displaying can either be deleted or sent back from backend
                 cardsDisplaying: response.data.length
             })
@@ -54,35 +80,13 @@ class PublicFacingPage extends Component {
             [name]:!this.state[name], 
             updateRequired: true
         })
-        this.filter()
+        // this.filter()
     }
 
     //this is used in child components to modify PublicFacingPage state
     updatePublicPageState = (update) => {
         // console.log('updatePublicPageState', update)
         this.setState(update)
-    }
-
-    //this is going to move to backend
-    filter = () => {
-        let newArr = this.state.allUsers.filter(item => {
-            //this part will not work until the backend has the location id for the users
-            // if(this.state.locatedCity){
-            //     return item.location.locationId === this.state.locatedCityId
-            //     //should def have location Id
-            // }
-            // if(this.state.relocatedCityId){
-            //     return item.location.locationId === this.state.relocatedCityId
-            // }
-            return this.state.filters.includes(item.area_of_work)
-        })
-        if(newArr.length === 0){
-            newArr = this.state.allUsers
-        }
-        this.setState({
-            modUsers: newArr,
-            cardsDisplaying: newArr.length
-        })
     }
 
     render() { 
@@ -92,7 +96,8 @@ class PublicFacingPage extends Component {
                 <FilterBox 
                     params={this.state} 
                     toggleCheckMarks={this.toggleCheckMarks} 
-                    updatePublicPageState={this.updatePublicPageState} />
+                    updatePublicPageState={this.updatePublicPageState}
+                    testInfinite={this.testInfinite} />
                 <UserCards 
                     modUsers={this.state.modUsers} 
                     loading={this.state.loading} />
