@@ -29,7 +29,7 @@ export default class UserCards extends Component {
                   key={user.id}
                   first_name={user.first_name} 
                   last_name={user.last_name} 
-                  image={`https://picsum.photos/200/300/?image=${user.id % 50}`}
+                  image={user.image}
                   summary={user.summary} 
                   desired_title={user.desired_title}
                   location={user.location}/>)}
