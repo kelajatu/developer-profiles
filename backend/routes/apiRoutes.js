@@ -18,12 +18,11 @@ server.use(express.json());
 server.use(helmet());
 server.use(cors());
 
-
 // AWS image upload
 aws.config.update({
-  secretAccessKey: process.env.AWS_PIC_SECRET_KEY,
-  accessKeyId: process.env.AWS_PIC_ACCESS_KEY,
-  region: 'us-east-2'
+    secretAccessKey: process.env.AWS_PIC_SECRET_KEY,
+    accessKeyId: process.env.AWS_PIC_ACCESS_KEY,
+    region: 'us-east-2'
 });
 
 const s3 = new aws.S3();
@@ -101,40 +100,16 @@ server.put("/acclaim/:id", (req, res) => {
     });
 });
 
-
 // stripe
 server.post('/billing', (req, res) => {
   const { stripeToken } = req.body;
   console.log(stripeToken)
-
   const charge = stripe.charges.create({
     amount: 999,
     currency: 'usd',
     description: 'Example charge',
     source: stripeToken,
   }).then(charge => res.send(charge)).catch(err => console.log(err));
-});
-
-
-// Will not need this
-server.post('/skills', (req, res) => {
-  // dbHelper.skills_helpers.getAllSkills()
-  //   .then(res => {
-
-  //     console.log(res.data)
-  //   })
-  //   .catch(err => console.log(err))
-
-  // let filteredPosts = this.props.skills(skill => {
-  //   return (
-  //     skill.name
-  //       .toLocaleLowerCase()
-  //       .includes(e.target.value)
-  // });
-
-  console.log(req.body.skillInput) // <- filter input
-  const skills = ['one','two','three']; // <- package into arr
-  res.send(skills) // <= send arr to the client
 });
 
 module.exports = server 
