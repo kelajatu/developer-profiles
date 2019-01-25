@@ -1,4 +1,9 @@
-import { ContentBoxSection, ButtonContainer, Btn, SampleCard } from "./ContentBox.styles";
+import { 
+  ContentBoxSection, 
+  ButtonContainer, 
+  Btn, 
+  // SampleCard
+} from "./ContentBox.styles";
 
 import React, { Component } from "react";
 

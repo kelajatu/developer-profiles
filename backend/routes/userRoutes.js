@@ -26,18 +26,10 @@ server.post('/infiniteFilter', (req, res) => {
         console.log(users)
         //users here
         //req.body will have the state from front end. 
-        // req.body = {
-        //     filters: this.state.filters,
-        //     located_name: this.state.locatedCity,
-        //     locatedLat: this.state.locatedLat,
-        //     locatedLon: this.state.locatedLon,
-        //     relocateName: this.state.relocateName,
-        //     relocateLat: this.state.relocateLat,
-        //     relocateLon: this.state.relocateLon,
-        // }
         //filters
-        let returnPackage = filter(users, req.body);
+        let returnPackage = filter(users, req.body)
         //return 10 at a time of filtered UserCards
+        //10
         console.log("return package", returnPackage)
         res.status(200).json(returnPackage)
     }).catch(err => {
@@ -45,6 +37,7 @@ server.post('/infiniteFilter', (req, res) => {
         res.status(500).json({message: "there is an error in GET users/", err: err})
     })
 })
+//session maybe for optimazation?
 
 //get all users for card view
 server.get('/', (req, res) => {

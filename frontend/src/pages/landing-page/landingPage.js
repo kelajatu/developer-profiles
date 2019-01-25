@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ContentBox from '../../components/content-box/ContentBox'
 import {
   Pagewrap,
-  Btn,
+  // Btn,
   Moreinfo,
   Learnmore,
   Aboutus,

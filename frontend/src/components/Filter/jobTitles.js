@@ -19,25 +19,25 @@ export default class JobTitles extends Component {
                   </header>
                   <form className="filters-container">
                       <CheckBox                         
-                        checked={this.props.params.fullStack} 
+                        checked={this.props.publicPageState.filters.includes('Full Stack Web')} 
                         label='Full Stack Web'
-                        onChange={() => this.props.toggleCheckMarks("Full Stack Web")}                              
+                        onChange={() => this.props.toggleCheckMarks("Full Stack Web")}          
                       />
                       <CheckBox
                         className="checkmark" 
-                        checked={this.props.params.ios}
+                        checked={this.props.publicPageState.filters.includes('iOS')}
                         label='iOS'
                         onChange={() => this.props.toggleCheckMarks("iOS")} 
                        />
                       <CheckBox
                         className="checkmark" 
-                        checked={this.props.params.android}
+                        checked={this.props.publicPageState.filters.includes('Android')}
                         label='Android'
                         onChange={() => this.props.toggleCheckMarks("Android")}  
                       />
                       <CheckBox
                         className="checkmark" 
-                        checked={this.props.params.uiux}
+                        checked={this.props.publicPageState.filters.includes('uiux')}
                         label='UI/UX'
                         onChange={() => this.props.toggleCheckMarks("UI/UX")}  
                       />
