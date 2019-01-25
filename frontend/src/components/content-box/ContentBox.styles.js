@@ -1,33 +1,47 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
-export const ContentBoxSection = styled.section`
-  display: flex;
-  flex-direction: column;
+export const ContentBoxSection = styled.div`
+  /* order: 1;
+  flex: 1 1 auto;
+  align-self: flex-start; */
+  max-width: 50%;
   border: 10px solid pink;
   text-align: left;
+  margin-top: 200px;
   padding: 5em;
+
   a {
     color: none;
     text-decoration: none;
-    display:flex;
+    display: flex;
     justify-content: center;
     align-items: center;
   }
 `;
+export const SampleCard = styled.div`
+  /* order: 2;
+  flex: 1 1 auto;
+  align-self: flex-start; */
+  max-width: 50%;
+  width: 100%;
+  border: 10px solid green;
+  background: black;
+  color: white;
+`;
 
 export const ButtonContainer = styled.div`
-display: flex;
-text-align: center;
-`
+  display: flex;
+  text-align: center;
+`;
 export const Btn = styled.div`
   @keyframes stripe-slide {
-  0% {
-    background-position: 0% 0;
+    0% {
+      background-position: 0% 0;
+    }
+    100% {
+      background-position: 100% 0;
+    }
   }
-  100% {
-    background-position: 100% 0;
-  }
-}
   overflow: visible;
   width: 150px;
   /* text-align:center; */
@@ -50,8 +64,6 @@ export const Btn = styled.div`
   &.stripe {
     overflow: hidden;
     position: relative;
-
-
 
     &:after {
       content: "";
@@ -81,7 +93,6 @@ export const Btn = styled.div`
       border-color: #000;
       border-radius: 36px;
 
-
       &:after {
         background-image: repeating-linear-gradient(
           45deg,
@@ -97,6 +108,4 @@ export const Btn = styled.div`
   }
 `;
 
-export const SampleCard = styled.div `
 
-`
