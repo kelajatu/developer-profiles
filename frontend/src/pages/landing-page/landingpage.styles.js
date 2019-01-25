@@ -3,12 +3,16 @@ import styled from "styled-components";
 export const LandingPageDiv = styled.div`
   background-image: var(--fade-gradient), var(--my-gradient);
   h1 {
-    /* background: blue; */
-    font-size: 30px;
+
+    font-family: 'Roboto', sans-serif;
+    line-height: 50px;
+    font-size: 5rem;
+    font-weight: 900;
+    margin-bottom: 0.4em;
   }
   p {
     /* color: pink; */
-    font-size: 24px;
+    font-family: 'Roboto', sans-serif;
   }
 `;
 
@@ -19,38 +23,23 @@ export const Pagewrap = styled.div`
   height: 100vh;
   position: relative;
   text-align: center;
-  display: flex;
   margin: auto;
-
-    /* justify-content: space-around;
-    align-content: space-around; */
-    /* align-items: flex-start; */
-
-
-
-
-  border: 1px solid red;
   padding-top: 5em;
   padding-bottom: 5em;
-  h1 {
-    font-size: 5rem;
-    letter-spacing: 5px;
-    margin-bottom: 0.4em;
-  }
 `;
 
 export const Moreinfo = styled.div`
   display: flex;
   flex-direction: column;
-  color: purple;
-  border: 1px solid black;
+  max-width: 1000px;
+  width: 100%;
+  margin: auto;
+  /*  */
 `;
 
 export const Aboutus = styled.div`
   color: darkgray;
-  border: 1px solid black;
 `;
 export const Learnmore = styled.div`
   color: darkgray;
-  border: 1px solid black;
 `;

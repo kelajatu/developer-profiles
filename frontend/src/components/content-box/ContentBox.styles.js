@@ -1,14 +1,11 @@
 import styled from "styled-components";
 
 export const ContentBoxSection = styled.div`
-  /* order: 1;
-  flex: 1 1 auto;
-  align-self: flex-start; */
-  max-width: 50%;
-  border: 10px solid pink;
+  max-width: 45%;
+  /* border: 10px solid pink; */
   text-align: left;
   margin-top: 200px;
-  padding: 5em;
+  padding: 2em;
 
   a {
     color: none;
@@ -19,19 +16,21 @@ export const ContentBoxSection = styled.div`
   }
 `;
 export const SampleCard = styled.div`
-  /* order: 2;
-  flex: 1 1 auto;
-  align-self: flex-start; */
-  max-width: 50%;
+  max-width: 45%;
+  margin: 200px 50px;
   width: 100%;
-  border: 10px solid green;
-  background: black;
+  height: 400px;
+  background: #7f7fd5;
+  box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+
   color: white;
 `;
 
 export const ButtonContainer = styled.div`
   display: flex;
   text-align: center;
+  margin-top: 20px;
 `;
 export const Btn = styled.div`
   @keyframes stripe-slide {
@@ -45,7 +44,7 @@ export const Btn = styled.div`
   overflow: visible;
   width: 150px;
   /* text-align:center; */
-  margin: 0;
+  margin: 5px;
   border: 0;
   width: 100px;
   background: transparent;
