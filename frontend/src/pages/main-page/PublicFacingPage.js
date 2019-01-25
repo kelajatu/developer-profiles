@@ -48,17 +48,12 @@ class PublicFacingPage extends Component {
         } else {
             newArr.push(name)
         }
-        this.setState({
-            ...this.state, 
-            [name]:!this.state[name], 
-            updateRequired: true
-        })
+        //this will be trigger new request to filter
         this.filter()
     }
 
-    //this is used in child components to modify PublicFacingPage state
+    //this is used in child components to modify publicPageState state
     updatePublicPageState = (update) => {
-        // console.log('updatePublicPageState', update)
         this.setState(update)
     }
 
@@ -81,7 +76,7 @@ class PublicFacingPage extends Component {
         return (
             <PublicFacingPageDiv>
                 <FilterBox 
-                    params={this.state} 
+                    publicPageState={this.state} 
                     toggleCheckMarks={this.toggleCheckMarks} 
                     updatePublicPageState={this.updatePublicPageState} />
                 <UserCards 
