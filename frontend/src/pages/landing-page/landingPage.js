@@ -19,6 +19,7 @@ class LandingPage extends Component {
             <SampleCard>
               SAMPLE CONTENT
              </SampleCard>
+        </Pagewrap>
         <Moreinfo>
           <Aboutus>
             <h2 id="aboutus">Asymmetrical master</h2> <p>
@@ -48,7 +49,6 @@ class LandingPage extends Component {
             williamsburg.
           </Learnmore>
         </Moreinfo>
-        </Pagewrap>
       </LandingPageDiv>
     );
   }
