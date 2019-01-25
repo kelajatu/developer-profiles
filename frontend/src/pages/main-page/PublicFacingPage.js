@@ -17,6 +17,13 @@ class PublicFacingPage extends Component {
             loading: true,
             allUsers: [],
             modUsers: [],
+
+            // locatedCity: '',
+            // locatedLat: '',
+            // locatedLon: '',
+            // relocateCity: '',
+            // relocateLat: '',
+            // relocateLon: 's',
         }
         this.toggleCheckMarks = this.toggleCheckMarks.bind(this)
     }
@@ -43,7 +50,7 @@ class PublicFacingPage extends Component {
         //USE Infinite scroll here and return into modUsers
         let params = {
             filters: this.state.filters,
-            located_name: this.state.locatedCity,
+            locatedName: this.state.locatedCity,
             locatedLat: this.state.locatedLat,
             locatedLon: this.state.locatedLon,
             relocateName: this.state.relocateName,

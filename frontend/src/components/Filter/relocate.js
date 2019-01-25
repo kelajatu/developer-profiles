@@ -18,7 +18,7 @@ export default class Relocate extends Component {
                     name="relocateCity"
                     lat="relocateLat"
                     lon="relocateLon"
-                    // id="relocateCityId"
+                    value={this.props.publicPageState.relocateName}
                     placeholder='Anywhere, U.S.A.'
                     updatePublicPageState={this.props.updatePublicPageState} 
                     />
