@@ -1,6 +1,8 @@
 import React , { Component } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
+import { CheckBox, TextInput, RangeInput } from "grommet";
+
 
 export class LocationAuto extends Component {
     constructor(props){
@@ -75,9 +77,9 @@ export class LocationAuto extends Component {
                 <div>
                   {/* location - Autocomplete from google - saves location ID */}
                   <label htmlFor="usercurrentLocation">
-                    Current Location:
                   </label>
-                  <input
+                  {/* change to input if it stops working  */}
+                  <TextInput
                     type="text"
                     autoComplete="off"
                     // id="usercurrentLocation"
