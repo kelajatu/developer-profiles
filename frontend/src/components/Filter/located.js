@@ -42,6 +42,8 @@ export default class Located extends Component {
           miles from
           <LocationAuto
             name="locatedCity"
+            lat="locatedLat"
+            lon="locatedLon"
             id="locatedCityId"
             updatePublicPageState={this.props.updatePublicPageState}
             placeholder="Earth"

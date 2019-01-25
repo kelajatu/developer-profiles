@@ -37,6 +37,33 @@ class PublicFacingPage extends Component {
             console.log(error)
         })
     }
+    testInfinite = () => {
+        console.log("testInfinite")
+        //Need to make request to our backend with relevant filter parameteres (from state)
+        //USE Infinite scroll here and return into modUsers
+        let params = {
+            filters: this.state.filters,
+            located_name: this.state.locatedCity,
+            locatedLat: this.state.locatedLat,
+            locatedLon: this.state.locatedLon,
+            relocateName: this.state.relocateName,
+            relocateLat: this.state.relocateLat,
+            relocateLon: this.state.relocateLon,
+        }
+        axios.post('https://developer-profiles.herokuapp.com/users/infiniteFilter', params).then(response => {
+            console.log("response in testInfinite", response)
+            this.setState({
+                //all Users wont be necessary because it will be sorted in the back
+                allUsers: response.data.usersArr, 
+                // modUsers: response.data, 
+                // loading: false,
+                //Number of cards displaying can either be deleted or sent back from backend
+                cardsDisplaying: response.data.length
+            })
+        }).catch(error => {
+            console.log(error)
+        })
+    }
 
     //this modifies state-> filters the checkmarks array
     //shouldnt move
@@ -78,7 +105,8 @@ class PublicFacingPage extends Component {
                 <FilterBox 
                     publicPageState={this.state} 
                     toggleCheckMarks={this.toggleCheckMarks} 
-                    updatePublicPageState={this.updatePublicPageState} />
+                    updatePublicPageState={this.updatePublicPageState}
+                    testInfinite={this.testInfinite} />
                 <UserCards 
                     modUsers={this.state.modUsers} 
                     loading={this.state.loading} />
