@@ -2,6 +2,50 @@ const express = require('express')
 const server = express.Router()
 const db = require('../helpers/index.js')
 
+filter = (allArray, params) => {
+    console.log("allArray", allArray)
+    console.log("params", params)
+    let newArr = allArray.filter(item => {
+       //filter users cards base on city here
+        return params.filters.includes(item.area_of_work)
+    })
+    if(newArr.length === 0){
+        newArr = allArray
+    }
+    console.log("newArr in filter", newArr)
+    return {
+        usersArr: newArr, 
+        usersLength: newArr.length
+    }
+}
+
+//get all users for card view
+server.post('/infiniteFilter', (req, res) => {
+    console.log(req.body)
+    db.user_helpers.getUsers().then(users => {
+        console.log(users)
+        //users here
+        //req.body will have the state from front end. 
+        // req.body = {
+        //     filters: this.state.filters,
+        //     located_name: this.state.locatedCity,
+        //     locatedLat: this.state.locatedLat,
+        //     locatedLon: this.state.locatedLon,
+        //     relocateName: this.state.relocateName,
+        //     relocateLat: this.state.relocateLat,
+        //     relocateLon: this.state.relocateLon,
+        // }
+        //filters
+        let returnPackage = filter(users, req.body);
+        //return 10 at a time of filtered UserCards
+        console.log("return package", returnPackage)
+        res.status(200).json(returnPackage)
+    }).catch(err => {
+        console.log("there is an error in GET users/", err)
+        res.status(500).json({message: "there is an error in GET users/", err: err})
+    })
+})
+
 //get all users for card view
 server.get('/', (req, res) => {
     db.user_helpers.getUsers().then(users => {
