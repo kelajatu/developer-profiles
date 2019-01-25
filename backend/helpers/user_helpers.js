@@ -9,8 +9,6 @@ module.exports = {
             return db("users")
                 .where({email: email}).first();
         }
-    
-        //if all users: excludes projects, experience, education for card view
         return db("users")
       },
     

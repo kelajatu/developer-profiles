@@ -25,13 +25,13 @@ export default class UserCards extends Component {
         return (
           <UserCardsDiv>
               {this.props.modUsers.map(user => <UserCard 
-                  acclaim={user.badge}
+                  badge={user.badge}
                   key={user.id}
                   first_name={user.first_name} 
                   last_name={user.last_name} 
                   image={`https://picsum.photos/200/300/?image=${user.id % 50}`}
                   summary={user.summary} 
-                  title={user.title}
+                  desired_title={user.desired_title}
                   location={user.location}/>)}
           </UserCardsDiv>
         )
