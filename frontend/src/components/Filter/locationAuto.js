@@ -3,81 +3,78 @@ import styled from 'styled-components'
 import axios from 'axios'
 import { CheckBox, TextInput, RangeInput } from "grommet";
 
+// THIS COMPONENT needs the following props 
+    //placeholder
+    //name
+    //id - (optional for constructing state to send to a parent component)
 
 export class LocationAuto extends Component {
     constructor(props){
         super(props)
-        // this.state = {
-        //     [this.props.name]: '',
-            
-        // }
         this.state = {
             [this.props.name]: '',
-            currentLocationInput: "",
+            // currentLocationInput: "",
             locationAutocomplete: [],
-            currentLocationName: '',
-            currentLocationLat: '',
-            currentLocationLon: '',
+            // currentLocationName: '',
+            // currentLocationLat: '',
+            // currentLocationLon: '',
         }
     }
-
-    // THIS COMPONENT needs the following props 
-    //     placeholder
-    //     name
-    //     id - (optional for constructing state to send to a parent component)
-
-    // this call needs to go through backend     
-    
+ 
     onLocationChange = (e) => {
-        let newArr;
         axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/location`, {inputLocation: e.target.value}).then(response => {
-          newArr = response.data.predictions.map(location => {
-            return {
-              name: location.description,
-              id: location.place_id
-            };
-          });
-          this.setState({ locationAutocomplete: newArr });
+            const newArr = response.data.predictions.map(location => {
+                return {
+                    name: location.description,
+                    id: location.place_id
+                };
+            });
+            this.setState({ locationAutocomplete: newArr });
         }).catch(error => {
-          console.log(error);
+            console.log(error);
         });
         this.setState({ [this.props.name]: e.target.value });
-      }
-    
-      chooseOnEnter = (e) => {
-        if (e.keyCode === 13) {
-          this.chooseCurrentLocation(e);
+        console.log(e.target.value)
+        this.props.updatePublicPageState({
+            [this.props.name]: e.target.value,
+        }) 
+        if(e.target.value.length ===0){
+            this.props.updatePublicPageState({
+                [this.props.name]: e.target.value,
+                [this.props.lat]: null,
+                [this.props.lon]: null,
+            }) 
         }
       }
     
-      chooseCurrentLocation = (e) => {
+    chooseOnEnter = (e) => {
+        if (e.keyCode === 13) {
+            this.chooseCurrentLocation(e);
+        }
+    }
+    
+    chooseCurrentLocation = (e) => {
         const { id, name } = e.target.dataset
-        // console.log(id, name)
         axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/gio`, {placeId: id}).then(res => {
-            // console.log(res.data.result.geometry.location)
-            const { lat, lng } = res.data.result.geometry.location;
-            this.setState({
-              [this.props.name]: name,
-              locationAutocomplete: [],
-            });
-            //send this up the chain
-            this.props.updatePublicPageState({
-                [this.props.lat]: lat,
-                [this.props.lon]: lng,
-                [this.props.name]: name,
-            }) 
-          })
-          .catch(err => console.log(err))
-      }
+        const { lat, lng } = res.data.result.geometry.location;
+        this.setState({
+            [this.props.name]: name,
+            locationAutocomplete: [],
+        });
+        //send this up the chain
+        this.props.updatePublicPageState({
+            [this.props.lat]: lat,
+            [this.props.lon]: lng,
+            [this.props.name]: name,
+        }) 
+        }).catch(err => console.log(err))
+    }
 
     render(){
-        console.log(this.state)
           return(
               <LocationAutoDiv> 
                 <div>
-                  {/* location - Autocomplete from google - saves location ID */}
-                  <label htmlFor="usercurrentLocation">
-                  </label>
+                  <label htmlFor="usercurrentLocation"></label>
                   {/* change to input if it stops working  */}
                   <TextInput
                     type="text"
@@ -89,9 +86,7 @@ export class LocationAuto extends Component {
                     onChange={this.onLocationChange}
                   />
                   <div className="option" htmlFor="placeSuggestions">
-                    {this.state.locationAutocomplete.length === 0 ?
-                      null
-                      :
+                    {this.state.locationAutocomplete.length === 0 ? null :
                       this.state.locationAutocomplete.map(location => {
                         return (
                           <span
@@ -102,9 +97,7 @@ export class LocationAuto extends Component {
                             data-id={location.id}
                             onKeyUp={this.chooseOnEnter}
                             onClick={this.chooseCurrentLocation}
-                          >
-                            {location.name}
-                          </span>
+                          >{location.name}</span>
                         );
                       })
                     }

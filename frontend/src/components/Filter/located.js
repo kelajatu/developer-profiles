@@ -28,7 +28,7 @@ export default class Located extends Component {
         <h1>Located</h1>
         <div className="container">
             <span>within {this.props.publicPageState.milesFrom}</span>
-            <RangeInput min={5} max={300} step="5" onChange={this.changeHandler} value={this.props.publicPageState.milesFrom} />
+            <RangeInput min={5} max={300} step={5} onChange={this.changeHandler} value={this.props.publicPageState.milesFrom} />
             <span>miles of</span>
         </div>
         <label className="container">

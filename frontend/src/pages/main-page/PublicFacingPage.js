@@ -11,7 +11,7 @@ class PublicFacingPage extends Component {
         //Tho they are not all initialized here. 
         this.state = {
             filters: [],
-            cardsDisplaying: 'all', 
+            numCardsDisplaying: 'all', 
             // updateRequired: false,
             milesFrom: 5,
             loading: true,
@@ -38,7 +38,7 @@ class PublicFacingPage extends Component {
                 modUsers: response.data, 
                 loading: false,
                 //Number of cards displaying can either be deleted or sent back from backend
-                cardsDisplaying: response.data.length
+                numCardsDisplaying: response.data.length
             })
         }).catch(error => {
             console.log(error)
@@ -65,7 +65,7 @@ class PublicFacingPage extends Component {
                 // modUsers: response.data, 
                 // loading: false,
                 //Number of cards displaying can either be deleted or sent back from backend
-                cardsDisplaying: response.data.length
+                numCardsDisplaying: response.data.length
             })
         }).catch(error => {
             console.log(error)
@@ -101,7 +101,7 @@ class PublicFacingPage extends Component {
         }
         this.setState({
             modUsers: newArr,
-            cardsDisplaying: newArr.length
+            numCardsDisplaying: newArr.length
         })
     }
 

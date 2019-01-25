@@ -25,17 +25,6 @@ class UserCard extends Component{
     //   this.getUserInfo()
     }
 
-    // getUserInfo = () => {
-    //     axios
-    //     .get("https://developer-profiles.herokuapp.com/users")
-    //     .then(response => {
-    //       console.log(response.data)
-    //     })
-    //     .catch(error => {
-    //       console.log(error);
-    //     });
-    //   }
-
     render(){
         return (
             <UserCardDiv>

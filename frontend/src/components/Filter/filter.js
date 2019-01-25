@@ -14,7 +14,7 @@ export default class FilterBox extends Component {
     return (
       <FilterBoxDiv>
         <h1>
-          Showing: <strong>{this.props.publicPageState.cardsDisplaying}</strong> profiles
+          Showing: <strong>{this.props.publicPageState.numCardsDisplaying}</strong> profiles
         </h1>
         <JobTitles
           updatePublicPageState={this.props.updatePublicPageState}
