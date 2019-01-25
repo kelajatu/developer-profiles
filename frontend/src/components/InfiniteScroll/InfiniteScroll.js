@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { render } from "react-dom";
 import request from "superagent";
+import { InfiniteScroll } from "./InfineScroll.style";
 
 class InfiniteUsers extends Component {
   constructor(props) {
@@ -63,7 +64,7 @@ class InfiniteUsers extends Component {
     const { error, hasMore, isLoading, users } = this.state;
 
     return (
-      <div>
+      <InfiniteScroll>
         <h1>Dev Profiles</h1>
         {users.map(user => (
           <Fragment key={user.linkedIn}>
@@ -81,7 +82,7 @@ class InfiniteUsers extends Component {
         {error && <div style={{ color: "#900" }}>{error}</div>}
         {isLoading && <div>Loading...</div>}
         {!hasMore && <div>End of Users</div>}
-      </div>
+      </InfiniteScroll>
     );
   }
 }
