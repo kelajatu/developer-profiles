@@ -7,6 +7,7 @@ export const LandingPageDiv = styled.div`
     font-family: 'Roboto', sans-serif;
     line-height: 50px;
     font-size: 5rem;
+    font-weight: 900;
     margin-bottom: 0.4em;
   }
   p {
