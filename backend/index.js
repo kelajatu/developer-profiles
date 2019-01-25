@@ -34,10 +34,9 @@ server.post("/charge", async (req, res) => {
 });
 
 server.listen(PORT, () => {
-    // console.log("process.env", process.env)
     console.log(
-      `\n == server is running on ${PORT} == \n == using the ${
-        process.env.NODE_ENV
-      } database == \n`
+      `\n == backend server is running on ${PORT} == \n == using the ${
+        process.env.DB
+      } database == \n == and the ${process.env.ENV} enviornment ==`
     );
 });

@@ -34,7 +34,7 @@ class InfiniteUsers extends Component {
   loadUsers = () => {
     this.setState({ isLoading: true }, () => {
       request
-        .get("https://developer-profiles.herokuapp.com/users?results=10")
+        .get(`${process.env.REACT_APP_BACKEND_SERVER}/users?results=10`)
         .then(results => {
           // Creates a massaged array of user data
           const nextUsers = results.body.map(user => ({
