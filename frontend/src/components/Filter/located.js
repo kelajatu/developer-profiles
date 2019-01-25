@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { filterSection } from "../../global-styles/Mixins";
-import { CheckBox, TextInput, RangeInput } from "grommet";
+// import { CheckBox, TextInput, RangeInput } from "grommet";
 import { LocationAuto } from "./locationAuto";
 
 export default class Located extends Component {

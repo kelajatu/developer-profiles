@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { render } from "react-dom";
 import request from "superagent";
+import { InfiniteScroll } from "./InfineScroll.style";
 
 class InfiniteUsers extends Component {
   constructor(props) {
@@ -34,7 +35,7 @@ class InfiniteUsers extends Component {
   loadUsers = () => {
     this.setState({ isLoading: true }, () => {
       request
-        .get("https://developer-profiles.herokuapp.com/users?results=10")
+        .get(`${process.env.REACT_APP_BACKEND_SERVER}/users?results=10`)
         .then(results => {
           // Creates a massaged array of user data
           const nextUsers = results.body.map(user => ({
@@ -43,6 +44,7 @@ class InfiniteUsers extends Component {
             title: user.title,
             linkedIn: user.linkedin
           }));
+          
           // Merges the next users into our existing users
           this.setState({
             hasMore: this.state.users.length < 10,
@@ -63,7 +65,7 @@ class InfiniteUsers extends Component {
     const { error, hasMore, isLoading, users } = this.state;
 
     return (
-      <div>
+      <InfiniteScroll>
         <h1>Dev Profiles</h1>
         {users.map(user => (
           <Fragment key={user.linkedIn}>
@@ -81,7 +83,7 @@ class InfiniteUsers extends Component {
         {error && <div style={{ color: "#900" }}>{error}</div>}
         {isLoading && <div>Loading...</div>}
         {!hasMore && <div>End of Users</div>}
-      </div>
+      </InfiniteScroll>
     );
   }
 }

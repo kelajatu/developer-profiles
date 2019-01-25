@@ -14,20 +14,20 @@ export default class FilterBox extends Component {
     return (
       <FilterBoxDiv>
         <h1>
-          Showing: <strong>{this.props.params.cardsDisplaying}</strong> profiles
+          Showing: <strong>{this.props.publicPageState.cardsDisplaying}</strong> profiles
         </h1>
         <JobTitles
           updatePublicPageState={this.props.updatePublicPageState}
           toggleCheckMarks={this.props.toggleCheckMarks}
-          params={this.props.params}
+          publicPageState={this.props.publicPageState}
         />
         <Located
           updatePublicPageState={this.props.updatePublicPageState}
-          params={this.props.params}
+          publicPageState={this.props.publicPageState}
         />
         <Relocate
           updatePublicPageState={this.props.updatePublicPageState}
-          params={this.props.params}
+          publicPageState={this.props.publicPageState}
         />
         <button onClick={this.props.testInfinite}>TEST ININIT SCROLL</button>
       </FilterBoxDiv>

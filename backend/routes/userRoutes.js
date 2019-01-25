@@ -57,8 +57,9 @@ server.post('/infiniteFilter', (req, res) => {
         //users here
         //req.body will have the state from front end. 
         //filters
-        let returnPackage = filter(users, req.body);
+        let returnPackage = filter(users, req.body)
         //return 10 at a time of filtered UserCards
+        //10
         console.log("return package", returnPackage)
         res.status(200).json(returnPackage)
     }).catch(err => {
@@ -66,6 +67,7 @@ server.post('/infiniteFilter', (req, res) => {
         res.status(500).json({message: "there is an error in GET users/", err: err})
     })
 })
+//session maybe for optimazation?
 
 //get all users for card view
 server.get('/', (req, res) => {
@@ -167,6 +169,7 @@ server.post('/:user_id/createskill/:type', (req, res) => {
         } else {
             console.log("should be a number as a string:", `${data}`)
             oldSkills = oldSkills[req.params.type] + `,${data}`
+            console.log("newskills:", oldSkills)
             db.addKeywords(req.params.user_id, req.params.type, oldSkills).then(resdata => {
                 res.status(200).json(resdata)
             }).catch(err => {

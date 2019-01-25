@@ -74,14 +74,14 @@ class AboutYou extends Component {
   
   //should only need one function regardless of skill type, can get type info from input or add button id/name
   addSkillsFromBank = (e) => {
-    axios.post(`https://developer-profiles.herokuapp.com/users/${this.props.userInfo.id}/addskills/${e.target.id}`, {"id": ""}).then(
+    axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/addskills/${e.target.id}`, {"id": ""}).then(
       skill => console.log(skill)
       )
     }
     
     addSkillsNew = (e) => {
       let skillInput = e.target.getAttribute('name')
-      axios.post(`https://developer-profiles.herokuapp.com/users/${this.props.userInfo.id}/createskill/${e.target.id}`, {"skill": `${this.state[skillInput]}`}).then(
+      axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/createskill/${e.target.id}`, {"skill": `${this.state[skillInput]}`}).then(
         skill => console.log(skill)
         )
       }

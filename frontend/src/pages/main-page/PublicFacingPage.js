@@ -3,7 +3,6 @@ import FilterBox from '../../components/Filter/filter'
 import React, { Component } from 'react'
 import UserCards from '../../components/user-card/UserCards';
 import axios from 'axios';
-import { unpackLocations } from '../../utilities/locations.utl'
 
 class PublicFacingPage extends Component {
     constructor(props){
@@ -23,8 +22,9 @@ class PublicFacingPage extends Component {
     }
 
     componentDidMount(){
-        
-        axios.get('https://developer-profiles.herokuapp.com/users').then(response => {
+        //Need to make request to our backend with relevant filter parameteres (from state)
+        //USE Infinite scroll here and return into modUsers
+        axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users`).then(response => {
             this.setState({
                 //all Users wont be necessary because it will be sorted in the back
                 allUsers: response.data, 
@@ -75,18 +75,27 @@ class PublicFacingPage extends Component {
         } else {
             newArr.push(name)
         }
-        this.setState({
-            ...this.state, 
-            [name]:!this.state[name], 
-            updateRequired: true
-        })
-        // this.filter()
+        //this will be trigger new request to filter
+        this.filter()
     }
 
-    //this is used in child components to modify PublicFacingPage state
+    //this is used in child components to modify publicPageState state
     updatePublicPageState = (update) => {
-        // console.log('updatePublicPageState', update)
         this.setState(update)
+    }
+
+    //this is going to move to backend
+    filter = () => {
+        let newArr = this.state.allUsers.filter(item => {
+            return this.state.filters.includes(item.area_of_work)
+        })
+        if(newArr.length === 0){
+            newArr = this.state.allUsers
+        }
+        this.setState({
+            modUsers: newArr,
+            cardsDisplaying: newArr.length
+        })
     }
 
     render() { 
@@ -94,7 +103,7 @@ class PublicFacingPage extends Component {
         return (
             <PublicFacingPageDiv>
                 <FilterBox 
-                    params={this.state} 
+                    publicPageState={this.state} 
                     toggleCheckMarks={this.toggleCheckMarks} 
                     updatePublicPageState={this.updatePublicPageState}
                     testInfinite={this.testInfinite} />

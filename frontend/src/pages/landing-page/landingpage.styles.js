@@ -1,59 +1,45 @@
 import styled from "styled-components";
-import bg_img from "./img/devprof.jpg";
-// bg_img credit: https://www.pexels.com/photo/white-smartphone-beside-silver-laptop-computer-1036808/
 
 export const LandingPageDiv = styled.div`
+  background-image: var(--fade-gradient), var(--my-gradient);
   h1 {
-    /* background: blue; */
-    font-size: 30px;
+
+    font-family: 'Roboto', sans-serif;
+    line-height: 50px;
+    font-size: 5rem;
+    font-weight: 900;
+    margin-bottom: 0.4em;
   }
   p {
     /* color: pink; */
-    font-size: 24px;
+    font-family: 'Roboto', sans-serif;
   }
-`
+`;
 
 export const Pagewrap = styled.div`
-  /* background-size: cover; */
-  /* display: flex;
-  flex-flow: column;
-  align-items: center;
-  justify-content: center; */
+  background-size: cover;
   display: flex;
-  width: 100%;
+  max-width: 1000px;
   height: 100vh;
-  /* position: relative; */
+  position: relative;
   text-align: center;
-  background-image: var(--fade-gradient),var(--my-gradient);
-  border: 1px solid red;
- /* padding-top: 5em;
- padding-bottom: 5em; */
-  h1 {
-    font-size: 5rem;
-    letter-spacing: 5px;
-    margin-bottom: 0.4em;
-  }
-
-  .landing {
-    background: pink;
-    border: 1px solid purple;
-  }
-
+  margin: auto;
+  padding-top: 5em;
+  padding-bottom: 5em;
 `;
 
 export const Moreinfo = styled.div`
-  display:flex;
+  display: flex;
   flex-direction: column;
-  color: purple;
-  border: 1px solid black;
-`
+  max-width: 1000px;
+  width: 100%;
+  margin: auto;
+  /*  */
+`;
 
 export const Aboutus = styled.div`
   color: darkgray;
-  border: 1px solid black;
-`
+`;
 export const Learnmore = styled.div`
   color: darkgray;
-  border: 1px solid black;
-`
-
+`;

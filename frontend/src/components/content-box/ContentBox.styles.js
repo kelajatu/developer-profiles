@@ -1,37 +1,50 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
-export const ContentBoxSection = styled.section`
-  display: flex;
-  flex-direction: column;
-  border: 10px solid pink;
+export const ContentBoxSection = styled.div`
+  max-width: 45%;
+  /* border: 10px solid pink; */
   text-align: left;
-  padding: 5em;
+  margin-top: 200px;
+  padding: 2em;
+
   a {
     color: none;
     text-decoration: none;
-    display:flex;
+    display: flex;
     justify-content: center;
     align-items: center;
   }
 `;
+export const SampleCard = styled.div`
+  max-width: 45%;
+  margin: 200px 50px;
+  width: 100%;
+  height: 400px;
+  background: #7f7fd5;
+  box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+
+  color: white;
+`;
 
 export const ButtonContainer = styled.div`
-display: flex;
-text-align: center;
-`
+  display: flex;
+  text-align: center;
+  margin-top: 20px;
+`;
 export const Btn = styled.div`
   @keyframes stripe-slide {
-  0% {
-    background-position: 0% 0;
+    0% {
+      background-position: 0% 0;
+    }
+    100% {
+      background-position: 100% 0;
+    }
   }
-  100% {
-    background-position: 100% 0;
-  }
-}
   overflow: visible;
   width: 150px;
   /* text-align:center; */
-  margin: 0;
+  margin: 5px;
   border: 0;
   width: 100px;
   background: transparent;
@@ -50,8 +63,6 @@ export const Btn = styled.div`
   &.stripe {
     overflow: hidden;
     position: relative;
-
-
 
     &:after {
       content: "";
@@ -81,7 +92,6 @@ export const Btn = styled.div`
       border-color: #000;
       border-radius: 36px;
 
-
       &:after {
         background-image: repeating-linear-gradient(
           45deg,
@@ -97,6 +107,4 @@ export const Btn = styled.div`
   }
 `;
 
-export const SampleCard = styled.div `
 
-`

@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import ContentBox from '../../components/content-box/ContentBox'
-import UserCardPreview from '../user-dashboard/UserCardPreview.js'
 import {
   Pagewrap,
-  Btn,
+  // Btn,
   Moreinfo,
   Learnmore,
   Aboutus,
   LandingPageDiv,
 } from "./landingpage.styles";
+import { SampleCard } from "../../components/content-box/ContentBox.styles";
 
 class LandingPage extends Component {
   render() {
@@ -16,8 +16,9 @@ class LandingPage extends Component {
       <LandingPageDiv>
         <Pagewrap>
             <ContentBox />
-            <UserCardPreview className="landing" />
-
+            <SampleCard>
+              SAMPLE CONTENT
+             </SampleCard>
         </Pagewrap>
         <Moreinfo>
           <Aboutus>

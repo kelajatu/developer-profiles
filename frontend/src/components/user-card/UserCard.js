@@ -48,7 +48,7 @@ class UserCard extends Component{
                             <p>{this.props.summary}</p>
                         </div>
                     </div>
-                    <h3>{this.props.title}</h3>
+                    <h3>{this.props.desired_title}</h3>
                     <div className="keywords">
                         {this.state ? this.state.arr.map(word => {
                             return (<div key={word.id} className="keyword" style={{fontSize: word.weight }}>
@@ -58,9 +58,7 @@ class UserCard extends Component{
                     </div>
                 </div>
                 <div className="links">
-                    <div className="badge">
-                    <img src={this.props.badge} alt="acclaim badge"/>
-                    </div>
+                    <img className="badge" src={this.props.badge} alt="acclaim badge"/>
                     <i className="fab fa-github"></i>
                     <i className="fab fa-linkedin"></i>
                     <i className="fas fa-code"></i>
@@ -157,6 +155,9 @@ const UserCardDiv = styled.div`
         .fas {
             font-size: 35px;
             margin-bottom: 40px;
+        }
+        .badge {
+            width: 50px;
         }
     }
 `;
