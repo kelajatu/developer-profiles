@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import ContentBox from '../../components/content-box/ContentBox'
-import UserCardPreview from '../user-dashboard/UserCardPreview.js'
 import {
   Pagewrap,
   Btn,
@@ -9,6 +8,7 @@ import {
   Aboutus,
   LandingPageDiv,
 } from "./landingpage.styles";
+import { SampleCard } from "../../components/content-box/ContentBox.styles";
 
 class LandingPage extends Component {
   render() {
@@ -16,9 +16,9 @@ class LandingPage extends Component {
       <LandingPageDiv>
         <Pagewrap>
             <ContentBox />
-            <UserCardPreview className="landing" />
-
-        </Pagewrap>
+            <SampleCard>
+              SAMPLE CONTENT
+             </SampleCard>
         <Moreinfo>
           <Aboutus>
             <h2 id="aboutus">Asymmetrical master</h2> <p>
@@ -48,6 +48,7 @@ class LandingPage extends Component {
             williamsburg.
           </Learnmore>
         </Moreinfo>
+        </Pagewrap>
       </LandingPageDiv>
     );
   }
