@@ -7,6 +7,7 @@ import UserDashboardNav from './UserDashboardNav'
 import UserCardPreview from './UserCardPreview'
 import UserCardProgress from './UserCardProgress'
 import UserDashboardIntro from './UserDashboardIntro'
+import UserDashboardNew from './UserDashboardNew'
 
 import PersonalInfo from './personal-info/PersonalInfo';
 import WhereToFindYou from './where-to-find/WhereToFindYou';
@@ -21,7 +22,6 @@ class UserDashboardContainer extends Component {
   state = {
     profileStatus: 'Not Live',
     userProgress: '20%',
-    user: {}
   }
 
   updateProgress = () => {
@@ -49,7 +49,6 @@ class UserDashboardContainer extends Component {
         if (userInfo.interested_location_names !== "" && userInfo.interested_location_names !== null) {
           placesInterestedArr = userInfo.interested_location_names.split('|');
         }
-        console.log('CCC', placesInterestedArr)
 
         const allUserInfo = {
           ...userInfo,
@@ -95,10 +94,11 @@ class UserDashboardContainer extends Component {
             }
           }
         }
+        let newProfileStatus;
         if (updatedUserProgress < 80) {
-          var newProfileStatus = 'Not Live';
+          newProfileStatus = 'Not Live';
         } else {
-          var newProfileStatus = 'Live';
+          newProfileStatus = 'Live';
         }
         updatedUserProgress = '' + updatedUserProgress + '%'
         this.setState({profileStatus: newProfileStatus, userProgress: updatedUserProgress, ...allUserInfo})
@@ -133,8 +133,6 @@ class UserDashboardContainer extends Component {
         if (userInfo.interested_location_names !== "" && userInfo.interested_location_names !== null) {
           placesInterestedArr = userInfo.interested_location_names.split('|');
         }
-
-        console.log('CCC', placesInterestedArr)
         
         const allUserInfo = {
           ...userInfo,
@@ -179,10 +177,11 @@ class UserDashboardContainer extends Component {
             }
           }
         }
+        let newProfileStatus;
         if (updatedUserProgress < 80) {
-          var newProfileStatus = 'Not Live';
+          newProfileStatus = 'Not Live';
         } else {
-          var newProfileStatus = 'Live';
+          newProfileStatus = 'Live';
         }
         updatedUserProgress = '' + updatedUserProgress + '%'
         this.setState({profileStatus: newProfileStatus, userProgress: updatedUserProgress, ...allUserInfo})
@@ -199,7 +198,8 @@ class UserDashboardContainer extends Component {
         <UserDashboardNav {...this.props} />
         <UserCardProgress {...this.props} {...this.state} />
         <hr/>
-        <Route exact path={`${this.props.match.path}/`} render={props => <UserDashboardIntro {...props} />} />
+        <Route exact path={`${this.props.match.path}/`} render={props => <UserDashboardIntro {...props} userInfo={this.state} />} />
+        <Route path={`${this.props.match.path}/new`} render={props => <UserDashboardNew {...props} userInfo={this.state} />} />
         <Route path={`${this.props.match.path}/personal-info`} render={props => <PersonalInfo updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
         <Route path={`${this.props.match.path}/where-to-find-you`} render={props => <WhereToFindYou updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
         <Route path={`${this.props.match.path}/about-you`} render={props => <AboutYou updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
