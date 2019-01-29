@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
-import { Link } from 'react-router-dom';
-import styled from 'styled-components'
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 export default class Nav extends Component {
   render() {
@@ -9,20 +9,29 @@ export default class Nav extends Component {
         <div className="nav-link">
           <Link to="/public">View Profiles</Link>
         </div>
-        {this.props.auth.isAuthenticated() ?
-            <Fragment>
-                <div className="nav-link">
-                  <Link to="/dashboard">Dashboard</Link>
-                </div>
-                <div className="nav-link">
-                  <a href="/" onClick={() => this.props.auth.logout({...this.props})}>Logout</a>
-                </div>
-            </Fragment>
-        : <div onClick={this.props.auth.login} className="nav-link">Sign Up / Sign In</div>}
+        {this.props.auth.isAuthenticated() ? (
+          <Fragment>
+            <div className="nav-link">
+              <Link to="/dashboard">Dashboard</Link>
+            </div>
+            <div className="nav-link">
+              <a
+                href="/"
+                onClick={() => this.props.auth.logout({ ...this.props })}
+              >
+                Logout
+              </a>
+            </div>
+          </Fragment>
+        ) : (
+          <div className="nav-link">
+            <a onClick={this.props.auth.login}>Sign Up / Sign In</a>
+          </div>
+        )}
       </MainNav>
     );
   }
-};
+}
 
 const MainNav = styled.nav`
   width: 100%;
@@ -33,7 +42,7 @@ const MainNav = styled.nav`
   position: fixed;
   z-index: 20;
   box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.1);
-  border-bottom: solid .5px rgba(219, 222, 226, .5);
+  border-bottom: solid 0.5px rgba(219, 222, 226, 0.5);
   .nav-link {
     padding: 2rem 3rem;
     display: flex;
@@ -48,7 +57,7 @@ const MainNav = styled.nav`
     }
     &:after {
       height: 2px;
-      background: #9192DB;
+      background: #9192db;
       content: "";
       width: 0;
       position: absolute;
@@ -69,6 +78,8 @@ const MainNav = styled.nav`
     a {
       color: black;
       text-decoration: none;
+      text-decoration-skip: ink;
+      border-bottom: 1px solid #000;
     }
   }
   @media (max-width: 1300px) {
