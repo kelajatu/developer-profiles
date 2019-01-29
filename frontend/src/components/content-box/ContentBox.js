@@ -1,9 +1,4 @@
-import { 
-  ContentBoxSection, 
-  ButtonContainer, 
-  Btn, 
-  // SampleCard
-} from "./ContentBox.styles";
+import { ContentBoxSection, Btn, CallToAction, CTAContainer } from "./ContentBox.styles";
 
 import React, { Component } from "react";
 
@@ -12,21 +7,22 @@ class ContentBox extends Component {
     return (
       <ContentBoxSection>
         <h1>Welcome to DevProfiles </h1>
-        <h2>The premier place to meet all of your tech hiring needs</h2> <br/>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit.Quibusdam
-          veniam, veritatis est blanditiis autem perferendis,asperiores.
-        </p>
-        <ButtonContainer>
-          <a href="#aboutus">
-            <Btn className="stripe">Recruiters</Btn>
-          </a>
-          <a href="#learnmore">
-            <Btn className="stripe">Developers</Btn>
-          </a>
-        </ButtonContainer>
+        <h2>The premier place to meet all of your tech hiring needs</h2> <br />
+        <CTAContainer>
+          <CallToAction>
+            <p>HEllo hello!</p>
+            <a href="#recruiters">
+              <Btn className="stripe">Recruiters</Btn>
+            </a>{" "}
+          </CallToAction>
+          <CallToAction>
+            HEllo Hello
+            <a href="#developers">
+              <Btn className="stripe">Developers</Btn>
+            </a>
+          </CallToAction>
+        </CTAContainer>
       </ContentBoxSection>
-
     );
   }
 }
