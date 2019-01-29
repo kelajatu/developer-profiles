@@ -250,7 +250,7 @@ class AboutYou extends Component {
               </div>
             </form>
           </FormSection>
-          <PreviewSection>
+          {/* <PreviewSection>
             <div>
               <h3>Your Places Interested</h3>
               {this.state.placesInterestedArr.length === 0 ?
@@ -274,7 +274,7 @@ class AboutYou extends Component {
             <div>
               <h3>Your Familiar Skills</h3>
             </div>
-          </PreviewSection>
+          </PreviewSection> */}
         </div>
         <ButtonContainer>
           <div>

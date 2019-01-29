@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { inputArea, labelArea, centerFlex } from '../../../global-styles/Mixins';
+import UserCardPreview from '../UserCardPreview';
+
+import { TextInput } from 'grommet';
 
 
 class PersonalInfo extends Component {
@@ -90,31 +93,49 @@ class PersonalInfo extends Component {
           <FormSection>
             <form>
 
+
+              <div>
+                <label htmlFor="userProfileImg">
+                  Choose a profile picture:
+                </label>
+                <input
+                  id="userProfileImg"
+                  type="file"
+                  accept="image/*"
+                  encrypt="multipart/form-data"
+                  onChange={this.uploadPhoto}
+                />
+              </div>
+
+
+
               {/* public email */}
               <div>
                 <label htmlFor="userPublicEmail">
                   Public Email:
                 </label>
-                <input
-                  type="email"
+                <TextInput
                   id="userPublicEmail"
-                  placeholder="user@gmail.com"
                   name="publicEmail"
+                  placeholder="user@gmail.com"
+                  focusIndicator
                   value={this.state.publicEmail}
                   onChange={this.onInputChange}
                 />
               </div>
+
+
 
               <div>
                 {/* firstname - autofill if auth returns */}
                 <label htmlFor="userFirstName">
                   First Name:
                 </label>
-                <input
-                  type="text"
+                <TextInput
                   id="userFirstName"
-                  placeholder="john"
                   name="firstName"
+                  placeholder="john"
+                  focusIndicator
                   value={this.state.firstName}
                   onChange={this.onInputChange}
                 />
@@ -125,11 +146,11 @@ class PersonalInfo extends Component {
                 <label htmlFor="userLastName">
                   Last Name:
                 </label>
-                <input
-                  type="text"
+                <TextInput
                   id="userLastName"
-                  placeholder="doe"
                   name="lastName"
+                  placeholder="doe"
+                  focusIndicator
                   value={this.state.lastName}
                   onChange={this.onInputChange}
                 />
@@ -157,51 +178,22 @@ class PersonalInfo extends Component {
                 <label htmlFor="userDesiredTitle">
                   Desired Title:
                 </label>
-                <input
-                  type="text"
+                <TextInput
                   id="userDesiredTitle"
-                  placeholder="software engineer"
                   name="desiredTitle"
+                  placeholder="software engineer"
+                  focusIndicator
                   value={this.state.desiredTitle}
                   onChange={this.onInputChange}
                 />
               </div>
             </form>
           </FormSection>
-
           <section>
-            {/* image */}
-            <ImageForm>
-              <label htmlFor="userProfileImg">
-                Choose a profile picture:
-              </label>
-              <div className="upload-container">
-                {this.state.profileImg === "" ?
-                  <div className="input-container">
-                    <span><i className="fa fa-upload fa-7x"></i><br/><p>350x350</p></span>
-                    <input
-                      id="userProfileImg"
-                      type="file"
-                      accept="image/*"
-                      encrypt="multipart/form-data"
-                      onChange={this.uploadPhoto}
-                    />
-                  </div>
-                  :
-                  null
-                }
-                {this.state.profileImg === "" ?
-                  null
-                  :
-                  <div className="image-container">
-                    <span onClick={this.deleteImage}><i className="fa fa-times-circle fa-3x"></i></span>
-                    <img src={this.state.profileImg} alt="P"/>
-                  </div>
-                }
-              </div>
-            </ImageForm>
+          <UserCardPreview userInfo={this.props.userInfo} />
           </section>
         </div>
+        
         <ButtonContainer>
           <div>
             <Link to="/dashboard">Back Home</Link>
@@ -227,15 +219,16 @@ const MainFormContainer = styled.main`
     margin-left: 80px;
   }
   h1 {
-    padding-left: 100px;
     font-size: 5rem;
     color: rgb(42,42,42);
     margin-bottom: 50px;
+    text-align: center;
   }
   .container {
     padding-left: 100px;
+    padding-right: 100px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: flex-start;
     flex-wrap: wrap;
     section {
@@ -245,7 +238,6 @@ const MainFormContainer = styled.main`
 `;
 
 const FormSection = styled.section`
-  width: 43%;
   div {
     margin-bottom: 30px;
   }

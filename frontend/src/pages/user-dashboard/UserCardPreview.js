@@ -61,16 +61,7 @@ class UserCardPreview extends Component {
   }
 }
 
-const PreviewContainer = styled.header`
-  width: calc(100% - 300px);
-  margin-left: 300px;
-  margin-bottom: 100px;
-  padding-top: 50px;
-  ${centerFlex()};
-  @media (max-width: 1400px) {
-    width: calc(100% - 80px);
-    margin-left: 80px;
-  }
+const PreviewContainer = styled.section`
 `;
 
 

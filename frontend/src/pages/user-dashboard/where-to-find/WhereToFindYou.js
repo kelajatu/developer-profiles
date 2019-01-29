@@ -222,14 +222,14 @@ class WhereToFindYou extends Component {
               </div>
             </form>
           </FormSection>
-          <PreviewSection>
+          {/* <PreviewSection>
             <h3>Your Current Location</h3>
             {this.state.currentLocationName === "" ?
               <p>No Location Listed</p>
               :
               <p>{this.state.currentLocationName}</p>
             }
-          </PreviewSection>
+          </PreviewSection> */}
         </div>
         <ButtonContainer>
           <div>

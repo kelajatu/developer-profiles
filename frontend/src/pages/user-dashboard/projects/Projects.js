@@ -140,7 +140,7 @@ class Projects extends Component {
           <section>
             {/* projimg - Upload Functionality */}
             {/* image - see if you can send '/:id' param on uploadPhoto */}
-            <ImageForm>
+            {/* <ImageForm>
               <label htmlFor="userProjectImg">
                 Choose a project picture:
               </label>
@@ -168,7 +168,7 @@ class Projects extends Component {
                   </div>
                 }
               </div>
-            </ImageForm>
+            </ImageForm> */}
           </section>
         </div>
         <ButtonContainer>

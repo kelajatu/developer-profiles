@@ -43,7 +43,7 @@ export function filterSection() {
 export function labelArea() {
   return `
     color: rgba(42,42,42,.8);
-    display: block;
+    display: inline-block;
     font-size: 1.7rem;
     margin-bottom: 8px;
     font-weight: bold;
@@ -58,8 +58,8 @@ export function inputArea() {
     font-family: inherit;
     font-size: 1.7rem;
     color: rgb(42,42,42);
-    padding: 15px;
-    width: 95%;
+    padding: 10px;
+    width: 85%;
     border: none;
     border-radius: 5px;
     border: solid 1px black;
