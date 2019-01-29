@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import acclaimplaceholder from './acclaimplaceholder.png'
 
 class UserCard extends Component{
     constructor(props){
@@ -32,7 +31,6 @@ class UserCard extends Component{
     }
 
     componentDidMount(){
-       console.log("fire in da hole")
       this.makeSkillsArr()
       this.getUserExtras('projects')
       this.getUserExtras('education')
@@ -69,10 +67,10 @@ class UserCard extends Component{
                     </div>
                 </div>
                 <div className="links">
-                    <img className="badge" src={this.props.badge !== null ? this.props.badge !== "acclaim.com" ? this.props.badge : acclaimplaceholder : acclaimplaceholder} alt="acclaim badge"/>
-                    <i className="fab fa-github"></i>
-                    <i className="fab fa-linkedin"></i>
-                    <i className="fas fa-code"></i>
+                    {this.props.badge !== null ? this.props.badge !== "acclaim.com" ? <img className="badge" src={this.props.badge} alt="acclaim badge"/> : null : null}
+                    <a rel="noopener noreferrer" href={this.props.github} target="_blank"><i className="fab fa-github"></i></a>
+                    <a rel="noopener noreferrer" href={this.props.linkedin} target="_blank"><i className="fab fa-linkedin"></i></a>
+                    <a rel="noopener noreferrer" href={this.props.portfolio} target="_blank"><i className="fas fa-code"></i></a>
                 </div>
                 </div>
                 <div>
@@ -80,30 +78,32 @@ class UserCard extends Component{
                         <div className="projects-etc">
                         {/* ~~~~ projects ~~~~ */}
                             <h2>Projects</h2>
-                            {this.state.projects.map(project => <div className="project-container">
+                            {this.state.projects.map(project => <div className="proj-etc-container">
                             <div className="extratitle">{project.project_title}</div>
-                            <a href={project.link}/>
-                            <div className="description">{project.project_description}</div>
-                            <img width='200px' src={project.project_img} alt="project"/>
+                            <a rel="noopener noreferrer" href={project.link} target="_blank">{project.link}</a>
+                            <div className="proj-image-container">
+                                <img width="200px" height="min-height" src={project.project_img} alt="project"/>
+                                <div className="description">{project.project_description}</div>
+                            </div>
                             </div>)}
                         {/* ~~~~ experience ~~~~ */}
                             <h2>Experience</h2>
-                            {this.state.experience.map(experience => <div className="experience-container">
+                            {this.state.experience.map(experience => <div className="proj-etc-container">
                             <div className="extratitle">{experience.job_title}</div>
                             <div className="dates">{experience.job_dates}</div>
-                            <div className="description">{experience.job_description}</div>
+                            <div className="indent">{experience.job_description}</div>
                             </div>)}
                         {/* ~~~~ education ~~~~ */}
                             <h2>Education</h2>
-                            {this.state.education.map(education => <div className="education-container">
+                            {this.state.education.map(education => <div className="proj-etc-container">
                             <div className="extratitle">{education.school}</div>
                             <div className="dates">{education.school_dates}</div>
-                            <div className="degree">{education.degree}</div>
-                            <div className="course">{education.course}</div> 
+                            <div className="indent">{education.degree}</div>
+                            <div className="indent">{education.course}</div> 
                             </div>)}
                         </div>    
                     : null}
-            </div>
+                </div>
             </UserCardContainer>
             
             </div>
@@ -115,20 +115,25 @@ const UserCardContainer = styled.div`
     border-radius: 5px;
     border: lightgrey solid 1px;
     background: white;
-    height: ${props => props.expanded ? 720 : 320}px;
+    height: ${props => props.expanded ? null : 320}px;
+    min-height: ${props => props.expanded ? 700 : null}px;
     width: 520px;
     margin-bottom: 30px;
+    overflow-y: scroll;
+    padding-bottom: 20px;
+    a {
+        color: black;
+    }
     .userCardDiv {
+        box-sizing: border-box;
+        padding-top: 20px;
         display: flex;
-        flex-direction: row;
         justify-content: center;
-        align-items: center;
         .left-side {
             width: 90%;
             overflow: hidden;
             height: 100%;
-            margin-left: 35px;
-            padding-top: 28px;
+            margin-left: 28px;
             h2 {
                 font-size: 30px;
             }
@@ -166,6 +171,7 @@ const UserCardContainer = styled.div`
                     height: 100px;
                     background-image: cover;
                     margin: 10px;
+                    margin-left:0;
                 }
             }
             .keywords {
@@ -175,6 +181,7 @@ const UserCardContainer = styled.div`
                 flex-wrap: wrap;
                 padding: 10px, 0;
                 margin-top: 20px;
+                margin-bottom: 20px;
                 .keyword {
                     padding: 1px;
                     margin: 2px;
@@ -188,12 +195,15 @@ const UserCardContainer = styled.div`
             justify-content: space-between;
             align-items: center;
             width: 15%;
-            height: 100%;
+            height: 300px;
+            margin-left: 10px;
+            margin-right: 10px;
             .fab, .fas {
                 font-size: 40px;
-                /* &:hover{
+                &:hover{
                     color: gray;
-                } */
+                }
+                cursor: pointer;
             }
             .fas {
                 font-size: 35px;
@@ -201,32 +211,58 @@ const UserCardContainer = styled.div`
             }
             .badge {
                 width: 50px;
+                margin-top: 25px;
+                cursor: pointer;
             }
         }
     }
-    .project-container {
+    .projects-etc {
+        margin-left: 28px;
+        h2 {
+            font-size: 22px;
+            padding: 5px 5px;
+            margin-bottom: 15px;
+            border-top: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+            width: 465px;
+        }
+        a {
+            margin-left: 5px;
+        }
     }
-    .experience-container {
-
+    .proj-image-container {
+        img {
+            border-radius: 3px;
+        }
+        margin-left: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items:center;
+        margin-top: 10px;
+     
     }
-    .education-container {
-
+    .proj-etc-container {
+        margin-bottom: 20px;
+        margin-right: 28px;
     }
     .extratitle {
-        font-size: 25px;
+        font-size: 20px;
+        font-weight: bold;
+        padding-left: 5px;
+        margin-bottom: 5px;
     }
     .dates {
         font-size: 15px;
+        margin: 5px 0 0 10px;
+        color: grey;
     }
     .description {
-
+        width: 250px;
+        padding-left: 10px;
     }
-    .degree {
-        font-weight: bold;
-    }
-    .course {
-
-    }
+   .indent {
+    margin-left: 5px;
+   }
 `;
 
 export default UserCard;

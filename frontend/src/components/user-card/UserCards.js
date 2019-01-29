@@ -25,6 +25,9 @@ export default class UserCards extends Component {
           <UserCardsDiv>
               {this.props.modUsers.map(user => <UserCard 
                   id={user.id}
+                  github={user.github}
+                  linkedin={user.linkedin}
+                  portfolio={user.portfolio}
                   badge={user.badge}
                   key={user.id}
                   first_name={user.first_name} 
@@ -41,7 +44,7 @@ export default class UserCards extends Component {
 
 const UserCardsDiv = styled.div`
     width: calc(100% - 300px);
-    margin-left: 300px;
+    margin-left: 200px;
     padding-top: 130px;
     ${centerFlex('column')};
 `
