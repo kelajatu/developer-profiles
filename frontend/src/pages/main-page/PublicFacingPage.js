@@ -44,6 +44,7 @@ class PublicFacingPage extends Component {
             relocateLat: this.state.relocateLat,
             relocateLon: this.state.relocateLon,
             numOfResults: this.state.numOfResult,
+            milesFrom: this.state.milesFrom,
         }
         axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/filter`, params).then(response => {
             console.log("response in testInfinite", response)
@@ -84,7 +85,7 @@ class PublicFacingPage extends Component {
                     publicPageState={this.state} 
                     toggleCheckMarks={this.toggleCheckMarks} 
                     updatePublicPageState={this.updatePublicPageState}
-                    testInfinite={this.testInfinite} />
+                    filter={this.filter} />
                 <UserCards 
                     modUsers={this.state.modUsers} 
                     loading={this.state.loading} />
