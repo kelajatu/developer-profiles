@@ -12,7 +12,7 @@ exports.seed = function(knex, Promise) {
     .del()
     .then(function() {
       let userArr = [];
-      let num = 500;
+      let num = 50;
       while (num > 0) {
         userArr.push({
           email: faker.internet.email(),

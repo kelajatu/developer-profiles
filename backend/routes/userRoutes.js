@@ -3,7 +3,7 @@ const server = express.Router()
 const db = require('../helpers/index.js')
 
 filter = (allArray, params) => {
-    console.log("allArray", allArray)
+    // console.log("allArray", allArray)
     console.log("params", params)
     let newArr = allArray.filter(item => {
        //filter users cards base on city here
@@ -36,31 +36,37 @@ filter = (allArray, params) => {
             }
         }
 
-       //filters based on job area
+       //filters based on area of work
         return params.filters.includes(item.area_of_work)
     })
     if(newArr.length === 0){
         newArr = allArray
     }
-    console.log("newArr in filter", newArr)
-    return {
-        usersArr: newArr, 
-        usersLength: newArr.length
-    }
+    // console.log("newArr in filter", newArr)
+    return newArr
 }
 
 //get all users for card view
-server.post('/infiniteFilter', (req, res) => {
+server.post('/filter', (req, res) => {
     console.log(req.body)
     db.user_helpers.getUsers().then(users => {
-        console.log(users)
+        // console.log(users)
         //users here
         //req.body will have the state from front end. 
         //filters
-        let returnPackage = filter(users, req.body)
+        let filteredArr = filter(users, req.body)
+        console.log(typeof filteredArr)
+        // console.log(filteredArr)
+        let shortendArr = filteredArr.splice(0, req.body.numOfResults || 5)
+        let returnPackage = {
+            usersArr: shortendArr,
+            usersFound: filteredArr.length,
+            usersReturned: shortendArr.length
+        }
         //return 10 at a time of filtered UserCards
         //10
-        console.log("return package", returnPackage)
+        // console.log("return package", returnPackage)
+
         res.status(200).json(returnPackage)
     }).catch(err => {
         console.log("there is an error in GET users/", err)
