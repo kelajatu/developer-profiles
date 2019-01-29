@@ -196,8 +196,6 @@ class UserDashboardContainer extends Component {
     return (
       <DashboardContainer>
         <UserDashboardNav {...this.props} />
-        <UserCardProgress {...this.props} {...this.state} />
-        <hr/>
         <Route exact path={`${this.props.match.path}/`} render={props => <UserDashboardIntro {...props} userInfo={this.state} />} />
         <Route path={`${this.props.match.path}/new`} render={props => <UserDashboardNew {...props} userInfo={this.state} />} />
         <Route path={`${this.props.match.path}/personal-info`} render={props => <PersonalInfo updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
@@ -207,7 +205,7 @@ class UserDashboardContainer extends Component {
         <Route path={`${this.props.match.path}/experience`} render={props => <Experience updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
         <Route path={`${this.props.match.path}/education`} render={props => <Education updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
         <Route path={`${this.props.match.path}/billing`} render={props => <Billing updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
-        <hr/>
+        {/* <UserCardProgress {...this.props} {...this.state} /> */}
         <UserCardPreview {...this.props} userInfo={this.state} />
       </DashboardContainer>
     )
@@ -218,7 +216,6 @@ const DashboardContainer = styled.main`
   /* background-color: #F4F7FC; */
   hr {
     border: solid .5px white;
-    box-shadow: .1px .1px 8px .1px rgba(0,0,0,.1);
   }
 `;
 

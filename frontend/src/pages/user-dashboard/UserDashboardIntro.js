@@ -19,7 +19,6 @@ class UserDashboardIntro extends Component {
 const MainFormContainer = styled.main`
   width: calc(100% - 300px);
   margin-left: 300px;
-  margin-bottom: 100px;
   padding-top: 130px;
   ${centerFlex()};
   @media (max-width: 1400px) {

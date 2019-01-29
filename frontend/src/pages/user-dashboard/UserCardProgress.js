@@ -5,57 +5,77 @@ import { centerFlex, labelArea } from '../../global-styles/Mixins';
 class UserCardProgress extends Component {
   render() {
     return (
-      <PreviewContainer>
-        <h1>Profile Status: {this.props.profileStatus}</h1>
-        <ProgressContainer id="progressRequirements">
-          <div progress={this.props.userProgress} className="progress">
-            <p>{this.props.userProgress}</p>
-          </div>
-        </ProgressContainer>
-        <label htmlFor="progressRequirements">
-          {this.props.profileStatus === 'Live' ?
-            'Your Profile is live!'
-            :
-            'Reach 80% to go live!'
-          }
-        </label>
-      </PreviewContainer>
+      <MainContainer>
+        <SubContainer>
+          <ViewContainer />
+          <h1>Profile Status: {this.props.profileStatus}</h1>
+          <ProgressContainer id="progressRequirements">
+            <div progress={this.props.userProgress} className="progress">
+              <p>{this.props.userProgress}</p>
+            </div>
+          </ProgressContainer>
+          <label htmlFor="progressRequirements">
+            {this.props.profileStatus === 'Live' ?
+              'Your Profile is live!'
+              :
+              'Reach 80% to go live!'
+            }
+          </label>
+          
+        </SubContainer>
+      </MainContainer>
     )
   }
 }
 
-const PreviewContainer = styled.header`
+const MainContainer = styled.div`
   width: calc(100% - 300px);
   margin-left: 300px;
-  margin-bottom: 50px;
-  padding-top: 130px;
-  ${centerFlex('column')};
+  padding-top: 50px;
   @media (max-width: 1400px) {
     width: calc(100% - 80px);
     margin-left: 80px;
   }
+`;
+
+const SubContainer = styled.div`
+  width: 80%;
+  margin: auto;
+  padding: 10px;
+  ${centerFlex('column')};
   h1 {
-    font-size: 3.5rem;
+    font-size: 2.5rem;
     color: rgb(42,42,42);
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
   label {
     ${labelArea()};
     font-size: 1.5rem;
+    margin: 0;
   }
 `;
 
-const ProgressContainer = styled.div`
-  width: 50%;
-  background-color: rgb(173,216,230);
-  height: 50px;
+const ViewContainer = styled.div`
+  background-color: #86a8e7;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 100%;
+  width: 100%;
   border-radius: 50px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+`;
+
+const ProgressContainer = styled.div`
+  width: 100%;
+  background-color: white;
+  height: 30px;
+  border-radius: 50px;
   margin-bottom: 10px;
   .progress {
-    background: linear-gradient(to right, #52c234, #144b00);
+    background-color: #144b00;
     border: solid .5px #52c234;
-    height: 50px;
+    height: 30px;
     border-radius: 50px;
     width: ${props => props.children.props.progress};
     ${centerFlex()};

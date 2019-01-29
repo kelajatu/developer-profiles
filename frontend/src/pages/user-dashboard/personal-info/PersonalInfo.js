@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { inputArea, labelArea, centerFlex } from '../../../global-styles/Mixins';
 
 
@@ -52,6 +53,8 @@ class PersonalInfo extends Component {
   checkOnSubmit = (e) => {
     e.preventDefault()
 
+    console.log("FDFA")
+
     const {publicEmail, firstName, lastName, profileImg, areaOfWork, desiredTitle} = this.state;
     const lePackage = {
       public_email: publicEmail,
@@ -62,7 +65,6 @@ class PersonalInfo extends Component {
       desired_title: desiredTitle
     }
 
-    console.log(lePackage)
     axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
       .then(res => {
         console.log(res.data)
@@ -83,9 +85,10 @@ class PersonalInfo extends Component {
         <header>
           <h1>Personal Info</h1>
         </header>
+
         <div className="container">
           <FormSection>
-            <form onSubmit={this.checkOnSubmit}>
+            <form>
 
               {/* public email */}
               <div>
@@ -163,8 +166,6 @@ class PersonalInfo extends Component {
                   onChange={this.onInputChange}
                 />
               </div>
-
-              <button type="submit">Save Info</button>
             </form>
           </FormSection>
 
@@ -201,7 +202,17 @@ class PersonalInfo extends Component {
             </ImageForm>
           </section>
         </div>
-
+        <ButtonContainer>
+          <div>
+            <Link to="/dashboard">Back Home</Link>
+          </div>
+          <div>
+            <button onClick={this.checkOnSubmit}>Save Info</button>
+          </div>
+          <div>
+            <Link to="/dashboard/where-to-find-you">Next</Link>
+          </div>
+        </ButtonContainer>
       </MainFormContainer>
     )
   }
@@ -210,19 +221,19 @@ class PersonalInfo extends Component {
 const MainFormContainer = styled.main`
   width: calc(100% - 300px);
   margin-left: 300px;
-  margin-bottom: 100px;
-  padding-top: 50px;
-  padding-left: 100px;
+  padding-top: 130px;
   @media (max-width: 1400px) {
     width: calc(100% - 80px);
     margin-left: 80px;
   }
   h1 {
+    padding-left: 100px;
     font-size: 5rem;
     color: rgb(42,42,42);
     margin-bottom: 50px;
   }
   .container {
+    padding-left: 100px;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -317,5 +328,54 @@ const ImageForm = styled.form`
   }
 `;
 
+const ButtonContainer = styled.div`
+  width: 80%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding: 10px;
+
+  div {
+    width: 30%;
+    text-align: center;
+  }
+
+  button {
+    color: black;
+    padding: 20px;
+    width: 300px;
+    font-size: 1.7rem;
+    letter-spacing: 1.5px;
+    background: white;
+    border: solid 1px black;
+    border-radius: 20px;
+    &:hover {
+      cursor: pointer;
+      background: black;
+      color: white;
+    }
+  }
+
+  a {
+    display: block;
+    margin: auto;
+    width: 200px;
+    text-decoration: none;
+    color: black;
+    padding: 20px;
+    font-size: 1.7rem;
+    letter-spacing: 1.5px;
+    background: white;
+    border: solid 1px black;
+    border-radius: 20px;
+    &:hover {
+      cursor: pointer;
+      background: black;
+      color: white;
+    }
+  }
+`;
 
 export default PersonalInfo;

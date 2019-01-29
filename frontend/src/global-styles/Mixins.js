@@ -48,6 +48,7 @@ export function labelArea() {
     margin-bottom: 8px;
     font-weight: bold;
     line-height: 23px;
+    letter-spacing: 1px;
   `;
 }
 
@@ -61,7 +62,7 @@ export function inputArea() {
     width: 95%;
     border: none;
     border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border: solid 1px black;
     background: white;
     background-color: rgba(255,255,255,.8);
     @media (max-width: 1550px) {

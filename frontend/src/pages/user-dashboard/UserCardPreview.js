@@ -77,9 +77,9 @@ const PreviewContainer = styled.header`
 const UserCardDiv = styled.div`
     font-family: 'Source Sans Pro', sans-serif;
     border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     background: white;
     display: flex;
+    border: solid 1px black;
     flex-direction: row;
     justify-content: center;
     align-items: center;
