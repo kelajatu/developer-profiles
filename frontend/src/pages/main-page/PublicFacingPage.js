@@ -14,6 +14,7 @@ class PublicFacingPage extends Component {
             numCardsDisplaying: 'all', 
             // updateRequired: false,
             milesFrom: 5,
+            numOfResults: 5,
             loading: true,
             allUsers: [],
             modUsers: [],
@@ -28,12 +29,12 @@ class PublicFacingPage extends Component {
     }
 
     componentDidMount(){
-        this.testInfinite()
+        this.filter()
     }
 
-    testInfinite = () => {
-        console.log("testInfinite")
-        //USE Infinite scroll here and return into modUsers
+    filter = () => {
+        console.log("frontend filter")
+        //USE Infinite scroll here and return into modUsers state
         let params = {
             filters: this.state.filters,
             locatedName: this.state.locatedCity,
@@ -42,12 +43,14 @@ class PublicFacingPage extends Component {
             relocateName: this.state.relocateName,
             relocateLat: this.state.relocateLat,
             relocateLon: this.state.relocateLon,
+            numOfResults: this.state.numOfResult,
         }
-        axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/infiniteFilter`, params).then(response => {
+        axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/filter`, params).then(response => {
             console.log("response in testInfinite", response)
             this.setState({
                 modUsers: response.data.usersArr, 
-                numCardsDisplaying: response.data.usersLength,
+                usersReturned: response.data.usersReturned,
+                usersFound: response.data.usersFound,
                 loading: false,
             })
         }).catch(error => {
@@ -65,7 +68,7 @@ class PublicFacingPage extends Component {
             newArr.push(name)
         }
         //this will be trigger new request to filter
-        this.testInfinite()
+        this.filter()
     }
 
     //this is used in child components to modify publicPageState state
@@ -74,7 +77,7 @@ class PublicFacingPage extends Component {
     }
 
     render() { 
-        console.log(this.state)
+        // console.log(this.state)
         return (
             <PublicFacingPageDiv>
                 <FilterBox 
