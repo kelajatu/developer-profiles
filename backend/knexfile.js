@@ -1,22 +1,22 @@
 module.exports = {
-    // development: {
-    //     client: 'sqlite3',
-    //     connection: {
-    //         filename: './dev.sqlite3'
-    //     },
-    //     useNullAsDefault: true
-    // },
     development: {
-        client: 'postgresql',
-        connection: process.env.DATABASE_URL,
-        pool: {
-            min: 2,
-            max: 10
+        client: 'sqlite3',
+        connection: {
+            filename: './dev.sqlite3'
         },
-        migrations: {
-            tableName: 'knex_migrations'
-        }
+        useNullAsDefault: true
     },
+    // development: {
+    //     client: 'postgresql',
+    //     connection: process.env.DATABASE_URL,
+    //     pool: {
+    //         min: 2,
+    //         max: 10
+    //     },
+    //     migrations: {
+    //         tableName: 'knex_migrations'
+    //     }
+    // },
 
     staging: {
         client: 'postgresql',

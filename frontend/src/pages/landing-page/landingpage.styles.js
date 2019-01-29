@@ -1,25 +1,21 @@
 import styled from "styled-components";
+import bg_img from "./img/agreement.jpg";
 
 export const LandingPageDiv = styled.div`
-  background-image: var(--fade-gradient), var(--my-gradient);
   h1 {
-
-    font-family: 'Roboto', sans-serif;
     line-height: 50px;
     font-size: 5rem;
     font-weight: 900;
     margin-bottom: 0.4em;
   }
-  p {
-    /* color: pink; */
-    font-family: 'Roboto', sans-serif;
-  }
+
 `;
 
 export const Pagewrap = styled.div`
-  background-size: cover;
+  background:var(--overlay-color), url(${bg_img})no-repeat center center fixed;
+  /* border: 1px solid pink; */
   display: flex;
-  max-width: 1000px;
+  justify-content:center;
   height: 100vh;
   position: relative;
   text-align: center;
@@ -41,5 +37,5 @@ export const Aboutus = styled.div`
   color: darkgray;
 `;
 export const Learnmore = styled.div`
-  color: darkgray;
+  color: darkblue;
 `;

@@ -2,13 +2,12 @@ import React, { Component } from "react";
 import ContentBox from '../../components/content-box/ContentBox'
 import {
   Pagewrap,
-  // Btn,
   Moreinfo,
   Learnmore,
   Aboutus,
   LandingPageDiv,
 } from "./landingpage.styles";
-import { SampleCard } from "../../components/content-box/ContentBox.styles";
+
 
 class LandingPage extends Component {
   render() {
@@ -16,13 +15,10 @@ class LandingPage extends Component {
       <LandingPageDiv>
         <Pagewrap>
             <ContentBox />
-            <SampleCard>
-              SAMPLE CONTENT
-             </SampleCard>
         </Pagewrap>
         <Moreinfo>
           <Aboutus>
-            <h2 id="aboutus">Asymmetrical master</h2> <p>
+            <h2 id="recruiters">Asymmetrical master</h2> <p>
               cleanse raclette kitsch, tofu next
             level kogi poutine knausgaard art party kickstarter bushwick. Qui
             sartorial cupidatat retro. Taxidermy hot chicken cliche et, ut fanny
@@ -37,7 +33,7 @@ class LandingPage extends Component {
               </p>
           </Aboutus>
           <Learnmore>
-          <h2 id="learnmore">Street art crucifix</h2>dolor amet plaid YOLO unicorn ramps tousled.
+          <h2 id="developers">Street art crucifix</h2>dolor amet plaid YOLO unicorn ramps tousled.
              scenester, unicorn food truck shoreditch
             helvetica taiyaki master cleanse DIY hell of put a bird on it
             truffaut. Helvetica cloud bread pickled roof party. Man braid quinoa
