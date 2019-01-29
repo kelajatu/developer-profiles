@@ -57,11 +57,11 @@ server.post('/filter', (req, res) => {
         let filteredArr = filter(users, req.body)
         console.log(typeof filteredArr)
         // console.log(filteredArr)
-        let shortendArr = filteredArr.splice(0, req.body.numOfResults)
+        let shortendArr = filteredArr.splice(0, req.body.numOfResults || 5)
         let returnPackage = {
             usersArr: shortendArr,
             usersFound: filteredArr.length,
-            usersReturned: req.body.numOfResults
+            usersReturned: shortendArr.length
         }
         //return 10 at a time of filtered UserCards
         //10
