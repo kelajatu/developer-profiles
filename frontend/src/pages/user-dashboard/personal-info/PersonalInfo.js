@@ -5,20 +5,43 @@ import { Link } from 'react-router-dom';
 import { inputArea, labelArea, centerFlex } from '../../../global-styles/Mixins';
 import UserCardPreview from '../UserCardPreview';
 
-import { TextInput } from 'grommet';
+import { TextInput, Select } from 'grommet';
 
 
 class PersonalInfo extends Component {
   state = {
-    publicEmail: this.props.userInfo.public_email || "",
-    firstName: this.props.userInfo.first_name || "",
-    lastName: this.props.userInfo.last_name || "",
+    
     profileImg: this.props.userInfo.image || "",
-    desiredTitle: this.props.userInfo.desired_title || "",
-    areaOfWork: this.props.userInfo.area_of_work || ""
+
+    publicEmail: this.props.userInfo.public_email  || "",
+
+    firstName: this.props.userInfo.first_name  || "",
+
+    lastName: this.props.userInfo.last_name  || "",
+    
+    areaOfWork: this.props.userInfo.area_of_work  || "",
+    areaOfWorkOptions: ['Full Stack Web', 'iOS', 'Android', 'UI/UX'],
+    
+    desiredTitle: this.props.userInfo.desired_title  || "",
   }
 
   componentDidMount() {
+    // const userInfo = this.props.auth.getProfile();
+    console.log(this.props)
+    // const {image, public_email, first_name, last_name, area_of_work, desired_title} = this.props.userInfo;
+    // this.setState({profileImg: image, publicEmail: public_email, firstName: first_name, lastName: last_name, areaOfWork: area_of_work, desiredTitle: desired_title })
+
+    // const { profileImg } = this.state;
+
+    // let profileImgSuccess;
+    // if (profileImg === "" || profileImg === null) {
+    //   profileImgSuccess = false;
+    // } else {
+    //   profileImgSuccess = true;
+    // }
+
+    // this.setState({profileImgSuccess})
+
     // for new/returning users
     // get user data from session storage
     // hydrate state
@@ -82,7 +105,9 @@ class PersonalInfo extends Component {
   }
 
   render() {
-    console.log('P-info', this.props.userInfo)
+    console.log('P-info', this.state)
+    const {profileImgSuccess, publicEmailSuccess, firstNameSuccess, lastNameSuccess, areaOfWorkSuccess, desiredTitleSuccess } = this.props.userInfo;
+
     return (
       <MainFormContainer>
         <header>
@@ -91,32 +116,64 @@ class PersonalInfo extends Component {
 
         <div className="container">
           <FormSection>
+
+
+
             <form>
 
-
-              <div>
-                <label htmlFor="userProfileImg">
-                  Choose a profile picture:
-                </label>
-                <input
-                  id="userProfileImg"
-                  type="file"
-                  accept="image/*"
-                  encrypt="multipart/form-data"
-                  onChange={this.uploadPhoto}
-                />
+              {/* Image */}
+              <div className="img-input-container">
+                <div className="label-container">
+                  <label htmlFor="userProfileImg">
+                    Choose a profile picture:
+                  </label>
+                  {this.state.profileImg ?
+                    <span>
+                      {profileImgSuccess ?
+                        <i className="fa fa-check-circle fa-2x" aria-hidden="true"></i>
+                        :
+                        <i className="fa fa-check-circle" aria-hidden="true"></i>
+                      }
+                    </span>
+                    :
+                    null
+                  }
+                </div>
+                <div className="img-input-sub-container">
+                  <div className="img-input-overlay">
+                    <i className="fa fa-upload fa-2x" aria-hidden="true"></i>
+                  </div>
+                  <input
+                    id="userProfileImg"
+                    className="img-input"
+                    type="file"
+                    accept="image/*"
+                    encrypt="multipart/form-data"
+                    onChange={this.uploadPhoto}
+                  />
+                </div>
               </div>
 
 
 
               {/* public email */}
-              <div>
-                <label htmlFor="userPublicEmail">
+              <div className="text-input-container">
+                <div className="label-container">
+                  <label htmlFor="userPublicEmail">
                   Public Email:
-                </label>
+                  </label>
+                  {publicEmailSuccess ?
+                    <span>
+                      <i className="fa fa-check-circle" aria-hidden="true"></i>
+                    </span>
+                    :
+                    null
+                  }
+                </div>
                 <TextInput
                   id="userPublicEmail"
                   name="publicEmail"
+                  className="text-input"
                   placeholder="user@gmail.com"
                   focusIndicator
                   value={this.state.publicEmail}
@@ -126,14 +183,24 @@ class PersonalInfo extends Component {
 
 
 
-              <div>
-                {/* firstname - autofill if auth returns */}
-                <label htmlFor="userFirstName">
+              {/* firstname */}
+              <div className="text-input-container">
+                <div className="label-container">
+                  <label htmlFor="userFirstName">
                   First Name:
-                </label>
+                  </label>
+                  {firstNameSuccess ?
+                    <span>
+                      <i className="fa fa-check-circle" aria-hidden="true"></i>
+                    </span>
+                    :
+                    null
+                  }
+                </div>
                 <TextInput
                   id="userFirstName"
                   name="firstName"
+                  className="text-input"
                   placeholder="john"
                   focusIndicator
                   value={this.state.firstName}
@@ -141,54 +208,93 @@ class PersonalInfo extends Component {
                 />
               </div>
 
-              <div>
-                {/* lastname - autofill if auth returns */}
-                <label htmlFor="userLastName">
+
+
+              {/* lastname */}
+              <div className="text-input-container">
+                <div className="label-container">
+                  <label htmlFor="userLastName">
                   Last Name:
-                </label>
+                  </label>
+                  {lastNameSuccess ?
+                    <span>
+                      <i className="fa fa-check-circle" aria-hidden="true"></i>
+                    </span>
+                    :
+                    null
+                  }
+                </div>
                 <TextInput
                   id="userLastName"
                   name="lastName"
+                  className="text-input"
                   placeholder="doe"
                   focusIndicator
                   value={this.state.lastName}
                   onChange={this.onInputChange}
                 />
               </div>
-            
-              <div className="selectOptions">
-                <label htmlFor="userAreaOfWork">
+
+
+
+              {/* areaOfWork */}
+              <div className="select-input-container">
+                <div className="label-container">
+                  <label htmlFor="userAreaOfWork">
                   Area of Work:
-                </label>
-                <select
+                  </label>
+                  {areaOfWorkSuccess ?
+                    <span>
+                      <i className="fa fa-check-circle" aria-hidden="true"></i>
+                    </span>
+                    :
+                    null
+                  }
+                </div>
+                <Select
                   id="userAreaOfWork"
                   name="areaOfWork"
+                  className="select-input"
                   value={this.state.areaOfWork}
-                  onChange={this.onInputChange}
-                  >
-                  <option value="default">==Select an Option==</option>
-                  <option value="Full Stack Web">Full Stack Web</option>
-                  <option value="iOS">iOS</option>
-                  <option value="Android">Android</option>
-                  <option value="UI/UX">UI/UX</option>
-                </select>
+                  onChange={e => this.setState({
+                    areaOfWork: e.value,
+                  })}
+                  options={this.state.areaOfWorkOptions}
+                />
               </div>
 
-              <div>
-                <label htmlFor="userDesiredTitle">
+
+              {/* desiredTitle */}
+              <div className="text-input-container">
+                <div className="label-container">
+                  <label htmlFor="userDesiredTitle">
                   Desired Title:
-                </label>
+                  </label>
+                  {desiredTitleSuccess ?
+                    <span>
+                      <i className="fa fa-check-circle" aria-hidden="true"></i>
+                    </span>
+                    :
+                    null
+                  }
+                </div>
                 <TextInput
                   id="userDesiredTitle"
                   name="desiredTitle"
+                  className="text-input"
                   placeholder="software engineer"
                   focusIndicator
                   value={this.state.desiredTitle}
                   onChange={this.onInputChange}
                 />
               </div>
+
+
             </form>
           </FormSection>
+
+
+
           <section>
           <UserCardPreview userInfo={this.props.userInfo} />
           </section>
@@ -238,22 +344,78 @@ const MainFormContainer = styled.main`
 `;
 
 const FormSection = styled.section`
-  div {
+  label {
+    color: rgba(42,42,42,.8);
+    font-size: 1.7rem;
+    margin-bottom: 8px;
+    font-weight: bold;
+    line-height: 23px;
+    letter-spacing: 1px;
+    margin-right: 5px;
+  }
+
+  .text-input-container,
+  .img-input-container,
+  .select-input-container {
     margin-bottom: 30px;
   }
-  label {
-    ${labelArea()};
+
+  .img-input-sub-container,
+  .text-input,
+  .select-input,
+  #userAreaOfWork {
+    width: 85%;
   }
-  input {
-    ${inputArea()};
+
+  .label-container {
+    display: flex;
+    align-items: baseline;
   }
-  .selectOptions {
-    select {
-      appearance: none;
-      ${inputArea()};
+  .img-input-sub-container {
+    border: solid 1px rgba(0,0,0,.33);
+    border-radius: 4px;
+    .img-input-overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      ${centerFlex()};
+    }
+    .img-success-overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      ${centerFlex()};
+      z-index: 20;
+      .close-overlay {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        &:hover {
+          opacity: 1;
+        }
+        .close-btn {
+          position: absolute;
+          top: 1%;
+          right: 1%;
+          z-index: 21;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+    input[type=file] {
+      padding: 11px 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
-  `;
+`;
 
 
 const ImageForm = styled.form`
@@ -267,15 +429,6 @@ const ImageForm = styled.form`
     .input-container {
       width: 100%;
       height: 100%;
-      input[type=file] {
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        &:hover {
-          cursor: pointer;
-          color: gray;
-        }
-      }
       span {
         position: absolute;
         top: 50%;

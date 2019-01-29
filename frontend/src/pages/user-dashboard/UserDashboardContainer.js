@@ -20,14 +20,11 @@ import Billing from './billing/Billing';
 
 class UserDashboardContainer extends Component {
   state = {
-    profileStatus: 'Not Live',
-    userProgress: '20%',
+
   }
 
   updateProgress = () => {
-    console.log('UUPPDATTEEEEEEEE')
     const userInfo = this.props.auth.getProfile();
-    console.log('USER INFO',userInfo)
     const userEmail = userInfo.email;
     axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userEmail}`)
     .then(res => {
@@ -40,7 +37,6 @@ class UserDashboardContainer extends Component {
       .then(values => {
   
         // now you have userInfo + locations + all 3(edu,exp,proj)
-        console.log('PROMISE',values)
         const userProjects = values[0].data;
         const userExperience = values[1].data;
         const userEducation = values[2].data;
@@ -50,68 +46,68 @@ class UserDashboardContainer extends Component {
           placesInterestedArr = userInfo.interested_location_names.split('|');
         }
 
+        // Success ?
+        let
+          profileImgSuccess,
+          publicEmailSuccess,
+          firstNameSuccess,
+          lastNameSuccess,
+          areaOfWorkSuccess,
+          desiredTitleSuccess,
+          currentLocationNameSuccess,
+          githubSuccess,
+          linkedinSuccess,
+          portfolioSuccess,
+          acclaimSuccess,
+          summarySuccess,
+          stripeTokenSuccess
+        ;
+        console.log('UU', userInfo)
+        userInfo.image ? profileImgSuccess = true : profileImgSuccess = false;
+        userInfo.public_email ? publicEmailSuccess = true : publicEmailSuccess = false;
+        userInfo.first_name ? firstNameSuccess = true : firstNameSuccess = false;
+        userInfo.last_name ? lastNameSuccess = true : lastNameSuccess = false;
+        userInfo.area_of_work ? areaOfWorkSuccess = true : areaOfWorkSuccess = false;
+        userInfo.desired_title ? desiredTitleSuccess = true : desiredTitleSuccess = false;
+        userInfo.current_location_name ? currentLocationNameSuccess = true : currentLocationNameSuccess = false;
+        userInfo.github ? githubSuccess = true : githubSuccess = false;
+        userInfo.linkedin ? linkedinSuccess = true : linkedinSuccess = false;
+        userInfo.portfolio ? portfolioSuccess = true : portfolioSuccess = false;
+        userInfo.badge ? acclaimSuccess = true : acclaimSuccess = false;
+        userInfo.summary ? summarySuccess = true : summarySuccess = false;
+        userInfo.stripe_token ? stripeTokenSuccess = true : stripeTokenSuccess = false;
+        
         const allUserInfo = {
           ...userInfo,
+          profileImgSuccess,
+          publicEmailSuccess,
+          firstNameSuccess,
+          lastNameSuccess,
+          areaOfWorkSuccess,
+          desiredTitleSuccess,
+          currentLocationNameSuccess,
+          githubSuccess,
+          linkedinSuccess,
+          portfolioSuccess,
+          acclaimSuccess,
+          summarySuccess,
+          stripeTokenSuccess,
           userProjects,
           userExperience,
           userEducation,
           placesInterestedArr
         }
-        console.log('ALLUSERINFO', allUserInfo)
 
-
-        let updatedUserProgress = 20;
-        for (let key in allUserInfo) {
-          if (
-            !(allUserInfo[key] === null ||
-            allUserInfo[key] === undefined ||
-            allUserInfo[key] === '' ||
-            (Array.isArray(allUserInfo[key]) && allUserInfo[key].length === 0))
-          ) {
-            console.log(key)
-            // need *switch* to add points based on what is filled in
-            // need to add billing auth key to user table
-            // remove either title or filter
-            if (key === 'image') {
-              updatedUserProgress += 5
-            } else if (key === 'public_email') {
-              updatedUserProgress += 5
-            } else if (key === 'portfolio') {
-              updatedUserProgress += 2
-            } else if (key === 'github') {
-              updatedUserProgress += 5
-            } else if (key === 'stripe_token') {
-              updatedUserProgress += 30
-            }
-            else if (key === 'current_location_name') {
-              updatedUserProgress += 10
-            } else if (key === 'area_of_work') {
-              updatedUserProgress += 5
-            } else if (key === 'desired_title') {
-              updatedUserProgress += 5
-            } else if (key === 'summary') {
-              updatedUserProgress += 10
-            }
-          }
-        }
-        let newProfileStatus;
-        if (updatedUserProgress < 80) {
-          newProfileStatus = 'Not Live';
-        } else {
-          newProfileStatus = 'Live';
-        }
-        updatedUserProgress = '' + updatedUserProgress + '%'
-        this.setState({profileStatus: newProfileStatus, userProgress: updatedUserProgress, ...allUserInfo})
+        this.setState(allUserInfo)
       })
       .catch(err => console.log(err))
     })
     .catch(err => console.log(err))
   }
-  
-  
+
+
   componentDidMount() {
     const userInfo = this.props.auth.getProfile();
-    console.log('USER INFO',userInfo)
     const userEmail = userInfo.email;
     axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userEmail}`)
     .then(res => {
@@ -124,7 +120,6 @@ class UserDashboardContainer extends Component {
       .then(values => {
         
         // now you have userInfo + locations + all 3(edu,exp,proj)
-        console.log('PROMISE',values)
         const userProjects = values[0].data;
         const userExperience = values[1].data;
         const userEducation = values[2].data;
@@ -133,58 +128,61 @@ class UserDashboardContainer extends Component {
         if (userInfo.interested_location_names !== "" && userInfo.interested_location_names !== null) {
           placesInterestedArr = userInfo.interested_location_names.split('|');
         }
-        
+
+        // Success ?
+        let
+          profileImgSuccess,
+          publicEmailSuccess,
+          firstNameSuccess,
+          lastNameSuccess,
+          areaOfWorkSuccess,
+          desiredTitleSuccess,
+          currentLocationNameSuccess,
+          githubSuccess,
+          linkedinSuccess,
+          portfolioSuccess,
+          acclaimSuccess,
+          summarySuccess,
+          stripeTokenSuccess
+        ;
+        console.log('UU', userInfo)
+
+        userInfo.image ? profileImgSuccess = true : profileImgSuccess = false;
+        userInfo.public_email ? publicEmailSuccess = true : publicEmailSuccess = false;
+        userInfo.first_name ? firstNameSuccess = true : firstNameSuccess = false;
+        userInfo.last_name ? lastNameSuccess = true : lastNameSuccess = false;
+        userInfo.area_of_work ? areaOfWorkSuccess = true : areaOfWorkSuccess = false;
+        userInfo.desired_title ? desiredTitleSuccess = true : desiredTitleSuccess = false;
+        userInfo.current_location_name ? currentLocationNameSuccess = true : currentLocationNameSuccess = false;
+        userInfo.github ? githubSuccess = true : githubSuccess = false;
+        userInfo.linkedin ? linkedinSuccess = true : linkedinSuccess = false;
+        userInfo.portfolio ? portfolioSuccess = true : portfolioSuccess = false;
+        userInfo.badge ? acclaimSuccess = true : acclaimSuccess = false;
+        userInfo.summary ? summarySuccess = true : summarySuccess = false;
+        userInfo.stripe_token ? stripeTokenSuccess = true : stripeTokenSuccess = false;
+
         const allUserInfo = {
           ...userInfo,
+          profileImgSuccess,
+          publicEmailSuccess,
+          firstNameSuccess,
+          lastNameSuccess,
+          areaOfWorkSuccess,
+          desiredTitleSuccess,
+          currentLocationNameSuccess,
+          githubSuccess,
+          linkedinSuccess,
+          portfolioSuccess,
+          acclaimSuccess,
+          summarySuccess,
+          stripeTokenSuccess,
           userProjects,
           userExperience,
           userEducation,
           placesInterestedArr
         }
-        console.log('ALLUSERINFO', allUserInfo)
-        
-        let updatedUserProgress = 20;
-        for (let key in allUserInfo) {
-          if (
-            !(allUserInfo[key] === null ||
-            allUserInfo[key] === undefined ||
-            allUserInfo[key] === '' ||
-            (Array.isArray(allUserInfo[key]) && allUserInfo[key].length === 0))
-          ) {
-            console.log(key)
-            // need *switch* to add points based on what is filled in
-            // need to add billing auth key to user table
-            // remove either title or filter
-            if (key === 'image') {
-              updatedUserProgress += 5
-            } else if (key === 'public_email') {
-              updatedUserProgress += 5
-            } else if (key === 'portfolio') {
-              updatedUserProgress += 2
-            } else if (key === 'github') {
-              updatedUserProgress += 5
-            } else if (key === 'stripe_token') {
-              updatedUserProgress += 30
-            }
-            else if (key === 'current_location_name') {
-              updatedUserProgress += 10
-            } else if (key === 'area_of_work') {
-              updatedUserProgress += 5
-            } else if (key === 'desired_title') {
-              updatedUserProgress += 5
-            } else if (key === 'summary') {
-              updatedUserProgress += 10
-            }
-          }
-        }
-        let newProfileStatus;
-        if (updatedUserProgress < 80) {
-          newProfileStatus = 'Not Live';
-        } else {
-          newProfileStatus = 'Live';
-        }
-        updatedUserProgress = '' + updatedUserProgress + '%'
-        this.setState({profileStatus: newProfileStatus, userProgress: updatedUserProgress, ...allUserInfo})
+
+        this.setState(allUserInfo)
       })
       .catch(err => console.log(err))
       })
@@ -196,17 +194,24 @@ class UserDashboardContainer extends Component {
     return (
       <DashboardContainer>
         <UserDashboardNav {...this.props} />
-        <Route exact path={`${this.props.match.path}/`} render={props => <UserDashboardIntro {...props} userInfo={this.state} />} />
-        <Route path={`${this.props.match.path}/new`} render={props => <UserDashboardNew {...props} userInfo={this.state} />} />
-        <Route path={`${this.props.match.path}/personal-info`} render={props => <PersonalInfo updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
-        <Route path={`${this.props.match.path}/where-to-find-you`} render={props => <WhereToFindYou updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
-        <Route path={`${this.props.match.path}/about-you`} render={props => <AboutYou updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
-        <Route path={`${this.props.match.path}/projects`} render={props => <Projects updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
-        <Route path={`${this.props.match.path}/experience`} render={props => <Experience updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
-        <Route path={`${this.props.match.path}/education`} render={props => <Education updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
-        <Route path={`${this.props.match.path}/billing`} render={props => <Billing updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
-        {/* <UserCardProgress {...this.props} {...this.state} /> */}
-        {/* <UserCardPreview {...this.props} userInfo={this.state} /> */}
+
+        {this.state.id ?
+          <main>
+            <Route exact path={`${this.props.match.path}/`} render={props => <UserDashboardIntro {...props} userInfo={this.state} />} />
+            <Route path={`${this.props.match.path}/new`} render={props => <UserDashboardNew {...props} userInfo={this.state} />} />
+            <Route path={`${this.props.match.path}/personal-info`} render={props => <PersonalInfo updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
+            <Route path={`${this.props.match.path}/where-to-find-you`} render={props => <WhereToFindYou updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
+            <Route path={`${this.props.match.path}/about-you`} render={props => <AboutYou updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
+            <Route path={`${this.props.match.path}/projects`} render={props => <Projects updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
+            <Route path={`${this.props.match.path}/experience`} render={props => <Experience updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
+            <Route path={`${this.props.match.path}/education`} render={props => <Education updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
+            <Route path={`${this.props.match.path}/billing`} render={props => <Billing updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
+          </main>
+          :
+          null
+        }
+        
+
       </DashboardContainer>
     )
   }
