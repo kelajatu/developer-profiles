@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-// import InfiniteScroll from "react-infinite-scroller";
 import FilterBox from "../../components/Filter/filter";
 import UserCards from "../../components/user-card/UserCards";
 import { PublicFacingPageDiv } from "./PublicFacingPage.style";
@@ -27,24 +26,6 @@ class PublicFacingPage extends Component {
       // relocateLat: '',
       // relocateLon: '',
     };
-    // window.onscroll = () => {
-    //   console.log("start");
-    //   const {
-    //     loadUsers,
-    //     state: { error, loading, hasMore }
-    //   } = this;
-    //   // if (!error || loading) return;
-    //   console.log("1", window.innerHeight);
-    //   console.log("2", document.documentElement.scrollTop);
-    //   console.log("3", document.documentElement.offsetHeight);
-
-    //   if (
-    //     window.innerHeight + document.documentElement.scrollTop ===
-    //     document.documentElement.offsetHeight
-    //   ) {
-    //     console.log("end of page");
-    //   }
-    // };
   }
 
   componentDidMount() {
@@ -100,7 +81,6 @@ class PublicFacingPage extends Component {
   };
 
   render() {
-    // console.log(this.state)
     return (
       <PublicFacingPageDiv>
         <FilterBox
