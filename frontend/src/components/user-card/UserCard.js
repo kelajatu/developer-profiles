@@ -10,7 +10,10 @@ class UserCard extends Component{
             expanded: false,
             projects: [],
             education: [],
-            experience: []
+            experience: [],
+            top_skills: [],
+            add_skills: [],
+            familiar: [],
         }
     }
     makeSkillsArr(){
@@ -35,11 +38,20 @@ class UserCard extends Component{
       this.getUserExtras('projects')
       this.getUserExtras('education')
       this.getUserExtras('experience')
+      this.getUserSkills('top_skills')
+      this.getUserSkills('add_skills')
+      this.getUserSkills('familiar')
     }
 
     getUserExtras = (extra) => {
         axios.get(`https://developer-profiles.herokuapp.com/users/${this.props.id}/${extra}`).then(response => {
             this.setState({[extra]: response.data})
+        })
+    }
+
+    getUserSkills = (skilltype) => {
+        axios.get(`https://developer-profiles.herokuapp.com/users/${this.props.id}/skills/${skilltype}`).then(response => {
+            this.setState({[skilltype]: response.data})
         })
     }
 
@@ -59,8 +71,18 @@ class UserCard extends Component{
                     </div>
                     <h3>{this.props.desired_title}</h3>
                     <div className="keywords">
-                        {this.state.arr.length > 0 ? this.state.arr.map(word => {
-                            return (<div key={word.id} className="keyword" style={{fontSize: word.weight }}>
+                        {this.state.top_skills.length > 0 ? this.state.top_skills.map(word => {
+                            return (<div key={word.id} className="keyword">
+                                {word.skill}
+                            </div>)
+                        }) : null}
+                        {this.state.add_skills.length > 0 ? this.state.add_skills.map(word => {
+                            return (<div key={word.id} className="keyword">
+                                {word.skill}
+                            </div>)
+                        }) : null}
+                        {this.state.familiar.length > 0 ? this.state.familiar.map(word => {
+                            return (<div key={word.id} className="keyword">
                                 {word.skill}
                             </div>)
                         }) : null}

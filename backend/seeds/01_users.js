@@ -31,9 +31,9 @@ exports.seed = function(knex, Promise) {
           portfolio: "coolbanana.com",
           badge: "acclaim.com",
           summary: faker.lorem.sentences(),
-          top_skills: "5,6,7",
-          add_skills: "1",
-          familiar: "1,3"
+          top_skills: "1,2,3,4,5",
+          add_skills: "5,6,7,8,9,10",
+          familiar: "11,12,13,14,15"
         });
         num--;
       }
