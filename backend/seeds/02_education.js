@@ -5,7 +5,7 @@ exports.seed = function(knex, Promise) {
         .del()
         .then(function () {
             let arr = []
-            let num = 500;
+            let num = 50;
             while(num > 0){
                 arr.push({
                     user_id: num,
