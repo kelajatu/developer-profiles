@@ -52,5 +52,7 @@ const JobTitlesDiv = styled.div`
     .filters-container {
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
+      height: 140px;
     }
 `
