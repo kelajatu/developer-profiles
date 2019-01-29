@@ -58,6 +58,7 @@ server.post('/filter', (req, res) => {
         console.log(typeof filteredArr)
         // console.log(filteredArr)
         let shortendArr = filteredArr.splice(0, req.body.numOfResults || 5)
+        
         let returnPackage = {
             usersArr: shortendArr,
             usersFound: filteredArr.length,
