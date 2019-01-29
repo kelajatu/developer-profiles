@@ -24,6 +24,7 @@ export default class UserCards extends Component {
         return (
           <UserCardsDiv>
               {this.props.modUsers.map(user => <UserCard 
+                  id={user.id}
                   badge={user.badge}
                   key={user.id}
                   first_name={user.first_name} 
