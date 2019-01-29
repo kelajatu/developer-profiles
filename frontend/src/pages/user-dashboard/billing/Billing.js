@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { centerFlex } from '../../../global-styles/Mixins';
 
 
@@ -52,6 +53,17 @@ class Billing extends Component {
     return (
       <MainFormContainer>
         <button id="customButton">Purchase</button>
+        <ButtonContainer>
+          <div>
+            <Link to="/dashboard/education">Back</Link>
+          </div>
+          <div>
+            <button onClick={this.checkOnSubmit}>Save Info</button>
+          </div>
+          <div>
+            <Link to="/dashboard">Home</Link>
+          </div>
+        </ButtonContainer>
       </MainFormContainer>
     )
   }
@@ -60,12 +72,61 @@ class Billing extends Component {
 const MainFormContainer = styled.main`
   width: calc(100% - 300px);
   margin-left: 300px;
-  margin-bottom: 100px;
-  padding-top: 50px;
+  padding-top: 130px;
   ${centerFlex()};
   @media (max-width: 1400px) {
     width: calc(100% - 80px);
     margin-left: 80px;
+  }
+`;
+
+const ButtonContainer = styled.div`
+  width: 80%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding: 10px;
+
+  div {
+    width: 30%;
+    text-align: center;
+  }
+
+  button {
+    color: black;
+    padding: 20px;
+    width: 300px;
+    font-size: 1.7rem;
+    letter-spacing: 1.5px;
+    background: white;
+    border: solid 1px black;
+    border-radius: 20px;
+    &:hover {
+      cursor: pointer;
+      background: black;
+      color: white;
+    }
+  }
+
+  a {
+    display: block;
+    margin: auto;
+    width: 200px;
+    text-decoration: none;
+    color: black;
+    padding: 20px;
+    font-size: 1.7rem;
+    letter-spacing: 1.5px;
+    background: white;
+    border: solid 1px black;
+    border-radius: 20px;
+    &:hover {
+      cursor: pointer;
+      background: black;
+      color: white;
+    }
   }
 `;
 

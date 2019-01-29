@@ -61,25 +61,16 @@ class UserCardPreview extends Component {
   }
 }
 
-const PreviewContainer = styled.header`
-  width: calc(100% - 300px);
-  margin-left: 300px;
-  margin-bottom: 100px;
-  padding-top: 50px;
-  ${centerFlex()};
-  @media (max-width: 1400px) {
-    width: calc(100% - 80px);
-    margin-left: 80px;
-  }
+const PreviewContainer = styled.section`
 `;
 
 
 const UserCardDiv = styled.div`
     font-family: 'Source Sans Pro', sans-serif;
     border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     background: white;
     display: flex;
+    border: solid 1px black;
     flex-direction: row;
     justify-content: center;
     align-items: center;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { inputArea, labelArea, centerFlex } from '../../../global-styles/Mixins';
 
 
@@ -134,14 +135,12 @@ class Projects extends Component {
                   onChange={this.onInputChange}
                 />
               </div>
-
-              <button type="submit">Save Info</button>
             </form>
           </FormSection>
           <section>
             {/* projimg - Upload Functionality */}
             {/* image - see if you can send '/:id' param on uploadPhoto */}
-            <ImageForm>
+            {/* <ImageForm>
               <label htmlFor="userProjectImg">
                 Choose a project picture:
               </label>
@@ -169,9 +168,20 @@ class Projects extends Component {
                   </div>
                 }
               </div>
-            </ImageForm>
+            </ImageForm> */}
           </section>
         </div>
+        <ButtonContainer>
+          <div>
+            <Link to="/dashboard/about-you">Back</Link>
+          </div>
+          <div>
+            <button onClick={this.checkOnSubmit}>Save Info</button>
+          </div>
+          <div>
+            <Link to="/dashboard/experience">Next</Link>
+          </div>
+        </ButtonContainer>
       </MainFormContainer>
     )
   }
@@ -180,8 +190,7 @@ class Projects extends Component {
 const MainFormContainer = styled.main`
   width: calc(100% - 300px);
   margin-left: 300px;
-  margin-bottom: 100px;
-  padding-top: 50px;
+  padding-top: 130px;
   padding-left: 100px;
   @media (max-width: 1400px) {
     width: calc(100% - 80px);
@@ -285,6 +294,56 @@ const ImageForm = styled.form`
         width: 100%;
         height: 100%;
       }
+    }
+  }
+`;
+
+const ButtonContainer = styled.div`
+  width: 80%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding: 10px;
+
+  div {
+    width: 30%;
+    text-align: center;
+  }
+
+  button {
+    color: black;
+    padding: 20px;
+    width: 300px;
+    font-size: 1.7rem;
+    letter-spacing: 1.5px;
+    background: white;
+    border: solid 1px black;
+    border-radius: 20px;
+    &:hover {
+      cursor: pointer;
+      background: black;
+      color: white;
+    }
+  }
+
+  a {
+    display: block;
+    margin: auto;
+    width: 200px;
+    text-decoration: none;
+    color: black;
+    padding: 20px;
+    font-size: 1.7rem;
+    letter-spacing: 1.5px;
+    background: white;
+    border: solid 1px black;
+    border-radius: 20px;
+    &:hover {
+      cursor: pointer;
+      background: black;
+      color: white;
     }
   }
 `;

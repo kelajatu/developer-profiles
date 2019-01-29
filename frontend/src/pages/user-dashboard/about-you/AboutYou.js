@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { inputArea, labelArea } from '../../../global-styles/Mixins';
 
 class AboutYou extends Component {
@@ -247,11 +248,9 @@ class AboutYou extends Component {
                   })
                 } */}
               </div>
-
-              <button type="submit">Save Info</button>
             </form>
           </FormSection>
-          <PreviewSection>
+          {/* <PreviewSection>
             <div>
               <h3>Your Places Interested</h3>
               {this.state.placesInterestedArr.length === 0 ?
@@ -275,8 +274,19 @@ class AboutYou extends Component {
             <div>
               <h3>Your Familiar Skills</h3>
             </div>
-          </PreviewSection>
+          </PreviewSection> */}
         </div>
+        <ButtonContainer>
+          <div>
+            <Link to="/dashboard/where-to-find-you">Back</Link>
+          </div>
+          <div>
+            <button onClick={this.checkOnSubmit}>Save Info</button>
+          </div>
+          <div>
+            <Link to="/dashboard/projects">Next</Link>
+          </div>
+        </ButtonContainer>
       </MainFormContainer>
     )
   }
@@ -285,8 +295,7 @@ class AboutYou extends Component {
 const MainFormContainer = styled.main`
   width: calc(100% - 300px);
   margin-left: 300px;
-  margin-bottom: 100px;
-  padding-top: 50px;
+  padding-top: 130px;
   padding-left: 100px;
   @media (max-width: 1400px) {
     width: calc(100% - 80px);
@@ -367,6 +376,56 @@ const PreviewSection = styled.section`
     &:hover {
       background-color: rgba(173,216,230, .5);
       cursor: pointer;
+    }
+  }
+`;
+
+const ButtonContainer = styled.div`
+  width: 80%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding: 10px;
+
+  div {
+    width: 30%;
+    text-align: center;
+  }
+
+  button {
+    color: black;
+    padding: 20px;
+    width: 300px;
+    font-size: 1.7rem;
+    letter-spacing: 1.5px;
+    background: white;
+    border: solid 1px black;
+    border-radius: 20px;
+    &:hover {
+      cursor: pointer;
+      background: black;
+      color: white;
+    }
+  }
+
+  a {
+    display: block;
+    margin: auto;
+    width: 200px;
+    text-decoration: none;
+    color: black;
+    padding: 20px;
+    font-size: 1.7rem;
+    letter-spacing: 1.5px;
+    background: white;
+    border: solid 1px black;
+    border-radius: 20px;
+    &:hover {
+      cursor: pointer;
+      background: black;
+      color: white;
     }
   }
 `;
