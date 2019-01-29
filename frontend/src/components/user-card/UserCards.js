@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import UserCard from "../../components/user-card/UserCard";
 import { centerFlex } from "../../global-styles/Mixins";
+import { filter } from "bluebird";
 
 export default class UserCards extends Component {
   constructor(props) {
@@ -10,6 +11,27 @@ export default class UserCards extends Component {
       users: [],
       raw: [],
       loading: false
+    };
+
+    window.onscroll = () => {
+      console.log("start");
+      const {
+        loadUsers,
+        state: { error, loading, hasMore }
+      } = this;
+      const scroll = document.querySelector("#scroll");
+      // if (!error || loading) return;
+      console.log("1", window.innerHeight);
+      console.log("2", scroll.scrollHeight);
+      console.log("3", scroll.scrollTop);
+      console.log("4", document.documentElement.scrollTop);
+
+      if (
+        window.innerHeight + document.documentElement.scrollTop ===
+        scroll.scrollHeight
+      ) {
+        this.props.filter();
+      }
     };
   }
 
@@ -22,7 +44,7 @@ export default class UserCards extends Component {
       );
     } else {
       return (
-        <UserCardsDiv>
+        <UserCardsDiv id="scroll">
           {this.props.modUsers.map(user => (
             <UserCard
               badge={user.badge}
