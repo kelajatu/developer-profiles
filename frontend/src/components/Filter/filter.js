@@ -13,7 +13,7 @@ export default class FilterBox extends Component {
   render() {
     return (
       <FilterBoxDiv>
-        <h1>
+        <h1 className="showing">
           Showing: <strong>{this.props.publicPageState.usersReturned}</strong> of {this.props.publicPageState.usersFound} possible profiles
         </h1>
         <JobTitles
@@ -52,4 +52,8 @@ const FilterBoxDiv = styled.aside`
     color: #818181;
     display: block;
   }
+  .showing {
+    padding-left: 10px;
+  }
+ 
 `;
