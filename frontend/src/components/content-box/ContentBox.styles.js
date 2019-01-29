@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const ContentBoxSection = styled.div`
   max-width: 1000px;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   width: 100%;
   text-align: left;
   margin-top: 175px;

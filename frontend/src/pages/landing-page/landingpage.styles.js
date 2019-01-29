@@ -12,9 +12,8 @@ export const LandingPageDiv = styled.div`
 `;
 
 export const Pagewrap = styled.div`
-  background:url(${bg_img})
-  no-repeat center center fixed;
-  border: 1px solid pink;
+  background:var(--overlay-color), url(${bg_img})no-repeat center center fixed;
+  /* border: 1px solid pink; */
   display: flex;
   justify-content:center;
   height: 100vh;

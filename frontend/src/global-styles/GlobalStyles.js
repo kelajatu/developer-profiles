@@ -77,6 +77,7 @@ export const GlobalStyle = createGlobalStyle`
     --border_color_hover: var(--color_black);
     --my-gradient: linear-gradient(to right, #7f7fd5, #86a8e7, #91eae4);
     --fade-gradient:linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 89%,rgba(255,255,255,1) 98%);
+    --overlay-color:linear-gradient(to bottom, rgba(99,99,99,.8) 89%,rgba(99,99,99,.8) 98%);
   }
 
   html {
@@ -92,7 +93,7 @@ export const GlobalStyle = createGlobalStyle`
   html, body, #root {
     width: 100%;
     height: 100%;
-    /* background-color: white; */
+    background-color: white;
     font-family: 'Roboto', sans-serif;
   }
 `;

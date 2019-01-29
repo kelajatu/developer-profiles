@@ -10,13 +10,13 @@ class ContentBox extends Component {
         <h2>The premier place to meet all of your tech hiring needs</h2> <br />
         <CTAContainer>
           <CallToAction>
-            <p>HEllo hello!</p>
+          <p>HEllo hello!afadfgagraefgadfafsdweadfasdfkjsdfjkabfgkadbfjkasf</p>
             <a href="#recruiters">
               <Btn className="stripe">Recruiters</Btn>
             </a>{" "}
           </CallToAction>
           <CallToAction>
-            HEllo Hello
+          <p>HEllo hello!afadfgagraefgadfafsdweadfasdfkjsdfjkabfgkadbfjkasf</p>
             <a href="#developers">
               <Btn className="stripe">Developers</Btn>
             </a>
