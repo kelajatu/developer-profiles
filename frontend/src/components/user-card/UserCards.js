@@ -27,7 +27,7 @@ export default class UserCards extends Component {
       console.log("4", document.documentElement.scrollTop);
 
       if (
-        window.innerHeight + document.documentElement.scrollTop ===
+        window.innerHeight + document.documentElement.scrollTop ==
         scroll.scrollHeight
       ) {
         this.props.filter();
@@ -35,41 +35,43 @@ export default class UserCards extends Component {
     };
   }
 
-    render(){
-      if (this.props.loading) {
-        return (
-          <LoaderContainer>
-            <h1>Loading...</h1>
-          </LoaderContainer>
-        )
-      } else {
-        return (
-          <UserCardsDiv>
-              {this.props.modUsers.map(user => <UserCard 
-                  id={user.id}
-                  github={user.github}
-                  linkedin={user.linkedin}
-                  portfolio={user.portfolio}
-                  badge={user.badge}
-                  key={user.id}
-                  first_name={user.first_name} 
-                  last_name={user.last_name} 
-                  image={user.image}
-                  summary={user.summary} 
-                  desired_title={user.desired_title}
-                  location={user.location}/>)}
-          </UserCardsDiv>
+  render() {
+    if (this.props.loading) {
+      return (
+        <LoaderContainer>
+          <h1>Loading...</h1>
+        </LoaderContainer>
+      );
+    } else {
+      return (
+        <UserCardsDiv id="scroll">
+          {this.props.modUsers.map(user => (
+            <UserCard
+              id={user.id}
+              github={user.github}
+              linkedin={user.linkedin}
+              portfolio={user.portfolio}
+              badge={user.badge}
+              key={user.id}
+              first_name={user.first_name}
+              last_name={user.last_name}
+              image={user.image}
+              summary={user.summary}
+              desired_title={user.desired_title}
+              location={user.location}
+            />
+          ))}
+        </UserCardsDiv>
       );
     }
   }
 }
 
 const UserCardsDiv = styled.div`
-
-    width: calc(100% - 300px);
-    margin-left: 200px;
-    padding-top: 130px;
-    ${centerFlex('column')};
+  width: calc(100% - 300px);
+  margin-left: 200px;
+  padding-top: 130px;
+  ${centerFlex("column")};
 `;
 
 const LoaderContainer = styled.div`
