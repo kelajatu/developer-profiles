@@ -65,7 +65,10 @@ server.post('/filter', (req, res) => {
     // console.log('61', req.body)
     db.user_helpers.getUsers().then(users => {
         let filteredArr = []
-
+        let max = users.length 
+        if(max < req.body.numOfResults){
+            res.status(204).send("No more users avalible")
+        }
         if(req.body.filters.length > 0){
             filteredArr = filterJob(users, req.body)
         } else {

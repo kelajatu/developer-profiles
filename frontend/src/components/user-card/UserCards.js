@@ -16,9 +16,12 @@ export default class UserCards extends Component {
     window.onscroll = () => {
       const { error, loading } = this.props.publicPageState;
       const UserCardsDiv = document.querySelector("#scroll");
-      if (error || loading) return;
-      if(window.innerHeight + document.documentElement.scrollTop === UserCardsDiv.scrollHeight) {
-        this.props.filter();
+      if (error || loading){
+        return
+      } else {
+        if(window.innerHeight + document.documentElement.scrollTop === UserCardsDiv.scrollHeight) {
+          this.props.filter();
+        }
       }
     };
   }
@@ -51,6 +54,11 @@ export default class UserCards extends Component {
             <div>
               <p>Oops! There has been an error</p>
               <p>Error: {this.props.publicPageState.errorMsg}</p>
+            </div> : null
+          }
+          {this.props.publicPageState.endOfUsers ? 
+            <div>
+              <p>No more users, modify filters</p>
             </div> : null
           }
         </UserCardsDiv>

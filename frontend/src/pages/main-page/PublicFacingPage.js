@@ -19,7 +19,8 @@ class PublicFacingPage extends Component {
             cardsOnScreen: false,
             error: false,
             allUsers: [],
-            modUsers: []
+            modUsers: [],
+            endOfUsers: false,
 
             // locatedCity: '',
             // locatedLat: '',
@@ -50,14 +51,23 @@ class PublicFacingPage extends Component {
         // console.log("filter", params)
         axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/filter`, params).then(response => {
             console.log(response)
-            this.setState({
-                modUsers: response.data.usersArr, 
-                usersReturned: response.data.usersReturned,
-                usersFound: response.data.usersFound,
-                numOfResults: num+5,
-                cardsOnScreen: true,
-                loading: false,
-            })
+            switch (response.status){
+                case 200:
+                    this.setState({
+                        modUsers: response.data.usersArr, 
+                        usersReturned: response.data.usersReturned,
+                        usersFound: response.data.usersFound,
+                        numOfResults: num+5,
+                        cardsOnScreen: true,
+                        loading: false,
+                    })
+                    break;
+                case 204: 
+                    this.setState({
+                        endOfUsers: true,
+                        loading: false,
+                    })
+            }
         }).catch(error => {
             this.setState({
                 error: true,

@@ -45,7 +45,7 @@ const upload = multer({
 const singleImageUpload = upload.single('image');
 
 server.post('/image-upload', (req, res) => {
-  console.log(req.body)
+  // console.log(req.body)
   singleImageUpload(req, res, function(err) {
     if (err) {
       return res.status(422).send({errors: [{title: 'Image Upload Error', detail: err.message}] });
