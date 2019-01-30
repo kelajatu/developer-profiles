@@ -12,7 +12,7 @@ exports.seed = function(knex, Promise) {
                 arr.push({
                     user_id: num,
                     job_title: faker.name.jobTitle(),
-                    job_dates: faker.date.between(),
+                    job_dates: "2008 - 2015",
                     job_description: faker.name.jobDescriptor(),  
                 })
                 num--;

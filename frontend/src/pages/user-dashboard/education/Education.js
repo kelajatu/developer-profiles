@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { inputArea, labelArea } from '../../../global-styles/Mixins';
 
 class Education extends Component {
@@ -115,10 +116,19 @@ class Education extends Component {
                 onChange={this.onInputChange}
               />
             </div>
-
-            <button type="submit">Save Info</button>
           </form>
         </FormSection>
+        <ButtonContainer>
+          <div>
+            <Link to="/dashboard/experience">Back</Link>
+          </div>
+          <div>
+            <button onClick={this.checkOnSubmit}>Save Info</button>
+          </div>
+          <div>
+            <Link to="/dashboard/billing">Next</Link>
+          </div>
+        </ButtonContainer>
       </MainFormContainer>
     )
   }
@@ -127,8 +137,7 @@ class Education extends Component {
 const MainFormContainer = styled.main`
   width: calc(100% - 300px);
   margin-left: 300px;
-  margin-bottom: 100px;
-  padding-top: 50px;
+  padding-top: 130px;
   @media (max-width: 1400px) {
     width: calc(100% - 80px);
     margin-left: 80px;
@@ -157,6 +166,56 @@ const FormSection = styled.section`
   }
   input {
     ${inputArea()};
+  }
+`;
+
+const ButtonContainer = styled.div`
+  width: 80%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding: 10px;
+
+  div {
+    width: 30%;
+    text-align: center;
+  }
+
+  button {
+    color: black;
+    padding: 20px;
+    width: 300px;
+    font-size: 1.7rem;
+    letter-spacing: 1.5px;
+    background: white;
+    border: solid 1px black;
+    border-radius: 20px;
+    &:hover {
+      cursor: pointer;
+      background: black;
+      color: white;
+    }
+  }
+
+  a {
+    display: block;
+    margin: auto;
+    width: 200px;
+    text-decoration: none;
+    color: black;
+    padding: 20px;
+    font-size: 1.7rem;
+    letter-spacing: 1.5px;
+    background: white;
+    border: solid 1px black;
+    border-radius: 20px;
+    &:hover {
+      cursor: pointer;
+      background: black;
+      color: white;
+    }
   }
 `;
 

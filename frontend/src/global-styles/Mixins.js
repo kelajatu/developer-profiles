@@ -43,11 +43,12 @@ export function filterSection() {
 export function labelArea() {
   return `
     color: rgba(42,42,42,.8);
-    display: block;
+    display: inline-block;
     font-size: 1.7rem;
     margin-bottom: 8px;
     font-weight: bold;
     line-height: 23px;
+    letter-spacing: 1px;
   `;
 }
 
@@ -57,11 +58,11 @@ export function inputArea() {
     font-family: inherit;
     font-size: 1.7rem;
     color: rgb(42,42,42);
-    padding: 15px;
-    width: 95%;
+    padding: 10px;
+    width: 85%;
     border: none;
     border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border: solid 1px black;
     background: white;
     background-color: rgba(255,255,255,.8);
     @media (max-width: 1550px) {

@@ -1,11 +1,24 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
-// import axios from 'axios';
+import axios from 'axios';
 
 class UserCard extends Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            arr: [],
+            expanded: false,
+            projects: [],
+            education: [],
+            experience: [],
+            top_skills: [],
+            add_skills: [],
+            familiar: [],
+        }
+    }
     makeSkillsArr(){
         let newArr = [];
-        let string = 'Lorem ipsum dolor sit amet agam brute vim ne Id quod vocibus eum ius duis doctus persequeris an Te sea prompta democritum dissentiunt cu quo eros nemore facete Et vis possim percipitur appellantur est quas efficiantur theophrastus ea Cum te tation torquatoss'
+        let string = 'Lorem ipsum dolor sit persequeris an Et vis possim percipitur appellantur est quas efficiantur theophrastus te tation torquatoss'
         let tempArr = string.split(' ')
         tempArr.forEach((word, index) => {
             let weight = word.length * index % 15 +5
@@ -16,18 +29,37 @@ class UserCard extends Component{
             }) 
         })
         this.setState({
-            arr: newArr
+            arr: newArr,
         })
     }
 
     componentDidMount(){
       this.makeSkillsArr()
-    //   this.getUserInfo()
+      this.getUserExtras('projects')
+      this.getUserExtras('education')
+      this.getUserExtras('experience')
+      this.getUserSkills('top_skills')
+      this.getUserSkills('add_skills')
+      this.getUserSkills('familiar')
+    }
+
+    getUserExtras = (extra) => {
+        axios.get(`https://developer-profiles.herokuapp.com/users/${this.props.id}/${extra}`).then(response => {
+            this.setState({[extra]: response.data})
+        })
+    }
+
+    getUserSkills = (skilltype) => {
+        axios.get(`https://developer-profiles.herokuapp.com/users/${this.props.id}/skills/${skilltype}`).then(response => {
+            this.setState({[skilltype]: response.data})
+        })
     }
 
     render(){
         return (
-            <UserCardDiv>
+            <div>
+            <UserCardContainer onClick={()=> this.setState({expanded: !this.state.expanded})} expanded={this.state.expanded ? true : false}>
+                <div className="userCardDiv">
                 <div className="left-side">
                     <div className="bio">
                         <img className="photo"src={this.props.image} alt="user avatar"/>
@@ -39,116 +71,220 @@ class UserCard extends Component{
                     </div>
                     <h3>{this.props.desired_title}</h3>
                     <div className="keywords">
-                        {this.state ? this.state.arr.map(word => {
-                            return (<div key={word.id} className="keyword" style={{fontSize: word.weight }}>
+                        {this.state.top_skills.length > 0 ? this.state.top_skills.map(word => {
+                            return (<div key={word.id} className="keyword">
+                                {word.skill}
+                            </div>)
+                        }) : null}
+                        {this.state.add_skills.length > 0 ? this.state.add_skills.map(word => {
+                            return (<div key={word.id} className="keyword">
+                                {word.skill}
+                            </div>)
+                        }) : null}
+                        {this.state.familiar.length > 0 ? this.state.familiar.map(word => {
+                            return (<div key={word.id} className="keyword">
                                 {word.skill}
                             </div>)
                         }) : null}
                     </div>
                 </div>
                 <div className="links">
-                    <img className="badge" src={this.props.badge} alt="acclaim badge"/>
-                    <i className="fab fa-github"></i>
-                    <i className="fab fa-linkedin"></i>
-                    <i className="fas fa-code"></i>
+                    {this.props.badge !== null ? this.props.badge !== "acclaim.com" ? <img className="badge" src={this.props.badge} alt="acclaim badge"/> : null : null}
+                    <a rel="noopener noreferrer" href={this.props.github} target="_blank"><i className="fab fa-github"></i></a>
+                    <a rel="noopener noreferrer" href={this.props.linkedin} target="_blank"><i className="fab fa-linkedin"></i></a>
+                    <a rel="noopener noreferrer" href={this.props.portfolio} target="_blank"><i className="fas fa-code"></i></a>
                 </div>
-            </UserCardDiv>
+                </div>
+                <div>
+                    {this.state.expanded ? 
+                        <div className="projects-etc">
+                        {/* ~~~~ projects ~~~~ */}
+                            <h2>Projects</h2>
+                            {this.state.projects.map(project => <div className="proj-etc-container">
+                            <div className="extratitle">{project.project_title}</div>
+                            <a rel="noopener noreferrer" href={project.link} target="_blank">{project.link}</a>
+                            <div className="proj-image-container">
+                                <img width="200px" height="min-height" src={project.project_img} alt="project"/>
+                                <div className="description">{project.project_description}</div>
+                            </div>
+                            </div>)}
+                        {/* ~~~~ experience ~~~~ */}
+                            <h2>Experience</h2>
+                            {this.state.experience.map(experience => <div className="proj-etc-container">
+                            <div className="extratitle">{experience.job_title}</div>
+                            <div className="dates">{experience.job_dates}</div>
+                            <div className="indent">{experience.job_description}</div>
+                            </div>)}
+                        {/* ~~~~ education ~~~~ */}
+                            <h2>Education</h2>
+                            {this.state.education.map(education => <div className="proj-etc-container">
+                            <div className="extratitle">{education.school}</div>
+                            <div className="dates">{education.school_dates}</div>
+                            <div className="indent">{education.degree}</div>
+                            <div className="indent">{education.course}</div> 
+                            </div>)}
+                        </div>    
+                    : null}
+                </div>
+            </UserCardContainer>
+            
+            </div>
         )
     }
 }
 
-const UserCardDiv = styled.div`
-    font-family: 'Source Sans Pro', sans-serif;
+const UserCardContainer = styled.div`
     border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border: lightgrey solid 1px;
     background: white;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    height: 300px;
-    width: 500px;
+    height: ${props => props.expanded ? null : 320}px;
+    min-height: ${props => props.expanded ? 700 : null}px;
+    width: 520px;
     margin-bottom: 30px;
-    .left-side {
-        width: 90%;
-        overflow: hidden;
-        height: 100%;
-        margin-left: 15px;
-        padding-top: 8px;
-        h2 {
-            font-size: 30px;
+    overflow-y: scroll;
+    padding-bottom: 20px;
+    a {
+        color: black;
+    }
+    .userCardDiv {
+        box-sizing: border-box;
+        padding-top: 20px;
+        display: flex;
+        justify-content: center;
+        .left-side {
+            width: 90%;
+            overflow: hidden;
+            height: 100%;
+            margin-left: 28px;
+            h2 {
+                font-size: 30px;
+            }
+            h3 {
+                font-size: 22px;
+                padding: 5px 5px;
+                border-top: 1px solid lightgrey;
+                border-bottom: 1px solid lightgrey;
+            }
+            .bio {
+                display: flex;
+                flex-direction: row;
+                margin: 0;
+                p {
+                    font-size: 13px;
+                    margin: 3px;
+                }
+                .user-intro {
+                    display: flex;
+                    flex-direction: column;
+                    margin: 0;
+                    padding: 10px 0 10px 10px;
+                    width: 70%;
+                }
+                .location {
+                    color: limegreen;
+                    padding: 5px 0;
+                }
+                .photo {
+                    display: flex;
+                    border-radius: 100px;
+                    justify-content: center;
+                    align-items: center;
+                    width: 100px;
+                    height: 100px;
+                    background-image: cover;
+                    margin: 10px;
+                    margin-left:0;
+                }
+            }
+            .keywords {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                padding: 10px, 0;
+                margin-top: 20px;
+                margin-bottom: 20px;
+                .keyword {
+                    padding: 1px;
+                    margin: 2px;
+                }
+            }
         }
-        h3 {
+    
+        .links {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            width: 15%;
+            height: 300px;
+            margin-left: 10px;
+            margin-right: 10px;
+            .fab, .fas {
+                font-size: 40px;
+                &:hover{
+                    color: gray;
+                }
+                cursor: pointer;
+            }
+            .fas {
+                font-size: 35px;
+                margin-bottom: 40px;
+            }
+            .badge {
+                width: 50px;
+                margin-top: 25px;
+                cursor: pointer;
+            }
+        }
+    }
+    .projects-etc {
+        margin-left: 28px;
+        h2 {
             font-size: 22px;
             padding: 5px 5px;
+            margin-bottom: 15px;
             border-top: 1px solid lightgrey;
             border-bottom: 1px solid lightgrey;
+            width: 465px;
         }
-        .bio {
-            display: flex;
-            flex-direction: row;
-            margin: 0;
-            p {
-                font-size: 13px;
-                margin: 3px;
-            }
-            .user-intro {
-                display: flex;
-                flex-direction: column;
-                margin: 0;
-                padding: 10px 0 10px 10px;
-                width: 70%;
-            }
-            .location {
-                color: limegreen;
-                padding: 5px 0;
-            }
-            .photo {
-                display: flex;
-                border-radius: 100px;
-                justify-content: center;
-                align-items: center;
-                width: 100px;
-                height: 100px;
-                background-image: cover;
-                margin: 10px;
-            }
-        }
-        .keywords {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            padding: 10px, 0;
-            margin-top: 20px;
-            .keyword {
-                padding: 1px;
-                margin: 2px;
-            }
+        a {
+            margin-left: 5px;
         }
     }
-   
-    .links {
+    .proj-image-container {
+        img {
+            border-radius: 3px;
+        }
+        margin-left: 5px;
         display: flex;
-        flex-direction: column;
         justify-content: space-between;
-        align-items: center;
-        width: 15%;
-        height: 100%;
-        .fab, .fas {
-            font-size: 40px;
-            /* &:hover{
-                  color: gray;
-              } */
-        }
-        .fas {
-            font-size: 35px;
-            margin-bottom: 40px;
-        }
-        .badge {
-            width: 50px;
-        }
+        align-items:center;
+        margin-top: 10px;
+     
     }
+    .proj-etc-container {
+        margin-bottom: 20px;
+        margin-right: 28px;
+    }
+    .extratitle {
+        font-size: 20px;
+        font-weight: bold;
+        padding-left: 5px;
+        margin-bottom: 5px;
+    }
+    .dates {
+        font-size: 15px;
+        margin: 5px 0 0 10px;
+        color: grey;
+    }
+    .description {
+        width: 250px;
+        padding-left: 10px;
+    }
+   .indent {
+    margin-left: 5px;
+   }
 `;
 
 export default UserCard;

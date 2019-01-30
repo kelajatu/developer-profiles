@@ -12,22 +12,13 @@ import Callback from "./auth/Callback";
 
 import { GlobalStyle } from "./global-styles/GlobalStyles";
 
-// need to find a way to rerender when user logs in - rerender when you pick up user info from session storage
+
 const auth = new Auth();
 
 class App extends Component {
   state = {
     auth
   };
-
-  // componentDidMount() {
-  //   // renew session
-  //   const { renewSession } = this.state.auth;
-
-  //   if (localStorage.getItem('id_token') === 'true') {
-  //     renewSession();
-  //   }
-  // }
 
   render() {
     return (

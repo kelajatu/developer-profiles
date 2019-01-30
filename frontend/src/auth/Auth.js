@@ -13,16 +13,11 @@ export default class Auth {
     scope: "openid profile email"
   });
 
-  constructor() {
-    this.login = this.login.bind(this);
-    this.logout = this.logout.bind(this);
-  }
-
-  login() {
+  login = () => {
     this.auth0.authorize();
   }
 
-  handleAuthentication(props) {
+  handleAuthentication = props => {
     this.auth0.parseHash((err, authResults) => {
       if (authResults && authResults.accessToken && authResults.idToken) {
         let expiresAt = JSON.stringify(
@@ -32,19 +27,44 @@ export default class Auth {
         localStorage.setItem("id_token", authResults.idToken);
         localStorage.setItem("expires_at", expiresAt);
         const user = this.getProfile();
-        const userInfo = {
-          first_name: user.given_name || "",
-          last_name: user.family_name || "",
-          email: user.email
+        let userInfo;
+        switch(user) {
+          case user.given_name:
+            userInfo = {
+              first_name: user.given_name || "",
+              last_name: user.family_name || "",
+              email: user.email
+            }
+          break;
+          case user.name:
+            let userArrHolder = user.name.split(' ');
+            userInfo = {
+              first_name: userArrHolder[0] || "",
+              last_name: userArrHolder[1] || "",
+              email: user.email
+            }
+            break;
+            default:
+            userInfo = {
+              email: user.email,
+              first_name: "",
+              last_name: "",
+            }
         }
-        if(user.email === null){
-          // send warning or something?
-          console.log("YO! there isn't an email on this object however you choose to sign in. you need that.")
+        if(!userInfo.email){
+          props.history.push("/");
+          console.log("error getting email");
         } else {
-          ///NEEDS TO BE LOCAL HOST ENV
             axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/new`, userInfo)
             .then(res => {
-              props.history.push('/dashboard');
+              // check if user is new or returning
+              // db returns .first() user when user is returning, which is an object
+              // db returns users arr with [0] index being new user when user is new
+              if (Array.isArray(res.data)) {
+                props.history.push('/dashboard/new');
+              } else if (res.data) {
+                props.history.push('/dashboard');
+              }
             })
             .catch(err => console.log(err));
         }
@@ -54,25 +74,12 @@ export default class Auth {
     });
   }
 
-  isAuthenticated() {
+  isAuthenticated = () => {
     let expiresAt = JSON.parse(localStorage.getItem("expires_at"));
     return new Date().getTime() < expiresAt;
   }
 
-  // renew session for current logged in users
-  // renewSession() {
-  //   this.auth0.checkSession({}, (err, authResult) => {
-  //      if (authResult && authResult.accessToken && authResult.idToken) {
-  //        this.setSession(authResult);
-  //      } else if (err) {
-  //        this.logout();
-  //        console.log(err);
-  //        alert(`Could not get a new token (${err.error}: ${err.error_description}).`);
-  //      }
-  //   });
-  // }
-
-  logout() {
+  logout = () => {
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
@@ -82,7 +89,7 @@ export default class Auth {
     });
   }
 
-  getProfile() {
+  getProfile = () => {
     if (localStorage.getItem("id_token")) {
       return jwtDecode(localStorage.getItem("id_token"));
     } else {
