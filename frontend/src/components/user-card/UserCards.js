@@ -16,7 +16,7 @@ export default class UserCards extends Component {
     window.onscroll = () => {
       // console.log("start");
       const {
-        // loadUsers,
+        loadUsers,
         state: { error, loading, hasMore }
       } = this;
       const scroll = document.querySelector("#scroll");
