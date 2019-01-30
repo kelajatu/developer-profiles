@@ -89,7 +89,7 @@ export const GlobalStyle = createGlobalStyle`
   *, *:before, *:after {
     box-sizing: inherit;
     position: relative;
-    transition: all 0.2s ease;
+    transition: all 0.1s ease;
   }
   html, body, #root {
     width: 100%;

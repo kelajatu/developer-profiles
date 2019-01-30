@@ -1,26 +1,31 @@
 import React, { Component } from 'react'
-import styled from 'styled-components';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { inputArea, labelArea } from '../../../global-styles/Mixins';
+import UserCardPreview from '../user/UserCardPreview';
+
+import { TextInput, TextArea } from 'grommet';
+import {
+  MainFormContainer,
+  FormSection,
+  LabelContainer,
+  ButtonContainer,
+  Validator
+} from '../styles/FormStyles';
 
 
 class Experience extends Component {
   state = {
+    submitSuccess: false,
+    submitFailure: false,
     jobTitle: "",
-    jobDates: "",
+    jobTitleValidation: true,
     jobDescription: "",
-    experience: []
-  }
-
-  componentDidMount() {
-    if (this.props.userInfo.userExperience) {
-      this.setState({experience: this.props.userInfo.userExperience})
-    }
-    // for returning users
-    // get data from session storage
-    // hydrate state
-    // remove from session storage
+    jobDescriptionValidation: true,
+    jobDatesFrom: "1936-04",
+    jobDatesFromValidation: true,
+    jobDatesTo: "1950-01",
+    jobDatesToValidation: true,
+    experience: this.props.userInfo.userExperience || []
   }
 
   onInputChange = (e) => {
@@ -30,85 +35,242 @@ class Experience extends Component {
   // Checking package that will be sent for user info
   checkOnSubmit = (e) => {
     e.preventDefault()
-    const { jobTitle, jobDates, jobDescription } = this.state;
+
+    let months = {
+      '01': 'January',
+      '02': 'February',
+      '03': 'March',
+      '04': 'April',
+      '05': 'May',
+      '06': 'June',
+      '07': 'July',
+      '08': 'August',
+      '09': 'September',
+      '10': 'October',
+      '10': 'November',
+      '12': 'December',
+    }
+
+    const { jobTitle, jobDatesFrom, jobDatesTo, jobDescription } = this.state;
+
+    if (jobTitle === "") {
+      this.setState({jobTitleValidation: false})
+      return
+    } else {
+      this.setState({jobTitleValidation: true})
+    }
+    
+    if (jobDescription === "") {
+      this.setState({jobDescriptionValidation: false})
+      return
+    } else {
+      this.setState({jobDescriptionValidation: true})
+    }
+
+    let newjobDatesFrom;
+    if (jobDatesFrom !== "1936-04") {
+      if (!jobDatesFrom) {
+        this.setState({jobDatesFromValidation: false})
+        return
+      } else {
+        newjobDatesFrom = jobDatesFrom.split('-');
+        newjobDatesFrom = `${months[newjobDatesFrom[1]]} ${newjobDatesFrom[0]}`;
+      }
+    }
+    if (!newjobDatesFrom) {
+      this.setState({jobDatesFromValidation: false})
+      return
+    } else {
+      this.setState({jobDatesFromValidation: true})
+    }
+    
+    let newjobDatesTo;
+    if (jobDatesTo !== "1950-01") {
+      if (!jobDatesTo) {
+        newjobDatesTo = 'Present'
+      } else {
+        newjobDatesTo = jobDatesTo.split('-');
+        newjobDatesTo = `${months[newjobDatesTo[1]]} ${newjobDatesTo[0]}`;
+      }
+    }
+    if (!newjobDatesTo) {
+      this.setState({jobDatesToValidation: false})
+      return
+    } else {
+      this.setState({jobDatesToValidation: true})
+    }
+    
+    let jobDates = `${newjobDatesFrom} to ${newjobDatesTo}`
+
+
     const lePackage = {
       user_id: this.props.userInfo.id,
       job_title: jobTitle,
       job_dates: jobDates,
       job_description: jobDescription,
     }
-    console.log(lePackage)
+
     axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/experience`, lePackage)
       .then(res => {
-        console.log(res.data)
+        this.setState({
+          submitSuccess: true,
+          jobDescription: '',
+          jobTitle: '',
+          jobDatesFrom: "1936-04",
+          jobDatesTo: "1950-01"
+        })
+        setTimeout(() => {
+          this.setState({ submitSuccess: false })
+        }, 2000)
         this.props.updateProgress()
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        this.setState({ submitFailure: true })
+        setTimeout(() => {
+          this.setState({ submitFailure: false })
+        }, 2000)
+        console.log(err)
+      })
   }
 
   render() {
-    console.log('EX', this.props.userInfo)
+    console.log('EX', this.state)
     return (
       <MainFormContainer>
         <header>
           <h1>Experience</h1>
         </header>
-        <FormSection>
-          <form onSubmit={this.checkOnSubmit}>
 
-            <div>
+        <div className="container">
+          <FormSection>
+            <form>
+
               {/* jobtitle */}
-              <label htmlFor="userJobTitle">
-                Job Title:
-              </label>
-              <input
-                type="text"
-                id="userJobTitle"
-                placeholder="Software Engineer"
-                name="jobTitle"
-                value={this.state.jobTitle}
-                onChange={this.onInputChange}
-              />
-            </div>
+              <div className="text-input-container">
+                <LabelContainer>
+                  <label htmlFor="userJobTitle">
+                    Job Title:
+                  </label>
+                </LabelContainer>
+                <Validator validated={this.state.jobTitleValidation}>
+                  <TextInput
+                    id="userJobTitle"
+                    name="jobTitle"
+                    className="validated-text-input"
+                    placeholder="Software Engineer"
+                    focusIndicator
+                    plain
+                    value={this.state.jobTitle}
+                    onChange={this.onInputChange}
+                  />
+                </Validator>
+              </div>
 
-            <div>
-              {/* jobdates - year/month options? */}
-              <label htmlFor="userJobDates">
-                Job Dates:
-              </label>
-              <input
-                type="text"
-                id="userJobDates"
-                placeholder="2017-2019"
-                name="jobDates"
-                value={this.state.jobDates}
-                onChange={this.onInputChange}
-              />
-            </div>
 
-            <div>
+
+
+
+              {/* jobdates */}
+              <div className="text-input-container">
+                <LabelContainer>
+                  <label htmlFor="userJobDatesFrom">
+                    Job Dates From:
+                  </label>
+                </LabelContainer>
+                <Validator validated={this.state.jobDatesFromValidation}> 
+                  <TextInput
+                    type="month"
+                    min="1936-01"
+                    id="userJobDatesFrom"
+                    name="jobDatesFrom"
+                    className="validated-text-input"
+                    focusIndicator
+                    plain
+                    value={this.state.jobDatesFrom}
+                    onChange={this.onInputChange}
+                    />
+                  </Validator>
+              </div>
+
+
+              {/* jobdates */}
+              <div className="text-input-container">
+                <LabelContainer>
+                  <label htmlFor="userJobDatesTo">
+                    Job Dates To:
+                  </label>
+                </LabelContainer>
+                <Validator validated={this.state.jobDatesToValidation}>
+                  <TextInput
+                    type="month"
+                    id="userJobDatesTo"
+                    name="jobDatesTo"
+                    className="validated-text-input"
+                    focusIndicator
+                    plain
+                    value={this.state.jobDatesTo}
+                    onChange={this.onInputChange}
+                  />
+                </Validator>
+              </div>
+
+
+
+
+
+
+
+
+
               {/* jobdescription */}
-              <label htmlFor="userJobDescription">
-                Job Description:
-              </label>
-              <textarea
-                id="userJobDescription"
-                placeholder="Some Job Description - This is 128 characters or so describing how
-                awesome I am and why you should like me. Similar
-                to what I put on my LinkedIn!"
-                name="jobDescription"
-                value={this.state.jobDescription}
-                onChange={this.onInputChange}
-              />
-            </div>
-          </form>
-        </FormSection>
+              <div className="text-input-container">
+                <LabelContainer>
+                  <label htmlFor="userJobDescription">
+                  Job Description:
+                  </label>
+                </LabelContainer>
+                <Validator validated={this.state.jobDescriptionValidation}>
+                  <TextArea
+                    id="userJobDescription"
+                    name="jobDescription"
+                    className="validated-text-input"
+                    placeholder="Here you can give a quick summary of your job duties! Max length is 128 characters"
+                    maxLength="128"
+                    style={{height: '120px'}}
+                    focusIndicator
+                    plain
+                    resize={false}
+                    value={this.state.jobDescription}
+                    onChange={this.onInputChange}
+                  />
+                </Validator>
+              </div>
+
+            </form>
+          </FormSection>
+          <section>
+            <header>
+              <LabelContainer>
+                <label>
+                  Profile Preview:
+                </label>
+              </LabelContainer>
+            </header>
+            <UserCardPreview userInfo={this.props.userInfo} />
+          </section>
+        </div>
         <ButtonContainer>
           <div>
             <Link to="/dashboard/projects">Back</Link>
           </div>
           <div>
-            <button onClick={this.checkOnSubmit}>Save Info</button>
+            <button onClick={this.checkOnSubmit}>
+            {this.state.submitSuccess ?
+              <i className="success fa fa-check-circle fa-2x"></i>
+              :
+              'Save Info'
+            }
+            </button>
           </div>
           <div>
             <Link to="/dashboard/education">Next</Link>
@@ -118,95 +280,5 @@ class Experience extends Component {
     )
   }
 }
-
-const MainFormContainer = styled.main`
-  width: calc(100% - 300px);
-  margin-left: 300px;
-  padding-left: 100px;
-  padding-top: 130px;
-  @media (max-width: 1400px) {
-    width: calc(100% - 80px);
-    margin-left: 80px;
-  }
-  h1 {
-    font-size: 5rem;
-    color: rgb(42,42,42);
-    margin-bottom: 50px;
-    text-align: center;
-  }
-  h3 {
-    font-size: 2.8rem;
-    color: rgb(42,42,42);
-  }
-`;
-
-const FormSection = styled.section`
-  width: 50%;
-  margin-bottom: 100px;
-  margin: auto;
-  div {
-    margin-bottom: 30px;
-  }
-  label {
-    ${labelArea()};
-  }
-  input, textarea {
-    ${inputArea()};
-  }
-  textarea {
-    padding: 15px 15px 60px;
-    resize: vertical;
-  }
-`;
-
-const ButtonContainer = styled.div`
-  width: 80%;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
-  padding: 10px;
-
-  div {
-    width: 30%;
-    text-align: center;
-  }
-
-  button {
-    color: black;
-    padding: 20px;
-    width: 300px;
-    font-size: 1.7rem;
-    letter-spacing: 1.5px;
-    background: white;
-    border: solid 1px black;
-    border-radius: 20px;
-    &:hover {
-      cursor: pointer;
-      background: black;
-      color: white;
-    }
-  }
-
-  a {
-    display: block;
-    margin: auto;
-    width: 200px;
-    text-decoration: none;
-    color: black;
-    padding: 20px;
-    font-size: 1.7rem;
-    letter-spacing: 1.5px;
-    background: white;
-    border: solid 1px black;
-    border-radius: 20px;
-    &:hover {
-      cursor: pointer;
-      background: black;
-      color: white;
-    }
-  }
-`;
 
 export default Experience;
