@@ -10,6 +10,14 @@ export const MainNav = styled.nav`
   z-index: 20;
   box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.1);
   border-bottom: solid 0.5px rgba(219, 222, 226, 0.5);
+  @media (max-width: 1024px) {
+    width: 100%;
+    justify-content: flex-end;
+    font-size: 1.6rem;
+  }
+  @media (max-width: 480px) {
+    justify-content: center;
+  }
   .nav-link {
     padding: 2rem 3rem;
     display: flex;
@@ -17,7 +25,7 @@ export const MainNav = styled.nav`
     text-transform: uppercase;
     background: none;
     font-weight: 800;
-    @media (max-width: 700px) {
+    @media (max-width: 839px) {
       font-size: 2rem;
       padding: 1rem 2rem;
       justify-content: center;
@@ -48,10 +56,5 @@ export const MainNav = styled.nav`
       text-decoration-skip: ink;
       border-bottom: 1px solid #000;
     }
-  }
-  @media (max-width: 1300px) {
-    width: 100%;
-    justify-content: flex-end;
-    font-size: 1.6rem;
   }
 `;
