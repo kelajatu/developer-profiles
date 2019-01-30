@@ -56,7 +56,6 @@ class PublicFacingPage extends Component {
         this.setState({
             loading: true,
         })
-        console.log("filter", params)
         axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/filter`, params).then(response => {
             this.setState({
                 modUsers: response.data.usersArr, 
@@ -106,7 +105,6 @@ class PublicFacingPage extends Component {
     //this is used in child components to modify publicPageState state
     updatePublicPageState = async update => {
         this.setState(update);
-        // this.filter(5, true)
     };
 
     render() {
