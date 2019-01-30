@@ -14,22 +14,20 @@ export default class UserCards extends Component {
     };
 
     window.onscroll = () => {
-      console.log("start");
+      // console.log("start");
       const {
-        loadUsers,
+        // loadUsers,
         state: { error, loading, hasMore }
       } = this;
       const scroll = document.querySelector("#scroll");
       // if (!error || loading) return;
-      console.log("1", window.innerHeight);
-      console.log("2", scroll.scrollHeight);
-      console.log("3", scroll.scrollTop);
-      console.log("4", document.documentElement.scrollTop);
+      // console.log("1", window.innerHeight);
+      // console.log("2", scroll.scrollHeight);
+      // console.log("3", scroll.scrollTop);
+      // console.log("4", document.documentElement.scrollTop);
 
-      if (
-        window.innerHeight + document.documentElement.scrollTop ==
-        scroll.scrollHeight
-      ) {
+      if(window.innerHeight + document.documentElement.scrollTop == scroll.scrollHeight) {
+        console.log("end of scroll")
         this.props.filter();
       }
     };

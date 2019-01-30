@@ -45,9 +45,9 @@ class PublicFacingPage extends Component {
             numOfResults: this.state.numOfResults,
             milesFrom: this.state.milesFrom,
         }
-        console.log("frontend filter", params)
+        // console.log("frontend filter", params)
         axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/filter`, params).then(response => {
-            console.log("response in testInfinite", response)
+            // console.log("response in testInfinite", response)
             this.setState({
                 modUsers: response.data.usersArr, 
                 usersReturned: response.data.usersReturned,

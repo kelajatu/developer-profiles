@@ -4,8 +4,8 @@ import axios from 'axios';
 import styled from 'styled-components';
 
 import UserDashboardNav from './UserDashboardNav'
-import UserCardPreview from './UserCardPreview'
-import UserCardProgress from './UserCardProgress'
+// import UserCardPreview from './UserCardPreview'
+// import UserCardProgress from './UserCardProgress'
 import UserDashboardIntro from './UserDashboardIntro'
 import UserDashboardNew from './UserDashboardNew'
 

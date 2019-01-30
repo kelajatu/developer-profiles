@@ -25,7 +25,8 @@ export default class Nav extends Component {
           </Fragment>
         ) : (
           <div className="nav-link">
-            <a onClick={this.props.auth.login}>Sign Up / Sign In</a>
+            {/* changed from a tag to hide warning, TODO need to style this button */}
+            <button onClick={this.props.auth.login}>Sign Up / Sign In</button>
           </div>
         )}
       </MainNav>

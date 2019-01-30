@@ -21,3 +21,5 @@ Back end URL: https://developer-profiles.herokuapp.com/
 Rubric: https://docs.google.com/spreadsheets/d/1-D0SY8SkipneUox08vEdumf1OtGtX5gWTt7XQ1dBHCc/edit#gid=1885109639
 
 Whiteboard: https://docs.google.com/spreadsheets/d/1Bo74SDxab344hZ2kneM0_tt6b2LO5m4wa2dRkyHm-yw/edit#gid=753636956 
+
+Heroku knex: heroku run knex --knexfile=./backend/knexfile.js migrate:rollback -a developer-profiles

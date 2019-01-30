@@ -303,15 +303,15 @@ const FormSection = styled.section`
   }
 `;
 
-const PreviewSection = styled.section`
-  h3 {
-    margin-bottom: 30px;
-  }
-  p {
-    font-size: 1.7rem;
-    color: rgb(42,42,42);
-  }
-`;
+// const PreviewSection = styled.section`
+//   h3 {
+//     margin-bottom: 30px;
+//   }
+//   p {
+//     font-size: 1.7rem;
+//     color: rgb(42,42,42);
+//   }
+// `;
 
 const ButtonContainer = styled.div`
   width: 80%;

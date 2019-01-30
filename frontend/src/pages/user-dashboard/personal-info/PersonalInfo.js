@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import styled from 'styled-components';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { inputArea, labelArea, centerFlex } from '../../../global-styles/Mixins';
+import { 
+  // inputArea, 
+  // labelArea, 
+  centerFlex } from '../../../global-styles/Mixins';
 import UserCardPreview from '../UserCardPreview';
 
 import { TextInput, Select } from 'grommet';
@@ -418,60 +421,60 @@ const FormSection = styled.section`
 `;
 
 
-const ImageForm = styled.form`
-  label {
-    ${labelArea()};
-  }
-  .upload-container {
-    width: 350px;
-    height: 350px;
-    border: solid .5px #dbdee2;
-    .input-container {
-      width: 100%;
-      height: 100%;
-      span {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-      p {
-        text-align: center;
-        font-size: 1.4rem;
-        line-height: 23px;
-        font-family: inherit;
-        font-weight: bold;
-        color: rgb(42,42,42);
-        opacity: .8;
-      }
-      &:hover {
-        cursor: pointer;
-        color: gray;
-      }
-    }
-    .image-container {
-      width: 100%;
-      height: 100%;
-      span {
-        position: absolute;
-        height: 50px;
-        width: 50px;
-        top: 1%;
-        right: 1%;
-        z-index: 20;
-        ${centerFlex()};
-        &:hover {
-          cursor: pointer;
-          color: gray;
-        }
-      }
-      img {
-        width: 100%;
-        height: 100%;
-      }
-    }
-  }
-`;
+// const ImageForm = styled.form`
+//   label {
+//     ${labelArea()};
+//   }
+//   .upload-container {
+//     width: 350px;
+//     height: 350px;
+//     border: solid .5px #dbdee2;
+//     .input-container {
+//       width: 100%;
+//       height: 100%;
+//       span {
+//         position: absolute;
+//         top: 50%;
+//         left: 50%;
+//         transform: translate(-50%, -50%);
+//       }
+//       p {
+//         text-align: center;
+//         font-size: 1.4rem;
+//         line-height: 23px;
+//         font-family: inherit;
+//         font-weight: bold;
+//         color: rgb(42,42,42);
+//         opacity: .8;
+//       }
+//       &:hover {
+//         cursor: pointer;
+//         color: gray;
+//       }
+//     }
+//     .image-container {
+//       width: 100%;
+//       height: 100%;
+//       span {
+//         position: absolute;
+//         height: 50px;
+//         width: 50px;
+//         top: 1%;
+//         right: 1%;
+//         z-index: 20;
+//         ${centerFlex()};
+//         &:hover {
+//           cursor: pointer;
+//           color: gray;
+//         }
+//       }
+//       img {
+//         width: 100%;
+//         height: 100%;
+//       }
+//     }
+//   }
+// `;
 
 const ButtonContainer = styled.div`
   width: 80%;

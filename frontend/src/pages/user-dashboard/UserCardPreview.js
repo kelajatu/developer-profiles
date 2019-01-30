@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import {centerFlex} from '../../global-styles/Mixins';
+// import { centerFlex } from '../../global-styles/Mixins';
 
 class UserCardPreview extends Component {
   makeSkillsArr(){
