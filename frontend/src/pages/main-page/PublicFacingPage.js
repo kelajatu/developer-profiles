@@ -19,7 +19,8 @@ class PublicFacingPage extends Component {
             cardsOnScreen: false,
             error: false,
             allUsers: [],
-            modUsers: []
+            modUsers: [],
+            endOfUsers: false,
 
             // locatedCity: '',
             // locatedLat: '',
@@ -34,7 +35,15 @@ class PublicFacingPage extends Component {
         this.filter(5)
     }
 
-    filter = (num=this.state.numOfResults) => {
+    filter = async (num=this.state.numOfResults, reset=false) => {
+         if(reset){
+            await this.setState({
+                endOfUsers: false
+            })
+        }
+        if(this.state.endOfUsers){
+            return
+        }
         let params = {
             filters: this.state.filters,
             locatedName: this.state.locatedCity,
@@ -47,17 +56,26 @@ class PublicFacingPage extends Component {
         this.setState({
             loading: true,
         })
-        // console.log("filter", params)
+        console.log("filter", params)
         axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/filter`, params).then(response => {
-            console.log(response)
             this.setState({
                 modUsers: response.data.usersArr, 
                 usersReturned: response.data.usersReturned,
                 usersFound: response.data.usersFound,
-                numOfResults: num+5,
                 cardsOnScreen: true,
                 loading: false,
+                error: false, 
+                errorMsg: null,
             })
+            if(response.data.usersFound === response.data.usersReturned){
+                this.setState({
+                    endOfUsers: true,
+                })
+            } else {
+                this.setState({
+                    numOfResults: num+5,
+                })
+            }
         }).catch(error => {
             this.setState({
                 error: true,
@@ -82,12 +100,13 @@ class PublicFacingPage extends Component {
             loading: true,
         })
         //this will be trigger new request to filter
-        this.filter(5);
+        this.filter(5, true);
     };
 
     //this is used in child components to modify publicPageState state
-    updatePublicPageState = update => {
+    updatePublicPageState = async update => {
         this.setState(update);
+        // this.filter(5, true)
     };
 
     render() {

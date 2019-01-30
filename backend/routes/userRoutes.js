@@ -5,7 +5,7 @@ const db = require('../helpers/index.js')
 function distance(lat1, lon1, lat2, lon2, miles) {
     // console.log(lat1, lon1)
     // console.log(lat2, lon2)
-    console.log("distance")
+    // console.log("distance")
     if ((lat1 == lat2) && (lon1 == lon2)) {
         return true;
     }
@@ -64,6 +64,7 @@ filterReLocation = (allArray, params) => {
 server.post('/filter', (req, res) => {
     // console.log('61', req.body)
     db.user_helpers.getUsers().then(users => {
+        req.body.users = users
         let filteredArr = []
 
         if(req.body.filters.length > 0){
@@ -71,40 +72,52 @@ server.post('/filter', (req, res) => {
         } else {
             filteredArr = users
         }
+        return filteredArr
+       
 
-        if(req.body.locatedLat){
-            if(filteredArr.length > 0){
-                filteredArr = filterLocation(filteredArr, req.body)
-            } else {
-                filteredArr = filterLocation(users, req.body)
-            }
-        }
 
+
+       
+
+    }).then(filteredArr => {
+        console.log("1", filteredArr.length)
         if(req.body.relocateName){
             if(filteredArr.length > 0){
                 filteredArr = filterReLocation(filteredArr, req.body)
             } else {
-                filteredArr = filterReLocation(users, req.body)
+                filteredArr = filterReLocation(req.body.users, req.body)
             }
         }
+        return filteredArr
+    }).then(filteredArr => {
+        console.log("2", filteredArr.length)
+        if(req.body.locatedLat){
+            if(filteredArr.length > 0){
+                filteredArr = filterLocation(filteredArr, req.body)
+            } else {
+                filteredArr = filterLocation(req.body.users, req.body)
+            }
+        }
+        return filteredArr
+    }).then(filteredArr => {
+        console.log("3", filteredArr.length)
+        let count = 0;
+        let shortendArr = filteredArr.filter(item => {
+            count++
+            if(count <= req.body.numOfResults){
+                return item
+            }
+        })
 
         
-        let shortendArr = []
-        if(filteredArr.length < req.body.numOfResults){
-            shortendArr = filteredArr
-        } else {
-            shortendArr = filteredArr.splice(0, req.body.numOfResults)
-        }
-        
-        let usersFound = filteredArr.length + req.body.numOfResults
+        let usersFound = filteredArr.length
+        let usersReturned = shortendArr.length
+
         let returnPackage = {
             usersArr: shortendArr,
             usersFound: usersFound,
-            usersReturned: shortendArr.length
+            usersReturned: usersReturned
         }
-        //return 10 at a time of filtered UserCards
-        //10
-        console.log("return package", returnPackage)
 
         res.status(200).json(returnPackage)
     }).catch(err => {
