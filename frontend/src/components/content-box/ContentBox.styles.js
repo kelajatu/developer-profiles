@@ -1,11 +1,35 @@
 import styled from "styled-components";
 
+export const Circle = styled.div`
+  background: #003FA0;
+  position: relative;
+  left: -32px;
+  bottom: -px;
+  height: 640px;
+  width: 640px;
+
+  padding-top: 9em;
+  padding-left: 5em;
+  border-radius: 50%;
+
+  z-index: 0;
+
+  h1 {
+    font-size: 80px;
+    line-height: 100px;
+    font-weight: bold;
+    color: white;
+  }
+`;
 export const ContentBoxSection = styled.div`
-  max-width: 1000px;
+
+  z-index:1;
+  max-width:1400px;
   /* border: 1px solid red; */
   width: 100%;
   text-align: left;
-  margin-top: 175px;
+  margin: auto;
+
   padding: 2em;
 
   a {
@@ -18,89 +42,38 @@ export const ContentBoxSection = styled.div`
 `;
 
 export const CTAContainer = styled.div`
-display: flex;
-flex: row;
-`
-
-export const CallToAction = styled.div`
- display: flex;
- flex-direction: column;
- border: 1px solid blue;
-`
-
-export const Btn = styled.div`
-  @keyframes stripe-slide {
-    0% {
-      background-position: 0% 0;
-    }
-    100% {
-      background-position: 100% 0;
-    }
-  }
-  overflow: visible;
-  width: 150px;
-  /* text-align:center; */
-  margin: 5px;
-  border: 0;
-  width: 100px;
-  background: transparent;
-  font: inherit;
-  font-size: 18px;
-  line-height: normal;
-  -moz-user-select: text;
-  padding: 16px 0px 22px;
-  background: var(--btn_background);
-  color: var(--btn_color);
-  border: 2px solid var(--border_color);
-  border-radius: 10px;
-  margin-bottom: 16px;
-  transition: all 0.5s ease;
-
-  &.stripe {
-    overflow: hidden;
-    position: relative;
-
-    &:after {
-      content: "";
-      display: block;
-      height: var(--stripe_height);
-      width: 100%;
-      background-image: repeating-linear-gradient(
-        45deg,
-        var(--border_color),
-        var(--border_color) 1px,
-        transparent 2px,
-        transparent 5px
-      );
-      -webkit-backface-visibility: hidden;
-      backface-visibility: hidden;
-      border-top: 1px solid var(--border_color);
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      background-size: var(--stripe_height) var(--stripe_height);
-    }
-
-    &:hover {
-      background-color: var(--btn_background_hover);
-      /* overflow: hidden; */
-      color: var(--btn_color_hover);
-      border-color: #000;
-      border-radius: 15px;
-
-      &:after {
-        background-image: repeating-linear-gradient(
-          45deg,
-          var(--btn_color_hover),
-          var(--btn_color_hover) 1px,
-          transparent 2px,
-          transparent 5px
-        );
-        border-top: 1px solid var(--border_color_hover);
-        animation: stripe-slide 12s infinite linear forwards;
-      }
-    }
-  }
+  display: flex;
+  flex: row;
 `;
 
+export const CallToAction = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: 1px solid blue;
+`;
 
+export const Btn = styled.div`
+color: white;
+  font-weight: bold;
+  font-size: 2rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 40px 90px;
+  background-color: var(--lp_btn_color);
+  transition: transform 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55), background-position 800ms cubic-bezier(0.68, -0.55, 0.265, 1.55), box-shadow 500ms linear;
+  background-image: url('data:image/svg+xml;utf8,<?xml version="1.0" encoding="utf-8"?><svg version="1.1" id="Livello_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"	 width="1296px" height="768px" viewBox="0 0 1296 768" enable-background="new 0 0 1296 768" xml:space="preserve"><g><polygon fill="#8694D1" points="766.6,1.2 -0.2,768 200.7,768 967.5,1.2 	"/></g><g><polygon fill="#8694D1" points="1094.8,1.2 328,768 528.9,768 1295.7,1.2 	"/></g></svg>');
+  background-size: contain;
+  background-position: -200px center;
+  background-repeat: no-repeat;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
+&:hover {
+  transform: scale(1.1);
+  background-position: -60px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+&:active {
+  transform: scale(1);
+  background-position: 500px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);}
+`;
