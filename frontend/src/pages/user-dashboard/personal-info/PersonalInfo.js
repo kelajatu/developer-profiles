@@ -16,6 +16,7 @@ import {
 class PersonalInfo extends Component {
   state = {
     profileImg: this.props.userInfo.image || "",
+    profileImgUploadSuccess: false,
     publicEmail: this.props.userInfo.public_email  || "",
     firstName: this.props.userInfo.first_name  || "",
     lastName: this.props.userInfo.last_name  || "",
@@ -38,8 +39,10 @@ class PersonalInfo extends Component {
     var self = this;
     XHR.addEventListener('load', function(event) {
       let url = JSON.parse(event.target.responseText);
-      self.setState({profileImg: url.imgUrl})
-      // send URL to DB if you cant before
+      self.setState({profileImg: url.imgUrl, profileImgUploadSuccess: true})
+      setTimeout(() => {
+        self.setState({profileImgUploadSuccess: false})
+      }, 2000)
     });
 
     // Define what happens in case of error
@@ -92,22 +95,25 @@ class PersonalInfo extends Component {
                   <label htmlFor="userProfileImg">
                     Choose a profile picture:
                   </label>
-                  {this.state.profileImg ?
+                  {profileImgSuccess ?
                     <span>
-                      {profileImgSuccess ?
-                        <i className="success fa fa-check-circle"></i>
-                        :
-                        <i className="fa fa-check-circle"></i>
-                      }
+                      <i className="success fa fa-check-circle"></i>
                     </span>
                     :
                     null
                   }
                 </LabelContainer>
                 <div className="img-input-sub-container">
-                  <div className="img-input-overlay">
-                    <i className="fa fa-upload fa-2x"></i>
-                  </div>
+                  {this.state.profileImgUploadSuccess ?
+                    <div className="img-input-overlay">
+                      <i className="fa fa-check-circle fa-2x"></i>
+                    </div>
+                    :
+                    <div className="img-input-overlay">
+                      <i className="fa fa-upload fa-2x"></i>
+                    </div>
+                  }
+
                   <input
                     id="userProfileImg"
                     type="file"

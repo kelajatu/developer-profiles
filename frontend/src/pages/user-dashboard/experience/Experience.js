@@ -8,16 +8,23 @@ import {
   MainFormContainer,
   FormSection,
   LabelContainer,
-  ButtonContainer
+  ButtonContainer,
+  Validator
 } from '../styles/FormStyles';
 
 
 class Experience extends Component {
   state = {
+    submitSuccess: false,
+    submitFailure: false,
     jobTitle: "",
-    jobDatesFrom: "2000-05",
-    jobDatesTo: "2010-08",
+    jobTitleValidation: true,
     jobDescription: "",
+    jobDescriptionValidation: true,
+    jobDatesFrom: "1936-04",
+    jobDatesFromValidation: true,
+    jobDatesTo: "1950-01",
+    jobDatesToValidation: true,
     experience: this.props.userInfo.userExperience || []
   }
 
@@ -28,24 +35,106 @@ class Experience extends Component {
   // Checking package that will be sent for user info
   checkOnSubmit = (e) => {
     e.preventDefault()
-    const { jobTitle, jobDates, jobDescription } = this.state;
+
+    let months = {
+      '01': 'January',
+      '02': 'February',
+      '03': 'March',
+      '04': 'April',
+      '05': 'May',
+      '06': 'June',
+      '07': 'July',
+      '08': 'August',
+      '09': 'September',
+      '10': 'October',
+      '10': 'November',
+      '12': 'December',
+    }
+
+    const { jobTitle, jobDatesFrom, jobDatesTo, jobDescription } = this.state;
+
+    if (jobTitle === "") {
+      this.setState({jobTitleValidation: false})
+      return
+    } else {
+      this.setState({jobTitleValidation: true})
+    }
+    
+    if (jobDescription === "") {
+      this.setState({jobDescriptionValidation: false})
+      return
+    } else {
+      this.setState({jobDescriptionValidation: true})
+    }
+
+    let newjobDatesFrom;
+    if (jobDatesFrom !== "1936-04") {
+      if (!jobDatesFrom) {
+        this.setState({jobDatesFromValidation: false})
+        return
+      } else {
+        newjobDatesFrom = jobDatesFrom.split('-');
+        newjobDatesFrom = `${months[newjobDatesFrom[1]]} ${newjobDatesFrom[0]}`;
+      }
+    }
+    if (!newjobDatesFrom) {
+      this.setState({jobDatesFromValidation: false})
+      return
+    } else {
+      this.setState({jobDatesFromValidation: true})
+    }
+    
+    let newjobDatesTo;
+    if (jobDatesTo !== "1950-01") {
+      if (!jobDatesTo) {
+        newjobDatesTo = 'Present'
+      } else {
+        newjobDatesTo = jobDatesTo.split('-');
+        newjobDatesTo = `${months[newjobDatesTo[1]]} ${newjobDatesTo[0]}`;
+      }
+    }
+    if (!newjobDatesTo) {
+      this.setState({jobDatesToValidation: false})
+      return
+    } else {
+      this.setState({jobDatesToValidation: true})
+    }
+    
+    let jobDates = `${newjobDatesFrom} to ${newjobDatesTo}`
+
+
     const lePackage = {
       user_id: this.props.userInfo.id,
       job_title: jobTitle,
       job_dates: jobDates,
       job_description: jobDescription,
     }
-    console.log(lePackage)
+
     axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/experience`, lePackage)
       .then(res => {
-        console.log(res.data)
+        this.setState({
+          submitSuccess: true,
+          jobDescription: '',
+          jobTitle: '',
+          jobDatesFrom: "1936-04",
+          jobDatesTo: "1950-01"
+        })
+        setTimeout(() => {
+          this.setState({ submitSuccess: false })
+        }, 2000)
         this.props.updateProgress()
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        this.setState({ submitFailure: true })
+        setTimeout(() => {
+          this.setState({ submitFailure: false })
+        }, 2000)
+        console.log(err)
+      })
   }
 
   render() {
-    console.log('EX', this.props.userInfo)
+    console.log('EX', this.state)
     return (
       <MainFormContainer>
         <header>
@@ -63,15 +152,18 @@ class Experience extends Component {
                     Job Title:
                   </label>
                 </LabelContainer>
-                <TextInput
-                  id="userJobTitle"
-                  name="jobTitle"
-                  className="text-input"
-                  placeholder="Software Engineer"
-                  focusIndicator
-                  value={this.state.jobTitle}
-                  onChange={this.onInputChange}
-                />
+                <Validator validated={this.state.jobTitleValidation}>
+                  <TextInput
+                    id="userJobTitle"
+                    name="jobTitle"
+                    className="validated-text-input"
+                    placeholder="Software Engineer"
+                    focusIndicator
+                    plain
+                    value={this.state.jobTitle}
+                    onChange={this.onInputChange}
+                  />
+                </Validator>
               </div>
 
 
@@ -85,15 +177,19 @@ class Experience extends Component {
                     Job Dates From:
                   </label>
                 </LabelContainer>
-                <TextInput
-                  type="month"
-                  id="userJobDatesFrom"
-                  name="jobDatesFrom"
-                  className="text-input"
-                  focusIndicator
-                  value={this.state.jobDatesFrom}
-                  onChange={this.onInputChange}
-                />
+                <Validator validated={this.state.jobDatesFromValidation}> 
+                  <TextInput
+                    type="month"
+                    min="1936-01"
+                    id="userJobDatesFrom"
+                    name="jobDatesFrom"
+                    className="validated-text-input"
+                    focusIndicator
+                    plain
+                    value={this.state.jobDatesFrom}
+                    onChange={this.onInputChange}
+                    />
+                  </Validator>
               </div>
 
 
@@ -104,15 +200,18 @@ class Experience extends Component {
                     Job Dates To:
                   </label>
                 </LabelContainer>
-                <TextInput
-                  type="month"
-                  id="userJobDatesTo"
-                  name="jobDatesTo"
-                  className="text-input"
-                  focusIndicator
-                  value={this.state.jobDatesTo}
-                  onChange={this.onInputChange}
-                />
+                <Validator validated={this.state.jobDatesToValidation}>
+                  <TextInput
+                    type="month"
+                    id="userJobDatesTo"
+                    name="jobDatesTo"
+                    className="validated-text-input"
+                    focusIndicator
+                    plain
+                    value={this.state.jobDatesTo}
+                    onChange={this.onInputChange}
+                  />
+                </Validator>
               </div>
 
 
@@ -130,19 +229,21 @@ class Experience extends Component {
                   Job Description:
                   </label>
                 </LabelContainer>
-                <TextArea
-                  id="userJobDescription"
-                  name="jobDescription"
-                  className="text-input"
-                  placeholder="Some Job Description - This is 128 characters or so describing how
-                  awesome I am and why you should like me. Similar
-                  to what I put on my LinkedIn!"
-                  maxLength="128"
-                  focusIndicator
-                  resize="vertical"
-                  value={this.state.jobDescription}
-                  onChange={this.onInputChange}
-                />
+                <Validator validated={this.state.jobDescriptionValidation}>
+                  <TextArea
+                    id="userJobDescription"
+                    name="jobDescription"
+                    className="validated-text-input"
+                    placeholder="Here you can give a quick summary of your job duties! Max length is 128 characters"
+                    maxLength="128"
+                    style={{height: '120px'}}
+                    focusIndicator
+                    plain
+                    resize={false}
+                    value={this.state.jobDescription}
+                    onChange={this.onInputChange}
+                  />
+                </Validator>
               </div>
 
             </form>
@@ -163,7 +264,13 @@ class Experience extends Component {
             <Link to="/dashboard/projects">Back</Link>
           </div>
           <div>
-            <button onClick={this.checkOnSubmit}>Save Info</button>
+            <button onClick={this.checkOnSubmit}>
+            {this.state.submitSuccess ?
+              <i className="success fa fa-check-circle fa-2x"></i>
+              :
+              'Save Info'
+            }
+            </button>
           </div>
           <div>
             <Link to="/dashboard/education">Next</Link>

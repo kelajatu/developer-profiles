@@ -3,22 +3,30 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import UserCardPreview from '../user/UserCardPreview';
 
-import { TextInput, TextArea } from 'grommet';
+import { TextInput } from 'grommet';
 import {
   MainFormContainer,
   FormSection,
   LabelContainer,
-  ButtonContainer
+  ButtonContainer,
+  Validator
 } from '../styles/FormStyles';
 
 
 class Education extends Component {
   state = {
+    submitSuccess: false,
+    submitFailure: false,
     schoolName: "",
-    schoolDatesFrom: "2000-05",
-    schoolDatesTo: "2010-08",
+    schoolNameValidation: true,
     schoolCourse: "",
+    schoolCourseValidation: true,
     schoolDegree: "",
+    schoolDegreeValidation: true,
+    schoolDatesFrom: "1936-04",
+    schoolDatesFromValidation: true,
+    schoolDatesTo: "1950-01",
+    schoolDatesToValidation: true,
     education: this.props.userInfo.userEducation || []
   }
 
@@ -29,7 +37,81 @@ class Education extends Component {
   // Checking package that will be sent for user info
   checkOnSubmit = (e) => {
     e.preventDefault()
-    const { schoolName, schoolDates, schoolCourse, schoolDegree } = this.state;
+
+    let months = {
+      '01': 'January',
+      '02': 'February',
+      '03': 'March',
+      '04': 'April',
+      '05': 'May',
+      '06': 'June',
+      '07': 'July',
+      '08': 'August',
+      '09': 'September',
+      '10': 'October',
+      '10': 'November',
+      '12': 'December',
+    }
+
+    const { schoolDatesFrom,schoolDatesTo, schoolName, schoolCourse, schoolDegree } = this.state;
+
+    if (schoolName === "") {
+      this.setState({schoolNameValidation: false})
+      return
+    } else {
+      this.setState({schoolNameValidation: true})
+    }
+    
+    if (schoolCourse === "") {
+      this.setState({schoolCourseValidation: false})
+      return
+    } else {
+      this.setState({schoolCourseValidation: true})
+    }
+    
+    if (schoolDegree === "") {
+      this.setState({schoolDegreeValidation: false})
+      return
+    } else {
+      this.setState({schoolDegreeValidation: true})
+    }
+
+    let newSchoolDatesFrom;
+    if (schoolDatesFrom !== "1936-04") {
+      if (!schoolDatesFrom) {
+        this.setState({schoolDatesFromValidation: false})
+        return
+      } else {
+        newSchoolDatesFrom = schoolDatesFrom.split('-');
+        newSchoolDatesFrom = `${months[newSchoolDatesFrom[1]]} ${newSchoolDatesFrom[0]}`;
+      }
+    }
+    if (!newSchoolDatesFrom) {
+      this.setState({schoolDatesFromValidation: false})
+      return
+    } else {
+      this.setState({schoolDatesFromValidation: true})
+    }
+    
+    let newSchoolDatesTo;
+    if (schoolDatesTo !== "1950-01") {
+      if (!schoolDatesTo) {
+        newSchoolDatesTo = 'Present'
+      } else {
+        newSchoolDatesTo = schoolDatesTo.split('-');
+        newSchoolDatesTo = `${months[newSchoolDatesTo[1]]} ${newSchoolDatesTo[0]}`;
+      }
+    }
+    if (!newSchoolDatesTo) {
+      this.setState({schoolDatesToValidation: false})
+      return
+    } else {
+      this.setState({schoolDatesToValidation: true})
+    }
+    
+    let schoolDates = `${newSchoolDatesFrom} to ${newSchoolDatesTo}`
+
+
     const lePackage = {
       user_id: this.props.userInfo.id,
       school: schoolName,
@@ -37,17 +119,33 @@ class Education extends Component {
       degree: schoolCourse,
       course: schoolDegree
     }
-    console.log(lePackage)
+
     axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/education`, lePackage)
       .then(res => {
-        console.log(res.data)
+        this.setState({
+          submitSuccess: true,
+          schoolName: "",
+          schoolCourse: "",
+          schoolDegree: "",
+          schoolDatesFrom: "1936-04",
+          schoolDatesTo: "1950-01"
+        })
+        setTimeout(() => {
+          this.setState({ submitSuccess: false })
+        }, 2000)
         this.props.updateProgress()
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        this.setState({ submitFailure: true })
+        setTimeout(() => {
+          this.setState({ submitFailure: false })
+        }, 2000)
+        console.log(err)
+      })
   }
 
   render() {
-    console.log('ED', this.props.userInfo)
+    console.log('ED', this.state)
     return (
       <MainFormContainer>
         <header>
@@ -67,15 +165,18 @@ class Education extends Component {
                     School Name:
                   </label>
                 </LabelContainer>
-                <TextInput
-                  id="userSchoolName"
-                  name="schoolName"
-                  className="text-input"
-                  placeholder="Lambda School"
-                  focusIndicator
-                  value={this.state.schoolName}
-                  onChange={this.onInputChange}
-                />
+                <Validator validated={this.state.schoolNameValidation}>
+                  <TextInput
+                    id="userSchoolName"
+                    name="schoolName"
+                    className="validated-text-input"
+                    placeholder="Lambda School"
+                    focusIndicator
+                    plain
+                    value={this.state.schoolName}
+                    onChange={this.onInputChange}
+                  />
+                </Validator>
               </div>
 
 
@@ -90,15 +191,19 @@ class Education extends Component {
                     Dates Attended From:
                   </label>
                 </LabelContainer>
-                <TextInput
-                  type="month"
-                  id="userSchoolDatesFrom"
-                  name="schoolDatesFrom"
-                  className="text-input"
-                  focusIndicator
-                  value={this.state.schoolDatesFrom}
-                  onChange={this.onInputChange}
-                />
+                <Validator validated={this.state.schoolDatesFromValidation}>
+                  <TextInput
+                    type="month"
+                    min="1936-01"
+                    id="userSchoolDatesFrom"
+                    name="schoolDatesFrom"
+                    className="validated-text-input"
+                    focusIndicator
+                    plain
+                    value={this.state.schoolDatesFrom}
+                    onChange={this.onInputChange}
+                  />
+                </Validator>
               </div>
 
               {/* schooldates */}
@@ -108,15 +213,18 @@ class Education extends Component {
                     Dates Attended To:
                   </label>
                 </LabelContainer>
-                <TextInput
-                  type="month"
-                  id="userSchoolDatesTo"
-                  name="schoolDatesTo"
-                  className="text-input"
-                  focusIndicator
-                  value={this.state.schoolDatesTo}
-                  onChange={this.onInputChange}
-                />
+                <Validator validated={this.state.schoolDatesToValidation}>
+                  <TextInput
+                    type="month"
+                    id="userSchoolDatesTo"
+                    name="schoolDatesTo"
+                    className="validated-text-input"
+                    focusIndicator
+                    plain
+                    value={this.state.schoolDatesTo}
+                    onChange={this.onInputChange}
+                  />
+                </Validator>
               </div>
 
 
@@ -131,15 +239,18 @@ class Education extends Component {
                     School Course:
                   </label>
                 </LabelContainer>
-                <TextInput
-                  id="userSchoolCourse"
-                  name="schoolCourse"
-                  className="text-input"
-                  placeholder="Computer Science"
-                  focusIndicator
-                  value={this.state.schoolCourse}
-                  onChange={this.onInputChange}
-                />
+                <Validator validated={this.state.schoolCourseValidation}>
+                  <TextInput
+                    id="userSchoolCourse"
+                    name="schoolCourse"
+                    className="validated-text-input"
+                    placeholder="Computer Science"
+                    focusIndicator
+                    plain
+                    value={this.state.schoolCourse}
+                    onChange={this.onInputChange}
+                  />
+                </Validator>
               </div>
 
 
@@ -151,15 +262,18 @@ class Education extends Component {
                     School Degree:
                   </label>
                 </LabelContainer>
-                <TextInput
-                  id="userSchoolDegree"
-                  name="schoolDegree"
-                  className="text-input"
-                  placeholder="Bachelors"
-                  focusIndicator
-                  value={this.state.schoolDegree}
-                  onChange={this.onInputChange}
-                />
+                <Validator validated={this.state.schoolDegreeValidation}>
+                  <TextInput
+                    id="userSchoolDegree"
+                    name="schoolDegree"
+                    className="validated-text-input"
+                    placeholder="Bachelors"
+                    focusIndicator
+                    plain
+                    value={this.state.schoolDegree}
+                    onChange={this.onInputChange}
+                  />
+                </Validator>
               </div>
 
 
@@ -182,7 +296,13 @@ class Education extends Component {
             <Link to="/dashboard/experience">Back</Link>
           </div>
           <div>
-            <button onClick={this.checkOnSubmit}>Save Info</button>
+            <button onClick={this.checkOnSubmit}>
+              {this.state.submitSuccess ?
+                <i className="success fa fa-check-circle fa-2x"></i>
+                :
+                'Save Info'
+              }
+            </button>
           </div>
           <div>
             <Link to="/dashboard/billing">Next</Link>

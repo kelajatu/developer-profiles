@@ -9,15 +9,23 @@ import {
   FormSection,
   LabelContainer,
   ImageContainer,
-  ButtonContainer
+  ButtonContainer,
+  Validator
 } from '../styles/FormStyles';
 
 class Projects extends Component {
   state = {
+    submitSuccess: false,
+    submitFailure: false,
     projectImg: "",
+    projectImgValidation: true,
+    projectImgUploadSuccess: false,
     projectTitle: "",
+    projectTitleValidation: true,
     projectLink: "",
+    projectLinkValidation: true,
     projectDescription: "",
+    projectDescriptionValidation: true,
     projects: this.props.userInfo.userProjects || []
   }
 
@@ -37,7 +45,10 @@ class Projects extends Component {
     // Define what happens on successful data submission
     XHR.addEventListener('load', function(event) {
       let url = JSON.parse(event.target.responseText);
-      self.setState({projectImg: url.imgUrl})
+      self.setState({projectImg: url.imgUrl, projectImgUploadSuccess: true})
+      setTimeout(() => {
+        self.setState({projectImgUploadSuccess: false})
+      }, 2000)
     });
 
     // Define what happens in case of error
@@ -54,7 +65,37 @@ class Projects extends Component {
 
   checkOnSubmit = (e) => {
     e.preventDefault()
+
     const { projectTitle, projectImg, projectLink, projectDescription } = this.state;
+
+    if (projectImg === "") {
+      this.setState({projectImgValidation: false})
+      return
+    } else {
+      this.setState({projectImgValidation: true})
+    }
+
+    if (projectTitle === "") {
+      this.setState({projectTitleValidation: false})
+      return
+    } else {
+      this.setState({projectTitleValidation: true})
+    }
+    
+    if (projectLink === "") {
+      this.setState({projectLinkValidation: false})
+      return
+    } else {
+      this.setState({projectLinkValidation: true})
+    }
+    
+    if (projectDescription === "") {
+      this.setState({projectDescriptionValidation: false})
+      return
+    } else {
+      this.setState({projectDescriptionValidation: true})
+    }
+
     const lePackage = {
       user_id: this.props.userInfo.id,
       project_title: projectTitle,
@@ -62,13 +103,29 @@ class Projects extends Component {
       link: projectLink,
       project_description: projectDescription
     }
-    console.log(lePackage)
+
+
     axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/projects`, lePackage)
       .then(res => {
-        console.log(res.data)
+        this.setState({
+          submitSuccess: true,
+          projectTitle: "",
+          projectImg: "",
+          projectLink: "",
+          projectDescription: "",
+        })
+        setTimeout(() => {
+          this.setState({ submitSuccess: false })
+        }, 2000)
         this.props.updateProgress()
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        this.setState({ submitFailure: true })
+        setTimeout(() => {
+          this.setState({ submitFailure: false })
+        }, 2000)
+        console.log(err)
+      })
   }
 
 
@@ -92,19 +149,32 @@ class Projects extends Component {
                     Choose a Project Image:
                   </label>
                 </LabelContainer>
-                <div className="img-input-sub-container">
-                  <div className="img-input-overlay">
-                    <i className="fa fa-upload fa-2x"></i>
+                <Validator validated={this.state.projectImgValidation}>
+                  <div className="img-input-sub-container validate">
+
+                    {this.state.projectImgUploadSuccess ?
+                      <div className="img-input-overlay">
+                        <i className="fa fa-check-circle fa-2x"></i>
+                      </div>
+                      :
+                      <div className="img-input-overlay">
+                        <i className="fa fa-upload fa-2x"></i>
+                      </div>
+                    }
+
+                    <input
+                      id="userProjectImg"
+                      type="file"
+                      accept="image/*"
+                      encrypt="multipart/form-data"
+                      onChange={this.uploadPhotoProj}
+                    />
                   </div>
-                  <input
-                    id="userProjectImg"
-                    type="file"
-                    accept="image/*"
-                    encrypt="multipart/form-data"
-                    onChange={this.uploadPhotoProj}
-                  />
-                </div>
+                </Validator>
+
               </ImageContainer>
+
+
 
               {/* projtitle */}
               <div className="text-input-container">
@@ -113,33 +183,39 @@ class Projects extends Component {
                   Project Name:
                   </label>
                 </LabelContainer>
-                <TextInput
-                  id="userProjectTitle"
-                  name="projectTitle"
-                  className="text-input"
-                  placeholder="My Cool Project"
-                  focusIndicator
-                  value={this.state.projectTitle}
-                  onChange={this.onInputChange}
-                />
+                <Validator validated={this.state.projectTitleValidation}>
+                  <TextInput
+                    id="userProjectTitle"
+                    name="projectTitle"
+                    className="validated-text-input"
+                    placeholder="My Cool Project"
+                    focusIndicator
+                    plain
+                    value={this.state.projectTitle}
+                    onChange={this.onInputChange}
+                  />
+                </Validator>
               </div>
 
               {/* link */}
               <div className="text-input-container">
                 <LabelContainer>
                   <label htmlFor="userProjectLink">
-                  Project Link:
+                    Project Link:
                   </label>
                 </LabelContainer>
-                <TextInput
-                  id="userProjectLink"
-                  name="projectLink"
-                  className="text-input"
-                  placeholder="www.mysite.com"
-                  focusIndicator
-                  value={this.state.projectLink}
-                  onChange={this.onInputChange}
-                />
+                <Validator validated={this.state.projectLinkValidation}>
+                  <TextInput
+                    id="userProjectLink"
+                    name="projectLink"
+                    className="validated-text-input"
+                    placeholder="www.mysite.com"
+                    focusIndicator
+                    plain
+                    value={this.state.projectLink}
+                    onChange={this.onInputChange}
+                  />
+                </Validator>
               </div>
 
               {/* projdescription */}
@@ -149,19 +225,21 @@ class Projects extends Component {
                     Summary:
                   </label>
                 </LabelContainer>
-                <TextArea
-                  id="userProjectDescription"
-                  name="projectDescription"
-                  className="text-input"
-                  placeholder="Some Project Description - This is 128 characters or so describing how
-                  awesome I am and why you should like me. Similar
-                  to what I put on my LinkedIn!"
-                  maxLength="128"
-                  focusIndicator
-                  resize="vertical"
-                  value={this.state.projectDescription}
-                  onChange={this.onInputChange}
-                />
+                <Validator validated={this.state.projectDescriptionValidation}>
+                  <TextArea
+                    id="userProjectDescription"
+                    name="projectDescription"
+                    className="validated-text-input"
+                    placeholder="Here you can give a quick summary of your project, your elevator pitch! Max length is 128 characters"
+                    maxLength="128"
+                    style={{height: '120px'}}
+                    focusIndicator
+                    plain
+                    resize={false}
+                    value={this.state.projectDescription}
+                    onChange={this.onInputChange}
+                  />
+                </Validator>
               </div>
             </form>
           </FormSection>
@@ -181,7 +259,13 @@ class Projects extends Component {
             <Link to="/dashboard/about-you">Back</Link>
           </div>
           <div>
-            <button onClick={this.checkOnSubmit}>Save Info</button>
+            <button onClick={this.checkOnSubmit}>
+              {this.state.submitSuccess ?
+                <i className="success fa fa-check-circle fa-2x"></i>
+                :
+                'Save Info'
+              }
+            </button>
           </div>
           <div>
             <Link to="/dashboard/experience">Next</Link>

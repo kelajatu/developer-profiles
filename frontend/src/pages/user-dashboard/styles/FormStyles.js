@@ -41,6 +41,14 @@ export const FormSection = styled.section`
   }
 `;
 
+export const Validator = styled.div`
+  width: 85%;
+  border: solid;
+  border-color: ${props => (props.validated ? "rgba(0,0,0,.33)" : "red")};
+  border-width: ${props => (props.validated ? "1px" : "2px")};
+  border-radius: 4px;
+`;
+
 export const LabelContainer = styled.div`
   display: flex;
   align-items: baseline;
@@ -80,6 +88,10 @@ export const ImageContainer = styled.div`
       }
     }
   }
+  .validate {
+    width: 100%;
+    border: none;
+  }
 `;
 
 
@@ -95,6 +107,10 @@ export const ButtonContainer = styled.div`
   div {
     width: 30%;
     text-align: center;
+  }
+
+  .success {
+    color: green;
   }
 
   button {
