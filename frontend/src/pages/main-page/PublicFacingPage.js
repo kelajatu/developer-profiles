@@ -47,8 +47,9 @@ class PublicFacingPage extends Component {
         this.setState({
             loading: true,
         })
-        console.log("filter", params)
+        // console.log("filter", params)
         axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/filter`, params).then(response => {
+            console.log(response)
             this.setState({
                 modUsers: response.data.usersArr, 
                 usersReturned: response.data.usersReturned,
@@ -58,6 +59,11 @@ class PublicFacingPage extends Component {
                 loading: false,
             })
         }).catch(error => {
+            this.setState({
+                error: true,
+                loading: false,
+                errorMsg: error.message,
+            })
             console.log(error)
         })
     }

@@ -44,7 +44,7 @@ class UserCard extends Component{
     }
 
     getUserExtras = (extra) => {
-        axios.get(`https://developer-profiles.herokuapp.com/users/${this.props.id}/${extra}`).then(response => {
+        axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.id}/${extra}`).then(response => {
             this.setState({[extra]: response.data})
         }).catch(err => {
             console.log(err)
@@ -52,7 +52,7 @@ class UserCard extends Component{
     }
 
     getUserSkills = (skilltype) => {
-        axios.get(`https://developer-profiles.herokuapp.com/users/${this.props.id}/skills/${skilltype}`).then(response => {
+        axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.id}/skills/${skilltype}`).then(response => {
             this.setState({[skilltype]: response.data})
         }).catch(err => {
             console.log(err)
