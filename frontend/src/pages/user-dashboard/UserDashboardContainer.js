@@ -4,10 +4,8 @@ import axios from 'axios';
 import styled from 'styled-components';
 
 import UserDashboardNav from './UserDashboardNav'
-import UserCardPreview from './UserCardPreview'
-import UserCardProgress from './UserCardProgress'
-import UserDashboardIntro from './UserDashboardIntro'
-import UserDashboardNew from './UserDashboardNew'
+import UserDashboardIntro from './user/UserDashboardIntro'
+import UserDashboardNew from './user/UserDashboardNew'
 
 import PersonalInfo from './personal-info/PersonalInfo';
 import WhereToFindYou from './where-to-find/WhereToFindYou';
