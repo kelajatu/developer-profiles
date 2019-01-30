@@ -3,9 +3,9 @@ const server = express.Router()
 const db = require('../helpers/index.js')
 
 function distance(lat1, lon1, lat2, lon2, miles) {
-    console.log(lat1, lon1)
-    console.log(lat2, lon2)
-    console.log(miles)
+    // console.log(lat1, lon1)
+    // console.log(lat2, lon2)
+    console.log("distance")
     if ((lat1 == lat2) && (lon1 == lon2)) {
         return true;
     }
@@ -31,15 +31,15 @@ function distance(lat1, lon1, lat2, lon2, miles) {
 }
 
 filterJob = (allArray, params) => {
+    console.log("filterJob")
     let newArr = allArray.filter(user => {
         return params.filters.includes(user.area_of_work)
     })
     return newArr
 }
 
-filterLocation = (allArray, params) => {
-    // console.log("filterLocation a", allArray)
-    console.log("filterLocation p", params)
+filterLocation = (allArray, params) => {    
+    console.log("filterLocation")
     let newArr = allArray.filter(user => {
         return distance(
             params.locatedLat, 
@@ -47,11 +47,12 @@ filterLocation = (allArray, params) => {
             user.current_location_lat, 
             user.current_location_lon, 
             params.milesFrom)
-    })
-    return newArr
-}
-
+        })
+        return newArr
+    }
+    
 filterReLocation = (allArray, params) => {
+    console.log("filterReLocation")
     let newArr = allArray.filter(user => {
         let arr = user.interested_location_names.split('|')
         return arr.includes(params.relocateName)
@@ -61,7 +62,7 @@ filterReLocation = (allArray, params) => {
 
 //get all users for card view
 server.post('/filter', (req, res) => {
-    console.log('61', req.body)
+    // console.log('61', req.body)
     db.user_helpers.getUsers().then(users => {
         let filteredArr = []
 
@@ -71,16 +72,22 @@ server.post('/filter', (req, res) => {
             filteredArr = users
         }
 
-        if(req.body.locatedLat && filteredArr.length > 0){
-            filteredArr = filterLocation(filteredArr, req.body)
+        if(req.body.locatedLat){
+            if(filteredArr.length > 0){
+                filteredArr = filterLocation(filteredArr, req.body)
+            } else {
+                filteredArr = filterLocation(users, req.body)
+            }
         }
 
-        if(req.body.relocateName  && filteredArr.length > 0){
-            console.log('true')
-            filteredArr = filterReLocation(filteredArr, req.body)
+        if(req.body.relocateName){
+            if(filteredArr.length > 0){
+                filteredArr = filterReLocation(filteredArr, req.body)
+            } else {
+                filteredArr = filterReLocation(users, req.body)
+            }
         }
 
-        let usersFound = filteredArr.length
         
         let shortendArr = []
         if(filteredArr.length < req.body.numOfResults){
@@ -89,6 +96,7 @@ server.post('/filter', (req, res) => {
             shortendArr = filteredArr.splice(0, req.body.numOfResults)
         }
         
+        let usersFound = filteredArr.length + req.body.numOfResults
         let returnPackage = {
             usersArr: shortendArr,
             usersFound: usersFound,
@@ -96,7 +104,7 @@ server.post('/filter', (req, res) => {
         }
         //return 10 at a time of filtered UserCards
         //10
-        // console.log("return package", returnPackage)
+        console.log("return package", returnPackage)
 
         res.status(200).json(returnPackage)
     }).catch(err => {

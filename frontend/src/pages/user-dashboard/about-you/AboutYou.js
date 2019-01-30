@@ -352,33 +352,33 @@ const FormSection = styled.section`
   }
 `;
 
-const PreviewSection = styled.section`
-  div {
-    padding: 20px;
-    width: 100%;
-    margin-bottom: 50px;
-  }
-  h3 {
-    margin-bottom: 25px;
-  }
-  p {
-    font-size: 1.7rem;
-    color: rgb(42,42,42);
-    line-height: 23px;
-    margin-bottom: 15px;
-  }
-  span {
-    &:hover {
-      cursor: pointer;
-    }
-  }
-  .selection {
-    &:hover {
-      background-color: rgba(173,216,230, .5);
-      cursor: pointer;
-    }
-  }
-`;
+// const PreviewSection = styled.section`
+//   div {
+//     padding: 20px;
+//     width: 100%;
+//     margin-bottom: 50px;
+//   }
+//   h3 {
+//     margin-bottom: 25px;
+//   }
+//   p {
+//     font-size: 1.7rem;
+//     color: rgb(42,42,42);
+//     line-height: 23px;
+//     margin-bottom: 15px;
+//   }
+//   span {
+//     &:hover {
+//       cursor: pointer;
+//     }
+//   }
+//   .selection {
+//     &:hover {
+//       background-color: rgba(173,216,230, .5);
+//       cursor: pointer;
+//     }
+//   }
+// `;
 
 const ButtonContainer = styled.div`
   width: 80%;

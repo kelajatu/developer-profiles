@@ -37,7 +37,7 @@ export default class JobTitles extends Component {
                       />
                       <CheckBox
                         className="checkmark" 
-                        checked={this.props.publicPageState.filters.includes('uiux')}
+                        checked={this.props.publicPageState.filters.includes('UI/UX')}
                         label='UI/UX'
                         onChange={() => this.props.toggleCheckMarks("UI/UX")}  
                       />

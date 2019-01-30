@@ -20,7 +20,8 @@ export default class Relocate extends Component {
                     lon="relocateLon"
                     value={this.props.publicPageState.relocateName}
                     placeholder='Anywhere, U.S.A.'
-                    updatePublicPageState={this.props.updatePublicPageState} 
+                    updatePublicPageState={this.props.updatePublicPageState}
+                    filter={this.props.filter}
                     />
             </RelocateDiv>
         )

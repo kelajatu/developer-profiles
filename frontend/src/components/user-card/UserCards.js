@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import UserCard from "../../components/user-card/UserCard";
 import { centerFlex } from "../../global-styles/Mixins";
-import { filter } from "bluebird";
+// import { filter } from "bluebird";
 
 export default class UserCards extends Component {
   constructor(props) {
@@ -14,38 +14,19 @@ export default class UserCards extends Component {
     };
 
     window.onscroll = () => {
-      console.log("start");
-      const {
-        loadUsers,
-        state: { error, loading, hasMore }
-      } = this;
-      const scroll = document.querySelector("#scroll");
-      // if (!error || loading) return;
-      console.log("1", window.innerHeight);
-      console.log("2", scroll.scrollHeight);
-      console.log("3", scroll.scrollTop);
-      console.log("4", document.documentElement.scrollTop);
-
-      if (
-        window.innerHeight + document.documentElement.scrollTop ==
-        scroll.scrollHeight
-      ) {
+      const { error, loading } = this.props.publicPageState;
+      const UserCardsDiv = document.querySelector("#scroll");
+      if (error || loading) return;
+      if(window.innerHeight + document.documentElement.scrollTop === UserCardsDiv.scrollHeight) {
         this.props.filter();
       }
     };
   }
 
   render() {
-    if (this.props.loading) {
-      return (
-        <LoaderContainer>
-          <h1>Loading...</h1>
-        </LoaderContainer>
-      );
-    } else {
       return (
         <UserCardsDiv id="scroll">
-          {this.props.modUsers.map(user => (
+          {this.props.publicPageState.modUsers.map(user => (
             <UserCard
               id={user.id}
               github={user.github}
@@ -61,9 +42,19 @@ export default class UserCards extends Component {
               location={user.location}
             />
           ))}
+          {this.props.publicPageState.loading ? 
+            <LoaderContainer>
+              <h1>Loading...</h1>
+            </LoaderContainer> : null
+          }
+          {this.props.publicPageState.error ? 
+            <div>
+              <p>Oops! There has been an error</p>
+              <p>Error: {this.props.publicPageState.errorMsg}</p>
+            </div> : null
+          }
         </UserCardsDiv>
       );
-    }
   }
 }
 
