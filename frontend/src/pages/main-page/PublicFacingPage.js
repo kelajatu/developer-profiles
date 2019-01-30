@@ -49,7 +49,7 @@ class PublicFacingPage extends Component {
                 modUsers: response.data.usersArr, 
                 usersReturned: response.data.usersReturned,
                 usersFound: response.data.usersFound,
-                numOfResults: this.state.numOfResults +5,
+                numOfResults: this.state.numOfResults+5,
                 loading: false,
             })
         }).catch(error => {
@@ -58,14 +58,20 @@ class PublicFacingPage extends Component {
     }
 
     //this modifies state->filters the checkmarks array
-    toggleCheckMarks = name => {
+    toggleCheckMarks = async name => {
         let newArr = this.state.filters;
-        if (newArr.includes(name)) {
-            let index = newArr.indexOf(name);
-            newArr.splice(index, 1);
+        // newArr.concat("monkey")
+        let newnew = []
+        if(newArr.includes(name)){
+            // let index = newArr.indexOf(name);
+            newnew = newArr.filter(item => item !== name);
         } else {
-            newArr.push(name);
+            newnew = newArr.concat(name);
         }
+        await this.setState({
+            filters: newnew,
+            numOfResults: 5
+        })
         //this will be trigger new request to filter
         this.filter();
     };
@@ -85,6 +91,7 @@ class PublicFacingPage extends Component {
                     filter={this.filter}
                 />
                 <UserCards
+                    updatePublicPageState={this.updatePublicPageState}
                     modUsers={this.state.modUsers}
                     loading={this.state.loading}
                     filter={this.filter}

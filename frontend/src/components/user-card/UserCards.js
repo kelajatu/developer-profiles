@@ -27,13 +27,15 @@ export default class UserCards extends Component {
       // console.log("4", document.documentElement.scrollTop);
 
       if(window.innerHeight + document.documentElement.scrollTop == scroll.scrollHeight) {
-        console.log("end of scroll")
+        // console.log("end of scroll")
+        this.setState({loading: true})
         this.props.filter();
       }
     };
   }
 
   render() {
+    console.log(this.state)
     if (this.props.loading) {
       return (
         <LoaderContainer>
