@@ -29,11 +29,14 @@ export class LocationAuto extends Component {
         }).catch(error => {
             console.log(error);
         });
+
+        //sets component state
         this.setState({ [this.props.name]: e.target.value });
         
-        if(e.target.value.length ===0){
+        //sets parent state
+        if(e.target.value.length === 0){
             this.props.updatePublicPageState({
-                [this.props.name]: e.target.value,
+                [this.props.name]: null,
                 [this.props.lat]: null,
                 [this.props.lon]: null,
             }) 
@@ -58,11 +61,13 @@ export class LocationAuto extends Component {
             [this.props.name]: name,
             locationAutocomplete: [],
         });
+        console.log(name)
         this.props.updatePublicPageState({
             [this.props.lat]: lat,
             [this.props.lon]: lng,
-            [this.props.name]: name,
+            [this.props.name]: name || null,
         }) 
+        this.props.filter(5)
         }).catch(err => console.log(err))
     }
 
@@ -99,7 +104,7 @@ export class LocationAuto extends Component {
                     }
                   </div>
                 </div>
-                <button onClick={() => this.props.filter(5)}>Refresh Filters</button>
+                <button onClick={() => this.props.filter(5, true)}>Refresh Filters</button>
               </LocationAutoDiv>
           )
       }

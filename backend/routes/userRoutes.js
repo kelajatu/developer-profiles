@@ -65,16 +65,13 @@ server.post('/filter', (req, res) => {
     // console.log('61', req.body)
     db.user_helpers.getUsers().then(users => {
         let filteredArr = []
-        let max = users.length 
-        if(max < req.body.numOfResults){
-            res.status(204).send("No more users avalible")
-        }
+
         if(req.body.filters.length > 0){
             filteredArr = filterJob(users, req.body)
         } else {
             filteredArr = users
         }
-
+        
         if(req.body.locatedLat){
             if(filteredArr.length > 0){
                 filteredArr = filterLocation(filteredArr, req.body)
@@ -91,25 +88,28 @@ server.post('/filter', (req, res) => {
             }
         }
 
+        let count = 0;
+        let shortendArr = filteredArr.filter(item => {
+            count++
+            if(count <= req.body.numOfResults){
+                return item
+            }
+        })
+
         
-        let shortendArr = []
-        if(filteredArr.length < req.body.numOfResults){
-            shortendArr = filteredArr
-        } else {
-            shortendArr = filteredArr.splice(0, req.body.numOfResults)
-        }
-        
-        let usersFound = filteredArr.length + req.body.numOfResults
+        let usersFound = filteredArr.length
+        console.log("usersFound", usersFound)
+        let usersReturned = shortendArr.length
+        console.log("usersReturned", usersReturned)
+
         let returnPackage = {
             usersArr: shortendArr,
             usersFound: usersFound,
-            usersReturned: shortendArr.length
+            usersReturned: usersReturned
         }
-        //return 10 at a time of filtered UserCards
-        //10
-        console.log("return package", returnPackage)
 
-        res.status(200).json(returnPackage)
+            res.status(200).json(returnPackage)
+
     }).catch(err => {
         console.log("there is an error in GET users/", err)
         res.status(500).json({message: "there is an error in GET users/", err: err})

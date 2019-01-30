@@ -35,7 +35,15 @@ class PublicFacingPage extends Component {
         this.filter(5)
     }
 
-    filter = (num=this.state.numOfResults) => {
+    filter = (num=this.state.numOfResults, reset=false) => {
+        if(reset){
+            this.setState({
+                endOfUsers: false
+            })
+        }
+        if(this.state.endOfUsers){
+            return
+        }
         let params = {
             filters: this.state.filters,
             locatedName: this.state.locatedCity,
@@ -48,25 +56,23 @@ class PublicFacingPage extends Component {
         this.setState({
             loading: true,
         })
-        // console.log("filter", params)
+        console.log("filter", params)
         axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/filter`, params).then(response => {
-            console.log(response)
-            switch (response.status){
-                case 200:
-                    this.setState({
-                        modUsers: response.data.usersArr, 
-                        usersReturned: response.data.usersReturned,
-                        usersFound: response.data.usersFound,
-                        numOfResults: num+5,
-                        cardsOnScreen: true,
-                        loading: false,
-                    })
-                    break;
-                case 204: 
-                    this.setState({
-                        endOfUsers: true,
-                        loading: false,
-                    })
+            this.setState({
+                modUsers: response.data.usersArr, 
+                usersReturned: response.data.usersReturned,
+                usersFound: response.data.usersFound,
+                cardsOnScreen: true,
+                loading: false,
+            })
+            if(response.data.usersFound === response.data.usersReturned){
+                this.setState({
+                    endOfUsers: true,
+                })
+            } else {
+                this.setState({
+                    numOfResults: num+5,
+                })
             }
         }).catch(error => {
             this.setState({
@@ -92,12 +98,13 @@ class PublicFacingPage extends Component {
             loading: true,
         })
         //this will be trigger new request to filter
-        this.filter(5);
+        this.filter(5, true);
     };
 
     //this is used in child components to modify publicPageState state
-    updatePublicPageState = update => {
+    updatePublicPageState = async update => {
         this.setState(update);
+        // this.filter(5, true)
     };
 
     render() {
