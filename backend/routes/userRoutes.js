@@ -3,9 +3,6 @@ const server = express.Router()
 const db = require('../helpers/index.js')
 
 function distance(lat1, lon1, lat2, lon2, miles) {
-    // console.log(lat1, lon1)
-    // console.log(lat2, lon2)
-    // console.log("distance")
     if ((lat1 == lat2) && (lon1 == lon2)) {
         return true;
     }
@@ -31,38 +28,40 @@ function distance(lat1, lon1, lat2, lon2, miles) {
 }
 
 filterJob = (allArray, params) => {
-    console.log("filterJob")
     let newArr = allArray.filter(user => {
-        return params.filters.includes(user.area_of_work)
+        if(user.area_of_work){
+            return params.filters.includes(user.area_of_work)
+        }
     })
     return newArr
 }
 
 filterLocation = (allArray, params) => {    
-    console.log("filterLocation")
     let newArr = allArray.filter(user => {
-        return distance(
-            params.locatedLat, 
-            params.locatedLon, 
-            user.current_location_lat, 
-            user.current_location_lon, 
-            params.milesFrom)
-        })
-        return newArr
-    }
+        if(user.current_location_lat && user.current_location_lon){
+            return distance(
+                params.locatedLat, 
+                params.locatedLon, 
+                user.current_location_lat, 
+                user.current_location_lon, 
+                params.milesFrom)
+        }
+    })
+    return newArr
+}
     
 filterReLocation = (allArray, params) => {
-    console.log("filterReLocation")
     let newArr = allArray.filter(user => {
-        let arr = user.interested_location_names.split('|')
-        return arr.includes(params.relocateName)
+        if(user.interested_location_names){
+            let arr = user.interested_location_names.split('|')
+            return arr.includes(params.relocateName)
+        }
     })
     return newArr
 }
 
 //get all users for card view
 server.post('/filter', (req, res) => {
-    // console.log('61', req.body)
     db.user_helpers.getUsers().then(users => {
         req.body.users = users
         let filteredArr = []
@@ -73,14 +72,7 @@ server.post('/filter', (req, res) => {
             filteredArr = users
         }
         return filteredArr
-       
-
-
-
-       
-
     }).then(filteredArr => {
-        console.log("1", filteredArr.length)
         if(req.body.relocateName){
             if(filteredArr.length > 0){
                 filteredArr = filterReLocation(filteredArr, req.body)
@@ -90,7 +82,6 @@ server.post('/filter', (req, res) => {
         }
         return filteredArr
     }).then(filteredArr => {
-        console.log("2", filteredArr.length)
         if(req.body.locatedLat){
             if(filteredArr.length > 0){
                 filteredArr = filterLocation(filteredArr, req.body)
@@ -100,7 +91,6 @@ server.post('/filter', (req, res) => {
         }
         return filteredArr
     }).then(filteredArr => {
-        console.log("3", filteredArr.length)
         let count = 0;
         let shortendArr = filteredArr.filter(item => {
             count++
@@ -109,7 +99,6 @@ server.post('/filter', (req, res) => {
             }
         })
 
-        
         let usersFound = filteredArr.length
         let usersReturned = shortendArr.length
 
@@ -121,8 +110,8 @@ server.post('/filter', (req, res) => {
 
         res.status(200).json(returnPackage)
     }).catch(err => {
-        console.log("there is an error in GET users/", err)
-        res.status(500).json({message: "there is an error in GET users/", err: err})
+        console.log("there is an error in GET users/", err, err.message)
+        res.status(500).json({message: "there is an error in GET users/", err: err, msg: err.message})
     })
 })
 //session maybe for optimazation?
