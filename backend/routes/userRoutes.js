@@ -3,6 +3,9 @@ const server = express.Router()
 const db = require('../helpers/index.js')
 
 function distance(lat1, lon1, lat2, lon2, miles) {
+    console.log(lat1, lon1)
+    console.log(lat2, lon2)
+    console.log(miles)
     if ((lat1 == lat2) && (lon1 == lon2)) {
         return true;
     }
@@ -34,17 +37,19 @@ filterJob = (allArray, params) => {
     return newArr
 }
 
-// filterLocation = (allArray, params) => {
-//     let newArr = allArray.filter(user => {
-//         return distance(
-//             params.locatedLat, 
-//             params.locatedLon, 
-//             user.current_location_lat, 
-//             user.current_location_lon, 
-//             params.milesFrom)
-//     })
-//     return newArr
-// }
+filterLocation = (allArray, params) => {
+    // console.log("filterLocation a", allArray)
+    console.log("filterLocation p", params)
+    let newArr = allArray.filter(user => {
+        return distance(
+            params.locatedLat, 
+            params.locatedLon, 
+            user.current_location_lat, 
+            user.current_location_lon, 
+            params.milesFrom)
+    })
+    return newArr
+}
 
 filterReLocation = (allArray, params) => {
     let newArr = allArray.filter(user => {
@@ -66,9 +71,9 @@ server.post('/filter', (req, res) => {
             filteredArr = users
         }
 
-        // if(req.body.locatedLat && filteredArr.length > 0){
-        //     filteredArr = filterLocation(filteredArr, req.body)
-        // }
+        if(req.body.locatedLat && filteredArr.length > 0){
+            filteredArr = filterLocation(filteredArr, req.body)
+        }
 
         if(req.body.relocateName  && filteredArr.length > 0){
             console.log('true')
