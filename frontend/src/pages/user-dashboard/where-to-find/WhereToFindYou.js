@@ -37,22 +37,15 @@ class WhereToFindYou extends Component {
     axios
     .post(`${process.env.REACT_APP_BACKEND_SERVER}/api/location`, {inputLocation: e})
     .then(response => {
-
-
       newObjArr = response.data.predictions.map(location => {
         return {
           name: location.description,
           id: location.place_id
         };
       });
-      console.log('NEWOOAR', newObjArr)
-
       newAutoArr = newObjArr.map(location => {
         return location.name;
       })
-      console.log('NEWAR', newAutoArr)
-
-
       self.setState({ locationAutocomplete: newAutoArr, currentLocationObjArr: newObjArr });
     })
     .catch(error => {
@@ -61,13 +54,10 @@ class WhereToFindYou extends Component {
   }
 
   chooseCurrentLocation = (e) => {
-
     let locationHolder = this.state.currentLocationObjArr.filter(location => {
       return location.name === e.value;
     })
-
     let id = locationHolder[0].id
-
     axios
     .post(`${process.env.REACT_APP_BACKEND_SERVER}/api/gio`, {placeId: id})
       .then(res => {
@@ -83,8 +73,6 @@ class WhereToFindYou extends Component {
         });
       })
       .catch(err => console.log(err))
-
-
   }
 
   // using put for axios call
@@ -106,7 +94,6 @@ class WhereToFindYou extends Component {
   // send to db
   checkOnSubmit = (e) => {
     e.preventDefault()
-
     const { github, linkedin, portfolio, currentLocationName, currentLocationLat, currentLocationLon } = this.state;
     const lePackage = {
       current_location_name: currentLocationName,
@@ -131,26 +118,22 @@ class WhereToFindYou extends Component {
 
   render() {
     console.log('WHERE', this.state)
-    const {currentLocationNameSuccess, githubSuccess, linkedinSuccess, portfolioSuccess, acclaimSuccess } = this.props.userInfo;
+    const {
+      currentLocationNameSuccess,
+      githubSuccess,
+      linkedinSuccess,
+      portfolioSuccess,
+      acclaimSuccess
+    } = this.props.userInfo;
     return (
       <MainFormContainer>
         <header>
           <h1>Where To Find You</h1>
         </header>
-
         <div className="container">
           <FormSection>
             <form>
-
-
-
-
-
-
-
-
-
-                {/* location - Autocomplete from google - saves location ID */}
+              {/* location */}
               <div className="select-input-container">
                 <LabelContainer>
                   <label htmlFor="usercurrentLocation">
@@ -164,7 +147,6 @@ class WhereToFindYou extends Component {
                     null
                   }
                 </LabelContainer>
-
                 <Select
                   id="usercurrentLocation"
                   name="currentLocationInput"
@@ -173,49 +155,7 @@ class WhereToFindYou extends Component {
                   onChange={this.chooseCurrentLocation}
                   options={this.state.locationAutocomplete}
                 />
-
-
-
-                {/* <div className="option" htmlFor="placeSuggestions">
-                  {this.state.locationAutocomplete.length === 0 ?
-                    null
-                    :
-                    this.state.locationAutocomplete.map(location => {
-                      return (
-                        <span
-                          id="placeSuggestions"
-                          key={location.id}
-                          tabIndex="0"
-                          data-name={location.name}
-                          data-id={location.id}
-                          onKeyUp={this.chooseOnEnter}
-                          onClick={this.chooseCurrentLocation}
-                        >
-                          {location.name}
-                        </span>
-                      );
-                    })
-                  }
-                </div> */}
               </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
               {/* github */}
               <div className="text-input-container">

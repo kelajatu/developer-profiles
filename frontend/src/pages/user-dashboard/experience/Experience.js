@@ -1,26 +1,24 @@
 import React, { Component } from 'react'
-import styled from 'styled-components';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { inputArea, labelArea } from '../../../global-styles/Mixins';
+import UserCardPreview from '../user/UserCardPreview';
+
+import { TextInput, TextArea } from 'grommet';
+import {
+  MainFormContainer,
+  FormSection,
+  LabelContainer,
+  ButtonContainer
+} from '../styles/FormStyles';
 
 
 class Experience extends Component {
   state = {
     jobTitle: "",
-    jobDates: "",
+    jobDatesFrom: "2000-05",
+    jobDatesTo: "2010-08",
     jobDescription: "",
-    experience: []
-  }
-
-  componentDidMount() {
-    if (this.props.userInfo.userExperience) {
-      this.setState({experience: this.props.userInfo.userExperience})
-    }
-    // for returning users
-    // get data from session storage
-    // hydrate state
-    // remove from session storage
+    experience: this.props.userInfo.userExperience || []
   }
 
   onInputChange = (e) => {
@@ -53,56 +51,113 @@ class Experience extends Component {
         <header>
           <h1>Experience</h1>
         </header>
-        <FormSection>
-          <form onSubmit={this.checkOnSubmit}>
 
-            <div>
+        <div className="container">
+          <FormSection>
+            <form>
+
               {/* jobtitle */}
-              <label htmlFor="userJobTitle">
-                Job Title:
-              </label>
-              <input
-                type="text"
-                id="userJobTitle"
-                placeholder="Software Engineer"
-                name="jobTitle"
-                value={this.state.jobTitle}
-                onChange={this.onInputChange}
-              />
-            </div>
+              <div className="text-input-container">
+                <LabelContainer>
+                  <label htmlFor="userJobTitle">
+                    Job Title:
+                  </label>
+                </LabelContainer>
+                <TextInput
+                  id="userJobTitle"
+                  name="jobTitle"
+                  className="text-input"
+                  placeholder="Software Engineer"
+                  focusIndicator
+                  value={this.state.jobTitle}
+                  onChange={this.onInputChange}
+                />
+              </div>
 
-            <div>
-              {/* jobdates - year/month options? */}
-              <label htmlFor="userJobDates">
-                Job Dates:
-              </label>
-              <input
-                type="text"
-                id="userJobDates"
-                placeholder="2017-2019"
-                name="jobDates"
-                value={this.state.jobDates}
-                onChange={this.onInputChange}
-              />
-            </div>
 
-            <div>
+
+
+
+              {/* jobdates */}
+              <div className="text-input-container">
+                <LabelContainer>
+                  <label htmlFor="userJobDatesFrom">
+                    Job Dates From:
+                  </label>
+                </LabelContainer>
+                <TextInput
+                  type="month"
+                  id="userJobDatesFrom"
+                  name="jobDatesFrom"
+                  className="text-input"
+                  focusIndicator
+                  value={this.state.jobDatesFrom}
+                  onChange={this.onInputChange}
+                />
+              </div>
+
+
+              {/* jobdates */}
+              <div className="text-input-container">
+                <LabelContainer>
+                  <label htmlFor="userJobDatesTo">
+                    Job Dates To:
+                  </label>
+                </LabelContainer>
+                <TextInput
+                  type="month"
+                  id="userJobDatesTo"
+                  name="jobDatesTo"
+                  className="text-input"
+                  focusIndicator
+                  value={this.state.jobDatesTo}
+                  onChange={this.onInputChange}
+                />
+              </div>
+
+
+
+
+
+
+
+
+
               {/* jobdescription */}
-              <label htmlFor="userJobDescription">
-                Job Description:
-              </label>
-              <textarea
-                id="userJobDescription"
-                placeholder="Some Job Description - This is 128 characters or so describing how
-                awesome I am and why you should like me. Similar
-                to what I put on my LinkedIn!"
-                name="jobDescription"
-                value={this.state.jobDescription}
-                onChange={this.onInputChange}
-              />
-            </div>
-          </form>
-        </FormSection>
+              <div className="text-input-container">
+                <LabelContainer>
+                  <label htmlFor="userJobDescription">
+                  Job Description:
+                  </label>
+                </LabelContainer>
+                <TextArea
+                  id="userJobDescription"
+                  name="jobDescription"
+                  className="text-input"
+                  placeholder="Some Job Description - This is 128 characters or so describing how
+                  awesome I am and why you should like me. Similar
+                  to what I put on my LinkedIn!"
+                  maxLength="128"
+                  focusIndicator
+                  resize="vertical"
+                  value={this.state.jobDescription}
+                  onChange={this.onInputChange}
+                />
+              </div>
+
+            </form>
+          </FormSection>
+          <section>
+            <header>
+              <LabelContainer>
+                <label>
+                  Profile Preview:
+                </label>
+              </LabelContainer>
+            </header>
+            <UserCardPreview userInfo={this.props.userInfo} />
+          </section>
+        </div>
         <ButtonContainer>
           <div>
             <Link to="/dashboard/projects">Back</Link>
@@ -118,95 +173,5 @@ class Experience extends Component {
     )
   }
 }
-
-const MainFormContainer = styled.main`
-  width: calc(100% - 300px);
-  margin-left: 300px;
-  padding-left: 100px;
-  padding-top: 130px;
-  @media (max-width: 1400px) {
-    width: calc(100% - 80px);
-    margin-left: 80px;
-  }
-  h1 {
-    font-size: 5rem;
-    color: rgb(42,42,42);
-    margin-bottom: 50px;
-    text-align: center;
-  }
-  h3 {
-    font-size: 2.8rem;
-    color: rgb(42,42,42);
-  }
-`;
-
-const FormSection = styled.section`
-  width: 50%;
-  margin-bottom: 100px;
-  margin: auto;
-  div {
-    margin-bottom: 30px;
-  }
-  label {
-    ${labelArea()};
-  }
-  input, textarea {
-    ${inputArea()};
-  }
-  textarea {
-    padding: 15px 15px 60px;
-    resize: vertical;
-  }
-`;
-
-const ButtonContainer = styled.div`
-  width: 80%;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
-  padding: 10px;
-
-  div {
-    width: 30%;
-    text-align: center;
-  }
-
-  button {
-    color: black;
-    padding: 20px;
-    width: 300px;
-    font-size: 1.7rem;
-    letter-spacing: 1.5px;
-    background: white;
-    border: solid 1px black;
-    border-radius: 20px;
-    &:hover {
-      cursor: pointer;
-      background: black;
-      color: white;
-    }
-  }
-
-  a {
-    display: block;
-    margin: auto;
-    width: 200px;
-    text-decoration: none;
-    color: black;
-    padding: 20px;
-    font-size: 1.7rem;
-    letter-spacing: 1.5px;
-    background: white;
-    border: solid 1px black;
-    border-radius: 20px;
-    &:hover {
-      cursor: pointer;
-      background: black;
-      color: white;
-    }
-  }
-`;
 
 export default Experience;

@@ -247,7 +247,7 @@ class PersonalInfo extends Component {
           <section>
             <header>
               <LabelContainer>
-                <label htmlFor="userDesiredTitle">
+                <label>
                 Profile Preview:
                 </label>
               </LabelContainer>

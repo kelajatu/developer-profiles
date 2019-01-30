@@ -1,27 +1,24 @@
 import React, { Component } from 'react'
-import styled from 'styled-components';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { inputArea, labelArea, centerFlex } from '../../../global-styles/Mixins';
+import UserCardPreview from '../user/UserCardPreview';
 
+import { TextInput, TextArea } from 'grommet';
+import {
+  MainFormContainer,
+  FormSection,
+  LabelContainer,
+  ImageContainer,
+  ButtonContainer
+} from '../styles/FormStyles';
 
 class Projects extends Component {
   state = {
-    projectTitle: "",
     projectImg: "",
+    projectTitle: "",
     projectLink: "",
     projectDescription: "",
-    projects: []
-  }
-
-  componentDidMount() {
-    if (this.props.userInfo.userProjects) {
-      this.setState({projects: this.props.userInfo.userProjects})
-    }
-    // for returning users
-    // get data from session storage
-    // hydrate state
-    // remove from session storage
+    projects: this.props.userInfo.userProjects || []
   }
 
   onInputChange = (e) => {
@@ -74,10 +71,6 @@ class Projects extends Component {
       .catch(err => console.log(err))
   }
 
-  deleteImage = () => {
-    // delete from db
-    this.setState({projectImg: ""})
-  }
 
   render() {
     console.log('P', this.state)
@@ -86,68 +79,23 @@ class Projects extends Component {
         <header>
           <h1>Projects</h1>
         </header>
+
+        
         <div className="container">
           <FormSection>
-            <form onSubmit={this.checkOnSubmit}>
+            <form>
 
-              <div>
-                {/* projtitle */}
-                <label htmlFor="userProjectTitle">
-                  Project Name:
-                </label>
-                <input
-                  type="text"
-                  id="userProjectTitle"
-                  placeholder="My Cool Project"
-                  name="projectTitle"
-                  value={this.state.projectTitle}
-                  onChange={this.onInputChange}
-                />
-              </div>
-
-              <div>
-                {/* link */}
-                <label htmlFor="userProjectLink">
-                  Project Link:
-                </label>
-                <input
-                  type="text"
-                  id="userProjectLink"
-                  placeholder="www.mysite.com"
-                  name="projectLink"
-                  value={this.state.projectLink}
-                  onChange={this.onInputChange}
-                />
-              </div>
-
-              <div>
-                {/* projdescription */}
-                <label htmlFor="userProjectDescription">
-                  Summary:
-                </label>
-                <textarea
-                  id="userProjectDescription"
-                  placeholder="Some Project Description - This is 128 characters or so describing how
-                  awesome I am and why you should like me. Similar
-                  to what I put on my LinkedIn!"
-                  name="projectDescription"
-                  value={this.state.projectDescription}
-                  onChange={this.onInputChange}
-                />
-              </div>
-            </form>
-          </FormSection>
-          <section>
-            {/* projimg - Upload Functionality */}
-            {/* image - see if you can send '/:id' param on uploadPhoto */}
-            {/* <ImageForm>
-              <label htmlFor="userProjectImg">
-                Choose a project picture:
-              </label>
-              <div className="upload-container">
-                {this.state.projectImg === "" ?
-                <div className="input-container">
-                  <span><i className="fa fa-upload fa-7x"></i><br/><p>350x350</p></span>
+              {/* Image */}
+              <ImageContainer>
+                <LabelContainer>
+                  <label htmlFor="userProjectImg">
+                    Choose a Project Image:
+                  </label>
+                </LabelContainer>
+                <div className="img-input-sub-container">
+                  <div className="img-input-overlay">
+                    <i className="fa fa-upload fa-2x"></i>
+                  </div>
                   <input
                     id="userProjectImg"
                     type="file"
@@ -156,19 +104,76 @@ class Projects extends Component {
                     onChange={this.uploadPhotoProj}
                   />
                 </div>
-                  :
-                  null
-                }
-                {this.state.projectImg === "" ?
-                  null
-                  :
-                  <div className="image-container">
-                    <span onClick={this.deleteImage}><i className="fa fa-times-circle fa-3x"></i></span>
-                    <img src={this.state.projectImg} alt="P"/>
-                  </div>
-                }
+              </ImageContainer>
+
+              {/* projtitle */}
+              <div className="text-input-container">
+                <LabelContainer>
+                  <label htmlFor="userProjectTitle">
+                  Project Name:
+                  </label>
+                </LabelContainer>
+                <TextInput
+                  id="userProjectTitle"
+                  name="projectTitle"
+                  className="text-input"
+                  placeholder="My Cool Project"
+                  focusIndicator
+                  value={this.state.projectTitle}
+                  onChange={this.onInputChange}
+                />
               </div>
-            </ImageForm> */}
+
+              {/* link */}
+              <div className="text-input-container">
+                <LabelContainer>
+                  <label htmlFor="userProjectLink">
+                  Project Link:
+                  </label>
+                </LabelContainer>
+                <TextInput
+                  id="userProjectLink"
+                  name="projectLink"
+                  className="text-input"
+                  placeholder="www.mysite.com"
+                  focusIndicator
+                  value={this.state.projectLink}
+                  onChange={this.onInputChange}
+                />
+              </div>
+
+              {/* projdescription */}
+              <div className="text-input-container">
+                <LabelContainer>
+                  <label htmlFor="userProjectDescription">
+                    Summary:
+                  </label>
+                </LabelContainer>
+                <TextArea
+                  id="userProjectDescription"
+                  name="projectDescription"
+                  className="text-input"
+                  placeholder="Some Project Description - This is 128 characters or so describing how
+                  awesome I am and why you should like me. Similar
+                  to what I put on my LinkedIn!"
+                  maxLength="128"
+                  focusIndicator
+                  resize="vertical"
+                  value={this.state.projectDescription}
+                  onChange={this.onInputChange}
+                />
+              </div>
+            </form>
+          </FormSection>
+          <section>
+            <header>
+              <LabelContainer>
+                <label>
+                  Profile Preview:
+                </label>
+              </LabelContainer>
+            </header>
+            <UserCardPreview userInfo={this.props.userInfo} />
           </section>
         </div>
         <ButtonContainer>
@@ -186,166 +191,5 @@ class Projects extends Component {
     )
   }
 }
-
-const MainFormContainer = styled.main`
-  width: calc(100% - 300px);
-  margin-left: 300px;
-  padding-top: 130px;
-  padding-left: 100px;
-  @media (max-width: 1400px) {
-    width: calc(100% - 80px);
-    margin-left: 80px;
-  }
-  h1 {
-    font-size: 5rem;
-    color: rgb(42,42,42);
-    margin-bottom: 50px;
-  }
-  h3 {
-    font-size: 2.8rem;
-    color: rgb(42,42,42);
-  }
-  .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    margin-bottom: 100px;
-    section {
-      width: 45%;
-    }
-  }
-`;
-
-const FormSection = styled.section`
-  width: 43%;
-  div {
-    margin-bottom: 30px;
-  }
-  label {
-    ${labelArea()};
-  }
-  input, textarea {
-    ${inputArea()};
-  }
-  textarea {
-    padding: 15px 15px 60px;
-    resize: vertical;
-  }
-`;
-
-const ImageForm = styled.form`
-  label {
-    ${labelArea()};
-  }
-  .upload-container {
-    width: 350px;
-    height: 350px;
-    border: solid .5px #dbdee2;
-    .input-container {
-      width: 100%;
-      height: 100%;
-      input[type=file] {
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        &:hover {
-          cursor: pointer;
-          color: gray;
-        }
-      }
-      span {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-      p {
-        text-align: center;
-        font-size: 1.4rem;
-        line-height: 23px;
-        font-family: inherit;
-        font-weight: bold;
-        color: rgb(42,42,42);
-        opacity: .8;
-      }
-      &:hover {
-        cursor: pointer;
-        color: gray;
-      }
-    }
-    .image-container {
-      width: 100%;
-      height: 100%;
-      span {
-        position: absolute;
-        height: 50px;
-        width: 50px;
-        top: 1%;
-        right: 1%;
-        z-index: 20;
-        ${centerFlex()};
-        &:hover {
-          cursor: pointer;
-          color: gray;
-        }
-      }
-      img {
-        width: 100%;
-        height: 100%;
-      }
-    }
-  }
-`;
-
-const ButtonContainer = styled.div`
-  width: 80%;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
-  padding: 10px;
-
-  div {
-    width: 30%;
-    text-align: center;
-  }
-
-  button {
-    color: black;
-    padding: 20px;
-    width: 300px;
-    font-size: 1.7rem;
-    letter-spacing: 1.5px;
-    background: white;
-    border: solid 1px black;
-    border-radius: 20px;
-    &:hover {
-      cursor: pointer;
-      background: black;
-      color: white;
-    }
-  }
-
-  a {
-    display: block;
-    margin: auto;
-    width: 200px;
-    text-decoration: none;
-    color: black;
-    padding: 20px;
-    font-size: 1.7rem;
-    letter-spacing: 1.5px;
-    background: white;
-    border: solid 1px black;
-    border-radius: 20px;
-    &:hover {
-      cursor: pointer;
-      background: black;
-      color: white;
-    }
-  }
-`;
 
 export default Projects;

@@ -1,26 +1,25 @@
 import React, { Component } from 'react'
-import styled from 'styled-components';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { inputArea, labelArea } from '../../../global-styles/Mixins';
+import UserCardPreview from '../user/UserCardPreview';
+
+import { TextInput, TextArea } from 'grommet';
+import {
+  MainFormContainer,
+  FormSection,
+  LabelContainer,
+  ButtonContainer
+} from '../styles/FormStyles';
+
 
 class Education extends Component {
   state = {
     schoolName: "",
-    schoolDates: "",
+    schoolDatesFrom: "2000-05",
+    schoolDatesTo: "2010-08",
     schoolCourse: "",
     schoolDegree: "",
-    education: []
-  }
-
-  componentDidMount() {
-    if (this.props.userInfo.userEducation) {
-      this.setState({education: this.props.userInfo.userEducation})
-    }
-    // for returning users
-    // get data from session storage
-    // hydrate state
-    // remove from session storage
+    education: this.props.userInfo.userEducation || []
   }
 
   onInputChange = (e) => {
@@ -54,70 +53,130 @@ class Education extends Component {
         <header>
           <h1>Education</h1>
         </header>
-        <FormSection>
-          <form onSubmit={this.checkOnSubmit}>
 
-            <div>
+        <div className="container">
+          <FormSection>
+            <form>
+
+
+
               {/* school */}
-              <label htmlFor="userSchoolName">
-                School Name:
-              </label>
-              <input
-                type="text"
-                id="userSchoolName"
-                placeholder="Lambda School"
-                name="schoolName"
-                value={this.state.schoolName}
-                onChange={this.onInputChange}
-              />
-            </div>
+              <div className="text-input-container">
+                <LabelContainer>
+                  <label htmlFor="userSchoolName">
+                    School Name:
+                  </label>
+                </LabelContainer>
+                <TextInput
+                  id="userSchoolName"
+                  name="schoolName"
+                  className="text-input"
+                  placeholder="Lambda School"
+                  focusIndicator
+                  value={this.state.schoolName}
+                  onChange={this.onInputChange}
+                />
+              </div>
 
-            <div>
-              {/* schooldates - year/month options? */}
-              <label htmlFor="userSchoolDates">
-                Dates Attended:
-              </label>
-              <input
-                type="text"
-                id="userSchoolDates"
-                placeholder="2017-2019"
-                name="schoolDates"
-                value={this.state.schoolDates}
-                onChange={this.onInputChange}
-              />
-            </div>
-            
-            <div>
+
+
+
+
+
+              {/* schooldates */}
+              <div className="text-input-container">
+                <LabelContainer>
+                  <label htmlFor="userSchoolDatesFrom">
+                    Dates Attended From:
+                  </label>
+                </LabelContainer>
+                <TextInput
+                  type="month"
+                  id="userSchoolDatesFrom"
+                  name="schoolDatesFrom"
+                  className="text-input"
+                  focusIndicator
+                  value={this.state.schoolDatesFrom}
+                  onChange={this.onInputChange}
+                />
+              </div>
+
+              {/* schooldates */}
+              <div className="text-input-container">
+                <LabelContainer>
+                  <label htmlFor="userSchoolDatesTo">
+                    Dates Attended To:
+                  </label>
+                </LabelContainer>
+                <TextInput
+                  type="month"
+                  id="userSchoolDatesTo"
+                  name="schoolDatesTo"
+                  className="text-input"
+                  focusIndicator
+                  value={this.state.schoolDatesTo}
+                  onChange={this.onInputChange}
+                />
+              </div>
+
+
+
+
+
+
               {/* course */}
-              <label htmlFor="userSchoolCourse">
-                School Course:
-              </label>
-              <input
-                type="text"
-                id="userSchoolCourse"
-                placeholder="Computer Science"
-                name="schoolCourse"
-                value={this.state.schoolCourse}
-                onChange={this.onInputChange}
-              />
-            </div>
+              <div className="text-input-container">
+                <LabelContainer>
+                  <label htmlFor="userSchoolCourse">
+                    School Course:
+                  </label>
+                </LabelContainer>
+                <TextInput
+                  id="userSchoolCourse"
+                  name="schoolCourse"
+                  className="text-input"
+                  placeholder="Computer Science"
+                  focusIndicator
+                  value={this.state.schoolCourse}
+                  onChange={this.onInputChange}
+                />
+              </div>
 
-            <div>
+
+
               {/* degree */}
-              <label htmlFor="userSchoolDegree">
-                Dates Attended:
-              </label>
-              <input
-                type="text"
-                id="userSchoolDegree"
-                placeholder="Bachelors"
-                name="schoolDegree"
-                value={this.state.schoolDegree}
-                onChange={this.onInputChange}
-              />
-            </div>
-          </form>
-        </FormSection>
+              <div className="text-input-container">
+                <LabelContainer>
+                  <label htmlFor="userSchoolDegree">
+                    School Degree:
+                  </label>
+                </LabelContainer>
+                <TextInput
+                  id="userSchoolDegree"
+                  name="schoolDegree"
+                  className="text-input"
+                  placeholder="Bachelors"
+                  focusIndicator
+                  value={this.state.schoolDegree}
+                  onChange={this.onInputChange}
+                />
+              </div>
+
+
+
+            </form>
+          </FormSection>
+          <section>
+            <header>
+              <LabelContainer>
+                <label>
+                  Profile Preview:
+                </label>
+              </LabelContainer>
+            </header>
+            <UserCardPreview userInfo={this.props.userInfo} />
+          </section>
+        </div>
         <ButtonContainer>
           <div>
             <Link to="/dashboard/experience">Back</Link>
@@ -133,90 +192,5 @@ class Education extends Component {
     )
   }
 }
-
-const MainFormContainer = styled.main`
-  width: calc(100% - 300px);
-  margin-left: 300px;
-  padding-top: 130px;
-  @media (max-width: 1400px) {
-    width: calc(100% - 80px);
-    margin-left: 80px;
-  }
-  h1 {
-    font-size: 5rem;
-    color: rgb(42,42,42);
-    margin-bottom: 50px;
-    text-align: center;
-  }
-  h3 {
-    font-size: 2.8rem;
-    color: rgb(42,42,42);
-  }
-`;
-
-const FormSection = styled.section`
-  width: 50%;
-  margin-bottom: 100px;
-  margin: auto;
-  div {
-    margin-bottom: 30px;
-  }
-  label {
-    ${labelArea()};
-  }
-  input {
-    ${inputArea()};
-  }
-`;
-
-const ButtonContainer = styled.div`
-  width: 80%;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
-  padding: 10px;
-
-  div {
-    width: 30%;
-    text-align: center;
-  }
-
-  button {
-    color: black;
-    padding: 20px;
-    width: 300px;
-    font-size: 1.7rem;
-    letter-spacing: 1.5px;
-    background: white;
-    border: solid 1px black;
-    border-radius: 20px;
-    &:hover {
-      cursor: pointer;
-      background: black;
-      color: white;
-    }
-  }
-
-  a {
-    display: block;
-    margin: auto;
-    width: 200px;
-    text-decoration: none;
-    color: black;
-    padding: 20px;
-    font-size: 1.7rem;
-    letter-spacing: 1.5px;
-    background: white;
-    border: solid 1px black;
-    border-radius: 20px;
-    &:hover {
-      cursor: pointer;
-      background: black;
-      color: white;
-    }
-  }
-`;
 
 export default Education;

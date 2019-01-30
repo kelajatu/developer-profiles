@@ -17,9 +17,7 @@ import Billing from './billing/Billing';
 
 
 class UserDashboardContainer extends Component {
-  state = {
-
-  }
+  state = {}
 
   updateProgress = () => {
     const userInfo = this.props.auth.getProfile();
