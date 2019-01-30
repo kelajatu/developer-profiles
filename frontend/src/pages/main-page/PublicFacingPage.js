@@ -35,9 +35,9 @@ class PublicFacingPage extends Component {
         this.filter(5)
     }
 
-    filter = (num=this.state.numOfResults, reset=false) => {
-        if(reset){
-            this.setState({
+    filter = async (num=this.state.numOfResults, reset=false) => {
+         if(reset){
+            await this.setState({
                 endOfUsers: false
             })
         }
@@ -64,6 +64,8 @@ class PublicFacingPage extends Component {
                 usersFound: response.data.usersFound,
                 cardsOnScreen: true,
                 loading: false,
+                error: false, 
+                errorMsg: null,
             })
             if(response.data.usersFound === response.data.usersReturned){
                 this.setState({

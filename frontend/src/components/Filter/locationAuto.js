@@ -17,7 +17,7 @@ export class LocationAuto extends Component {
         }
     }
  
-    inputHandler = (e) => {
+    inputHandler = async (e) => {
         axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/location`, {inputLocation: e.target.value}).then(response => {
             const newArr = response.data.predictions.map(location => {
                 return {
@@ -35,11 +35,13 @@ export class LocationAuto extends Component {
         
         //sets parent state
         if(e.target.value.length === 0){
-            this.props.updatePublicPageState({
+            console.log("zero")
+            await this.props.updatePublicPageState({
                 [this.props.name]: null,
                 [this.props.lat]: null,
                 [this.props.lon]: null,
             }) 
+            this.props.filter(5)
         } else {
             this.props.updatePublicPageState({
                 [this.props.name]: e.target.value,
@@ -53,21 +55,21 @@ export class LocationAuto extends Component {
         }
     }
     
-    chooseCurrentLocation = (e) => {
+    chooseCurrentLocation = async (e) => {
         const { id, name } = e.target.dataset
         axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/gio`, {placeId: id}).then(res => {
-        const { lat, lng } = res.data.result.geometry.location;
-        this.setState({
-            [this.props.name]: name,
-            locationAutocomplete: [],
-        });
-        console.log(name)
-        this.props.updatePublicPageState({
-            [this.props.lat]: lat,
-            [this.props.lon]: lng,
-            [this.props.name]: name || null,
-        }) 
-        this.props.filter(5)
+            const { lat, lng } = res.data.result.geometry.location;
+            this.setState({
+                [this.props.name]: name,
+                locationAutocomplete: [],
+            });
+            console.log(name)
+            this.props.updatePublicPageState({
+                [this.props.lat]: lat,
+                [this.props.lon]: lng,
+                [this.props.name]: name || null,
+            }) 
+            this.props.filter(5)
         }).catch(err => console.log(err))
     }
 

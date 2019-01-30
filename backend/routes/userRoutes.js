@@ -5,7 +5,7 @@ const db = require('../helpers/index.js')
 function distance(lat1, lon1, lat2, lon2, miles) {
     // console.log(lat1, lon1)
     // console.log(lat2, lon2)
-    console.log("distance")
+    // console.log("distance")
     if ((lat1 == lat2) && (lon1 == lon2)) {
         return true;
     }
@@ -64,6 +64,7 @@ filterReLocation = (allArray, params) => {
 server.post('/filter', (req, res) => {
     // console.log('61', req.body)
     db.user_helpers.getUsers().then(users => {
+        req.body.users = users
         let filteredArr = []
 
         if(req.body.filters.length > 0){
@@ -71,23 +72,35 @@ server.post('/filter', (req, res) => {
         } else {
             filteredArr = users
         }
-        
-        if(req.body.locatedLat){
-            if(filteredArr.length > 0){
-                filteredArr = filterLocation(filteredArr, req.body)
-            } else {
-                filteredArr = filterLocation(users, req.body)
-            }
-        }
+        return filteredArr
+       
 
+
+
+       
+
+    }).then(filteredArr => {
+        console.log("1", filteredArr.length)
         if(req.body.relocateName){
             if(filteredArr.length > 0){
                 filteredArr = filterReLocation(filteredArr, req.body)
             } else {
-                filteredArr = filterReLocation(users, req.body)
+                filteredArr = filterReLocation(req.body.users, req.body)
             }
         }
-
+        return filteredArr
+    }).then(filteredArr => {
+        console.log("2", filteredArr.length)
+        if(req.body.locatedLat){
+            if(filteredArr.length > 0){
+                filteredArr = filterLocation(filteredArr, req.body)
+            } else {
+                filteredArr = filterLocation(req.body.users, req.body)
+            }
+        }
+        return filteredArr
+    }).then(filteredArr => {
+        console.log("3", filteredArr.length)
         let count = 0;
         let shortendArr = filteredArr.filter(item => {
             count++
@@ -98,9 +111,7 @@ server.post('/filter', (req, res) => {
 
         
         let usersFound = filteredArr.length
-        console.log("usersFound", usersFound)
         let usersReturned = shortendArr.length
-        console.log("usersReturned", usersReturned)
 
         let returnPackage = {
             usersArr: shortendArr,
@@ -108,8 +119,7 @@ server.post('/filter', (req, res) => {
             usersReturned: usersReturned
         }
 
-            res.status(200).json(returnPackage)
-
+        res.status(200).json(returnPackage)
     }).catch(err => {
         console.log("there is an error in GET users/", err)
         res.status(500).json({message: "there is an error in GET users/", err: err})

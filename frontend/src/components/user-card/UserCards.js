@@ -27,7 +27,7 @@ export default class UserCards extends Component {
   }
 
   render() {
-    console.log(this.props.publicPageState.modUsers)
+    // console.log(this.props.publicPageState.modUsers)
       return (
         <UserCardsDiv id="scroll">
           {this.props.publicPageState.modUsers.map(user => (
