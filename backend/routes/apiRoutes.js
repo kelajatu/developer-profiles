@@ -62,7 +62,7 @@ server.post('/location', (req, res) => {
   const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${req.body.inputLocation}&types=(cities)&key=${key}`;
   axios.post(url)
   .then(response => {
-    console.log(response.data)
+    // console.log(response.data)
     res.send(response.data) // <= send data to the client
   })
   .catch(err => {

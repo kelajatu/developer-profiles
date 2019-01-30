@@ -5,98 +5,108 @@ import UserCards from "../../components/user-card/UserCards";
 import { PublicFacingPageDiv } from "./PublicFacingPage.style";
 
 class PublicFacingPage extends Component {
-  constructor(props) {
-    super(props);
-    //All elements that will be sent to the infinite scroll endpoint on the backend are stored in this state.
-    //Tho they are not all initialized here.
-    this.state = {
-      filters: [],
-      numCardsDisplaying: "all",
-      // updateRequired: false,
-      milesFrom: 5,
-      numOfResults: 5,
-      loading: true,
-      allUsers: [],
-      modUsers: []
+    constructor(props) {
+        super(props);
+        //All elements that will be sent to the infinite scroll endpoint on the backend are stored in this state.
+        //Tho they are not all initialized here.
+        this.state = {
+            filters: [],
+            numCardsDisplaying: "all",
+            // updateRequired: false,
+            milesFrom: 5,
+            numOfResults: 0,
+            loading: true,
+            cardsOnScreen: false,
+            error: false,
+            allUsers: [],
+            modUsers: []
 
-      // locatedCity: '',
-      // locatedLat: '',
-      // locatedLon: '',
-      // relocateCity: '',
-      // relocateLat: '',
-      // relocateLon: '',
-    };
-  }
-
-  componentDidMount() {
-    this.filter();
-  }
-
-  filter = () => {
-    console.log("frontend filter");
-    //USE Infinite scroll here and return into modUsers state
-    let params = {
-      filters: this.state.filters,
-      locatedName: this.state.locatedCity,
-      locatedLat: this.state.locatedLat,
-      locatedLon: this.state.locatedLon,
-      relocateName: this.state.relocateName,
-      relocateLat: this.state.relocateLat,
-      relocateLon: this.state.relocateLon,
-      numOfResults: this.state.numOfResults + 5
-    };
-    console.log(params);
-    axios
-      .post(`${process.env.REACT_APP_BACKEND_SERVER}/users/filter`, params)
-      .then(response => {
-        console.log("response in testInfinite", response);
-        this.setState({
-          modUsers: response.data.usersArr,
-          usersReturned: response.data.usersReturned,
-          usersFound: response.data.usersFound,
-          loading: false
-        });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
-
-  //this modifies state->filters the checkmarks array
-  toggleCheckMarks = name => {
-    let newArr = this.state.filters;
-    if (newArr.includes(name)) {
-      let index = newArr.indexOf(name);
-      newArr.splice(index, 1);
-    } else {
-      newArr.push(name);
+            // locatedCity: '',
+            // locatedLat: '',
+            // locatedLon: '',
+            // relocateCity: '',
+            // relocateLat: '',
+            // relocateLon: '',
+        }
     }
-    //this will be trigger new request to filter
-    this.filter();
-  };
 
-  //this is used in child components to modify publicPageState state
-  updatePublicPageState = update => {
-    this.setState(update);
-  };
+    componentDidMount(){
+        this.filter(5)
+    }
 
-  render() {
-    return (
-      <PublicFacingPageDiv>
-        <FilterBox
-          publicPageState={this.state}
-          toggleCheckMarks={this.toggleCheckMarks}
-          updatePublicPageState={this.updatePublicPageState}
-          testInfinite={this.testInfinite}
-        />
-        <UserCards
-          modUsers={this.state.modUsers}
-          loading={this.state.loading}
-          filter={this.filter}
-        />
-      </PublicFacingPageDiv>
-    );
-  }
+    filter = (num=this.state.numOfResults) => {
+        let params = {
+            filters: this.state.filters,
+            locatedName: this.state.locatedCity,
+            locatedLat: this.state.locatedLat,
+            locatedLon: this.state.locatedLon,
+            relocateName: this.state.relocateName,
+            numOfResults: num,
+            milesFrom: this.state.milesFrom,
+        }
+        this.setState({
+            loading: true,
+        })
+        // console.log("filter", params)
+        axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/filter`, params).then(response => {
+            console.log(response)
+            this.setState({
+                modUsers: response.data.usersArr, 
+                usersReturned: response.data.usersReturned,
+                usersFound: response.data.usersFound,
+                numOfResults: num+5,
+                cardsOnScreen: true,
+                loading: false,
+            })
+        }).catch(error => {
+            this.setState({
+                error: true,
+                loading: false,
+                errorMsg: error.message,
+            })
+            console.log(error)
+        })
+    }
+
+    //this modifies state->filters the checkmarks array
+    toggleCheckMarks = async name => {
+        let newArr = this.state.filters;
+        let newnew = []
+        if(newArr.includes(name)){
+            newnew = newArr.filter(item => item !== name);
+        } else {
+            newnew = newArr.concat(name);
+        }
+        await this.setState({
+            filters: newnew,
+            loading: true,
+        })
+        //this will be trigger new request to filter
+        this.filter(5);
+    };
+
+    //this is used in child components to modify publicPageState state
+    updatePublicPageState = update => {
+        this.setState(update);
+    };
+
+    render() {
+        return (
+            <PublicFacingPageDiv>
+                <FilterBox
+                    publicPageState={this.state}
+                    toggleCheckMarks={this.toggleCheckMarks}
+                    updatePublicPageState={this.updatePublicPageState}
+                    filter={this.filter}
+                />
+                <UserCards
+                    publicPageState={this.state}
+                    updatePublicPageState={this.updatePublicPageState}
+                    filter={this.filter}
+                />
+            </PublicFacingPageDiv>
+        );
+    }
 }
 
 export default PublicFacingPage;
