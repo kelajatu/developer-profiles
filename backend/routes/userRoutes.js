@@ -2,66 +2,96 @@ const express = require('express')
 const server = express.Router()
 const db = require('../helpers/index.js')
 
-filter = (allArray, params) => {
-    // console.log("allArray", allArray)
-    console.log("params", params)
-    let newArr = allArray.filter(item => {
-       //filter users cards base on city here
-       
-       //locate only , this calculated distance 
-       function distance(lat1, lon1, lat2, lon2, filter) {
-            if ((lat1 == lat2) && (lon1 == lon2)) {
-                return 0;
-            }
-            else {
-                var radlat1 = Math.PI * lat1/180;
-                var radlat2 = Math.PI * lat2/180;
-                var theta = lon1-lon2;
-                var radtheta = Math.PI * theta/180;
-                var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-                if (dist > 1) {
-                    dist = 1;
-                }
-                dist = Math.acos(dist);
-                dist = dist * 180/Math.PI;
-                dist = dist * 60 * 1.1515;
-        
-            if (dist < filter) {
-                console.log('user is within chosen miles of origin location!')
-                return dist;
-            } else {
-                console.log('user to too far!')
-                return dist;
-            }
-            }
-        }
-
-       //filters based on area of work
-        return params.filters.includes(item.area_of_work)
-    })
-    if(newArr.length === 0){
-        newArr = allArray
+function distance(lat1, lon1, lat2, lon2, miles) {
+    console.log(lat1, lon1)
+    console.log(lat2, lon2)
+    console.log(miles)
+    if ((lat1 == lat2) && (lon1 == lon2)) {
+        return true;
     }
-    // console.log("newArr in filter", newArr)
+    else {
+        var radlat1 = Math.PI * lat1/180;
+        var radlat2 = Math.PI * lat2/180;
+        var theta = lon1-lon2;
+        var radtheta = Math.PI * theta/180;
+        var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+        if (dist > 1) {
+            dist = 1;
+        }
+        dist = Math.acos(dist);
+        dist = dist * 180/Math.PI;
+        dist = dist * 60 * 1.1515;
+
+        if (dist < miles) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+filterJob = (allArray, params) => {
+    let newArr = allArray.filter(user => {
+        return params.filters.includes(user.area_of_work)
+    })
+    return newArr
+}
+
+filterLocation = (allArray, params) => {
+    // console.log("filterLocation a", allArray)
+    console.log("filterLocation p", params)
+    let newArr = allArray.filter(user => {
+        return distance(
+            params.locatedLat, 
+            params.locatedLon, 
+            user.current_location_lat, 
+            user.current_location_lon, 
+            params.milesFrom)
+    })
+    return newArr
+}
+
+filterReLocation = (allArray, params) => {
+    let newArr = allArray.filter(user => {
+        let arr = user.interested_location_names.split('|')
+        return arr.includes(params.relocateName)
+    })
     return newArr
 }
 
 //get all users for card view
 server.post('/filter', (req, res) => {
-    console.log(req.body)
+    console.log('61', req.body)
     db.user_helpers.getUsers().then(users => {
-        // console.log(users)
-        //users here
-        //req.body will have the state from front end. 
-        //filters
-        let filteredArr = filter(users, req.body)
-        console.log(typeof filteredArr)
-        // console.log(filteredArr)
-        let shortendArr = filteredArr.splice(0, req.body.numOfResults || 5)
+        let filteredArr = []
+
+        if(req.body.filters.length > 0){
+            filteredArr = filterJob(users, req.body)
+        } else {
+            filteredArr = users
+        }
+
+        if(req.body.locatedLat && filteredArr.length > 0){
+            filteredArr = filterLocation(filteredArr, req.body)
+        }
+
+        if(req.body.relocateName  && filteredArr.length > 0){
+            console.log('true')
+            filteredArr = filterReLocation(filteredArr, req.body)
+        }
+
+        let usersFound = filteredArr.length
+        
+        let shortendArr = []
+        if(filteredArr.length < req.body.numOfResults){
+            shortendArr = filteredArr
+        } else {
+            shortendArr = filteredArr.splice(0, req.body.numOfResults)
+        }
         
         let returnPackage = {
             usersArr: shortendArr,
-            usersFound: filteredArr.length,
+            usersFound: usersFound,
             usersReturned: shortendArr.length
         }
         //return 10 at a time of filtered UserCards

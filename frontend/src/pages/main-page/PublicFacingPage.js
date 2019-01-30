@@ -32,35 +32,32 @@ class PublicFacingPage extends Component {
     this.filter();
   }
 
-  filter = () => {
-    console.log("frontend filter");
-    //USE Infinite scroll here and return into modUsers state
-    let params = {
-      filters: this.state.filters,
-      locatedName: this.state.locatedCity,
-      locatedLat: this.state.locatedLat,
-      locatedLon: this.state.locatedLon,
-      relocateName: this.state.relocateName,
-      relocateLat: this.state.relocateLat,
-      relocateLon: this.state.relocateLon,
-      numOfResults: this.state.numOfResults + 5
-    };
-    console.log(params);
-    axios
-      .post(`${process.env.REACT_APP_BACKEND_SERVER}/users/filter`, params)
-      .then(response => {
-        console.log("response in testInfinite", response);
-        this.setState({
-          modUsers: response.data.usersArr,
-          usersReturned: response.data.usersReturned,
-          usersFound: response.data.usersFound,
-          loading: false
-        });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
+    filter = () => {
+        //USE Infinite scroll here and return into modUsers state
+        let params = {
+            filters: this.state.filters,
+            locatedName: this.state.locatedCity,
+            locatedLat: this.state.locatedLat,
+            locatedLon: this.state.locatedLon,
+            relocateName: this.state.relocateName,
+            // relocateLat: this.state.relocateLat,
+            // relocateLon: this.state.relocateLon,
+            numOfResults: this.state.numOfResults,
+            milesFrom: this.state.milesFrom,
+        }
+        console.log("frontend filter", params)
+        axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/filter`, params).then(response => {
+            console.log("response in testInfinite", response)
+            this.setState({
+                modUsers: response.data.usersArr, 
+                usersReturned: response.data.usersReturned,
+                usersFound: response.data.usersFound,
+                loading: false,
+            })
+        }).catch(error => {
+            console.log(error)
+        })
+    }
 
   //this modifies state->filters the checkmarks array
   toggleCheckMarks = name => {
@@ -87,7 +84,7 @@ class PublicFacingPage extends Component {
           publicPageState={this.state}
           toggleCheckMarks={this.toggleCheckMarks}
           updatePublicPageState={this.updatePublicPageState}
-          testInfinite={this.testInfinite}
+          filter={this.filter}
         />
         <UserCards
           modUsers={this.state.modUsers}
