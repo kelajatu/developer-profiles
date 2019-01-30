@@ -1,12 +1,7 @@
 import styled from "styled-components";
 import bg_img from "./img/agreement.jpg";
 export const LandingPageDiv = styled.div`
-  /* h1 {
-    line-height: 50px;
-    font-size: 5rem;
-    font-weight: 900;
-    margin-bottom: 0.4em;
-  } */
+
 
 `;
 

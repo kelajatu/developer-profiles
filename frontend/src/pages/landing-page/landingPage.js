@@ -22,7 +22,7 @@ class LandingPage extends Component {
                 HEllo hello!afadfgagraefgadfafsdweadfasdfkjsdfjkabfgkadbfjkasf
               </p>
               <a href="#recruiters">
-                <Btn className="stripe">Recruiters</Btn>
+                <Btn>Recruiters</Btn>
               </a>{" "}
             </CallToAction>
             <CallToAction>
@@ -30,7 +30,7 @@ class LandingPage extends Component {
                 HEllo hello!afadfgagraefgadfafsdweadfasdfkjsdfjkabfgkadbfjkasf
               </p>
               <a href="#developers">
-                <Btn className="stripe">Developers</Btn>
+                <Btn>Developers</Btn>
               </a>
             </CallToAction>
           </CTAContainer>
