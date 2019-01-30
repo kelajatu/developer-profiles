@@ -1,11 +1,35 @@
 import styled from "styled-components";
 
+export const Circle = styled.div`
+  background: #003FA0;
+  position: relative;
+  left: -32px;
+  bottom: -px;
+  height: 640px;
+  width: 640px;
+
+  padding-top: 9em;
+  padding-left: 5em;
+  border-radius: 50%;
+
+  z-index: 0;
+
+  h1 {
+    font-size: 80px;
+    line-height: 100px;
+    font-weight: bold;
+    color: white;
+  }
+`;
 export const ContentBoxSection = styled.div`
-  max-width: 1000px;
+
+  z-index:1;
+  max-width:1400px;
   /* border: 1px solid red; */
   width: 100%;
   text-align: left;
-  margin-top: 175px;
+  margin: auto;
+
   padding: 2em;
 
   a {
@@ -18,15 +42,15 @@ export const ContentBoxSection = styled.div`
 `;
 
 export const CTAContainer = styled.div`
-display: flex;
-flex: row;
-`
+  display: flex;
+  flex: row;
+`;
 
 export const CallToAction = styled.div`
- display: flex;
- flex-direction: column;
- border: 1px solid blue;
-`
+  display: flex;
+  flex-direction: column;
+  border: 1px solid blue;
+`;
 
 export const Btn = styled.div`
   @keyframes stripe-slide {
@@ -102,5 +126,3 @@ export const Btn = styled.div`
     }
   }
 `;
-
-
