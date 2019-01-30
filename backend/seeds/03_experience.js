@@ -1,4 +1,5 @@
 var faker = require('faker')
+require("dotenv").config();
 
 exports.seed = function(knex, Promise) {
     // Deletes ALL existing entries
@@ -6,7 +7,7 @@ exports.seed = function(knex, Promise) {
         .del()
         .then(function () {
             let arr = []
-            let num = 500;
+            let num = process.env.SEEDS_NUM;
             while(num > 0){
                 arr.push({
                     user_id: num,

@@ -2,9 +2,9 @@ const express = require('express')
 const server = express.Router()
 const db = require('../helpers/index.js')
 
-function distance(lat1=params.locatedLat, lon1=params.locatedLon, lat2=item.current_location_lat, lon2=item.current_location_lon, miles=params.milesFrom) {
+function distance(lat1, lon1, lat2, lon2, miles) {
     if ((lat1 == lat2) && (lon1 == lon2)) {
-        return 0;
+        return true;
     }
     else {
         var radlat1 = Math.PI * lat1/180;
@@ -19,52 +19,74 @@ function distance(lat1=params.locatedLat, lon1=params.locatedLon, lat2=item.curr
         dist = dist * 180/Math.PI;
         dist = dist * 60 * 1.1515;
 
-    if (dist < miles) {
-        console.log('user is within chosen miles of origin location!')
-        return true;
-    } else {
-        console.log('user to too far!')
-        return false;
-    }
+        if (dist < miles) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
-filter = (allArray, params) => {
-    // console.log("allArray", allArray)
-    console.log("params", params)
-    let newArr = allArray.filter(item => {
-       //filter users cards base on city here
-       if(params.locatedLat){
-           return distance(lat1=params.locatedLat, lon1=params.locatedLon, lat2=item.current_location_lat, lon2=item.current_location_lon, miles=params.milesFrom)
-       } else if( params.filters){
-           //filters based on area of work
-            return params.filters.includes(item.area_of_work)
-       }
-       //locate only , this calculated distance 
+filterJob = (allArray, params) => {
+    let newArr = allArray.filter(user => {
+        return params.filters.includes(user.area_of_work)
     })
-    if(newArr.length === 0){
-        newArr = allArray
-    }
-    // console.log("newArr in filter", newArr)
+    return newArr
+}
+
+// filterLocation = (allArray, params) => {
+//     let newArr = allArray.filter(user => {
+//         return distance(
+//             params.locatedLat, 
+//             params.locatedLon, 
+//             user.current_location_lat, 
+//             user.current_location_lon, 
+//             params.milesFrom)
+//     })
+//     return newArr
+// }
+
+filterReLocation = (allArray, params) => {
+    let newArr = allArray.filter(user => {
+        let arr = user.interested_location_names.split('|')
+        return arr.includes(params.relocateName)
+    })
     return newArr
 }
 
 //get all users for card view
 server.post('/filter', (req, res) => {
-    console.log(req.body)
+    console.log('61', req.body)
     db.user_helpers.getUsers().then(users => {
-        // console.log(users)
-        //users here
-        //req.body will have the state from front end. 
-        //filters
-        let filteredArr = filter(users, req.body)
-        // console.log(typeof filteredArr)
-        // console.log(filteredArr)
-        let shortendArr = filteredArr.splice(0, req.body.numOfResults || 5)
+        let filteredArr = []
+
+        if(req.body.filters.length > 0){
+            filteredArr = filterJob(users, req.body)
+        } else {
+            filteredArr = users
+        }
+
+        // if(req.body.locatedLat && filteredArr.length > 0){
+        //     filteredArr = filterLocation(filteredArr, req.body)
+        // }
+
+        if(req.body.relocateName  && filteredArr.length > 0){
+            console.log('true')
+            filteredArr = filterReLocation(filteredArr, req.body)
+        }
+
+        let usersFound = filteredArr.length
+        
+        let shortendArr = []
+        if(filteredArr.length < req.body.numOfResults){
+            shortendArr = filteredArr
+        } else {
+            shortendArr = filteredArr.splice(0, req.body.numOfResults)
+        }
         
         let returnPackage = {
             usersArr: shortendArr,
-            usersFound: filteredArr.length,
+            usersFound: usersFound,
             usersReturned: shortendArr.length
         }
         //return 10 at a time of filtered UserCards
