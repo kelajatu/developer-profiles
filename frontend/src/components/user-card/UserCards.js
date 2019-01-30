@@ -26,9 +26,9 @@ export default class UserCards extends Component {
   }
 
   render() {
-    if(this.props.publicPageState.scrollToTop){
-      document.documentElement.scrollTop = 0
-    }
+      if(this.props.publicPageState.scrollToTop){
+        document.documentElement.scrollTop = 0
+      }
       return (
         <UserCardsDiv id="scroll">
           {this.props.publicPageState.modUsers.map(user => (

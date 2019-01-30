@@ -63,7 +63,7 @@ export class LocationAuto extends Component {
                 [this.props.name]: name,
                 locationAutocomplete: [],
             });
-            console.log(name)
+            // console.log(name)
             this.props.updatePublicPageState({
                 [this.props.lat]: lat,
                 [this.props.lon]: lng,
