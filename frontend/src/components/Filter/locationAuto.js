@@ -99,6 +99,7 @@ export class LocationAuto extends Component {
                     }
                   </div>
                 </div>
+                <button onClick={() => this.props.filter(5)}>Refresh Filters</button>
               </LocationAutoDiv>
           )
       }

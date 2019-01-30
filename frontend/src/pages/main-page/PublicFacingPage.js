@@ -10,46 +10,51 @@ class PublicFacingPage extends Component {
         //All elements that will be sent to the infinite scroll endpoint on the backend are stored in this state.
         //Tho they are not all initialized here.
         this.state = {
-        filters: [],
-        numCardsDisplaying: "all",
-        // updateRequired: false,
-        milesFrom: 5,
-        numOfResults: 5,
-        loading: true,
-        allUsers: [],
-        modUsers: []
+            filters: [],
+            numCardsDisplaying: "all",
+            // updateRequired: false,
+            milesFrom: 5,
+            numOfResults: 0,
+            loading: true,
+            cardsOnScreen: false,
+            error: false,
+            allUsers: [],
+            modUsers: []
 
-        // locatedCity: '',
-        // locatedLat: '',
-        // locatedLon: '',
-        // relocateCity: '',
-        // relocateLat: '',
-        // relocateLon: '',
-        };
+            // locatedCity: '',
+            // locatedLat: '',
+            // locatedLon: '',
+            // relocateCity: '',
+            // relocateLat: '',
+            // relocateLon: '',
+        }
     }
 
-    componentDidMount() {
-        this.filter();
+    componentDidMount(){
+        this.filter(5)
     }
 
-    filter = () => {
+    filter = (num=this.state.numOfResults) => {
         let params = {
             filters: this.state.filters,
             locatedName: this.state.locatedCity,
             locatedLat: this.state.locatedLat,
             locatedLon: this.state.locatedLon,
             relocateName: this.state.relocateName,
-            numOfResults: this.state.numOfResults,
+            numOfResults: num,
             milesFrom: this.state.milesFrom,
         }
-        console.log("frontend filter", params)
+        this.setState({
+            loading: true,
+        })
+        console.log("filter", params)
         axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/filter`, params).then(response => {
-            // console.log("response in testInfinite", response)
             this.setState({
                 modUsers: response.data.usersArr, 
                 usersReturned: response.data.usersReturned,
                 usersFound: response.data.usersFound,
-                numOfResults: this.state.numOfResults+5,
+                numOfResults: num+5,
+                cardsOnScreen: true,
                 loading: false,
             })
         }).catch(error => {
@@ -60,20 +65,18 @@ class PublicFacingPage extends Component {
     //this modifies state->filters the checkmarks array
     toggleCheckMarks = async name => {
         let newArr = this.state.filters;
-        // newArr.concat("monkey")
         let newnew = []
         if(newArr.includes(name)){
-            // let index = newArr.indexOf(name);
             newnew = newArr.filter(item => item !== name);
         } else {
             newnew = newArr.concat(name);
         }
         await this.setState({
             filters: newnew,
-            numOfResults: 5
+            loading: true,
         })
         //this will be trigger new request to filter
-        this.filter();
+        this.filter(5);
     };
 
     //this is used in child components to modify publicPageState state
@@ -91,9 +94,8 @@ class PublicFacingPage extends Component {
                     filter={this.filter}
                 />
                 <UserCards
+                    publicPageState={this.state}
                     updatePublicPageState={this.updatePublicPageState}
-                    modUsers={this.state.modUsers}
-                    loading={this.state.loading}
                     filter={this.filter}
                 />
             </PublicFacingPageDiv>
