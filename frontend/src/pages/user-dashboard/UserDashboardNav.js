@@ -62,7 +62,22 @@ const NavContainer = styled.nav`
   @media (max-width: 1400px) {
     width: 80px;
   }
+  @media (max-width: 650px) {
+    width: 100%;
+    height: 100px;
+    padding-top: 40px;
+    top: 0;
+    left: 0;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    border-right: none;
+    border-bottom: solid .5px #dbdee2;
+  }
   a {
+    @media (max-width: 650px) {
+      height: 100%;
+    }
     ${link("1.8rem", "rgb(42,42,42)")};
     padding: 20px;
     @media (max-width: 1400px) {

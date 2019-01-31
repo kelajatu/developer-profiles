@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { filterSection } from "../../global-styles/Mixins";
 import { RangeInput } from "grommet";
 import { LocationAuto } from "./locationAuto";
 
@@ -8,7 +7,7 @@ export default class Located extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      milesFrom: 5
+      milesFrom: 5,
     };
   }
 
@@ -24,13 +23,12 @@ export default class Located extends Component {
   render() {
     return (
       <LocatedDiv>
-        <h1>Located</h1>
-        <div className="container">
-            <span>within {this.props.publicPageState.milesFrom}</span>
-            <RangeInput min={5} max={1000} step={5} onChange={this.changeHandler} value={this.props.publicPageState.milesFrom} />
-            <span>miles of</span>
-        </div>
-        <label className="container">
+        <div className="range-container">
+          <h1>Located</h1>
+          <span className="within">within {this.props.publicPageState.milesFrom}</span>
+          <RangeInput min={5} max={300} step={5} onChange={this.changeHandler} value={this.props.publicPageState.milesFrom} />
+          <span className="milesOf">miles of</span>
+          <label className="container">
           <LocationAuto
             name="locatedCity"
             lat="locatedLat"
@@ -41,13 +39,40 @@ export default class Located extends Component {
             placeholder="Earth"
             filter={this.props.filter}
           />
-          {/* <span className="checkmark" /> */}
-        </label>
+          </label>
+        </div>
+
       </LocatedDiv>
     );
   }
 }
 
 const LocatedDiv = styled.div`
-  ${filterSection()}
+margin-bottom: 10px;
+  h1 {
+    font-size: 25px;
+  }
+  font-size: 15px;
+  @media (max-width: 839px) {
+       .range-container {
+         width: 100%;
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         span.within {
+           width: 90px;
+         }
+         .milesOf {
+           width: 80px;
+           margin-left: 10px;
+          
+         }
+       }
+       h1 {
+         margin-right: 5px;
+       }
+        @media (max-width: 480px) {
+          flex-direction: column;
+        }
+      }
 `;

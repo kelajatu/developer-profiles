@@ -13,7 +13,7 @@ export default class Relocate extends Component {
     render(){
         return(
             <RelocateDiv> 
-                <h1>Will Relocate to:</h1>
+                <h1>Will Relocate to</h1>
                 <LocationAuto 
                     name="relocateName"
                     lat="relocateLat"
@@ -29,5 +29,15 @@ export default class Relocate extends Component {
 }
 
 const RelocateDiv = styled.div`
-    ${filterSection()}
+  @media (max-width: 839px) {
+    display: flex;
+    align-items: center;
+    h1 {
+     margin-right: 10px;
+    }
+    @media (max-width: 480px) {
+
+    }
+   }
+
 `
