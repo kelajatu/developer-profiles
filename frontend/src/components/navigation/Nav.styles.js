@@ -30,6 +30,9 @@ export const MainNav = styled.nav`
       padding: 1rem 2rem;
       justify-content: center;
     }
+    @media (max-width: 480px) {
+      font-size: 15px;
+    }
     &:after {
       height: 2px;
       background: var(--accent-color);

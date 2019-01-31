@@ -15,7 +15,7 @@ export default class JobTitles extends Component {
         return(
             <JobTitlesDiv> 
                   <header>
-                    <h1>Filters</h1>
+                    <h1 className="filtersTitle">Filters</h1>
                   </header>
                   <form className="filters-container">
                       <CheckBox                         
@@ -48,11 +48,29 @@ export default class JobTitles extends Component {
 }
 
 const JobTitlesDiv = styled.div`
-    ${filterSection()}
+    span {
+        font-size: 15px;
+    }
+    @media (max-width: 839px) {
+        .filtersTitle {
+            display:none;
+        }
+    margin-bottom: 10px;
     .filters-container {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       height: 140px;
+      @media (max-width: 839px) {
+        flex-direction: row;
+        /* width: 370px; */
+        height: 60px;
+        h1 {
+            font-size: 18px;
+        }
+        @media (max-width: 480px) {
+          
+        }
+      }
     }
 `
