@@ -20,6 +20,9 @@ module.exports = {
 
     //uses array of IDs from user skills/places column and grabs the 
     //skills/places associated with those IDs in a batch
+
+
+    
     getUserSkills: async function(id, type){
       let currentSkills = await user_helpers.getUserSkillID(id, type)
       currentSkills = currentSkills[type].split(",");
@@ -27,6 +30,9 @@ module.exports = {
       return db("skills")
           .whereIn('id', currentSkills)
     },
+
+
+
     addKeywords: function(id, type, keywordsArr) {
         return db("users")
             .where({id: id})

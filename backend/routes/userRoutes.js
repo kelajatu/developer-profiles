@@ -172,6 +172,10 @@ server.delete('/:id', (req, res) => {
 })
 
 
+
+
+
+
 //get skills
 //expects type in path param as either "top_skills" "add_skills" or "familiar" 
 server.get('/:id/skills/:type', (req, res) => {
@@ -227,6 +231,11 @@ server.post('/:user_id/createskill/:type', (req, res) => {
         res.status(500).json({message: "there is an error in users/createskill/:id/:type at createKey", err: err})
     })
 })
+
+
+
+
+
 
 //gets projects, experience, or education 
 //expects one of the above terms in place of "extras" in path param. ex. '/:userid/education'

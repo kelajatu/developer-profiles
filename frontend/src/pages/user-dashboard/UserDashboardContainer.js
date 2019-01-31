@@ -55,7 +55,11 @@ class UserDashboardContainer extends Component {
           linkedinSuccess,
           portfolioSuccess,
           acclaimSuccess,
+          placesInterestedSuccess,
           summarySuccess,
+          topSkillsSuccess,
+          additionalSkillsSuccess,
+          familiarSkillsSuccess,
           stripeTokenSuccess
         ;
         console.log('UU', userInfo)
@@ -71,6 +75,7 @@ class UserDashboardContainer extends Component {
         userInfo.portfolio ? portfolioSuccess = true : portfolioSuccess = false;
         userInfo.badge ? acclaimSuccess = true : acclaimSuccess = false;
         userInfo.summary ? summarySuccess = true : summarySuccess = false;
+        userInfo.interested_location_names ? placesInterestedSuccess = true : placesInterestedSuccess = false;
         userInfo.stripe_token ? stripeTokenSuccess = true : stripeTokenSuccess = false;
         
         const allUserInfo = {
@@ -86,6 +91,7 @@ class UserDashboardContainer extends Component {
           linkedinSuccess,
           portfolioSuccess,
           acclaimSuccess,
+          placesInterestedSuccess,
           summarySuccess,
           stripeTokenSuccess,
           userProjects,
@@ -138,11 +144,14 @@ class UserDashboardContainer extends Component {
           linkedinSuccess,
           portfolioSuccess,
           acclaimSuccess,
+          placesInterestedSuccess,
           summarySuccess,
+          topSkillsSuccess,
+          additionalSkillsSuccess,
+          familiarSkillsSuccess,
           stripeTokenSuccess
         ;
         console.log('UU', userInfo)
-
         userInfo.image ? profileImgSuccess = true : profileImgSuccess = false;
         userInfo.public_email ? publicEmailSuccess = true : publicEmailSuccess = false;
         userInfo.first_name ? firstNameSuccess = true : firstNameSuccess = false;
@@ -155,7 +164,13 @@ class UserDashboardContainer extends Component {
         userInfo.portfolio ? portfolioSuccess = true : portfolioSuccess = false;
         userInfo.badge ? acclaimSuccess = true : acclaimSuccess = false;
         userInfo.summary ? summarySuccess = true : summarySuccess = false;
+        userInfo.interested_location_names ? placesInterestedSuccess = true : placesInterestedSuccess = false;
         userInfo.stripe_token ? stripeTokenSuccess = true : stripeTokenSuccess = false;
+        userInfo.top_skills ? topSkillsSuccess = true : topSkillsSuccess = false;
+        userInfo.add_skills ? additionalSkillsSuccess = true : additionalSkillsSuccess = false;
+        userInfo.familiar ? familiarSkillsSuccess = true : familiarSkillsSuccess = false;
+
+
 
         const allUserInfo = {
           ...userInfo,
@@ -170,7 +185,11 @@ class UserDashboardContainer extends Component {
           linkedinSuccess,
           portfolioSuccess,
           acclaimSuccess,
+          placesInterestedSuccess,
           summarySuccess,
+          topSkillsSuccess,
+          additionalSkillsSuccess,
+          familiarSkillsSuccess,
           stripeTokenSuccess,
           userProjects,
           userExperience,
