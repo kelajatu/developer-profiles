@@ -1,30 +1,33 @@
 import React, { Component } from 'react'
-import styled from 'styled-components';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { inputArea, labelArea } from '../../../global-styles/Mixins';
+import UserCard from '../../../components/user-card/UserCard';
 
+import { TextInput, Select } from 'grommet';
+import {
+  MainFormContainer,
+  FormSection,
+  LabelContainer,
+  ButtonContainer
+} from '../styles/FormStyles';
 
+var noLeaks;
 class WhereToFindYou extends Component {
   state = {
-    currentLocationInput: "",
+    submitSuccess: false,
+    submitFailure: false,
+
     locationAutocomplete: [],
+    currentLocationObjArr: [],
+    currentLocationInput: this.props.userInfo.current_location_name || "",
     currentLocationName: this.props.userInfo.current_location_name || "",
-    currentLocationLat: '',
-    currentLocationLon: '',
+    currentLocationLat: this.props.userInfo.current_location_lat || "",
+    currentLocationLon: this.props.userInfo.current_location_lon || "",
+
     github: this.props.userInfo.github || "",
     linkedin: this.props.userInfo.linkedin || "",
     portfolio: this.props.userInfo.portfolio || "",
-    acclaim: this.props.userInfo.badge ? 'Verified!' : "" || "",
-  }
-
-
-  componentDidMount() {
-    console.log(this.props.github)
-    // for returning users
-    // get data from session storage
-    // hydrate state
-    // remove from session storage
+    acclaim: this.props.userInfo.badge || "",
   }
 
   onInputChange = (e) => {
@@ -32,71 +35,52 @@ class WhereToFindYou extends Component {
   }
 
   onLocationChange = (e) => {
-    let newArr;
+    let newObjArr;
+    let newAutoArr;
     var self = this;
     axios
-    .post(`${process.env.REACT_APP_BACKEND_SERVER}/api/location`, {inputLocation: e.target.value})
+    .post(`${process.env.REACT_APP_BACKEND_SERVER}/api/location`, {inputLocation: e})
     .then(response => {
-      newArr = response.data.predictions.map(location => {
+      newObjArr = response.data.predictions.map(location => {
         return {
           name: location.description,
           id: location.place_id
         };
       });
-      self.setState({ locationAutocomplete: newArr });
+      newAutoArr = newObjArr.map(location => {
+        return location.name;
+      })
+      self.setState({ locationAutocomplete: newAutoArr, currentLocationObjArr: newObjArr });
     })
     .catch(error => {
       console.log(error);
     });
-    this.setState({ [e.target.name]: e.target.value });
-  }
-
-  chooseOnEnter = (e) => {
-    if (e.keyCode === 13) {
-      this.chooseCurrentLocation(e);
-    }
   }
 
   chooseCurrentLocation = (e) => {
-    const { id, name } = e.target.dataset
-    console.log(id, name)
+    let locationHolder = this.state.currentLocationObjArr.filter(location => {
+      return location.name === e.value;
+    })
+    let id = locationHolder[0].id
     axios
     .post(`${process.env.REACT_APP_BACKEND_SERVER}/api/gio`, {placeId: id})
       .then(res => {
-        console.log(res.data.result.geometry.location)
         const { lat, lng } = res.data.result.geometry.location;
         this.setState({
-          currentLocationName: name,
+          currentLocationInput: e.value,
+          currentLocationName: e.value,
           currentLocationLat: lat,
           currentLocationLon: lng,
-          locationAutocomplete: [],
-          currentLocationInput: ''
+          currentLocationObjArr: [],
+          locationAutocomplete: []
         });
       })
       .catch(err => console.log(err))
   }
 
-  // using put for axios call
-  checkAcclaim = (acclaimBadge) => {
-    let regex = /https:\/\/www.youracclaim.com\/badges\//;
-    let badge = acclaimBadge.replace(regex, '')
-    console.log(badge)
-    axios
-    .put(`${process.env.REACT_APP_BACKEND_SERVER}/api/acclaim/${this.props.userInfo.id}`, {badge})
-    .then(response => {
-      // add/save aclaim image / validate
-      console.log(response.data)
-    })
-    .catch(error => {
-      console.log(error);
-    });
-  }
-
   // send to db
   checkOnSubmit = (e) => {
     e.preventDefault()
-
-
     const { github, linkedin, portfolio, currentLocationName, currentLocationLat, currentLocationLon } = this.state;
     const lePackage = {
       current_location_name: currentLocationName,
@@ -108,135 +92,255 @@ class WhereToFindYou extends Component {
     }
 
 
-    console.log(this.props.userInfo.id)
-    axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
-      .then(res => {
-        console.log(res.data)
-        this.props.updateProgress()
+    // causes bug since it adds url to db on its own, instead of updating with this.props.updateProgress
+    // it will be in the db so if you refresh you'll see it
+    // also the image url is returned, so it will always fail if kept as input default
+    // server needs to create two columns, one for the image url, and one for the acclaim url
+    // add both to user, and return the acclaim url
+    // ugly quick fix for now..
+    if (this.state.acclaim !== "") {
+      let acclaimBadge = this.state.acclaim;
+      let regex = /https:\/\/www.youracclaim.com\/badges\//;
+      let badge = acclaimBadge.replace(regex, '')
+      axios
+      .put(`${process.env.REACT_APP_BACKEND_SERVER}/api/acclaim/${this.props.userInfo.id}`, {badge})
+      .then(response => {
+        axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
+          .then(res => {
+            this.setState({ submitSuccess: true })
+            noLeaks = setTimeout(() => {
+              this.setState({ submitSuccess: false })
+            }, 2000)
+            this.props.updateProgress()
+          })
+          .catch(err => {
+            this.setState({ submitFailure: true })
+            noLeaks = setTimeout(() => {
+              this.setState({ submitFailure: false })
+            }, 2000)
+            console.log(err)
+          })
       })
-      .catch(err => console.log(err))
+      .catch(error => {
+        console.log(error);
+      });
+      axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
+        .then(res => {
+          this.setState({ submitSuccess: true })
+          noLeaks = setTimeout(() => {
+            this.setState({ submitSuccess: false })
+          }, 2000)
+          this.props.updateProgress()
+        })
+        .catch(err => {
+          this.setState({ submitFailure: true })
+          noLeaks = setTimeout(() => {
+            this.setState({ submitFailure: false })
+          }, 2000)
+          console.log(err)
+        })
+    } else {
+      axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
+        .then(res => {
+          this.setState({ submitSuccess: true })
+          noLeaks = setTimeout(() => {
+            this.setState({ submitSuccess: false })
+          }, 2000)
+          this.props.updateProgress()
+        })
+        .catch(err => {
+          this.setState({ submitFailure: true })
+          noLeaks = setTimeout(() => {
+            this.setState({ submitFailure: false })
+          }, 2000)
+          console.log(err)
+        })
+    }
+  }
+
+  componentWillUnmount() {
+    clearTimeout(noLeaks)
   }
 
   render() {
-    console.log('WHERE', this.state)
+    const {
+      currentLocationNameSuccess,
+      githubSuccess,
+      linkedinSuccess,
+      portfolioSuccess,
+      acclaimSuccess
+    } = this.props.userInfo;
     return (
       <MainFormContainer>
         <header>
           <h1>Where To Find You</h1>
         </header>
+
         <div className="container">
           <FormSection>
-            <form onSubmit={this.checkOnSubmit}>
-              <div>
-                {/* location - Autocomplete from google - saves location ID */}
-                <label htmlFor="usercurrentLocation">
+            <form>
+            
+              {/* location */}
+              <div className="select-input-container">
+                <LabelContainer>
+                  <label htmlFor="usercurrentLocation">
                   Current Location:
-                </label>
-                <input
-                  type="text"
-                  autoComplete="off"
+                  </label>
+                  {currentLocationNameSuccess ?
+                    <span>
+                      <i className="success fa fa-check-circle"></i>
+                    </span>
+                    :
+                    null
+                  }
+                </LabelContainer>
+                <Select
                   id="usercurrentLocation"
-                  placeholder="Washington, DC"
                   name="currentLocationInput"
                   value={this.state.currentLocationInput}
-                  onChange={this.onLocationChange}
+                  onSearch={this.onLocationChange}
+                  onChange={this.chooseCurrentLocation}
+                  options={this.state.locationAutocomplete}
                 />
-                <div className="option" htmlFor="placeSuggestions">
-                  {this.state.locationAutocomplete.length === 0 ?
-                    null
-                    :
-                    this.state.locationAutocomplete.map(location => {
-                      return (
-                        <span
-                          id="placeSuggestions"
-                          key={location.id}
-                          tabIndex="0"
-                          data-name={location.name}
-                          data-id={location.id}
-                          onKeyUp={this.chooseOnEnter}
-                          onClick={this.chooseCurrentLocation}
-                        >
-                          {location.name}
-                        </span>
-                      );
-                    })
-                  }
-                </div>
               </div>
 
-              <div>
-                <label htmlFor="userGithub">
+              {/* github */}
+              <div className="text-input-container">
+                <LabelContainer>
+                  <label htmlFor="userGithub">
                   Github:
-                </label>
-                <input
-                  type="text"
+                  </label>
+                  {githubSuccess ?
+                    <span>
+                      <i className="success fa fa-check-circle"></i>
+                    </span>
+                    :
+                    null
+                  }
+                </LabelContainer>
+                <TextInput
                   id="userGithub"
-                  placeholder="coolProgrammer123"
                   name="github"
+                  className="text-input"
+                  placeholder="coolProgrammer123"
+                  focusIndicator
                   value={this.state.github}
                   onChange={this.onInputChange}
                 />
               </div>
 
-              <div>
-                <label htmlFor="userLinkedIn">
+              {/* linkedin */}
+              <div className="text-input-container">
+                <LabelContainer>
+                  <label htmlFor="userLinkedIn">
                   LinkedIn:
-                </label>
-                <input
-                  type="text"
+                  </label>
+                  {linkedinSuccess ?
+                    <span>
+                      <i className="success fa fa-check-circle"></i>
+                    </span>
+                    :
+                    null
+                  }
+                </LabelContainer>
+                <TextInput
                   id="userLinkedIn"
-                  placeholder="www.linkedIn.com/me"
                   name="linkedin"
+                  className="text-input"
+                  placeholder="www.linkedIn.com/me"
+                  focusIndicator
                   value={this.state.linkedin}
                   onChange={this.onInputChange}
                 />
               </div>
 
-              <div>
-                <label htmlFor="userPortfolio">
+              {/* portfolio */}
+              <div className="text-input-container">
+                <LabelContainer>
+                  <label htmlFor="userPortfolio">
                   Portfolio:
-                </label>
-                <input
-                  type="text"
+                  </label>
+                  {portfolioSuccess ?
+                    <span>
+                      <i className="success fa fa-check-circle"></i>
+                    </span>
+                    :
+                    null
+                  }
+                </LabelContainer>
+                <TextInput
                   id="userPortfolio"
-                  placeholder="www.myportfolio.com"
                   name="portfolio"
+                  className="text-input"
+                  placeholder="www.myportfolio.com"
+                  focusIndicator
                   value={this.state.portfolio}
                   onChange={this.onInputChange}
                 />
               </div>
 
-              <div>
-                <label htmlFor="userAcclaimBadge">
-                  Acclaim Badge:
-                </label>
-                <input
-                  type="text"
+              {/* acclaim */}
+              <div className="text-input-container">
+                <LabelContainer>
+                  <label htmlFor="userAcclaimBadge">
+                    Acclaim Badge:
+                  </label>
+                  {acclaimSuccess ?
+                    <span>
+                      <i className="success fa fa-check-circle"></i>
+                    </span>
+                    :
+                    null
+                  }
+                </LabelContainer>
+                <TextInput
                   id="userAcclaimBadge"
-                  placeholder="www.myportfolio.com"
                   name="acclaim"
+                  className="text-input"
+                  placeholder="https://www.youracclaim.com/badges/..."
+                  focusIndicator
                   value={this.state.acclaim}
                   onChange={this.onInputChange}
-                  onBlur={() => this.checkAcclaim(this.state.acclaim)}
                 />
               </div>
             </form>
           </FormSection>
-          {/* <PreviewSection>
-            <h3>Your Current Location</h3>
-            {this.state.currentLocationName === "" ?
-              <p>No Location Listed</p>
-              :
-              <p>{this.state.currentLocationName}</p>
-            }
-          </PreviewSection> */}
+          <section>
+            <header>
+              <LabelContainer>
+                <label htmlFor="userDesiredTitle">
+                Profile Preview:
+                </label>
+              </LabelContainer>
+            </header>
+            <UserCard
+              id={this.props.userInfo.id}
+              github={this.props.userInfo.github}
+              linkedin={this.props.userInfo.linkedin}
+              portfolio={this.props.userInfo.portfolio}
+              badge={this.props.userInfo.badge}
+              key={this.props.userInfo.id}
+              first_name={this.props.userInfo.first_name}
+              last_name={this.props.userInfo.last_name}
+              image={this.props.userInfo.image}
+              summary={this.props.userInfo.summary}
+              desired_title={this.props.userInfo.desired_title}
+              location={this.props.userInfo.current_location_name}
+            />
+          </section>
         </div>
         <ButtonContainer>
           <div>
             <Link to="/dashboard/personal-info">Back</Link>
           </div>
           <div>
-            <button onClick={this.checkOnSubmit}>Save Info</button>
+            <button onClick={this.checkOnSubmit}>
+              {this.state.submitSuccess ?
+                <i className="success fa fa-check-circle fa-2x"></i>
+                :
+                'Save Info'
+              }
+            </button>
           </div>
           <div>
             <Link to="/dashboard/about-you">Next</Link>
@@ -246,121 +350,5 @@ class WhereToFindYou extends Component {
     )
   }
 }
-
-const MainFormContainer = styled.main`
-  width: calc(100% - 300px);
-  margin-left: 300px;
-  padding-top: 130px;
-  padding-left: 100px;
-  @media (max-width: 1400px) {
-    width: calc(100% - 80px);
-    margin-left: 80px;
-  }
-  h1 {
-    font-size: 5rem;
-    color: rgb(42,42,42);
-    margin-bottom: 50px;
-  }
-  h3 {
-    font-size: 2.8rem;
-    color: rgb(42,42,42);
-  }
-  .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    section {
-      width: 45%;
-    }
-  }
-`;
-
-const FormSection = styled.section`
-  width: 43%;
-  div {
-    margin-bottom: 30px;
-  }
-  label, span {
-    ${labelArea()};
-  }
-  .option {
-    width: 95%;
-    span {
-      padding: 10px 0 10px 10px;
-      width: 95%;
-      &:hover {
-        background-color: rgba(173,216,230, .5);
-        cursor: pointer;
-      }
-      &:first-child {
-        margin-top: 20px;
-      }
-    }
-  }
-  input {
-    ${inputArea()};
-  }
-`;
-
-const PreviewSection = styled.section`
-  h3 {
-    margin-bottom: 30px;
-  }
-  p {
-    font-size: 1.7rem;
-    color: rgb(42,42,42);
-  }
-`;
-
-const ButtonContainer = styled.div`
-  width: 80%;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
-  padding: 10px;
-
-  div {
-    width: 30%;
-    text-align: center;
-  }
-
-  button {
-    color: black;
-    padding: 20px;
-    width: 300px;
-    font-size: 1.7rem;
-    letter-spacing: 1.5px;
-    background: white;
-    border: solid 1px black;
-    border-radius: 20px;
-    &:hover {
-      cursor: pointer;
-      background: black;
-      color: white;
-    }
-  }
-
-  a {
-    display: block;
-    margin: auto;
-    width: 200px;
-    text-decoration: none;
-    color: black;
-    padding: 20px;
-    font-size: 1.7rem;
-    letter-spacing: 1.5px;
-    background: white;
-    border: solid 1px black;
-    border-radius: 20px;
-    &:hover {
-      cursor: pointer;
-      background: black;
-      color: white;
-    }
-  }
-`;
 
 export default WhereToFindYou;

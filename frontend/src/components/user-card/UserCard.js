@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 
@@ -14,14 +14,14 @@ class UserCard extends Component{
             top_skills: [],
             add_skills: [],
             familiar: [],
-        }
+        } 
     }
     makeSkillsArr(){
         let newArr = [];
         let string = 'Lorem ipsum dolor sit persequeris an Et vis possim percipitur appellantur est quas efficiantur theophrastus te tation torquatoss'
         let tempArr = string.split(' ')
         tempArr.forEach((word, index) => {
-            let weight = word.length * index % 15 +5
+            let weight = word.length * index % 15 + 5
             newArr.push({
                 id: index,
                 skill: word,
@@ -44,47 +44,117 @@ class UserCard extends Component{
     }
 
     getUserExtras = (extra) => {
-        axios.get(`https://developer-profiles.herokuapp.com/users/${this.props.id}/${extra}`).then(response => {
+        axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.id}/${extra}`).then(response => {
             this.setState({[extra]: response.data})
+        }).catch(err => {
+            console.log(err)
         })
     }
 
     getUserSkills = (skilltype) => {
-        axios.get(`https://developer-profiles.herokuapp.com/users/${this.props.id}/skills/${skilltype}`).then(response => {
+        axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.id}/skills/${skilltype}`).then(response => {
             this.setState({[skilltype]: response.data})
+        }).catch(err => {
+            console.log(err)
         })
     }
 
     render(){
+        let topSkillsArr;
+        let addSkillsArr;
+        let famSkillsArr;
+
+        if (this.props.userTopSkills) {
+          topSkillsArr = this.props.userTopSkills
+        } else {
+          topSkillsArr = this.state.top_skills
+        }
+        if (this.props.userAddSkills) {
+          addSkillsArr = this.props.userAddSkills
+        } else {
+          addSkillsArr = this.state.add_skills
+        }
+        if (this.props.userFamSkills) {
+          famSkillsArr = this.props.userFamSkills
+        } else {
+          famSkillsArr = this.state.familiar
+        }
+
         return (
-            <UserCardContainer onClick={()=> this.setState({expanded: !this.state.expanded})} expanded={this.state.expanded ? true : false}>
-                <div className="userCardDiv">
-                <div className="left-side">
-                    <div className="bio">
-                        <img className="photo"src={this.props.image} alt="user avatar"/>
-                        <div className="user-intro">
-                            <h2>{`${this.props.first_name} ${this.props.last_name}`}</h2>
-                            <p className="location">{this.props.location? this.props.location.locationName : null}</p>
-                            <p>{this.props.summary}</p>
+                <UserCardContainer onClick={()=> this.setState({expanded: !this.state.expanded})} expanded={this.state.expanded ? true : false}>
+                    <div className="userCardDiv">
+                        <div className="left-side">
+                            <div className="bio">
+                                <img className="photo"src={this.props.image} alt="user avatar"/>
+                                <div className="user-intro">
+                                    <h2>{`${this.props.first_name} ${this.props.last_name}`}</h2>
+                                    <p className="location">{this.props.location}</p>
+                                    {/* <p className="location">{this.props.location ? this.props.location.locationName : null}</p> */}
+                                    <p>{this.props.summary}</p>
+                                </div>
+                            </div>
+                            <h3>{this.props.desired_title}</h3>
+                            <div className="keywords">
+                                {topSkillsArr.length > 0 ? topSkillsArr.map(word => {
+                                    return (<div key={word.id} className="keyword">
+                                        {word.skill}
+                                    </div>)
+                                }) : null}
+                                {addSkillsArr.length > 0 ? addSkillsArr.map(word => {
+                                    return (<div key={word.id} className="keyword">
+                                        {word.skill}
+                                    </div>)
+                                }) : null}
+                                {famSkillsArr.length > 0 ? famSkillsArr.map(word => {
+                                    return (<div key={word.id} className="keyword">
+                                        {word.skill}
+                                    </div>)
+                                }) : null}
+                            </div>
+                        </div>
+                        <div className="links">
+                            {this.props.badge !== null ? this.props.badge !== "acclaim.com" ? <img className="badge" src={this.props.badge} alt="acclaim badge"/> : null : null}
+                            <a rel="noopener noreferrer" href={this.props.github} target="_blank"><i className="fab fa-github"></i></a>
+                            <a rel="noopener noreferrer" href={this.props.linkedin} target="_blank"><i className="fab fa-linkedin"></i></a>
+                            <a rel="noopener noreferrer" href={this.props.portfolio} target="_blank"><i className="fas fa-code"></i></a>
                         </div>
                     </div>
-                    <h3>{this.props.desired_title}</h3>
-                    <div className="keywords">
-                        {this.state.top_skills.length > 0 ? this.state.top_skills.map(word => {
-                            return (<div key={word.id} className="keyword">
-                                {word.skill}
-                            </div>)
-                        }) : null}
-                        {this.state.add_skills.length > 0 ? this.state.add_skills.map(word => {
-                            return (<div key={word.id} className="keyword">
-                                {word.skill}
-                            </div>)
-                        }) : null}
-                        {this.state.familiar.length > 0 ? this.state.familiar.map(word => {
-                            return (<div key={word.id} className="keyword">
-                                {word.skill}
-                            </div>)
-                        }) : null}
+                    <div>
+                        {this.state.expanded ? 
+                            <div className="projects-etc">
+                                {/* ~~~~ projects ~~~~ */}
+                                <h2>Projects</h2>
+                                {this.state.projects.map(project => 
+                                    <div className="proj-etc-container">
+                                        <div className="extratitle">{project.project_title}</div>
+                                        <a rel="noopener noreferrer" href={project.link} target="_blank">{project.link}</a>
+                                        <div className="proj-image-container">
+                                            <img width="200px" height="min-height" src={project.project_img} alt="project"/>
+                                            <div className="description">{project.project_description}</div>
+                                        </div>
+                                    </div>
+                                )}
+                                {/* ~~~~ experience ~~~~ */}
+                                <h2>Experience</h2>
+                                {this.state.experience.map(experience => 
+                                    <div className="proj-etc-container">
+                                        <div className="extratitle">{experience.job_title}</div>
+                                        <div className="dates">{experience.job_dates}</div>
+                                        <div className="indent">{experience.job_description}</div>
+                                    </div>
+                                )}
+                                {/* ~~~~ education ~~~~ */}
+                                <h2>Education</h2>
+                                {this.state.education.map(education => 
+                                    <div className="proj-etc-container">
+                                        <div className="extratitle">{education.school}</div>
+                                        <div className="dates">{education.school_dates}</div>
+                                        <div className="indent">{education.degree}</div>
+                                        <div className="indent">{education.course}</div> 
+                                    </div>
+                                )}
+                            </div>    
+                        : null}
                     </div>
                 </div>
                 <div className="links">

@@ -27,6 +27,7 @@ module.exports = {
       return db("skills")
           .whereIn('id', currentSkills)
     },
+
     addKeywords: function(id, type, keywordsArr) {
         return db("users")
             .where({id: id})

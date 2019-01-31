@@ -28,12 +28,14 @@ export default class FilterBox extends Component {
         <Located
           updatePublicPageState={this.props.updatePublicPageState}
           publicPageState={this.props.publicPageState}
+          filter={this.props.filter}
         />
         <Relocate
           updatePublicPageState={this.props.updatePublicPageState}
           publicPageState={this.props.publicPageState}
+          filter={this.props.filter}
         />
-        {/* <button onClick={this.props.testInfinite}>TEST ININIT SCROLL</button> */}
+
       </FilterBoxDiv>
       <MenuButton onClick={()=> this.setState({menuOpen: !this.state.menuOpen})}>Filter Profiles</MenuButton>
       </Grommet>

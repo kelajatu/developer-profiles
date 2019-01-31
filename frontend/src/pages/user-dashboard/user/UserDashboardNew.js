@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
-import { centerFlex } from '../../global-styles/Mixins';
+import { centerFlex } from '../../../global-styles/Mixins';
 
 
-class UserDashboardIntro extends Component {
+class UserDashboardNew extends Component {
   state = {
     
   }
   render() {
     return (
       <MainFormContainer>
-        <h1>INTRO</h1>
+        <h1>NEW USERRRRRRR</h1>
       </MainFormContainer>
     )
   }
@@ -27,4 +27,4 @@ const MainFormContainer = styled.main`
   }
 `;
 
-export default UserDashboardIntro;
+export default UserDashboardNew;

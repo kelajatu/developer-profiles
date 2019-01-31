@@ -37,10 +37,11 @@ export default class Located extends Component {
             value={this.props.publicPageState.locatedName}
             updatePublicPageState={this.props.updatePublicPageState}
             placeholder="Earth"
+            filter={this.props.filter}
           />
-            <span className="checkmark" />
           </label>
         </div>
+
       </LocatedDiv>
     );
   }

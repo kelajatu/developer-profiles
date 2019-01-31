@@ -1,4 +1,5 @@
 var faker = require("faker");
+require("dotenv").config();
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
@@ -7,12 +8,31 @@ exports.seed = function(knex, Promise) {
     let rand = [(Math.random() * filterOptions.length) | 0]
     return filterOptions[rand]
   }
+
+  function randomLocationValue() {
+    let filterOptions = [
+      "Albuquerque, NM, USA",
+      "Calabasas, CA, USA",
+      "Boston, MA, USA",
+      "Santa Fe, NM, USA",
+      "Tempe, AZ, USA",
+      "Flagstaff, AZ, USA",
+      "Boulder, CO, USA",
+      "Pueblo, CO, USA",
+      "South Valley, NM, USA",
+      "Los Angeles, CA, USA",
+      "San Francisco, CA, USA",
+      "Seattle, WA, USA",
+    ]
+    let rand = [(Math.random() * filterOptions.length) | 0]
+    return filterOptions[rand]
+  }
   
   return knex("users")
     .del()
     .then(function() {
       let userArr = [];
-      let num = 500;
+      let num = process.env.SEEDS_NUM;
       while (num > 0) {
         userArr.push({
           email: faker.internet.email(),
@@ -22,9 +42,9 @@ exports.seed = function(knex, Promise) {
           desired_title: faker.name.title(),
           area_of_work: randomFilterValue(),
           current_location_name: 'Random City name',
-          current_location_lat: faker.address.latitude(),
-          current_location_lon: faker.address.longitude(),
-          interested_location_names: `${faker.address.city()|faker.address.city()|faker.address.city()|faker.address.city()}`,
+          current_location_lat: Math.random()*(45, 25)+ 25, 
+          current_location_lon: Math.random()*(-125, 69) - 125,
+          interested_location_names: `${randomLocationValue()}|${randomLocationValue()}`,
           public_email: faker.internet.email(),
           github: "github.com",
           linkedin: "linkedin.com",

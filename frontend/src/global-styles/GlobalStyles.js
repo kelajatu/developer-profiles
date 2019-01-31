@@ -69,6 +69,8 @@ export const GlobalStyle = createGlobalStyle`
     --color_black: #000;
     --color_gray: #666;
     --stripe_height: 7px;
+    --lp_btn_color:#001940;
+    --accent-color:#EE6C4D;
     --btn_color: #666;
     --btn_background: #fff;
     --btn_color_hover: #fff;
@@ -88,7 +90,7 @@ export const GlobalStyle = createGlobalStyle`
   *, *:before, *:after {
     box-sizing: inherit;
     position: relative;
-    transition: all 0.2s ease;
+    transition: all 0.1s ease;
   }
   html, body, #root {
     width: 100%;

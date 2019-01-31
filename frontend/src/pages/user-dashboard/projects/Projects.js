@@ -1,27 +1,33 @@
 import React, { Component } from 'react'
-import styled from 'styled-components';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { inputArea, labelArea, centerFlex } from '../../../global-styles/Mixins';
+import UserCard from '../../../components/user-card/UserCard';
 
+import { TextInput, TextArea } from 'grommet';
+import {
+  MainFormContainer,
+  FormSection,
+  LabelContainer,
+  ImageContainer,
+  ButtonContainer,
+  Validator
+} from '../styles/FormStyles';
 
+var noLeaks;
 class Projects extends Component {
   state = {
-    projectTitle: "",
+    submitSuccess: false,
+    submitFailure: false,
     projectImg: "",
+    projectImgValidation: true,
+    projectImgUploadSuccess: false,
+    projectTitle: "",
+    projectTitleValidation: true,
     projectLink: "",
+    projectLinkValidation: true,
     projectDescription: "",
-    projects: []
-  }
-
-  componentDidMount() {
-    if (this.props.userInfo.userProjects) {
-      this.setState({projects: this.props.userInfo.userProjects})
-    }
-    // for returning users
-    // get data from session storage
-    // hydrate state
-    // remove from session storage
+    projectDescriptionValidation: true,
+    projects: this.props.userInfo.userProjects || []
   }
 
   onInputChange = (e) => {
@@ -40,7 +46,10 @@ class Projects extends Component {
     // Define what happens on successful data submission
     XHR.addEventListener('load', function(event) {
       let url = JSON.parse(event.target.responseText);
-      self.setState({projectImg: url.imgUrl})
+      self.setState({projectImg: url.imgUrl, projectImgUploadSuccess: true})
+      setTimeout(() => {
+        self.setState({projectImgUploadSuccess: false})
+      }, 2000)
     });
 
     // Define what happens in case of error
@@ -57,7 +66,37 @@ class Projects extends Component {
 
   checkOnSubmit = (e) => {
     e.preventDefault()
+
     const { projectTitle, projectImg, projectLink, projectDescription } = this.state;
+
+    if (projectImg === "") {
+      this.setState({projectImgValidation: false})
+      return
+    } else {
+      this.setState({projectImgValidation: true})
+    }
+    
+    if (projectTitle === "") {
+      this.setState({projectTitleValidation: false})
+      return
+    } else {
+      this.setState({projectTitleValidation: true})
+    }
+    
+    if (projectLink === "") {
+      this.setState({projectLinkValidation: false})
+      return
+    } else {
+      this.setState({projectLinkValidation: true})
+    }
+    
+    if (projectDescription === "") {
+      this.setState({projectDescriptionValidation: false})
+      return
+    } else {
+      this.setState({projectDescriptionValidation: true})
+    }
+    
     const lePackage = {
       user_id: this.props.userInfo.id,
       project_title: projectTitle,
@@ -65,110 +104,173 @@ class Projects extends Component {
       link: projectLink,
       project_description: projectDescription
     }
-    console.log(lePackage)
+    
+    
+    
     axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/projects`, lePackage)
-      .then(res => {
-        console.log(res.data)
-        this.props.updateProgress()
+    .then(res => {
+      this.setState({
+        submitSuccess: true,
+        projectTitle: "",
+        projectImg: "",
+        projectLink: "",
+        projectDescription: "",
       })
-      .catch(err => console.log(err))
-  }
+      noLeaks = setTimeout(() => {
+        this.setState({ submitSuccess: false })
+      }, 2000)
+      this.props.updateProgress()
+    })
+    .catch(err => {
+      this.setState({ submitFailure: true })
 
-  deleteImage = () => {
-    // delete from db
-    this.setState({projectImg: ""})
-  }
+      noLeaks = setTimeout(() => {
+        this.setState({ submitFailure: false })
+      }, 2000)
 
+      console.log(err)
+    })
+  }
+  
+  componentWillUnmount() {
+    clearTimeout(noLeaks)
+  }
+  
   render() {
-    console.log('P', this.state)
     return (
       <MainFormContainer>
         <header>
           <h1>Projects</h1>
         </header>
+
+        
         <div className="container">
           <FormSection>
-            <form onSubmit={this.checkOnSubmit}>
+            <form>
 
-              <div>
-                {/* projtitle */}
-                <label htmlFor="userProjectTitle">
+              {/* Image */}
+              <ImageContainer>
+                <LabelContainer>
+                  <label htmlFor="userProjectImg">
+                    Choose a Project Image:
+                  </label>
+                </LabelContainer>
+                <Validator validated={this.state.projectImgValidation}>
+                  <div className="img-input-sub-container validate">
+
+                    {this.state.projectImgUploadSuccess ?
+                      <div className="img-input-overlay">
+                        <i className="fa fa-check-circle fa-2x"></i>
+                      </div>
+                      :
+                      <div className="img-input-overlay">
+                        <i className="fa fa-upload fa-2x"></i>
+                      </div>
+                    }
+
+                    <input
+                      id="userProjectImg"
+                      type="file"
+                      accept="image/*"
+                      encrypt="multipart/form-data"
+                      onChange={this.uploadPhotoProj}
+                    />
+                  </div>
+                </Validator>
+
+              </ImageContainer>
+
+
+
+              {/* projtitle */}
+              <div className="text-input-container">
+                <LabelContainer>
+                  <label htmlFor="userProjectTitle">
                   Project Name:
-                </label>
-                <input
-                  type="text"
-                  id="userProjectTitle"
-                  placeholder="My Cool Project"
-                  name="projectTitle"
-                  value={this.state.projectTitle}
-                  onChange={this.onInputChange}
-                />
+                  </label>
+                </LabelContainer>
+                <Validator validated={this.state.projectTitleValidation}>
+                  <TextInput
+                    id="userProjectTitle"
+                    name="projectTitle"
+                    className="validated-text-input"
+                    placeholder="My Cool Project"
+                    focusIndicator
+                    plain
+                    value={this.state.projectTitle}
+                    onChange={this.onInputChange}
+                  />
+                </Validator>
               </div>
 
-              <div>
-                {/* link */}
-                <label htmlFor="userProjectLink">
-                  Project Link:
-                </label>
-                <input
-                  type="text"
-                  id="userProjectLink"
-                  placeholder="www.mysite.com"
-                  name="projectLink"
-                  value={this.state.projectLink}
-                  onChange={this.onInputChange}
-                />
+              {/* link */}
+              <div className="text-input-container">
+                <LabelContainer>
+                  <label htmlFor="userProjectLink">
+                    Project Link:
+                  </label>
+                </LabelContainer>
+                <Validator validated={this.state.projectLinkValidation}>
+                  <TextInput
+                    id="userProjectLink"
+                    name="projectLink"
+                    className="validated-text-input"
+                    placeholder="www.mysite.com"
+                    focusIndicator
+                    plain
+                    value={this.state.projectLink}
+                    onChange={this.onInputChange}
+                  />
+                </Validator>
               </div>
 
-              <div>
-                {/* projdescription */}
-                <label htmlFor="userProjectDescription">
-                  Summary:
-                </label>
-                <textarea
-                  id="userProjectDescription"
-                  placeholder="Some Project Description - This is 128 characters or so describing how
-                  awesome I am and why you should like me. Similar
-                  to what I put on my LinkedIn!"
-                  name="projectDescription"
-                  value={this.state.projectDescription}
-                  onChange={this.onInputChange}
-                />
+              {/* projdescription */}
+              <div className="text-input-container">
+                <LabelContainer>
+                  <label htmlFor="userProjectDescription">
+                    Summary:
+                  </label>
+                </LabelContainer>
+                <Validator validated={this.state.projectDescriptionValidation}>
+                  <TextArea
+                    id="userProjectDescription"
+                    name="projectDescription"
+                    className="validated-text-input"
+                    placeholder="Here you can give a quick summary of your project, your elevator pitch! Max length is 128 characters"
+                    maxLength="128"
+                    style={{height: '120px'}}
+                    focusIndicator
+                    plain
+                    resize={false}
+                    value={this.state.projectDescription}
+                    onChange={this.onInputChange}
+                  />
+                </Validator>
               </div>
             </form>
           </FormSection>
           <section>
-            {/* projimg - Upload Functionality */}
-            {/* image - see if you can send '/:id' param on uploadPhoto */}
-            {/* <ImageForm>
-              <label htmlFor="userProjectImg">
-                Choose a project picture:
-              </label>
-              <div className="upload-container">
-                {this.state.projectImg === "" ?
-                <div className="input-container">
-                  <span><i className="fa fa-upload fa-7x"></i><br/><p>350x350</p></span>
-                  <input
-                    id="userProjectImg"
-                    type="file"
-                    accept="image/*"
-                    encrypt="multipart/form-data"
-                    onChange={this.uploadPhotoProj}
-                  />
-                </div>
-                  :
-                  null
-                }
-                {this.state.projectImg === "" ?
-                  null
-                  :
-                  <div className="image-container">
-                    <span onClick={this.deleteImage}><i className="fa fa-times-circle fa-3x"></i></span>
-                    <img src={this.state.projectImg} alt="P"/>
-                  </div>
-                }
-              </div>
-            </ImageForm> */}
+            <header>
+              <LabelContainer>
+                <label>
+                  Profile Preview:
+                </label>
+              </LabelContainer>
+            </header>
+            <UserCard
+              id={this.props.userInfo.id}
+              github={this.props.userInfo.github}
+              linkedin={this.props.userInfo.linkedin}
+              portfolio={this.props.userInfo.portfolio}
+              badge={this.props.userInfo.badge}
+              key={this.props.userInfo.id}
+              first_name={this.props.userInfo.first_name}
+              last_name={this.props.userInfo.last_name}
+              image={this.props.userInfo.image}
+              summary={this.props.userInfo.summary}
+              desired_title={this.props.userInfo.desired_title}
+              location={this.props.userInfo.current_location_name}
+            />
           </section>
         </div>
         <ButtonContainer>
@@ -176,7 +278,13 @@ class Projects extends Component {
             <Link to="/dashboard/about-you">Back</Link>
           </div>
           <div>
-            <button onClick={this.checkOnSubmit}>Save Info</button>
+            <button onClick={this.checkOnSubmit}>
+              {this.state.submitSuccess ?
+                <i className="success fa fa-check-circle fa-2x"></i>
+                :
+                'Save Info'
+              }
+            </button>
           </div>
           <div>
             <Link to="/dashboard/experience">Next</Link>
@@ -186,166 +294,5 @@ class Projects extends Component {
     )
   }
 }
-
-const MainFormContainer = styled.main`
-  width: calc(100% - 300px);
-  margin-left: 300px;
-  padding-top: 130px;
-  padding-left: 100px;
-  @media (max-width: 1400px) {
-    width: calc(100% - 80px);
-    margin-left: 80px;
-  }
-  h1 {
-    font-size: 5rem;
-    color: rgb(42,42,42);
-    margin-bottom: 50px;
-  }
-  h3 {
-    font-size: 2.8rem;
-    color: rgb(42,42,42);
-  }
-  .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    margin-bottom: 100px;
-    section {
-      width: 45%;
-    }
-  }
-`;
-
-const FormSection = styled.section`
-  width: 43%;
-  div {
-    margin-bottom: 30px;
-  }
-  label {
-    ${labelArea()};
-  }
-  input, textarea {
-    ${inputArea()};
-  }
-  textarea {
-    padding: 15px 15px 60px;
-    resize: vertical;
-  }
-`;
-
-const ImageForm = styled.form`
-  label {
-    ${labelArea()};
-  }
-  .upload-container {
-    width: 350px;
-    height: 350px;
-    border: solid .5px #dbdee2;
-    .input-container {
-      width: 100%;
-      height: 100%;
-      input[type=file] {
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        &:hover {
-          cursor: pointer;
-          color: gray;
-        }
-      }
-      span {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-      p {
-        text-align: center;
-        font-size: 1.4rem;
-        line-height: 23px;
-        font-family: inherit;
-        font-weight: bold;
-        color: rgb(42,42,42);
-        opacity: .8;
-      }
-      &:hover {
-        cursor: pointer;
-        color: gray;
-      }
-    }
-    .image-container {
-      width: 100%;
-      height: 100%;
-      span {
-        position: absolute;
-        height: 50px;
-        width: 50px;
-        top: 1%;
-        right: 1%;
-        z-index: 20;
-        ${centerFlex()};
-        &:hover {
-          cursor: pointer;
-          color: gray;
-        }
-      }
-      img {
-        width: 100%;
-        height: 100%;
-      }
-    }
-  }
-`;
-
-const ButtonContainer = styled.div`
-  width: 80%;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
-  padding: 10px;
-
-  div {
-    width: 30%;
-    text-align: center;
-  }
-
-  button {
-    color: black;
-    padding: 20px;
-    width: 300px;
-    font-size: 1.7rem;
-    letter-spacing: 1.5px;
-    background: white;
-    border: solid 1px black;
-    border-radius: 20px;
-    &:hover {
-      cursor: pointer;
-      background: black;
-      color: white;
-    }
-  }
-
-  a {
-    display: block;
-    margin: auto;
-    width: 200px;
-    text-decoration: none;
-    color: black;
-    padding: 20px;
-    font-size: 1.7rem;
-    letter-spacing: 1.5px;
-    background: white;
-    border: solid 1px black;
-    border-radius: 20px;
-    &:hover {
-      cursor: pointer;
-      background: black;
-      color: white;
-    }
-  }
-`;
 
 export default Projects;

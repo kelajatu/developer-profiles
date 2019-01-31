@@ -1,51 +1,30 @@
 import React, { Component } from 'react'
-import styled from 'styled-components';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { inputArea, labelArea, centerFlex } from '../../../global-styles/Mixins';
-import UserCardPreview from '../UserCardPreview';
+import UserCard from '../../../components/user-card/UserCard';
 
 import { TextInput, Select } from 'grommet';
+import {
+  MainFormContainer,
+  FormSection,
+  LabelContainer,
+  ImageContainer,
+  ButtonContainer
+} from '../styles/FormStyles';
 
-
+var noLeaks;
 class PersonalInfo extends Component {
   state = {
-    
+    submitSuccess: false,
+    submitFailure: false,
     profileImg: this.props.userInfo.image || "",
-
+    profileImgUploadSuccess: false,
     publicEmail: this.props.userInfo.public_email  || "",
-
     firstName: this.props.userInfo.first_name  || "",
-
     lastName: this.props.userInfo.last_name  || "",
-    
     areaOfWork: this.props.userInfo.area_of_work  || "",
     areaOfWorkOptions: ['Full Stack Web', 'iOS', 'Android', 'UI/UX'],
-    
     desiredTitle: this.props.userInfo.desired_title  || "",
-  }
-
-  componentDidMount() {
-    // const userInfo = this.props.auth.getProfile();
-    console.log(this.props)
-    // const {image, public_email, first_name, last_name, area_of_work, desired_title} = this.props.userInfo;
-    // this.setState({profileImg: image, publicEmail: public_email, firstName: first_name, lastName: last_name, areaOfWork: area_of_work, desiredTitle: desired_title })
-
-    // const { profileImg } = this.state;
-
-    // let profileImgSuccess;
-    // if (profileImg === "" || profileImg === null) {
-    //   profileImgSuccess = false;
-    // } else {
-    //   profileImgSuccess = true;
-    // }
-
-    // this.setState({profileImgSuccess})
-
-    // for new/returning users
-    // get user data from session storage
-    // hydrate state
-    // remove from session storage
   }
 
   onInputChange = (e) => {
@@ -62,8 +41,10 @@ class PersonalInfo extends Component {
     var self = this;
     XHR.addEventListener('load', function(event) {
       let url = JSON.parse(event.target.responseText);
-      self.setState({profileImg: url.imgUrl})
-      // send URL to DB if you cant before
+      self.setState({profileImg: url.imgUrl, profileImgUploadSuccess: true})
+      setTimeout(() => {
+        self.setState({profileImgUploadSuccess: false})
+      }, 2000)
     });
 
     // Define what happens in case of error
@@ -78,9 +59,6 @@ class PersonalInfo extends Component {
 
   checkOnSubmit = (e) => {
     e.preventDefault()
-
-    console.log("FDFA")
-
     const {publicEmail, firstName, lastName, profileImg, areaOfWork, desiredTitle} = this.state;
     const lePackage = {
       public_email: publicEmail,
@@ -90,22 +68,28 @@ class PersonalInfo extends Component {
       area_of_work: areaOfWork,
       desired_title: desiredTitle
     }
-
     axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
       .then(res => {
-        console.log(res.data)
+        this.setState({ submitSuccess: true })
+        noLeaks = setTimeout(() => {
+          this.setState({ submitSuccess: false })
+        }, 2000)
         this.props.updateProgress()
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        this.setState({ submitFailure: true })
+        noLeaks = setTimeout(() => {
+          this.setState({ submitFailure: false })
+        }, 2000)
+        console.log(err)
+      })
   }
 
-  deleteImage = () => {
-    // delete from db
-    this.setState({profileImg: ""})
+  componentWillUnmount() {
+    clearTimeout(noLeaks)
   }
 
   render() {
-    console.log('P-info', this.state)
     const {profileImgSuccess, publicEmailSuccess, firstNameSuccess, lastNameSuccess, areaOfWorkSuccess, desiredTitleSuccess } = this.props.userInfo;
 
     return (
@@ -116,60 +100,56 @@ class PersonalInfo extends Component {
 
         <div className="container">
           <FormSection>
-
-
-
             <form>
-
               {/* Image */}
-              <div className="img-input-container">
-                <div className="label-container">
+              <ImageContainer>
+                <LabelContainer>
                   <label htmlFor="userProfileImg">
                     Choose a profile picture:
                   </label>
-                  {this.state.profileImg ?
+                  {profileImgSuccess ?
                     <span>
-                      {profileImgSuccess ?
-                        <i className="fa fa-check-circle fa-2x" aria-hidden="true"></i>
-                        :
-                        <i className="fa fa-check-circle" aria-hidden="true"></i>
-                      }
+                      <i className="success fa fa-check-circle"></i>
                     </span>
                     :
                     null
                   }
-                </div>
+                </LabelContainer>
                 <div className="img-input-sub-container">
-                  <div className="img-input-overlay">
-                    <i className="fa fa-upload fa-2x" aria-hidden="true"></i>
-                  </div>
+                  {this.state.profileImgUploadSuccess ?
+                    <div className="img-input-overlay">
+                      <i className="fa fa-check-circle fa-2x"></i>
+                    </div>
+                    :
+                    <div className="img-input-overlay">
+                      <i className="fa fa-upload fa-2x"></i>
+                    </div>
+                  }
+
                   <input
                     id="userProfileImg"
-                    className="img-input"
                     type="file"
                     accept="image/*"
                     encrypt="multipart/form-data"
                     onChange={this.uploadPhoto}
                   />
                 </div>
-              </div>
-
-
+              </ImageContainer>
 
               {/* public email */}
               <div className="text-input-container">
-                <div className="label-container">
+                <LabelContainer>
                   <label htmlFor="userPublicEmail">
                   Public Email:
                   </label>
                   {publicEmailSuccess ?
                     <span>
-                      <i className="fa fa-check-circle" aria-hidden="true"></i>
+                      <i className="success fa fa-check-circle"></i>
                     </span>
                     :
                     null
                   }
-                </div>
+                </LabelContainer>
                 <TextInput
                   id="userPublicEmail"
                   name="publicEmail"
@@ -181,22 +161,20 @@ class PersonalInfo extends Component {
                 />
               </div>
 
-
-
               {/* firstname */}
               <div className="text-input-container">
-                <div className="label-container">
+                <LabelContainer>
                   <label htmlFor="userFirstName">
                   First Name:
                   </label>
                   {firstNameSuccess ?
                     <span>
-                      <i className="fa fa-check-circle" aria-hidden="true"></i>
+                      <i className="success fa fa-check-circle"></i>
                     </span>
                     :
                     null
                   }
-                </div>
+                </LabelContainer>
                 <TextInput
                   id="userFirstName"
                   name="firstName"
@@ -208,22 +186,20 @@ class PersonalInfo extends Component {
                 />
               </div>
 
-
-
               {/* lastname */}
               <div className="text-input-container">
-                <div className="label-container">
+                <LabelContainer>
                   <label htmlFor="userLastName">
                   Last Name:
                   </label>
                   {lastNameSuccess ?
                     <span>
-                      <i className="fa fa-check-circle" aria-hidden="true"></i>
+                      <i className="success fa fa-check-circle"></i>
                     </span>
                     :
                     null
                   }
-                </div>
+                </LabelContainer>
                 <TextInput
                   id="userLastName"
                   name="lastName"
@@ -235,26 +211,23 @@ class PersonalInfo extends Component {
                 />
               </div>
 
-
-
               {/* areaOfWork */}
               <div className="select-input-container">
-                <div className="label-container">
+                <LabelContainer>
                   <label htmlFor="userAreaOfWork">
                   Area of Work:
                   </label>
                   {areaOfWorkSuccess ?
                     <span>
-                      <i className="fa fa-check-circle" aria-hidden="true"></i>
+                      <i className="success fa fa-check-circle"></i>
                     </span>
                     :
                     null
                   }
-                </div>
+                </LabelContainer>
                 <Select
                   id="userAreaOfWork"
                   name="areaOfWork"
-                  className="select-input"
                   value={this.state.areaOfWork}
                   onChange={e => this.setState({
                     areaOfWork: e.value,
@@ -263,21 +236,20 @@ class PersonalInfo extends Component {
                 />
               </div>
 
-
               {/* desiredTitle */}
               <div className="text-input-container">
-                <div className="label-container">
+                <LabelContainer>
                   <label htmlFor="userDesiredTitle">
                   Desired Title:
                   </label>
                   {desiredTitleSuccess ?
                     <span>
-                      <i className="fa fa-check-circle" aria-hidden="true"></i>
+                      <i className="success fa fa-check-circle"></i>
                     </span>
                     :
                     null
                   }
-                </div>
+                </LabelContainer>
                 <TextInput
                   id="userDesiredTitle"
                   name="desiredTitle"
@@ -288,24 +260,44 @@ class PersonalInfo extends Component {
                   onChange={this.onInputChange}
                 />
               </div>
-
-
             </form>
           </FormSection>
-
-
-
           <section>
-          <UserCardPreview userInfo={this.props.userInfo} />
+            <header>
+              <LabelContainer>
+                <label>
+                Profile Preview:
+                </label>
+              </LabelContainer>
+            </header>
+            <UserCard
+              id={this.props.userInfo.id}
+              github={this.props.userInfo.github}
+              linkedin={this.props.userInfo.linkedin}
+              portfolio={this.props.userInfo.portfolio}
+              badge={this.props.userInfo.badge}
+              key={this.props.userInfo.id}
+              first_name={this.props.userInfo.first_name}
+              last_name={this.props.userInfo.last_name}
+              image={this.props.userInfo.image}
+              summary={this.props.userInfo.summary}
+              desired_title={this.props.userInfo.desired_title}
+              location={this.props.userInfo.current_location_name}
+            />
           </section>
         </div>
-        
         <ButtonContainer>
           <div>
             <Link to="/dashboard">Back Home</Link>
           </div>
           <div>
-            <button onClick={this.checkOnSubmit}>Save Info</button>
+            <button onClick={this.checkOnSubmit}>
+              {this.state.submitSuccess ?
+                <i className="success fa fa-check-circle fa-2x"></i>
+                :
+                'Save Info'
+              }
+            </button>
           </div>
           <div>
             <Link to="/dashboard/where-to-find-you">Next</Link>
@@ -315,212 +307,5 @@ class PersonalInfo extends Component {
     )
   }
 }
-
-const MainFormContainer = styled.main`
-  width: calc(100% - 300px);
-  margin-left: 300px;
-  padding-top: 130px;
-  @media (max-width: 1400px) {
-    width: calc(100% - 80px);
-    margin-left: 80px;
-  }
-  h1 {
-    font-size: 5rem;
-    color: rgb(42,42,42);
-    margin-bottom: 50px;
-    text-align: center;
-  }
-  .container {
-    padding-left: 100px;
-    padding-right: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    section {
-      width: 45%;
-    }
-  }
-`;
-
-const FormSection = styled.section`
-  label {
-    color: rgba(42,42,42,.8);
-    font-size: 1.7rem;
-    margin-bottom: 8px;
-    font-weight: bold;
-    line-height: 23px;
-    letter-spacing: 1px;
-    margin-right: 5px;
-  }
-
-  .text-input-container,
-  .img-input-container,
-  .select-input-container {
-    margin-bottom: 30px;
-  }
-
-  .img-input-sub-container,
-  .text-input,
-  .select-input,
-  #userAreaOfWork {
-    width: 85%;
-  }
-
-  .label-container {
-    display: flex;
-    align-items: baseline;
-  }
-  .img-input-sub-container {
-    border: solid 1px rgba(0,0,0,.33);
-    border-radius: 4px;
-    .img-input-overlay {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      ${centerFlex()};
-    }
-    .img-success-overlay {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      ${centerFlex()};
-      z-index: 20;
-      .close-overlay {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        &:hover {
-          opacity: 1;
-        }
-        .close-btn {
-          position: absolute;
-          top: 1%;
-          right: 1%;
-          z-index: 21;
-          &:hover {
-            cursor: pointer;
-          }
-        }
-      }
-    }
-    input[type=file] {
-      padding: 11px 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      &:hover {
-        cursor: pointer;
-      }
-    }
-  }
-`;
-
-
-const ImageForm = styled.form`
-  label {
-    ${labelArea()};
-  }
-  .upload-container {
-    width: 350px;
-    height: 350px;
-    border: solid .5px #dbdee2;
-    .input-container {
-      width: 100%;
-      height: 100%;
-      span {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-      p {
-        text-align: center;
-        font-size: 1.4rem;
-        line-height: 23px;
-        font-family: inherit;
-        font-weight: bold;
-        color: rgb(42,42,42);
-        opacity: .8;
-      }
-      &:hover {
-        cursor: pointer;
-        color: gray;
-      }
-    }
-    .image-container {
-      width: 100%;
-      height: 100%;
-      span {
-        position: absolute;
-        height: 50px;
-        width: 50px;
-        top: 1%;
-        right: 1%;
-        z-index: 20;
-        ${centerFlex()};
-        &:hover {
-          cursor: pointer;
-          color: gray;
-        }
-      }
-      img {
-        width: 100%;
-        height: 100%;
-      }
-    }
-  }
-`;
-
-const ButtonContainer = styled.div`
-  width: 80%;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
-  padding: 10px;
-
-  div {
-    width: 30%;
-    text-align: center;
-  }
-
-  button {
-    color: black;
-    padding: 20px;
-    width: 300px;
-    font-size: 1.7rem;
-    letter-spacing: 1.5px;
-    background: white;
-    border: solid 1px black;
-    border-radius: 20px;
-    &:hover {
-      cursor: pointer;
-      background: black;
-      color: white;
-    }
-  }
-
-  a {
-    display: block;
-    margin: auto;
-    width: 200px;
-    text-decoration: none;
-    color: black;
-    padding: 20px;
-    font-size: 1.7rem;
-    letter-spacing: 1.5px;
-    background: white;
-    border: solid 1px black;
-    border-radius: 20px;
-    &:hover {
-      cursor: pointer;
-      background: black;
-      color: white;
-    }
-  }
-`;
 
 export default PersonalInfo;

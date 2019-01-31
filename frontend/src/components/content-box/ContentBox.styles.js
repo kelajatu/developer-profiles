@@ -1,106 +1,135 @@
 import styled from "styled-components";
 
+export const Circle = styled.div`
+  background: #003fa0;
+  position: relative;
+  left: -32px;
+  bottom: -32px;
+  height: 640px;
+  width: 640px;
+
+  border-radius: 50%;
+  display: flex;
+  z-index: 0;
+  align-items: center;
+  justify-content: center;
+
+  @media all and (max-width: 839px) {
+    left:0;
+
+
+  }
+  @media all and (max-width: 480px) {
+    border-radius:0;
+    height:350px;
+    width:500px;
+    padding: 1em;
+
+   }
+`;
 export const ContentBoxSection = styled.div`
-  max-width: 1000px;
-  /* border: 1px solid red; */
+  z-index: 1;
+  max-width: 1400px;
+
   width: 100%;
-  text-align: left;
-  margin-top: 175px;
+
+  margin: auto;
+
   padding: 2em;
 
   a {
-    color: none;
     text-decoration: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
+  @media all and (max-width: 839px) {
+   display:flex;
+   justify-content: center;
+
+  }
+  @media all and (max-width: 480px) {
+    padding:0;
+    }
 `;
 
 export const CTAContainer = styled.div`
-display: flex;
-flex: row;
-`
-
-export const CallToAction = styled.div`
- display: flex;
- flex-direction: column;
- border: 1px solid blue;
-`
-
-export const Btn = styled.div`
-  @keyframes stripe-slide {
-    0% {
-      background-position: 0% 0;
-    }
-    100% {
-      background-position: 100% 0;
-    }
+  display: flex;
+  flex-direction: column;
+  align-items: space-around;
+  color:white;
+  h1 {
+    font-size: 80px;
+    line-height: 100px;
+    font-weight: bold;
+    color: var(--accent-color);
   }
-  overflow: visible;
-  width: 150px;
-  /* text-align:center; */
-  margin: 5px;
-  border: 0;
-  width: 100px;
-  background: transparent;
-  font: inherit;
-  font-size: 18px;
-  line-height: normal;
-  -moz-user-select: text;
-  padding: 16px 0px 22px;
-  background: var(--btn_background);
-  color: var(--btn_color);
-  border: 2px solid var(--border_color);
-  border-radius: 10px;
-  margin-bottom: 16px;
-  transition: all 0.5s ease;
 
-  &.stripe {
-    overflow: hidden;
-    position: relative;
 
-    &:after {
-      content: "";
-      display: block;
-      height: var(--stripe_height);
-      width: 100%;
-      background-image: repeating-linear-gradient(
-        45deg,
-        var(--border_color),
-        var(--border_color) 1px,
-        transparent 2px,
-        transparent 5px
-      );
-      -webkit-backface-visibility: hidden;
-      backface-visibility: hidden;
-      border-top: 1px solid var(--border_color);
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      background-size: var(--stripe_height) var(--stripe_height);
-    }
-
-    &:hover {
-      background-color: var(--btn_background_hover);
-      /* overflow: hidden; */
-      color: var(--btn_color_hover);
-      border-color: #000;
-      border-radius: 15px;
-
-      &:after {
-        background-image: repeating-linear-gradient(
-          45deg,
-          var(--btn_color_hover),
-          var(--btn_color_hover) 1px,
-          transparent 2px,
-          transparent 5px
-        );
-        border-top: 1px solid var(--border_color_hover);
-        animation: stripe-slide 12s infinite linear forwards;
-      }
-    }
+  span {
+    color: white;
   }
+
+  @media all and (max-width: 480px) {
+   h1 {
+     font-size: 64px;
+   }
+
+   }
+
 `;
 
+export const CallToAction = styled.div`
+  display: flex;
+  flex-direction: row;
 
+
+`;
+
+export const BtnRow = styled.div`
+  display: flex;
+  justify-content: space-around;
+  @media all and (max-width: 480px) {
+    display:flex;
+    height: 150px;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+
+
+   }
+
+`;
+
+export const Btn = styled.div`
+  color: white;
+  border-radius: 100px;
+  width: 200px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 2rem;
+  text-decoration: none;
+  padding: 15px 20px;
+  background-color: var(--lp_btn_color);
+  transition: transform 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55),
+    box-shadow 500ms linear;
+  background-size: contain;
+  background-position: -200px center;
+  background-repeat: no-repeat;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
+  &:hover {
+    /* color:#98B9F2; */
+    color:var(--accent-color);
+    transform: scale(1.1);
+    background-position: -60px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  }
+  &:active {
+    transform: scale(1);
+    background-position: 500px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
+  }
+  @media all and (max-width: 480px) {
+   width: 350px;
+
+   }
+`;

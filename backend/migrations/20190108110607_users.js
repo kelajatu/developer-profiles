@@ -12,7 +12,8 @@ exports.up = function(knex, Promise) {
     table.string("current_location_name", 1000);
     table.string("current_location_lat", 1000);
     table.string("current_location_lon", 1000);
-    table.string("interested_location_names", 1000);
+    table.string("interested_location_names", 1000)
+        .defaultTo(null);
     table.string("github");
     table.string("linkedin");
     table.string("portfolio");
