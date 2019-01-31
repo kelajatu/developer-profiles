@@ -18,36 +18,18 @@ class LandingPage extends Component {
           <ContentBox />
 
         </Pagewrap>
-        {/* <Moreinfo>
+        <Moreinfo>
           <Aboutus>
-            <h2 id="recruiters">Asymmetrical master</h2>{" "}
+            <h2 id="recruiters">Recruiters</h2>{" "}
             <p>
-              cleanse raclette kitsch, tofu next level kogi poutine knausgaard
-              art party kickstarter bushwick. Qui sartorial cupidatat retro.
-              Taxidermy hot chicken cliche et, ut fanny pack vice vegan cardigan
-              squid consectetur chartreuse PBR&B. Waistcoat brunch readymade,
-              listicle labore ugh selfies kitsch polaroid PBR&B occupy yr. Vice
-              slow-carb health goth do mustache sartorial subway tile.
-              Incididunt man braid deep v ugh gastropub. Fugiat seitan
-              pour-over, actually nostrud knausgaard brooklyn jianbing listicle
-              you probably haven't heard of them food truck pok pok roof party
-              incididunt godard. Cronut tumblr deep v whatever keffiyeh fugiat
-              fanny pack kogi umami raclette in qui.
+          Whether you're looking for junior or senior developers, let us do the work for you! Sort by location, skills and view top projects!
             </p>
           </Aboutus>
           <Learnmore>
-            <h2 id="developers">Street art crucifix</h2>dolor amet plaid YOLO
-            unicorn ramps tousled. scenester, unicorn food truck shoreditch
-            helvetica taiyaki master cleanse DIY hell of put a bird on it
-            truffaut. Helvetica cloud bread pickled roof party. Man braid quinoa
-            etsy af officia. Occaecat scenester pok pok minim, +1 cold-pressed
-            vaporware sint fanny pack forage. Vegan aliqua helvetica hashtag
-            XOXO art party. Truffaut shaman messenger bag man braid heirloom
-            snackwave nostrud VHS twee ethical.Vice raw denim enamel pin
-            reprehenderit typewriter, poutine voluptate lumbersexual
-            williamsburg.
+            <h2 id="developers">Developers</h2>
+            We can help you get you where you want to be by showing your profile to top companies!
           </Learnmore>
-        </Moreinfo> */}
+        </Moreinfo>
       </LandingPageDiv>
     );
   }
