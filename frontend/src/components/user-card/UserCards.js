@@ -33,7 +33,7 @@ export default class UserCards extends Component {
         this.props.filter();
       }
     };
-  }
+   }
 
     render(){
       if (this.props.loading) {
@@ -44,7 +44,7 @@ export default class UserCards extends Component {
         )
       } else {
         return (
-          <UserCardsDiv>
+          <UserCardsDiv id="scroll">
               {this.props.modUsers.map(user => <UserCard 
                   id={user.id}
                   github={user.github}
@@ -65,11 +65,21 @@ export default class UserCards extends Component {
 }
 
 const UserCardsDiv = styled.div`
-
-    width: calc(100% - 300px);
-    margin-left: 200px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 40px; 
     padding-top: 130px;
-    ${centerFlex('column')};
+    @media (max-width: 1440px) {
+      ${centerFlex('column')}; 
+    }
+    @media (max-width: 839px) {
+    margin: 0 auto;
+    padding-top: 75px;
+    width: 100%;
+    @media (max-width: 480px) {
+      padding-top: 50px;
+    }
+  }
 `;
 
 const LoaderContainer = styled.div`
@@ -79,5 +89,10 @@ const LoaderContainer = styled.div`
   ${centerFlex()};
   h1 {
     font-size: 5rem;
+  }
+  @media (max-width: 839px) {
+    margin: auto;
+    @media (max-width: 480px) {
+    }
   }
 `;

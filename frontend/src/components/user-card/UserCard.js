@@ -57,7 +57,6 @@ class UserCard extends Component{
 
     render(){
         return (
-            <div>
             <UserCardContainer onClick={()=> this.setState({expanded: !this.state.expanded})} expanded={this.state.expanded ? true : false}>
                 <div className="userCardDiv">
                 <div className="left-side">
@@ -127,8 +126,6 @@ class UserCard extends Component{
                     : null}
                 </div>
             </UserCardContainer>
-            
-            </div>
         )
     }
 }
@@ -141,7 +138,7 @@ const UserCardContainer = styled.div`
     min-height: ${props => props.expanded ? 700 : null}px;
     width: 520px;
     margin-bottom: 30px;
-    overflow-y: scroll;
+    margin-right: 30px;
     padding-bottom: 20px;
     a {
         color: black;
@@ -285,6 +282,12 @@ const UserCardContainer = styled.div`
    .indent {
     margin-left: 5px;
    }
+   @media (max-width: 1440px) {
+       margin-right: 0;
+   }
+   @media (max-width: 480px) {
+        transform: scale(.7);
+    }
 `;
 
 export default UserCard;

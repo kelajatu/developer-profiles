@@ -73,6 +73,7 @@ export class LocationAuto extends Component {
                   <label htmlFor="usercurrentLocation"></label>
                   {/* change to input if it stops working  */}
                   <TextInput
+                    size="small"
                     type="text"
                     autoComplete="off"
                     // id="usercurrentLocation"
@@ -176,5 +177,5 @@ export class LocationAuto extends Component {
 }
 
 const LocationAutoDiv = styled.div`
-    /* border: 1px solid red; */
+
 `

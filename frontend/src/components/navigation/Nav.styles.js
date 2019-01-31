@@ -17,10 +17,13 @@ export const MainNav = styled.nav`
     text-transform: uppercase;
     background: none;
     font-weight: 800;
-    @media (max-width: 700px) {
+    @media (max-width: 839px) {
       font-size: 2rem;
       padding: 1rem 2rem;
       justify-content: center;
+    }
+    @media (max-width: 480px) {
+      font-size: 15px;
     }
     &:after {
       height: 2px;
@@ -48,10 +51,5 @@ export const MainNav = styled.nav`
       text-decoration-skip: ink;
       border-bottom: 1px solid #000;
     }
-  }
-  @media (max-width: 1300px) {
-    width: 100%;
-    justify-content: flex-end;
-    font-size: 1.6rem;
   }
 `;
