@@ -1,7 +1,5 @@
 import React , { Component } from 'react'
 import styled from 'styled-components'
-import { filterSection} from '../../global-styles/Mixins'
-// import { TextInput } from 'grommet';
 import { LocationAuto } from './locationAuto'
 
 export default class Relocate extends Component {

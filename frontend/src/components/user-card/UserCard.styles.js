@@ -8,8 +8,8 @@ export const UserCardContainer = styled.div`
   min-height: ${props => (props.expanded ? 700 : null)}px;
   width: 520px;
   margin-bottom: 30px;
-  overflow-y: scroll;
   padding-bottom: 20px;
+  margin-right: 30px;
   a {
     color: black;
   }
@@ -152,4 +152,12 @@ export const UserCardContainer = styled.div`
   .indent {
     margin-left: 5px;
   }
+  @media (max-width: 1440px) {
+       margin-right: 0;
+   }
+   @media (max-width: 480px) {
+        transform: scale(.7);
+    }
 `;
+
+export default UserCardContainer;
