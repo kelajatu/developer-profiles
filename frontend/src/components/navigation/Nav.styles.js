@@ -24,15 +24,16 @@ export const MainNav = styled.nav`
     }
     &:after {
       height: 2px;
-      background: #9192db;
+      background: var(--accent-color);
       content: "";
-      width: 0;
+      width: 50px;
       position: absolute;
       transform: translateX(-50%);
       transition: width 0.4s;
       transition-timing-function: cubic-bezier(1, -0.65, 0, 2.31);
       left: 50%;
-      margin-top: 2rem;
+      margin-top: 1.5rem;
+      /* margin-top: 2em; */
     }
     &:hover,
     &:focus {
@@ -46,7 +47,7 @@ export const MainNav = styled.nav`
       color: black;
       text-decoration: none;
       text-decoration-skip: ink;
-      border-bottom: 1px solid #000;
+      /* border-bottom: 1px solid #000; */
     }
   }
   @media (max-width: 1300px) {

@@ -70,6 +70,7 @@ export const GlobalStyle = createGlobalStyle`
     --color_gray: #666;
     --stripe_height: 7px;
     --lp_btn_color:#001940;
+    --accent-color:#EE6C4D;
     --btn_color: #666;
     --btn_background: #fff;
     --btn_color_hover: #fff;
