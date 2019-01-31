@@ -7,7 +7,7 @@ import { Grommet } from 'grommet';
 const myTheme = {
   global: {
     colors: {
-      brand: '#86a8e7',
+      brand: `#EE6C4D`,
     },
   },
 };

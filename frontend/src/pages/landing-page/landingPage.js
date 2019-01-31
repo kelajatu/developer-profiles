@@ -16,24 +16,7 @@ class LandingPage extends Component {
       <LandingPageDiv>
         <Pagewrap>
           <ContentBox />
-          <CTAContainer>
-            <CallToAction>
-              <p>
-                HEllo hello!afadfgagraefgadfafsdweadfasdfkjsdfjkabfgkadbfjkasf
-              </p>
-              <a href="#recruiters">
-                <Btn>Recruiters</Btn>
-              </a>{" "}
-            </CallToAction>
-            <CallToAction>
-              <p>
-                HEllo hello!afadfgagraefgadfafsdweadfasdfkjsdfjkabfgkadbfjkasf
-              </p>
-              <a href="#developers">
-                <Btn>Developers</Btn>
-              </a>
-            </CallToAction>
-          </CTAContainer>
+
         </Pagewrap>
         {/* <Moreinfo>
           <Aboutus>
