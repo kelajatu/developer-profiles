@@ -56,3 +56,4 @@ export const MainNav = styled.nav`
     font-size: 1.6rem;
   }
 `;
+

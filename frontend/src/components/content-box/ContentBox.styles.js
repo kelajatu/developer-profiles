@@ -4,7 +4,7 @@ export const Circle = styled.div`
   background: #003fa0;
   position: relative;
   left: -32px;
-  bottom: -32px;
+  bottom: 50px;
   height: 640px;
   width: 640px;
 
@@ -24,6 +24,7 @@ export const Circle = styled.div`
     height:350px;
     width:500px;
     padding: 1em;
+    bottom: -32px;
 
    }
 `;
@@ -133,3 +134,5 @@ export const Btn = styled.div`
 
    }
 `;
+
+

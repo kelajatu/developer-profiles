@@ -31,11 +31,17 @@ export const Moreinfo = styled.div`
   max-width: 1000px;
   width: 100%;
   margin: auto;
-  /*  */
+  margin-top: 200px;
+  @media all and (max-width: 480px) {
+  padding:2em;
+  margin-top: 50px;
+  }
+
 `;
 
 export const Aboutus = styled.div`
   color: darkgray;
+  margin-bottom: 100px;
 `;
 export const Learnmore = styled.div`
   color: darkblue;
