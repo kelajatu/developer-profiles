@@ -35,7 +35,7 @@ export class LocationAuto extends Component {
         
         //sets parent state
         if(e.target.value.length === 0){
-            console.log("zero")
+            // console.log("zero")
             await this.props.updatePublicPageState({
                 [this.props.name]: null,
                 [this.props.lat]: null,

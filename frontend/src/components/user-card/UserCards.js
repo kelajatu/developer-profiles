@@ -18,8 +18,10 @@ export default class UserCards extends Component {
       if (error || loading){
         return
       } else {
-        if(window.innerHeight + document.documentElement.scrollTop === UserCardsDiv.scrollHeight) {
-          this.props.filter();
+        if(UserCardsDiv){
+          if(window.innerHeight + document.documentElement.scrollTop === UserCardsDiv.scrollHeight) {
+            this.props.filter();
+          }
         }
       }
     };
@@ -73,6 +75,7 @@ const UserCardsDiv = styled.div`
   margin-left: 200px;
   padding-top: 130px;
   ${centerFlex("column")};
+  border: 1px solid green;
 `;
 
 const LoaderContainer = styled.div`
