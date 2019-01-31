@@ -8,7 +8,9 @@ import {
   MainFormContainer,
   FormSection,
   LabelContainer,
-  ButtonContainer
+  ButtonContainer,
+  CardPreviewSection,
+  MobileCardPreviewSection
 } from '../styles/FormStyles';
 
 var noLeaks;
@@ -192,6 +194,19 @@ class AboutYou extends Component {
                   onChange={this.choosePlacesInterested}
                   options={this.state.placesAutocomplete}
                 />
+                <div className="showing-places">
+                  {this.state.placesInterestedArr.length === 0 ?
+                    null
+                    :
+                    this.state.placesInterestedArr.map((location) => {
+                      return (
+                        <span className="places" key={location}>
+                          {location}
+                        </span>
+                      );
+                    })
+                  }
+                </div>
               </div>
               
               {/* summary */}
@@ -325,32 +340,32 @@ class AboutYou extends Component {
 
             </form>
           </FormSection>
-          <section>
-            <header>
-              <LabelContainer>
-                <label>
-                  Profile Preview:
-                </label>
-              </LabelContainer>
-            </header>
-            <UserCard
-              id={this.props.userInfo.id}
-              github={this.props.userInfo.github}
-              linkedin={this.props.userInfo.linkedin}
-              portfolio={this.props.userInfo.portfolio}
-              badge={this.props.userInfo.badge}
-              key={this.props.userInfo.id}
-              first_name={this.props.userInfo.first_name}
-              last_name={this.props.userInfo.last_name}
-              image={this.props.userInfo.image}
-              summary={this.props.userInfo.summary}
-              desired_title={this.props.userInfo.desired_title}
-              location={this.props.userInfo.current_location_name}
-              userTopSkills={this.props.userInfo.userTopSkills}
-              userAddSkills={this.props.userInfo.userAddSkills}
-              userFamSkills={this.props.userInfo.userFamSkills}
-            />
-          </section>
+          <CardPreviewSection>
+              <header>
+                <LabelContainer>
+                  <label>
+                    Profile Preview:
+                  </label>
+                </LabelContainer>
+              </header>
+              <UserCard
+                id={this.props.userInfo.id}
+                github={this.props.userInfo.github}
+                linkedin={this.props.userInfo.linkedin}
+                portfolio={this.props.userInfo.portfolio}
+                badge={this.props.userInfo.badge}
+                key={this.props.userInfo.id}
+                first_name={this.props.userInfo.first_name}
+                last_name={this.props.userInfo.last_name}
+                image={this.props.userInfo.image}
+                summary={this.props.userInfo.summary}
+                desired_title={this.props.userInfo.desired_title}
+                location={this.props.userInfo.current_location_name}
+                userTopSkills={this.props.userInfo.userTopSkills}
+                userAddSkills={this.props.userInfo.userAddSkills}
+                userFamSkills={this.props.userInfo.userFamSkills}
+              />
+          </CardPreviewSection>
         </div>
         <ButtonContainer>
           <div>
@@ -369,6 +384,32 @@ class AboutYou extends Component {
             <Link to="/dashboard/projects">Next</Link>
           </div>
         </ButtonContainer>
+        <MobileCardPreviewSection>
+          <header>
+            <LabelContainer>
+              <label>
+                Profile Preview:
+              </label>
+            </LabelContainer>
+          </header>
+          <UserCard
+            id={this.props.userInfo.id}
+            github={this.props.userInfo.github}
+            linkedin={this.props.userInfo.linkedin}
+            portfolio={this.props.userInfo.portfolio}
+            badge={this.props.userInfo.badge}
+            key={this.props.userInfo.id}
+            first_name={this.props.userInfo.first_name}
+            last_name={this.props.userInfo.last_name}
+            image={this.props.userInfo.image}
+            summary={this.props.userInfo.summary}
+            desired_title={this.props.userInfo.desired_title}
+            location={this.props.userInfo.current_location_name}
+            userTopSkills={this.props.userInfo.userTopSkills}
+            userAddSkills={this.props.userInfo.userAddSkills}
+            userFamSkills={this.props.userInfo.userFamSkills}
+          />
+        </MobileCardPreviewSection>
       </MainFormContainer>
     )
   }

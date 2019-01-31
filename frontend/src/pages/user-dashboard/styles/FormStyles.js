@@ -10,11 +10,20 @@ export const MainFormContainer = styled.main`
     width: calc(100% - 80px);
     margin-left: 80px;
   }
+  @media (max-width: 650px) {
+    width: 100%;
+    margin-left: 0px;
+  }
   h1 {
     font-size: 5rem;
     color: rgb(42,42,42);
     margin-bottom: 50px;
     text-align: center;
+    @media (max-width: 1100px) {
+      text-align: left;
+      padding-left: 50px;
+      font-size: 4rem;
+    }
   }
   .container {
     padding-left: 50px;
@@ -23,8 +32,20 @@ export const MainFormContainer = styled.main`
     justify-content: space-evenly;
     align-items: flex-start;
     flex-wrap: wrap;
+    @media (max-width: 1200px) {
+      justify-content: flex-start;
+    }
     section {
       width: 45%;
+      @media (max-width: 1100px) {
+        width: 80%;
+      }
+      @media (max-width: 1000px) {
+        width: 90%;
+      }
+      @media (max-width: 850px) {
+        width: 100%;
+      }
     }
   }
 `;
@@ -59,6 +80,52 @@ export const FormSection = styled.section`
   #usercurrentLocation,
   #userPlacesInterested {
     width: 85%;
+    @media (max-width: 750px) {
+      width: 95%;
+    }
+    @media (max-width: 650px) {
+      width: 100%;
+    }
+  }
+  .showing-places {
+    width: 80%;
+    margin: 10px;
+    padding: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: center;
+    border-right: solid .5px rgba(0,0,0,.33);
+    border-left: solid .5px rgba(0,0,0,.33);
+    border-bottom: solid .5px rgba(0,0,0,.33);
+    max-height: 250px;
+    overflow-y: scroll;
+    @media (max-width: 750px) {
+      width: 90%;
+    }
+    .places {
+      margin: 11px;
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+  }
+`;
+
+export const CardPreviewSection = styled.section`
+  @media (max-width: 1100px) {
+    display: none;
+  }
+`;
+
+
+export const MobileCardPreviewSection = styled.section`
+  display: none;
+  @media (max-width: 1100px) {
+    display: block;
+    padding: 20px;
+    width: 100%;
+    ${centerFlex('column')};
   }
 `;
 
@@ -68,6 +135,12 @@ export const Validator = styled.div`
   border-color: ${props => (props.validated ? "rgba(0,0,0,.33)" : "red")};
   border-width: ${props => (props.validated ? "1px" : "2px")};
   border-radius: 4px;
+  @media (max-width: 750px) {
+    width: 95%;
+  }
+  @media (max-width: 650px) {
+    width: 100%;
+  }
 `;
 
 export const LabelContainer = styled.div`
@@ -93,6 +166,12 @@ export const ImageContainer = styled.div`
     width: 85%;
     border: solid 1px rgba(0,0,0,.33);
     border-radius: 4px;
+    @media (max-width: 750px) {
+      width: 95%;
+    }
+    @media (max-width: 650px) {
+      width: 100%;
+    }
     .img-input-overlay {
       position: absolute;
       width: 100%;

@@ -63,6 +63,9 @@ class UserCard extends Component{
         let topSkillsArr;
         let addSkillsArr;
         let famSkillsArr;
+        let userEducationArr;
+        let userExperienceArr;
+        let userProjectsArr;
 
         if (this.props.userTopSkills) {
           topSkillsArr = this.props.userTopSkills
@@ -80,6 +83,22 @@ class UserCard extends Component{
           famSkillsArr = this.state.familiar
         }
 
+        if (this.props.userProjects) {
+          userProjectsArr = this.props.userProjects
+        } else {
+          userProjectsArr = this.state.projects
+        }
+        if (this.props.userExperience) {
+          userExperienceArr = this.props.userExperience
+        } else {
+          userExperienceArr = this.state.experience
+        }
+        if (this.props.userEducation) {
+          userEducationArr = this.props.userEducation
+        } else {
+          userEducationArr = this.state.education
+        }
+
         return (
             <>
                 <UserCardContainer onClick={()=> this.setState({expanded: !this.state.expanded})} expanded={this.state.expanded ? true : false}>
@@ -90,7 +109,6 @@ class UserCard extends Component{
                                 <div className="user-intro">
                                     <h2>{`${this.props.first_name} ${this.props.last_name}`}</h2>
                                     <p className="location">{this.props.location}</p>
-                                    {/* <p className="location">{this.props.location ? this.props.location.locationName : null}</p> */}
                                     <p>{this.props.summary}</p>
                                 </div>
                             </div>
@@ -125,19 +143,19 @@ class UserCard extends Component{
                             <div className="projects-etc">
                                 {/* ~~~~ projects ~~~~ */}
                                 <h2>Projects</h2>
-                                {this.state.projects.map(project => 
+                                {userProjectsArr.map(project => 
                                     <div className="proj-etc-container">
                                         <div className="extratitle">{project.project_title}</div>
                                         <a rel="noopener noreferrer" href={project.link} target="_blank">{project.link}</a>
                                         <div className="proj-image-container">
-                                            <img width="200px" height="min-height" src={project.project_img} alt="project"/>
+                                            <img width="150px" height="min-height" src={project.project_img} alt="project"/>
                                             <div className="description">{project.project_description}</div>
                                         </div>
                                     </div>
                                 )}
                                 {/* ~~~~ experience ~~~~ */}
                                 <h2>Experience</h2>
-                                {this.state.experience.map(experience => 
+                                {userExperienceArr.map(experience => 
                                     <div className="proj-etc-container">
                                         <div className="extratitle">{experience.job_title}</div>
                                         <div className="dates">{experience.job_dates}</div>
@@ -146,7 +164,7 @@ class UserCard extends Component{
                                 )}
                                 {/* ~~~~ education ~~~~ */}
                                 <h2>Education</h2>
-                                {this.state.education.map(education => 
+                                {userEducationArr.map(education => 
                                     <div className="proj-etc-container">
                                         <div className="extratitle">{education.school}</div>
                                         <div className="dates">{education.school_dates}</div>
@@ -311,6 +329,7 @@ const UserCardContainer = styled.div`
     .description {
         width: 250px;
         padding-left: 10px;
+        word-break:break-all;
     }
    .indent {
     margin-left: 5px;
