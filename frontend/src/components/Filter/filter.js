@@ -103,10 +103,9 @@ const FilterBoxDiv = styled.aside`
     padding-right: 20px;
     height: ${props => props.menu ? 300 : 0 }px;
     z-index: ${props => props.menu ? 1 : -10 };
-    flex-wrap: wrap;
     font-size: 12px;
     padding-top: 70px;
-    border-bottom: solid grey 1px;
+    border-bottom: solid lightgrey 1px;
     h1 {
       font-size: 15px;
       margin-bottom: 0;
@@ -116,6 +115,7 @@ const FilterBoxDiv = styled.aside`
       margin-bottom: 0;
   }
     @media (max-width: 480px) {
+    height: ${props => props.menu ? 100 : 0 }vh;
     }
   }
  
