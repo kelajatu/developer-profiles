@@ -36,9 +36,10 @@ class PublicFacingPage extends Component {
     }
 
     filter = async (num=this.state.numOfResults, reset=false) => {
-         if(reset){
+        if(reset){
             await this.setState({
-                endOfUsers: false
+                endOfUsers: false,
+                scrollToTop: true,
             })
         }
         if(this.state.endOfUsers){
@@ -55,6 +56,7 @@ class PublicFacingPage extends Component {
         }
         this.setState({
             loading: true,
+            scrollToTop: false,
         })
         axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/filter`, params).then(response => {
             this.setState({

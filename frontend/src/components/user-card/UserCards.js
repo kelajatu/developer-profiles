@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import UserCard from "../../components/user-card/UserCard";
 import { centerFlex } from "../../global-styles/Mixins";
-// import { filter } from "bluebird";
 
 export default class UserCards extends Component {
   constructor(props) {
@@ -27,7 +26,9 @@ export default class UserCards extends Component {
   }
 
   render() {
-    // console.log(this.props.publicPageState.modUsers)
+      if(this.props.publicPageState.scrollToTop){
+        document.documentElement.scrollTop = 0
+      }
       return (
         <UserCardsDiv id="scroll">
           {this.props.publicPageState.modUsers.map(user => (
