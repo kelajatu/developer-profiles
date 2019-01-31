@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import UserCard from '../../../components/user-card/UserCard';
-
 import { TextInput } from 'grommet';
+
 import {
   MainFormContainer,
   FormSection,
