@@ -12,9 +12,11 @@ import {
   ButtonContainer
 } from '../styles/FormStyles';
 
-
+var noLeaks;
 class PersonalInfo extends Component {
   state = {
+    submitSuccess: false,
+    submitFailure: false,
     profileImg: this.props.userInfo.image || "",
     profileImgUploadSuccess: false,
     publicEmail: this.props.userInfo.public_email  || "",
@@ -57,7 +59,6 @@ class PersonalInfo extends Component {
 
   checkOnSubmit = (e) => {
     e.preventDefault()
-
     const {publicEmail, firstName, lastName, profileImg, areaOfWork, desiredTitle} = this.state;
     const lePackage = {
       public_email: publicEmail,
@@ -67,13 +68,25 @@ class PersonalInfo extends Component {
       area_of_work: areaOfWork,
       desired_title: desiredTitle
     }
-
     axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
       .then(res => {
-        console.log(res.data)
+        this.setState({ submitSuccess: true })
+        noLeaks = setTimeout(() => {
+          this.setState({ submitSuccess: false })
+        }, 2000)
         this.props.updateProgress()
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        this.setState({ submitFailure: true })
+        noLeaks = setTimeout(() => {
+          this.setState({ submitFailure: false })
+        }, 2000)
+        console.log(err)
+      })
+  }
+
+  componentWillUnmount() {
+    clearTimeout(noLeaks)
   }
 
   render() {
@@ -266,7 +279,13 @@ class PersonalInfo extends Component {
             <Link to="/dashboard">Back Home</Link>
           </div>
           <div>
-            <button onClick={this.checkOnSubmit}>Save Info</button>
+            <button onClick={this.checkOnSubmit}>
+              {this.state.submitSuccess ?
+                <i className="success fa fa-check-circle fa-2x"></i>
+                :
+                'Save Info'
+              }
+            </button>
           </div>
           <div>
             <Link to="/dashboard/where-to-find-you">Next</Link>

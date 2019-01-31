@@ -11,8 +11,13 @@ import {
   ButtonContainer
 } from '../styles/FormStyles';
 
+var noLeaks;
 class WhereToFindYou extends Component {
   state = {
+    submitSuccess: false,
+    submitFailure: false,
+
+
     locationAutocomplete: [],
     currentLocationObjArr: [],
     currentLocationInput: this.props.userInfo.current_location_name || "",
@@ -75,22 +80,6 @@ class WhereToFindYou extends Component {
       .catch(err => console.log(err))
   }
 
-  // using put for axios call
-  checkAcclaim = (acclaimBadge) => {
-    let regex = /https:\/\/www.youracclaim.com\/badges\//;
-    let badge = acclaimBadge.replace(regex, '')
-    console.log(badge)
-    axios
-    .put(`${process.env.REACT_APP_BACKEND_SERVER}/api/acclaim/${this.props.userInfo.id}`, {badge})
-    .then(response => {
-      // add/save aclaim image / validate
-      console.log(response.data)
-    })
-    .catch(error => {
-      console.log(error);
-    });
-  }
-
   // send to db
   checkOnSubmit = (e) => {
     e.preventDefault()
@@ -104,16 +93,75 @@ class WhereToFindYou extends Component {
       portfolio,
     }
 
-    // if a user clicks direct from input to button
-    this.checkAcclaim(this.state.acclaim)
 
-    console.log(this.props.userInfo.id)
-    axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
-      .then(res => {
-        console.log(res.data)
-        this.props.updateProgress()
+    // causes bug since it adds url to db on its own, instead of updating with this.props.updateProgress
+    // it will be in the db so if you refresh you'll see it
+    // also the image url is returned, so it will always fail if kept as input default
+    // server needs to create two columns, one for the image url, and one for the acclaim url
+    // add both to user, and return the acclaim url
+    // ugly quick fix for now..
+    if (this.state.acclaim !== "") {
+      let acclaimBadge = this.state.acclaim;
+      let regex = /https:\/\/www.youracclaim.com\/badges\//;
+      let badge = acclaimBadge.replace(regex, '')
+      axios
+      .put(`${process.env.REACT_APP_BACKEND_SERVER}/api/acclaim/${this.props.userInfo.id}`, {badge})
+      .then(response => {
+        axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
+          .then(res => {
+            this.setState({ submitSuccess: true })
+            noLeaks = setTimeout(() => {
+              this.setState({ submitSuccess: false })
+            }, 2000)
+            this.props.updateProgress()
+          })
+          .catch(err => {
+            this.setState({ submitFailure: true })
+            noLeaks = setTimeout(() => {
+              this.setState({ submitFailure: false })
+            }, 2000)
+            console.log(err)
+          })
       })
-      .catch(err => console.log(err))
+      .catch(error => {
+        console.log(error);
+      });
+      axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
+        .then(res => {
+          this.setState({ submitSuccess: true })
+          noLeaks = setTimeout(() => {
+            this.setState({ submitSuccess: false })
+          }, 2000)
+          this.props.updateProgress()
+        })
+        .catch(err => {
+          this.setState({ submitFailure: true })
+          noLeaks = setTimeout(() => {
+            this.setState({ submitFailure: false })
+          }, 2000)
+          console.log(err)
+        })
+    } else {
+      axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
+        .then(res => {
+          this.setState({ submitSuccess: true })
+          noLeaks = setTimeout(() => {
+            this.setState({ submitSuccess: false })
+          }, 2000)
+          this.props.updateProgress()
+        })
+        .catch(err => {
+          this.setState({ submitFailure: true })
+          noLeaks = setTimeout(() => {
+            this.setState({ submitFailure: false })
+          }, 2000)
+          console.log(err)
+        })
+    }
+  }
+
+  componentWillUnmount() {
+    clearTimeout(noLeaks)
   }
 
   render() {
@@ -130,9 +178,13 @@ class WhereToFindYou extends Component {
         <header>
           <h1>Where To Find You</h1>
         </header>
+
+
         <div className="container">
           <FormSection>
             <form>
+
+              
               {/* location */}
               <div className="select-input-container">
                 <LabelContainer>
@@ -274,7 +326,13 @@ class WhereToFindYou extends Component {
             <Link to="/dashboard/personal-info">Back</Link>
           </div>
           <div>
-            <button onClick={this.checkOnSubmit}>Save Info</button>
+            <button onClick={this.checkOnSubmit}>
+              {this.state.submitSuccess ?
+                <i className="success fa fa-check-circle fa-2x"></i>
+                :
+                'Save Info'
+              }
+            </button>
           </div>
           <div>
             <Link to="/dashboard/about-you">Next</Link>

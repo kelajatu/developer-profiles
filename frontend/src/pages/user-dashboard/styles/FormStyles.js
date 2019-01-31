@@ -34,6 +34,23 @@ export const FormSection = styled.section`
   .select-input-container {
     margin-bottom: 30px;
   }
+  .text-input-container {
+    .skills-btn {
+      width: 100px;
+      color: black;
+      padding: 8px;
+      font-size: 1.4rem;
+      letter-spacing: 1.5px;
+      background: white;
+      border: solid 1px black;
+      border-radius: 20px;
+      &:hover {
+        cursor: pointer;
+        background: black;
+        color: white;
+      }
+    }
+  }
   .text-input,
   #userAreaOfWork,
   #usercurrentLocation {

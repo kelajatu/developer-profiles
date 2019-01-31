@@ -13,6 +13,7 @@ import {
   Validator
 } from '../styles/FormStyles';
 
+var noLeaks;
 class Projects extends Component {
   state = {
     submitSuccess: false,
@@ -74,7 +75,7 @@ class Projects extends Component {
     } else {
       this.setState({projectImgValidation: true})
     }
-
+    
     if (projectTitle === "") {
       this.setState({projectTitleValidation: false})
       return
@@ -95,7 +96,7 @@ class Projects extends Component {
     } else {
       this.setState({projectDescriptionValidation: true})
     }
-
+    
     const lePackage = {
       user_id: this.props.userInfo.id,
       project_title: projectTitle,
@@ -103,32 +104,38 @@ class Projects extends Component {
       link: projectLink,
       project_description: projectDescription
     }
-
-
+    
+    
+    
     axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/projects`, lePackage)
-      .then(res => {
-        this.setState({
-          submitSuccess: true,
-          projectTitle: "",
-          projectImg: "",
-          projectLink: "",
-          projectDescription: "",
-        })
-        setTimeout(() => {
-          this.setState({ submitSuccess: false })
-        }, 2000)
-        this.props.updateProgress()
+    .then(res => {
+      this.setState({
+        submitSuccess: true,
+        projectTitle: "",
+        projectImg: "",
+        projectLink: "",
+        projectDescription: "",
       })
-      .catch(err => {
-        this.setState({ submitFailure: true })
-        setTimeout(() => {
-          this.setState({ submitFailure: false })
-        }, 2000)
-        console.log(err)
-      })
+      noLeaks = setTimeout(() => {
+        this.setState({ submitSuccess: false })
+      }, 2000)
+      this.props.updateProgress()
+    })
+    .catch(err => {
+      this.setState({ submitFailure: true })
+
+      noLeaks = setTimeout(() => {
+        this.setState({ submitFailure: false })
+      }, 2000)
+
+      console.log(err)
+    })
   }
-
-
+  
+  componentWillUnmount() {
+    clearTimeout(noLeaks)
+  }
+  
   render() {
     console.log('P', this.state)
     return (

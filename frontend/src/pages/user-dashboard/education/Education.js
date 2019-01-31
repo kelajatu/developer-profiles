@@ -12,7 +12,7 @@ import {
   Validator
 } from '../styles/FormStyles';
 
-
+var noLeaks;
 class Education extends Component {
   state = {
     submitSuccess: false,
@@ -130,18 +130,22 @@ class Education extends Component {
           schoolDatesFrom: "1936-04",
           schoolDatesTo: "1950-01"
         })
-        setTimeout(() => {
+        noLeaks = setTimeout(() => {
           this.setState({ submitSuccess: false })
         }, 2000)
         this.props.updateProgress()
       })
       .catch(err => {
         this.setState({ submitFailure: true })
-        setTimeout(() => {
+        noLeaks = setTimeout(() => {
           this.setState({ submitFailure: false })
         }, 2000)
         console.log(err)
       })
+  }
+
+  componentWillUnmount() {
+    clearTimeout(noLeaks)
   }
 
   render() {
