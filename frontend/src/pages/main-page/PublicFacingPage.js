@@ -118,6 +118,7 @@ class PublicFacingPage extends Component {
                     updatePublicPageState={this.updatePublicPageState}
                     filter={this.filter}
                 />
+
                 <UserCards
                     publicPageState={this.state}
                     updatePublicPageState={this.updatePublicPageState}
