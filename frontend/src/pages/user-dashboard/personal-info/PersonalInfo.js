@@ -9,7 +9,9 @@ import {
   FormSection,
   LabelContainer,
   ImageContainer,
-  ButtonContainer
+  ButtonContainer,
+  CardPreviewSection,
+  MobileCardPreviewSection
 } from '../styles/FormStyles';
 
 var noLeaks;
@@ -262,7 +264,7 @@ class PersonalInfo extends Component {
               </div>
             </form>
           </FormSection>
-          <section>
+          <CardPreviewSection>
             <header>
               <LabelContainer>
                 <label>
@@ -284,7 +286,7 @@ class PersonalInfo extends Component {
               desired_title={this.props.userInfo.desired_title}
               location={this.props.userInfo.current_location_name}
             />
-          </section>
+          </CardPreviewSection>
         </div>
         <ButtonContainer>
           <div>
@@ -303,6 +305,32 @@ class PersonalInfo extends Component {
             <Link to="/dashboard/where-to-find-you">Next</Link>
           </div>
         </ButtonContainer>
+        <MobileCardPreviewSection>
+          <header>
+            <LabelContainer>
+              <label>
+                Profile Preview:
+              </label>
+            </LabelContainer>
+          </header>
+          <UserCard
+            id={this.props.userInfo.id}
+            github={this.props.userInfo.github}
+            linkedin={this.props.userInfo.linkedin}
+            portfolio={this.props.userInfo.portfolio}
+            badge={this.props.userInfo.badge}
+            key={this.props.userInfo.id}
+            first_name={this.props.userInfo.first_name}
+            last_name={this.props.userInfo.last_name}
+            image={this.props.userInfo.image}
+            summary={this.props.userInfo.summary}
+            desired_title={this.props.userInfo.desired_title}
+            location={this.props.userInfo.current_location_name}
+            userTopSkills={this.props.userInfo.userTopSkills}
+            userAddSkills={this.props.userInfo.userAddSkills}
+            userFamSkills={this.props.userInfo.userFamSkills}
+          />
+        </MobileCardPreviewSection>
       </MainFormContainer>
     )
   }

@@ -23,7 +23,6 @@ class UserDashboardContainer extends Component {
   }
 
   updateProgress = () => {
-    this.setState({isLoading: true})
     const userInfo = this.props.auth.getProfile();
     const userEmail = userInfo.email;
     axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userEmail}`)
@@ -139,8 +138,8 @@ class UserDashboardContainer extends Component {
           console.log(err)
           allUserInfo.userFamSkills = [];
         })
+        console.log('USER', allUserInfo)
         this.setState(allUserInfo)
-        this.setState({isLoading: false})
       })
       .catch(err => console.log(err))
     })
@@ -265,6 +264,7 @@ class UserDashboardContainer extends Component {
           console.log(err)
           allUserInfo.userFamSkills = [];
         })
+        console.log('USER', allUserInfo)
         this.setState({isLoading: false})
         this.setState(allUserInfo)
       })

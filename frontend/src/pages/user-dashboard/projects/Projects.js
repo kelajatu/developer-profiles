@@ -10,7 +10,9 @@ import {
   LabelContainer,
   ImageContainer,
   ButtonContainer,
-  Validator
+  Validator,
+  CardPreviewSection,
+  MobileCardPreviewSection
 } from '../styles/FormStyles';
 
 var noLeaks;
@@ -249,7 +251,7 @@ class Projects extends Component {
               </div>
             </form>
           </FormSection>
-          <section>
+          <CardPreviewSection>
             <header>
               <LabelContainer>
                 <label>
@@ -270,8 +272,9 @@ class Projects extends Component {
               summary={this.props.userInfo.summary}
               desired_title={this.props.userInfo.desired_title}
               location={this.props.userInfo.current_location_name}
+              userProjects={this.props.userInfo.userProjects}
             />
-          </section>
+          </CardPreviewSection>
         </div>
         <ButtonContainer>
           <div>
@@ -290,6 +293,32 @@ class Projects extends Component {
             <Link to="/dashboard/experience">Next</Link>
           </div>
         </ButtonContainer>
+        <MobileCardPreviewSection>
+          <header>
+            <LabelContainer>
+              <label>
+                Profile Preview:
+              </label>
+            </LabelContainer>
+          </header>
+          <UserCard
+            id={this.props.userInfo.id}
+            github={this.props.userInfo.github}
+            linkedin={this.props.userInfo.linkedin}
+            portfolio={this.props.userInfo.portfolio}
+            badge={this.props.userInfo.badge}
+            key={this.props.userInfo.id}
+            first_name={this.props.userInfo.first_name}
+            last_name={this.props.userInfo.last_name}
+            image={this.props.userInfo.image}
+            summary={this.props.userInfo.summary}
+            desired_title={this.props.userInfo.desired_title}
+            location={this.props.userInfo.current_location_name}
+            userTopSkills={this.props.userInfo.userTopSkills}
+            userAddSkills={this.props.userInfo.userAddSkills}
+            userFamSkills={this.props.userInfo.userFamSkills}
+          />
+        </MobileCardPreviewSection>
       </MainFormContainer>
     )
   }
