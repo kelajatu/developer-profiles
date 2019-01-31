@@ -17,7 +17,6 @@ class WhereToFindYou extends Component {
     submitSuccess: false,
     submitFailure: false,
 
-
     locationAutocomplete: [],
     currentLocationObjArr: [],
     currentLocationInput: this.props.userInfo.current_location_name || "",
@@ -66,7 +65,6 @@ class WhereToFindYou extends Component {
     axios
     .post(`${process.env.REACT_APP_BACKEND_SERVER}/api/gio`, {placeId: id})
       .then(res => {
-        console.log(res.data.result.geometry.location)
         const { lat, lng } = res.data.result.geometry.location;
         this.setState({
           currentLocationInput: e.value,
@@ -165,7 +163,6 @@ class WhereToFindYou extends Component {
   }
 
   render() {
-    console.log('WHERE', this.state)
     const {
       currentLocationNameSuccess,
       githubSuccess,
@@ -179,12 +176,10 @@ class WhereToFindYou extends Component {
           <h1>Where To Find You</h1>
         </header>
 
-
         <div className="container">
           <FormSection>
             <form>
-
-              
+            
               {/* location */}
               <div className="select-input-container">
                 <LabelContainer>
@@ -330,7 +325,7 @@ class WhereToFindYou extends Component {
               image={this.props.userInfo.image}
               summary={this.props.userInfo.summary}
               desired_title={this.props.userInfo.desired_title}
-              location={this.props.userInfo.location}
+              location={this.props.userInfo.current_location_name}
             />
           </section>
         </div>

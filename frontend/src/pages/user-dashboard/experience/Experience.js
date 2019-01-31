@@ -138,7 +138,6 @@ class Experience extends Component {
   }
 
   render() {
-    console.log('EX', this.state)
     return (
       <MainFormContainer>
         <header>
@@ -170,10 +169,6 @@ class Experience extends Component {
                 </Validator>
               </div>
 
-
-
-
-
               {/* jobdates */}
               <div className="text-input-container">
                 <LabelContainer>
@@ -196,7 +191,6 @@ class Experience extends Component {
                   </Validator>
               </div>
 
-
               {/* jobdates */}
               <div className="text-input-container">
                 <LabelContainer>
@@ -217,14 +211,6 @@ class Experience extends Component {
                   />
                 </Validator>
               </div>
-
-
-
-
-
-
-
-
 
               {/* jobdescription */}
               <div className="text-input-container">
@@ -272,7 +258,7 @@ class Experience extends Component {
               image={this.props.userInfo.image}
               summary={this.props.userInfo.summary}
               desired_title={this.props.userInfo.desired_title}
-              location={this.props.userInfo.location}
+              location={this.props.userInfo.current_location_name}
             />
           </section>
         </div>

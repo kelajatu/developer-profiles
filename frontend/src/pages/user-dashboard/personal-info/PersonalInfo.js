@@ -90,7 +90,6 @@ class PersonalInfo extends Component {
   }
 
   render() {
-    console.log('P-info', this.state)
     const {profileImgSuccess, publicEmailSuccess, firstNameSuccess, lastNameSuccess, areaOfWorkSuccess, desiredTitleSuccess } = this.props.userInfo;
 
     return (
@@ -283,7 +282,7 @@ class PersonalInfo extends Component {
               image={this.props.userInfo.image}
               summary={this.props.userInfo.summary}
               desired_title={this.props.userInfo.desired_title}
-              location={this.props.userInfo.location}
+              location={this.props.userInfo.current_location_name}
             />
           </section>
         </div>

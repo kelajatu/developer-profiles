@@ -44,7 +44,7 @@ export default class UserCards extends Component {
               image={user.image}
               summary={user.summary}
               desired_title={user.desired_title}
-              location={user.location}
+              location={user.current_location_name}
             />
           ))}
           {this.props.publicPageState.loading ? 

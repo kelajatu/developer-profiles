@@ -14,12 +14,16 @@ import Projects from './projects/Projects';
 import Experience from './experience/Experience';
 import Education from './education/Education';
 import Billing from './billing/Billing';
+import Loader from '../../components/loader/Loader';
 
 
 class UserDashboardContainer extends Component {
-  state = {}
+  state = {
+    isLoading: false
+  }
 
   updateProgress = () => {
+    this.setState({isLoading: true})
     const userInfo = this.props.auth.getProfile();
     const userEmail = userInfo.email;
     axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userEmail}`)
@@ -29,20 +33,14 @@ class UserDashboardContainer extends Component {
       const getUserProjects = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/projects`)
       const getUserExperience = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/experience`)
       const getUserEducation = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/education`)
-      const getTopSkills = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/top_skills`)
-      const getAddSkills = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/add_skills`)
-      const getFamSkills = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/familiar`)
 
-      Promise.all([getUserProjects, getUserExperience, getUserEducation, getTopSkills, getAddSkills, getFamSkills])
+      Promise.all([getUserProjects, getUserExperience, getUserEducation])
       .then(values => {
   
         // now you have userInfo + locations + all 3(edu,exp,proj)
         const userProjects = values[0].data;
         const userExperience = values[1].data;
         const userEducation = values[2].data;
-        const userTopSkills = values[3].data;
-        const userAddSkills = values[4].data;
-        const userFamSkills = values[5].data;
 
         let placesInterestedArr = [];
         if (userInfo.interested_location_names !== "" && userInfo.interested_location_names !== null) {
@@ -69,7 +67,6 @@ class UserDashboardContainer extends Component {
           familiarSkillsSuccess,
           stripeTokenSuccess
         ;
-        console.log('UU', userInfo)
         userInfo.image ? profileImgSuccess = true : profileImgSuccess = false;
         userInfo.public_email ? publicEmailSuccess = true : publicEmailSuccess = false;
         userInfo.first_name ? firstNameSuccess = true : firstNameSuccess = false;
@@ -112,13 +109,38 @@ class UserDashboardContainer extends Component {
           userProjects,
           userExperience,
           userEducation,
-          userTopSkills,
-          userAddSkills,
-          userFamSkills,
           placesInterestedArr
         }
 
+        axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/top_skills`)
+        .then(res => {
+          allUserInfo.userTopSkills = res.data;
+          this.setState(allUserInfo)
+        })
+        .catch(err => {
+          console.log(err)
+          allUserInfo.userTopSkills = [];
+        })
+        axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/add_skills`)
+        .then(res => {
+          allUserInfo.userAddSkills = res.data;
+          this.setState(allUserInfo)
+        })
+        .catch(err => {
+          console.log(err)
+          allUserInfo.userAddSkills = [];
+        })
+        axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/familiar`)
+        .then(res => {
+          allUserInfo.userFamSkills = res.data;
+          this.setState(allUserInfo)
+        })
+        .catch(err => {
+          console.log(err)
+          allUserInfo.userFamSkills = [];
+        })
         this.setState(allUserInfo)
+        this.setState({isLoading: false})
       })
       .catch(err => console.log(err))
     })
@@ -127,6 +149,7 @@ class UserDashboardContainer extends Component {
 
 
   componentDidMount() {
+    this.setState({isLoading: true})
     const userInfo = this.props.auth.getProfile();
     const userEmail = userInfo.email;
     axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userEmail}`)
@@ -136,20 +159,14 @@ class UserDashboardContainer extends Component {
       const getUserProjects = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/projects`)
       const getUserExperience = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/experience`)
       const getUserEducation = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/education`)
-      const getTopSkills = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/top_skills`)
-      const getAddSkills = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/add_skills`)
-      const getFamSkills = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/familiar`)
 
-      Promise.all([getUserProjects, getUserExperience, getUserEducation, getTopSkills, getAddSkills, getFamSkills])
+      Promise.all([getUserProjects, getUserExperience, getUserEducation])
       .then(values => {
   
         // now you have userInfo + locations + all 3(edu,exp,proj)
         const userProjects = values[0].data;
         const userExperience = values[1].data;
         const userEducation = values[2].data;
-        const userTopSkills = values[3].data;
-        const userAddSkills = values[4].data;
-        const userFamSkills = values[5].data;
 
         let placesInterestedArr = [];
         if (userInfo.interested_location_names !== "" && userInfo.interested_location_names !== null) {
@@ -176,7 +193,6 @@ class UserDashboardContainer extends Component {
           familiarSkillsSuccess,
           stripeTokenSuccess
         ;
-        console.log('UU', userInfo)
         userInfo.image ? profileImgSuccess = true : profileImgSuccess = false;
         userInfo.public_email ? publicEmailSuccess = true : publicEmailSuccess = false;
         userInfo.first_name ? firstNameSuccess = true : firstNameSuccess = false;
@@ -219,17 +235,42 @@ class UserDashboardContainer extends Component {
           userProjects,
           userExperience,
           userEducation,
-          userTopSkills,
-          userAddSkills,
-          userFamSkills,
           placesInterestedArr
         }
 
+        axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/top_skills`)
+        .then(res => {
+          allUserInfo.userTopSkills = res.data;
+          this.setState(allUserInfo)
+        })
+        .catch(err => {
+          console.log(err)
+          allUserInfo.userTopSkills = [];
+        })
+        axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/add_skills`)
+        .then(res => {
+          allUserInfo.userAddSkills = res.data;
+          this.setState(allUserInfo)
+        })
+        .catch(err => {
+          console.log(err)
+          allUserInfo.userAddSkills = [];
+        })
+        axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/familiar`)
+        .then(res => {
+          allUserInfo.userFamSkills = res.data;
+          this.setState(allUserInfo)
+        })
+        .catch(err => {
+          console.log(err)
+          allUserInfo.userFamSkills = [];
+        })
+        this.setState({isLoading: false})
         this.setState(allUserInfo)
       })
       .catch(err => console.log(err))
-      })
-      .catch(err => console.log(err))
+    })
+    .catch(err => console.log(err))
   }
 
   render() {
@@ -238,7 +279,7 @@ class UserDashboardContainer extends Component {
       <DashboardContainer>
         <UserDashboardNav {...this.props} />
 
-        {this.state.id ?
+        {!this.state.isLoading && this.state.id ?
           <main>
             <Route exact path={`${this.props.match.path}/`} render={props => <UserDashboardIntro {...props} userInfo={this.state} />} />
             <Route path={`${this.props.match.path}/new`} render={props => <UserDashboardNew {...props} userInfo={this.state} />} />
@@ -251,7 +292,7 @@ class UserDashboardContainer extends Component {
             <Route path={`${this.props.match.path}/billing`} render={props => <Billing updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
           </main>
           :
-          null
+          <Loader />
         }
         
 

@@ -111,7 +111,6 @@ class Education extends Component {
     
     let schoolDates = `${newSchoolDatesFrom} to ${newSchoolDatesTo}`
 
-
     const lePackage = {
       user_id: this.props.userInfo.id,
       school: schoolName,
@@ -149,7 +148,6 @@ class Education extends Component {
   }
 
   render() {
-    console.log('ED', this.state)
     return (
       <MainFormContainer>
         <header>
@@ -159,8 +157,6 @@ class Education extends Component {
         <div className="container">
           <FormSection>
             <form>
-
-
 
               {/* school */}
               <div className="text-input-container">
@@ -182,11 +178,6 @@ class Education extends Component {
                   />
                 </Validator>
               </div>
-
-
-
-
-
 
               {/* schooldates */}
               <div className="text-input-container">
@@ -231,11 +222,6 @@ class Education extends Component {
                 </Validator>
               </div>
 
-
-
-
-
-
               {/* course */}
               <div className="text-input-container">
                 <LabelContainer>
@@ -257,8 +243,6 @@ class Education extends Component {
                 </Validator>
               </div>
 
-
-
               {/* degree */}
               <div className="text-input-container">
                 <LabelContainer>
@@ -279,8 +263,6 @@ class Education extends Component {
                   />
                 </Validator>
               </div>
-
-
 
             </form>
           </FormSection>
@@ -304,7 +286,7 @@ class Education extends Component {
               image={this.props.userInfo.image}
               summary={this.props.userInfo.summary}
               desired_title={this.props.userInfo.desired_title}
-              location={this.props.userInfo.location}
+              location={this.props.userInfo.current_location_name}
             />
           </section>
         </div>
