@@ -1,63 +1,79 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import axios from 'axios';
+import React, { Component } from "react";
+import axios from "axios";
+import { UserCardContainer } from "./UserCard.styles";
 
-class UserCard extends Component{
-    constructor(props){
-        super(props)
-        this.state = {
-            arr: [],
-            expanded: false,
-            projects: [],
-            education: [],
-            experience: [],
-            top_skills: [],
-            add_skills: [],
-            familiar: [],
-        } 
-    }
-    makeSkillsArr(){
-        let newArr = [];
-        let string = 'Lorem ipsum dolor sit persequeris an Et vis possim percipitur appellantur est quas efficiantur theophrastus te tation torquatoss'
-        let tempArr = string.split(' ')
-        tempArr.forEach((word, index) => {
-            let weight = word.length * index % 15 + 5
-            newArr.push({
-                id: index,
-                skill: word,
-                weight: weight
-            }) 
-        })
-        this.setState({
-            arr: newArr,
-        })
-    }
+class UserCard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      arr: [],
+      expanded: false,
+      projects: [],
+      education: [],
+      experience: [],
+      top_skills: [],
+      add_skills: [],
+      familiar: []
+    };
+  }
+  makeSkillsArr() {
+    let newArr = [];
+    let string =
+      "Lorem ipsum dolor sit persequeris an Et vis possim percipitur appellantur est quas efficiantur theophrastus te tation torquatoss";
+    let tempArr = string.split(" ");
+    tempArr.forEach((word, index) => {
+      let weight = ((word.length * index) % 15) + 5;
+      newArr.push({
+        id: index,
+        skill: word,
+        weight: weight
+      });
+    });
+    this.setState({
+      arr: newArr
+    });
+  }
 
-    componentDidMount(){
-      this.makeSkillsArr()
-      this.getUserExtras('projects')
-      this.getUserExtras('education')
-      this.getUserExtras('experience')
-      this.getUserSkills('top_skills')
-      this.getUserSkills('add_skills')
-      this.getUserSkills('familiar')
-    }
+  componentDidMount() {
+    this.makeSkillsArr();
+    this.getUserExtras("projects");
+    this.getUserExtras("education");
+    this.getUserExtras("experience");
+    this.getUserSkills("top_skills");
+    this.getUserSkills("add_skills");
+    this.getUserSkills("familiar");
+  }
 
-    getUserExtras = (extra) => {
-        axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.id}/${extra}`).then(response => {
-            this.setState({[extra]: response.data})
-        }).catch(err => {
-            console.log(err)
-        })
-    }
+  getUserExtras = extra => {
+    axios
+      .get(
+        `${process.env.REACT_APP_BACKEND_SERVER}/users/${
+          this.props.id
+        }/${extra}`
+      )
+      .then(response => {
+        this.setState({ [extra]: response.data });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
-    getUserSkills = (skilltype) => {
-        axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.id}/skills/${skilltype}`).then(response => {
-            this.setState({[skilltype]: response.data})
-        }).catch(err => {
-            console.log(err)
-        })
-    }
+  getUserSkills = skilltype => {
+    axios
+      .get(
+        `${process.env.REACT_APP_BACKEND_SERVER}/users/${
+          this.props.id
+        }/skills/${skilltype}`
+      )
+      .then(response => {
+        this.setState({ [skilltype]: response.data });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
 
     render(){
         let topSkillsArr;
@@ -67,37 +83,36 @@ class UserCard extends Component{
         let userExperienceArr;
         let userProjectsArr;
 
-        if (this.props.userTopSkills) {
-          topSkillsArr = this.props.userTopSkills
-        } else {
-          topSkillsArr = this.state.top_skills
-        }
-        if (this.props.userAddSkills) {
-          addSkillsArr = this.props.userAddSkills
-        } else {
-          addSkillsArr = this.state.add_skills
-        }
-        if (this.props.userFamSkills) {
-          famSkillsArr = this.props.userFamSkills
-        } else {
-          famSkillsArr = this.state.familiar
-        }
-
-        if (this.props.userProjects) {
-          userProjectsArr = this.props.userProjects
-        } else {
-          userProjectsArr = this.state.projects
-        }
-        if (this.props.userExperience) {
-          userExperienceArr = this.props.userExperience
-        } else {
-          userExperienceArr = this.state.experience
-        }
-        if (this.props.userEducation) {
-          userEducationArr = this.props.userEducation
-        } else {
-          userEducationArr = this.state.education
-        }
+    if (this.props.userTopSkills) {
+      topSkillsArr = this.props.userTopSkills;
+    } else {
+      topSkillsArr = this.state.top_skills;
+    }
+    if (this.props.userAddSkills) {
+      addSkillsArr = this.props.userAddSkills;
+    } else {
+      addSkillsArr = this.state.add_skills;
+    }
+    if (this.props.userFamSkills) {
+      famSkillsArr = this.props.userFamSkills;
+    } else {
+      famSkillsArr = this.state.familiar;
+    }
+      if (this.props.userProjects) {
+      userProjectsArr = this.props.userProjects
+    } else {
+      userProjectsArr = this.state.projects
+    }
+    if (this.props.userExperience) {
+      userExperienceArr = this.props.userExperience
+    } else {
+      userExperienceArr = this.state.experience
+    }
+    if (this.props.userEducation) {
+      userEducationArr = this.props.userEducation
+    } else {
+      userEducationArr = this.state.education
+    }
 
         return (
                 <UserCardContainer onClick={()=> this.setState({expanded: !this.state.expanded})} expanded={this.state.expanded ? true : false}>
@@ -130,14 +145,65 @@ class UserCard extends Component{
                                 }) : null}
                             </div>
                         </div>
-                        <div className="links">
-                            {this.props.badge !== null ? this.props.badge !== "acclaim.com" ? <img className="badge" src={this.props.badge} alt="acclaim badge"/> : null : null}
-                            <a rel="noopener noreferrer" href={this.props.github} target="_blank"><i className="fab fa-github"></i></a>
-                            <a rel="noopener noreferrer" href={this.props.linkedin} target="_blank"><i className="fab fa-linkedin"></i></a>
-                            <a rel="noopener noreferrer" href={this.props.portfolio} target="_blank"><i className="fas fa-code"></i></a>
+                      );
+                    })
+                  : null}
+                {addSkillsArr.length > 0
+                  ? addSkillsArr.map(word => {
+                      return (
+                        <div key={word.id} className="keyword">
+                          {word.skill}
                         </div>
-                    </div>
+                      );
+                    })
+                  : null}
+                {famSkillsArr.length > 0
+                  ? famSkillsArr.map(word => {
+                      return (
+                        <div key={word.id} className="keyword">
+                          {word.skill}
+                        </div>
+                      );
+                    })
+                  : null}
+              </div>
+            </div>
+            <div className="links">
+              {this.props.badge !== null ? (
+                this.props.badge !== "acclaim.com" ? (
+                  <img
+                    className="badge"
+                    src={this.props.badge}
+                    alt="acclaim badge"
+                  />
+                ) : null
+              ) : null}
+              <a
+                rel="noopener noreferrer"
+                href={this.props.github}
+                target="_blank"
+              >
+                <i className="fab fa-github" />
+              </a>
+              <a
+                rel="noopener noreferrer"
+                href={this.props.linkedin}
+                target="_blank"
+              >
+                <i className="fab fa-linkedin" />
+              </a>
+              <a
+                rel="noopener noreferrer"
+                href={this.props.portfolio}
+                target="_blank"
+              >
+                <i className="fas fa-code" />
+              </a>
+            </div>
+          </div>
                     <div>
+
+
                         {this.state.expanded ? 
                             <div className="projects-etc">
                                 {/* ~~~~ projects ~~~~ */}

@@ -9,4 +9,5 @@ export const PublicFacingPageDiv = styled.div`
     @media (max-width: 480px) {
     }
   }
+
 `;
