@@ -22,7 +22,7 @@ class LandingPage extends Component {
           <Aboutus>
             <h2 id="recruiters">Recruiters</h2>{" "}
             <p>
-          Whether you're looking for junior or senior developers, let us do the work for you!
+          Whether you're looking for junior or senior developers, let us do the work for you! Sort by location, skills and view top projects!
             </p>
           </Aboutus>
           <Learnmore>
