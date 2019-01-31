@@ -53,7 +53,8 @@ export const FormSection = styled.section`
   }
   .text-input,
   #userAreaOfWork,
-  #usercurrentLocation {
+  #usercurrentLocation,
+  #userPlacesInterested {
     width: 85%;
   }
 `;

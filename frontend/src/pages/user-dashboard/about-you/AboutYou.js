@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import UserCardPreview from '../user/UserCardPreview';
+import UserCard from '../../../components/user-card/UserCard';
 
 import { TextArea, Select, TextInput } from 'grommet';
 import {
@@ -23,9 +23,15 @@ class AboutYou extends Component {
     placesInterested: this.props.userInfo.interested_location_names || "",
 
     summary: this.props.userInfo.summary || "",
+
+
     topSkillsInput: "",
+    userTopSkills: this.props.userInfo.userTopSkills || [],
     additionalSkillsInput: "",
+    userAddSkills: this.props.userInfo.userAddSkills || [],
     familiarSkillsInput: "",
+    userFamSkills: this.props.userInfo.userFamSkills || [],
+
   }
 
   onInputChange = (e) => {
@@ -111,11 +117,7 @@ class AboutYou extends Component {
 
       axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/createskill/${e.target.id}`, {"skill": `${this.state[skillInput]}`})
         .then(id => {
-          this.setState({
-            topSkillsInput: "",
-            additionalSkillsInput: "",
-            familiarSkillsInput: "",
-          })
+          this.setState({ [skillInput]: "" })
           console.log(id)
         })
       }
@@ -169,7 +171,7 @@ class AboutYou extends Component {
           <FormSection>
             <form>
 
-              {/* location */}
+              {/* places */}
               <div className="select-input-container">
                 <LabelContainer>
                   <label htmlFor="userPlacesInterested">
@@ -193,7 +195,7 @@ class AboutYou extends Component {
                 />
               </div>
               
-              {/* projdescription */}
+              {/* summary */}
               <div className="text-input-container">
                 <LabelContainer>
                   <label htmlFor="userSummary">
@@ -328,8 +330,6 @@ class AboutYou extends Component {
                 </button>
               </div>
 
-
-
             </form>
           </FormSection>
           <section>
@@ -340,7 +340,20 @@ class AboutYou extends Component {
                 </label>
               </LabelContainer>
             </header>
-            <UserCardPreview userInfo={this.props.userInfo} />
+            <UserCard
+              id={this.props.userInfo.id}
+              github={this.props.userInfo.github}
+              linkedin={this.props.userInfo.linkedin}
+              portfolio={this.props.userInfo.portfolio}
+              badge={this.props.userInfo.badge}
+              key={this.props.userInfo.id}
+              first_name={this.props.userInfo.first_name}
+              last_name={this.props.userInfo.last_name}
+              image={this.props.userInfo.image}
+              summary={this.props.userInfo.summary}
+              desired_title={this.props.userInfo.desired_title}
+              location={this.props.userInfo.location}
+            />
           </section>
         </div>
         <ButtonContainer>
