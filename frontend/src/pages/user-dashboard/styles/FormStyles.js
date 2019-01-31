@@ -34,6 +34,9 @@ export const FormSection = styled.section`
   .select-input-container {
     margin-bottom: 30px;
   }
+  .success {
+    color: green;
+  }
   .text-input-container {
     .skills-btn {
       width: 100px;
@@ -53,7 +56,8 @@ export const FormSection = styled.section`
   }
   .text-input,
   #userAreaOfWork,
-  #usercurrentLocation {
+  #usercurrentLocation,
+  #userPlacesInterested {
     width: 85%;
   }
 `;

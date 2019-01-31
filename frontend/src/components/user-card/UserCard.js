@@ -60,6 +60,26 @@ class UserCard extends Component{
     }
 
     render(){
+        let topSkillsArr;
+        let addSkillsArr;
+        let famSkillsArr;
+
+        if (this.props.userTopSkills) {
+          topSkillsArr = this.props.userTopSkills
+        } else {
+          topSkillsArr = this.state.top_skills
+        }
+        if (this.props.userAddSkills) {
+          addSkillsArr = this.props.userAddSkills
+        } else {
+          addSkillsArr = this.state.add_skills
+        }
+        if (this.props.userFamSkills) {
+          famSkillsArr = this.props.userFamSkills
+        } else {
+          famSkillsArr = this.state.familiar
+        }
+
         return (
             <>
                 <UserCardContainer onClick={()=> this.setState({expanded: !this.state.expanded})} expanded={this.state.expanded ? true : false}>
@@ -69,23 +89,24 @@ class UserCard extends Component{
                                 <img className="photo"src={this.props.image} alt="user avatar"/>
                                 <div className="user-intro">
                                     <h2>{`${this.props.first_name} ${this.props.last_name}`}</h2>
-                                    <p className="location">{this.props.location? this.props.location.locationName : null}</p>
+                                    <p className="location">{this.props.location}</p>
+                                    {/* <p className="location">{this.props.location ? this.props.location.locationName : null}</p> */}
                                     <p>{this.props.summary}</p>
                                 </div>
                             </div>
                             <h3>{this.props.desired_title}</h3>
                             <div className="keywords">
-                                {this.state.top_skills.length > 0 ? this.state.top_skills.map(word => {
+                                {topSkillsArr.length > 0 ? topSkillsArr.map(word => {
                                     return (<div key={word.id} className="keyword">
                                         {word.skill}
                                     </div>)
                                 }) : null}
-                                {this.state.add_skills.length > 0 ? this.state.add_skills.map(word => {
+                                {addSkillsArr.length > 0 ? addSkillsArr.map(word => {
                                     return (<div key={word.id} className="keyword">
                                         {word.skill}
                                     </div>)
                                 }) : null}
-                                {this.state.familiar.length > 0 ? this.state.familiar.map(word => {
+                                {famSkillsArr.length > 0 ? famSkillsArr.map(word => {
                                     return (<div key={word.id} className="keyword">
                                         {word.skill}
                                     </div>)

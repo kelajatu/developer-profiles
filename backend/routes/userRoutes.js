@@ -173,11 +173,6 @@ server.delete('/:id', (req, res) => {
     })
 })
 
-
-
-
-
-
 //get skills
 //expects type in path param as either "top_skills" "add_skills" or "familiar" 
 server.get('/:id/skills/:type', (req, res) => {
@@ -234,11 +229,6 @@ server.post('/:user_id/createskill/:type', (req, res) => {
     })
 })
 
-
-
-
-
-
 //gets projects, experience, or education 
 //expects one of the above terms in place of "extras" in path param. ex. '/:userid/education'
 server.get('/:user_id/:extras', (req, res) => {
@@ -248,7 +238,6 @@ server.get('/:user_id/:extras', (req, res) => {
         res.status(500).json({message: "error fetching data", err: err})
     })
 })
-
 
 //add project, experience, or education
 //req.body expectations for project: "user_id", "project_title", "project_description"

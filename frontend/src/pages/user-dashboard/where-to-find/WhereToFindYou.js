@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import UserCardPreview from '../user/UserCardPreview';
+import UserCard from '../../../components/user-card/UserCard';
 
 import { TextInput, Select } from 'grommet';
 import {
@@ -16,7 +16,6 @@ class WhereToFindYou extends Component {
   state = {
     submitSuccess: false,
     submitFailure: false,
-
 
     locationAutocomplete: [],
     currentLocationObjArr: [],
@@ -66,7 +65,6 @@ class WhereToFindYou extends Component {
     axios
     .post(`${process.env.REACT_APP_BACKEND_SERVER}/api/gio`, {placeId: id})
       .then(res => {
-        console.log(res.data.result.geometry.location)
         const { lat, lng } = res.data.result.geometry.location;
         this.setState({
           currentLocationInput: e.value,
@@ -165,7 +163,6 @@ class WhereToFindYou extends Component {
   }
 
   render() {
-    console.log('WHERE', this.state)
     const {
       currentLocationNameSuccess,
       githubSuccess,
@@ -179,12 +176,10 @@ class WhereToFindYou extends Component {
           <h1>Where To Find You</h1>
         </header>
 
-
         <div className="container">
           <FormSection>
             <form>
-
-              
+            
               {/* location */}
               <div className="select-input-container">
                 <LabelContainer>
@@ -318,7 +313,20 @@ class WhereToFindYou extends Component {
                 </label>
               </LabelContainer>
             </header>
-            <UserCardPreview userInfo={this.props.userInfo} />
+            <UserCard
+              id={this.props.userInfo.id}
+              github={this.props.userInfo.github}
+              linkedin={this.props.userInfo.linkedin}
+              portfolio={this.props.userInfo.portfolio}
+              badge={this.props.userInfo.badge}
+              key={this.props.userInfo.id}
+              first_name={this.props.userInfo.first_name}
+              last_name={this.props.userInfo.last_name}
+              image={this.props.userInfo.image}
+              summary={this.props.userInfo.summary}
+              desired_title={this.props.userInfo.desired_title}
+              location={this.props.userInfo.current_location_name}
+            />
           </section>
         </div>
         <ButtonContainer>

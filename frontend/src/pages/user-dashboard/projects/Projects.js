@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import UserCardPreview from '../user/UserCardPreview';
+import UserCard from '../../../components/user-card/UserCard';
 
 import { TextInput, TextArea } from 'grommet';
 import {
@@ -137,7 +137,6 @@ class Projects extends Component {
   }
   
   render() {
-    console.log('P', this.state)
     return (
       <MainFormContainer>
         <header>
@@ -258,7 +257,20 @@ class Projects extends Component {
                 </label>
               </LabelContainer>
             </header>
-            <UserCardPreview userInfo={this.props.userInfo} />
+            <UserCard
+              id={this.props.userInfo.id}
+              github={this.props.userInfo.github}
+              linkedin={this.props.userInfo.linkedin}
+              portfolio={this.props.userInfo.portfolio}
+              badge={this.props.userInfo.badge}
+              key={this.props.userInfo.id}
+              first_name={this.props.userInfo.first_name}
+              last_name={this.props.userInfo.last_name}
+              image={this.props.userInfo.image}
+              summary={this.props.userInfo.summary}
+              desired_title={this.props.userInfo.desired_title}
+              location={this.props.userInfo.current_location_name}
+            />
           </section>
         </div>
         <ButtonContainer>

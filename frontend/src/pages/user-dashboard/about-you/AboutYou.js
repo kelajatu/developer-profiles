@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import UserCardPreview from '../user/UserCardPreview';
+import UserCard from '../../../components/user-card/UserCard';
 
 import { TextArea, Select, TextInput } from 'grommet';
 import {
@@ -23,9 +23,16 @@ class AboutYou extends Component {
     placesInterested: this.props.userInfo.interested_location_names || "",
 
     summary: this.props.userInfo.summary || "",
+
     topSkillsInput: "",
+    topSkillsInputSuccess: false,
+    userTopSkills: [],
     additionalSkillsInput: "",
+    additionalSkillsInputSuccess: false,
+    userAddSkills: [],
     familiarSkillsInput: "",
+    familiarSkillsInputSuccess: false,
+    userFamSkills: [],
   }
 
   onInputChange = (e) => {
@@ -98,25 +105,28 @@ class AboutYou extends Component {
   //     )
   //   }
     
+
+
+    // about you and card are tied to a re-mount(CMD), not update(CDU) lifecycle
+    // when skills get added, both the components update and re-render, but not re-mount
+    // dashboardcontainer was handling all that by updating, and passing props to all components,
+    // GET skills fails when there are no skills, all cards currently send 500s for new users with no skills yet
+    // if I do a GET on dashboard container, the entire thing will crash
+    // therefore dashboardcontainer can't update and create skillsArr and can't send updated props to about you and card
+    // about you and card will have to unmount and mount again for CMDs to run
     addSkillsNew = (e) => {
       e.preventDefault()
 
       let skillInput = e.target.getAttribute('name')
-      console.log('TARGET',e.target)
-      console.log('ID',e.target.id)
-      console.log('SKI',skillInput)
-      console.log('STATE',this.state[skillInput])
-      console.log('STATE',e.target.value)
-
 
       axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/createskill/${e.target.id}`, {"skill": `${this.state[skillInput]}`})
-        .then(id => {
-          this.setState({
-            topSkillsInput: "",
-            additionalSkillsInput: "",
-            familiarSkillsInput: "",
-          })
-          console.log(id)
+        .then(res => {
+          let skillInputSuccess = `${skillInput}Success`
+          this.setState({ [skillInput]: "", [skillInputSuccess]: true })
+          this.props.updateProgress()
+          noLeaks = setTimeout(() => {
+            this.setState({ [skillInputSuccess]: false })
+          }, 1000)
         })
       }
       
@@ -127,20 +137,13 @@ class AboutYou extends Component {
 
       checkOnSubmit = (e) => {
         e.preventDefault()
-
-
         const { placesInterested, summary } = this.state;
-
         const lePackage = {
           interested_location_names: placesInterested,
           summary,
         }
-
-        console.log(lePackage)
-
         axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
           .then(res => {
-            console.log(res.data)
             this.props.updateProgress()
           })
           .catch(err => console.log(err))
@@ -149,7 +152,6 @@ class AboutYou extends Component {
 
 
     render() {
-    console.log('AboutAAA', this.state)
     const {
       placesInterestedSuccess,
       summarySuccess,
@@ -164,12 +166,11 @@ class AboutYou extends Component {
           <h1>About You</h1>
         </header>
 
-
         <div className="container">
           <FormSection>
             <form>
 
-              {/* location */}
+              {/* places */}
               <div className="select-input-container">
                 <LabelContainer>
                   <label htmlFor="userPlacesInterested">
@@ -193,7 +194,7 @@ class AboutYou extends Component {
                 />
               </div>
               
-              {/* projdescription */}
+              {/* summary */}
               <div className="text-input-container">
                 <LabelContainer>
                   <label htmlFor="userSummary">
@@ -221,13 +222,6 @@ class AboutYou extends Component {
                 />
               </div>
 
-
-
-
-
-
-
-
               {/* Top Skills */}
               <div className="text-input-container">
                 <LabelContainer>
@@ -252,15 +246,18 @@ class AboutYou extends Component {
                   onChange={this.onInputChange}
                 />
                 <button className="skills-btn" id="top_skills" name="topSkillsInput" onClick={this.addSkillsNew}>
-                  {this.state.submitSuccess ?
-                    <i className="success fa fa-check-circle fa-2x"></i>
+                  {this.state.topSkillsInputSuccess ?
+                    <i className="success fa fa-check-circle"></i>
                     :
                     'Add New'
                   }
                 </button>
+                <div>
+                  {
+
+                  }
+                </div>
               </div>
-
-
 
               {/* Additional Skills */}
               <div className="text-input-container">
@@ -286,16 +283,14 @@ class AboutYou extends Component {
                   onChange={this.onInputChange}
                 />
                 <button className="skills-btn" id="add_skills" name="additionalSkillsInput" onClick={this.addSkillsNew}>
-                  {this.state.submitSuccess ?
-                    <i className="success fa fa-check-circle fa-2x"></i>
+                  {this.state.additionalSkillsInputSuccess ?
+                    <i className="success fa fa-check-circle"></i>
                     :
                     'Add New'
                   }
                 </button>
               </div>
             
-
-
               {/* Familiar Skills */}
               <div className="text-input-container">
                 <LabelContainer>
@@ -320,15 +315,13 @@ class AboutYou extends Component {
                   onChange={this.onInputChange}
                 />
                 <button className="skills-btn" id="familiar" name="familiarSkillsInput" onClick={this.addSkillsNew}>
-                  {this.state.submitSuccess ?
+                  {this.state.familiarSkillsInputSuccess ?
                     <i className="success fa fa-check-circle fa-2x"></i>
                     :
                     'Add New'
                   }
                 </button>
               </div>
-
-
 
             </form>
           </FormSection>
@@ -340,7 +333,23 @@ class AboutYou extends Component {
                 </label>
               </LabelContainer>
             </header>
-            <UserCardPreview userInfo={this.props.userInfo} />
+            <UserCard
+              id={this.props.userInfo.id}
+              github={this.props.userInfo.github}
+              linkedin={this.props.userInfo.linkedin}
+              portfolio={this.props.userInfo.portfolio}
+              badge={this.props.userInfo.badge}
+              key={this.props.userInfo.id}
+              first_name={this.props.userInfo.first_name}
+              last_name={this.props.userInfo.last_name}
+              image={this.props.userInfo.image}
+              summary={this.props.userInfo.summary}
+              desired_title={this.props.userInfo.desired_title}
+              location={this.props.userInfo.current_location_name}
+              userTopSkills={this.props.userInfo.userTopSkills}
+              userAddSkills={this.props.userInfo.userAddSkills}
+              userFamSkills={this.props.userInfo.userFamSkills}
+            />
           </section>
         </div>
         <ButtonContainer>

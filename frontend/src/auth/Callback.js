@@ -8,7 +8,6 @@ class Callback extends Component {
   }
 
   render() {
-    console.log('LOADINGGG')
     return (
       <div>
         <h1>Loading...</h1>

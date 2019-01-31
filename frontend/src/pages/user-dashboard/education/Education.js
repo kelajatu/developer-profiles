@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import UserCardPreview from '../user/UserCardPreview';
+import UserCard from '../../../components/user-card/UserCard';
 
 import { TextInput } from 'grommet';
 import {
@@ -111,7 +111,6 @@ class Education extends Component {
     
     let schoolDates = `${newSchoolDatesFrom} to ${newSchoolDatesTo}`
 
-
     const lePackage = {
       user_id: this.props.userInfo.id,
       school: schoolName,
@@ -149,7 +148,6 @@ class Education extends Component {
   }
 
   render() {
-    console.log('ED', this.state)
     return (
       <MainFormContainer>
         <header>
@@ -159,8 +157,6 @@ class Education extends Component {
         <div className="container">
           <FormSection>
             <form>
-
-
 
               {/* school */}
               <div className="text-input-container">
@@ -182,11 +178,6 @@ class Education extends Component {
                   />
                 </Validator>
               </div>
-
-
-
-
-
 
               {/* schooldates */}
               <div className="text-input-container">
@@ -231,11 +222,6 @@ class Education extends Component {
                 </Validator>
               </div>
 
-
-
-
-
-
               {/* course */}
               <div className="text-input-container">
                 <LabelContainer>
@@ -256,8 +242,6 @@ class Education extends Component {
                   />
                 </Validator>
               </div>
-
-
 
               {/* degree */}
               <div className="text-input-container">
@@ -280,8 +264,6 @@ class Education extends Component {
                 </Validator>
               </div>
 
-
-
             </form>
           </FormSection>
           <section>
@@ -292,7 +274,20 @@ class Education extends Component {
                 </label>
               </LabelContainer>
             </header>
-            <UserCardPreview userInfo={this.props.userInfo} />
+            <UserCard
+              id={this.props.userInfo.id}
+              github={this.props.userInfo.github}
+              linkedin={this.props.userInfo.linkedin}
+              portfolio={this.props.userInfo.portfolio}
+              badge={this.props.userInfo.badge}
+              key={this.props.userInfo.id}
+              first_name={this.props.userInfo.first_name}
+              last_name={this.props.userInfo.last_name}
+              image={this.props.userInfo.image}
+              summary={this.props.userInfo.summary}
+              desired_title={this.props.userInfo.desired_title}
+              location={this.props.userInfo.current_location_name}
+            />
           </section>
         </div>
         <ButtonContainer>
