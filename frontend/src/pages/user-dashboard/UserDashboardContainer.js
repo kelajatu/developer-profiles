@@ -25,9 +25,12 @@ class UserDashboardContainer extends Component {
   updateProgress = () => {
     const userInfo = this.props.auth.getProfile();
     const userEmail = userInfo.email;
+    // User has name
     axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userEmail}`)
     .then(res => {
       const userInfo = res.data;
+      // User does not have name?
+
       // getting edu, exp, proj
       const getUserProjects = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/projects`)
       const getUserExperience = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/experience`)
