@@ -52,6 +52,7 @@ export const UserCardContainer = styled.div`
           padding: 5px 0;
         }
         .photo {
+          background: coral;
           display: flex;
           border-radius: 100px;
           justify-content: center;
@@ -89,14 +90,14 @@ export const UserCardContainer = styled.div`
       margin-right: 10px;
       .fab,
       .fas {
-        font-size: 40px;
+        font-size: 25px;
         &:hover {
           color: gray;
         }
         cursor: pointer;
       }
       .fas {
-        font-size: 35px;
+        font-size: 20px;
         margin-bottom: 40px;
       }
       .badge {
@@ -105,6 +106,9 @@ export const UserCardContainer = styled.div`
         cursor: pointer;
       }
     }
+  }
+  .fa-laptop {
+    font-size:50px;
   }
   .projects-etc {
     margin-left: 28px;

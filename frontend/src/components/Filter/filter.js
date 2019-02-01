@@ -88,6 +88,7 @@ const FilterBoxDiv = styled.aside`
   padding-top: 130px;
   border-right: solid 0.5px #dbdee2;
   display: flex;
+  position: fixed;
   flex-direction: column;
   h1 {
     font-size: 20px;

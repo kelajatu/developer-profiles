@@ -4,7 +4,7 @@ import { centerFlex } from "../../global-styles/Mixins";
 export const UserCardsDiv = styled.div`
     display: flex;
     flex-wrap: wrap;
-    margin-left: 40px; 
+    margin-left: 300px; 
     padding-top: 130px;
     @media (max-width: 1440px) {
       ${centerFlex('column')}; 
