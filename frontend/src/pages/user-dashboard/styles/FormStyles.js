@@ -59,6 +59,7 @@ export const FormSection = styled.section`
     color: green;
   }
   .text-input-container {
+    /****SKILLS BUTTONS****/
     .skills-btn {
       width: 100px;
       color: black;
@@ -213,10 +214,11 @@ export const ButtonContainer = styled.div`
     color: green;
   }
 
+  /****ALL OTHER BUTTONS****/
   button {
     width: 100%;
     color: black;
-    padding: 20px;
+    padding: 50px;
     font-size: 1.7rem;
     letter-spacing: 1.5px;
     background: white;
@@ -229,6 +231,7 @@ export const ButtonContainer = styled.div`
     }
   }
 
+  /****ALL OTHER BUTTONS****/
   a {
     width: 70%;
     display: block;

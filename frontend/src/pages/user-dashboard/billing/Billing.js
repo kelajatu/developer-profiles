@@ -1,19 +1,12 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import styled from 'styled-components';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 // import { centerFlex } from '../../../global-styles/Mixins';
 
-// import {
-//   MainFormContainer,
-//   FormSection,
-//   LabelContainer,
-//   Validator,
-
-// } from '../styles/FormStyles';
-
-import ButtonContainer from '../buttonCointainer'
-
+import {
+  ButtonContainer
+} from '../styles/FormStyles';
 
 
 export default class Billing extends Component {
@@ -25,10 +18,7 @@ export default class Billing extends Component {
       year: true,
       price: 999,
     }
-
-    
   }
-  
 
   componentDidMount() {
     // for returning users
@@ -111,8 +101,20 @@ export default class Billing extends Component {
             </form>
           }
           </div>
-          <ButtonContainer 
-            checkOnSubmit={this.checkOnSubmit} submitSucess={this.state.submitSucess} />
+          <ButtonContainer>
+              <div>
+                  <Link to="/dashboard/education">Back</Link>
+              </div>
+              {/* <div>
+                  <button onClick={this.checkOnSubmit}>
+                      {this.state.submitSuccess ?
+                      <i className="success fa fa-check-circle fa-2x"></i> : 'Save Info'}
+                  </button>
+              </div> */}
+              <div>
+                  <Link to="/dashboard/personal-info">Next</Link>
+              </div>
+          </ButtonContainer>
       </BillingDiv>
     )
   }
