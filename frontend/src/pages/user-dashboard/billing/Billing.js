@@ -2,21 +2,18 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-// import { centerFlex } from '../../../global-styles/Mixins';
 
 import {
   ButtonContainer
 } from '../styles/FormStyles';
-
 
 export default class Billing extends Component {
   constructor(props){
     super(props)
     this.state = {
       paid: false,
-      month: false,
-      year: true,
-      price: 999,
+      selected: "free",
+      price: 0,
     }
   }
 
@@ -78,43 +75,56 @@ export default class Billing extends Component {
     });
   }
 
+  toggler = (name) => {
+      this.setState({selected: name})
+  }
+
   render() {
     return (
       <BillingDiv>
           <h1>Billing</h1>
-          <div className="body">
-          {this.state.paid ? <div>PAID</div> : 
-            <form>
-              <label>Select your payment options</label>
-              <br></br>
-              <label>
-                <input type="radio" onClick={() => this.setState({month: !this.state.month, year: !this.state.year, price: 999})} name="monthly" value="pay" checked={this.state.year} />
-                 1 Year - $9.99
-              </label>
-              <label>
-                <input type="radio" checked={this.state.month} onClick={() => this.setState({year: !this.state.year, month: !this.state.month, price: 99})} name="yearly" value="pay" />
-                  1 Month - $0.99
-              </label>
-              <br></br>
-              <br></br>
-              <button onClick={this.clickHandler} id="customButton">Pay now</button>
-            </form>
-          }
+          {/* <div className="body"> */}
+          <div className="options">
+            <div 
+              className="option" 
+              style={{border: this.state.selected === "year" ? '3px solid green' : '1px solid gray' }}
+              onClick={() => this.toggler("year")}>
+              <h2>Always Looking</h2>
+              <li>1 Year - $9.99</li>
+              <li>reason 2</li>
+              <li>reason 3</li>
+            </div>
+            <div 
+              className="option" 
+              style={{border: this.state.selected === "month" ? '3px solid green' : '1px solid gray' }} 
+              onClick={() => this.toggler("month")}>
+              <h2>Quick Hire</h2>
+              <li>1 Month - $0.99</li>
+              <li>reason 2</li>
+              <li>reason 3</li>
+            </div>
+            <div 
+              className="option" 
+              style={{border: this.state.selected === "free" ? '3px solid green' : '1px solid gray' }}
+              onClick={() => this.toggler("free")}>
+              <h2>Free</h2>
+              <li>1 Day = $0.00</li>
+              <li>Unlimited Browsing</li>
+              <li>reason 3</li>
+            </div>
           </div>
-          <ButtonContainer>
+          <ButtonContainer> 
               <div>
                   <Link to="/dashboard/education">Back</Link>
               </div>
-              {/* <div>
-                  <button onClick={this.checkOnSubmit}>
-                      {this.state.submitSuccess ?
-                      <i className="success fa fa-check-circle fa-2x"></i> : 'Save Info'}
-                  </button>
-              </div> */}
+              <button onClick={this.clickHandler} id="customButton">{this.state.paid || this.state.selected === "free" ?
+                      <i className="success fa fa-check-circle fa-2x"></i> : 'Pay now'}</button>
               <div>
                   <Link to="/dashboard/personal-info">Next</Link>
               </div>
           </ButtonContainer>
+          <ButtonContainer 
+            checkOnSubmit={this.checkOnSubmit} submitSucess={this.state.submitSucess} />
       </BillingDiv>
     )
   }
@@ -126,10 +136,31 @@ export const BillingDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   float: right;
   height: auto;
   min-height: 100vh;
-
+  .options{
+    /* border: 1px solid red; */
+    margin: 20px 0;
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    .option{
+      border: 1px solid green;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 20px;
+      border-radius: 25px;
+      height: 300px;
+      h2{
+        font-size: 30px;
+      }
+    }
+  }
       /* from FormStyles */
       width: calc(100% - 300px);
       margin-left: 300px;
