@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Route } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
+import { Grommet } from 'grommet';
+
 
 import UserDashboardNav from './UserDashboardNav'
 import UserDashboardIntro from './user/UserDashboardIntro'
@@ -25,9 +27,12 @@ class UserDashboardContainer extends Component {
   updateProgress = () => {
     const userInfo = this.props.auth.getProfile();
     const userEmail = userInfo.email;
+    // User has name
     axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userEmail}`)
     .then(res => {
       const userInfo = res.data;
+      // User does not have name?
+
       // getting edu, exp, proj
       const getUserProjects = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/projects`)
       const getUserExperience = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/experience`)
@@ -276,27 +281,30 @@ class UserDashboardContainer extends Component {
   render() {
     console.log('DASH STATE', this.state)
     return (
-      <DashboardContainer>
-        <UserDashboardNav {...this.props} />
+      <Grommet>
+        <DashboardContainer>
 
-        {!this.state.isLoading && this.state.id ?
-          <main>
-            <Route exact path={`${this.props.match.path}/`} render={props => <UserDashboardIntro {...props} userInfo={this.state} />} />
-            <Route path={`${this.props.match.path}/new`} render={props => <UserDashboardNew {...props} userInfo={this.state} />} />
-            <Route path={`${this.props.match.path}/personal-info`} render={props => <PersonalInfo updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
-            <Route path={`${this.props.match.path}/where-to-find-you`} render={props => <WhereToFindYou updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
-            <Route path={`${this.props.match.path}/about-you`} render={props => <AboutYou updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
-            <Route path={`${this.props.match.path}/projects`} render={props => <Projects updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
-            <Route path={`${this.props.match.path}/experience`} render={props => <Experience updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
-            <Route path={`${this.props.match.path}/education`} render={props => <Education updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
-            <Route path={`${this.props.match.path}/billing`} render={props => <Billing updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
-          </main>
-          :
-          <Loader />
-        }
-        
+          <UserDashboardNav {...this.props} />
 
-      </DashboardContainer>
+          {!this.state.isLoading && this.state.id ?
+            <main>
+              {/* <Route exact path={`${this.props.match.path}/`} render={props => <UserDashboardIntro {...props} userInfo={this.state} />} /> */}
+              {/* <Route path={`${this.props.match.path}/new`} render={props => <UserDashboardNew {...props} userInfo={this.state} />} /> */}
+              <Route path={`${this.props.match.path}/personal-info`} render={props => <PersonalInfo updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
+              <Route path={`${this.props.match.path}/where-to-find-you`} render={props => <WhereToFindYou updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
+              <Route path={`${this.props.match.path}/about-you`} render={props => <AboutYou updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
+              <Route path={`${this.props.match.path}/projects`} render={props => <Projects updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
+              <Route path={`${this.props.match.path}/experience`} render={props => <Experience updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
+              <Route path={`${this.props.match.path}/education`} render={props => <Education updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
+              <Route path={`${this.props.match.path}/billing`} render={props => <Billing updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
+            </main>
+            :
+            <Loader />
+          }
+          
+
+        </DashboardContainer>
+      </Grommet>
     )
   }
 }

@@ -16,7 +16,6 @@ export default class Billing extends Component {
       price: 0,
     }
   }
-  
 
   componentDidMount() {
     // for returning users
@@ -114,7 +113,6 @@ export default class Billing extends Component {
               <li>reason 3</li>
             </div>
           </div>
-             
           <ButtonContainer> 
               <div>
                   <Link to="/dashboard/education">Back</Link>

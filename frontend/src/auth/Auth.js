@@ -61,9 +61,11 @@ export default class Auth {
               // db returns .first() user when user is returning, which is an object
               // db returns users arr with [0] index being new user when user is new
               if (Array.isArray(res.data)) {
-                props.history.push('/dashboard/new');
+                props.history.push('/dashboard/personal-info');
+                // props.history.push('/dashboard/new');
               } else if (res.data) {
-                props.history.push('/dashboard');
+                props.history.push('/dashboard/personal-info');
+                // props.history.push('/dashboard');
               }
             })
             .catch(err => console.log(err));
