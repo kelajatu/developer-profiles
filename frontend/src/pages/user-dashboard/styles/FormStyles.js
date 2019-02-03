@@ -218,7 +218,7 @@ export const ButtonContainer = styled.div`
   button {
     width: 100%;
     color: black;
-    padding: 50px;
+    padding: 30px;
     font-size: 1.7rem;
     letter-spacing: 1.5px;
     background: white;

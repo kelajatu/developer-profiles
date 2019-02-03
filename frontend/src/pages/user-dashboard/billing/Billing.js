@@ -120,11 +120,9 @@ export default class Billing extends Component {
               <button onClick={this.clickHandler} id="customButton">{this.state.paid || this.state.selected === "free" ?
                       <i className="success fa fa-check-circle fa-2x"></i> : 'Pay now'}</button>
               <div>
-                  <Link to="/dashboard/personal-info">Next</Link>
+                  <Link to="/dashboard">Home</Link>
               </div>
           </ButtonContainer>
-          <ButtonContainer 
-            checkOnSubmit={this.checkOnSubmit} submitSucess={this.state.submitSucess} />
       </BillingDiv>
     )
   }

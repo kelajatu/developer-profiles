@@ -290,8 +290,7 @@ class PersonalInfo extends Component {
         </div>
         <ButtonContainer>
           <div>
-            {/* <Link to="/dashboard">Back Home</Link> */}
-            <Link to="/dashboard/billing">Back</Link>
+            <Link to="/dashboard">Back Home</Link>
           </div>
           <div>
             <button onClick={this.checkOnSubmit}>

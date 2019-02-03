@@ -12,8 +12,7 @@ export default class Nav extends Component {
         {this.props.auth.isAuthenticated() ? (
           <Fragment>
             <div className="nav-link">
-              <Link to="/dashboard/personal-info">Dashboard</Link>
-              {/* <Link to="/dashboard">Dashboard</Link> */}
+              <Link to="/dashboard">Dashboard</Link>
             </div>
             <div className="nav-link">
               <a

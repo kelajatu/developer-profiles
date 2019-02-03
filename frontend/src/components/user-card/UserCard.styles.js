@@ -152,6 +152,7 @@ export const UserCardContainer = styled.div`
   .description {
     width: 250px;
     padding-left: 10px;
+    word-break:break-all;
   }
   .indent {
     margin-left: 5px;

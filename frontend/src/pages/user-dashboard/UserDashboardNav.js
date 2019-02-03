@@ -6,10 +6,10 @@ import { link, centerFlex } from '../../global-styles/Mixins';
 function UserDashboardNav(props) {
   return (
     <NavContainer>
-      {/* <NavLink exact to={`/dashboard`} activeClassName="selected">
+      <NavLink exact to={`/dashboard`} activeClassName="selected">
         <span className="nav-large"><i className="fa fa-home"></i> Home</span>
         <span className="nav-small"><i className="fa fa-home"></i></span>
-      </NavLink> */}
+      </NavLink>
       
       <NavLink to={`${props.match.url}/personal-info`} activeClassName="selected">
         <span className="nav-large"><i className="fa fa-address-card"></i> Personal Info</span>
