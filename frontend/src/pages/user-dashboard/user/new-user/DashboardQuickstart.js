@@ -43,7 +43,7 @@ const QuickstartContainer = styled.div`
     margin-left: 80px;
   }
   h1 {
-    font-size: 4rem;
+    font-size: 5rem;
     color: rgb(42,42,42);
     margin-bottom: 50px;
     text-align: center;
@@ -54,7 +54,8 @@ const QuickstartContainer = styled.div`
     }
   }
   .container {
-    width: 80%;
+    width: 100%;
+    padding: 0 50px;
     border: solid;
     margin:auto;
     nav {

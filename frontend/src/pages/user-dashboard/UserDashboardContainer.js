@@ -116,33 +116,42 @@ class UserDashboardContainer extends Component {
           placesInterestedArr
         }
 
-        axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/top_skills`)
-        .then(res => {
-          allUserInfo.userTopSkills = res.data;
-          this.setState(allUserInfo)
-        })
-        .catch(err => {
-          console.log(err)
+        if (!allUserInfo.top_skills) {
           allUserInfo.userTopSkills = [];
-        })
-        axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/add_skills`)
-        .then(res => {
-          allUserInfo.userAddSkills = res.data;
-          this.setState(allUserInfo)
-        })
-        .catch(err => {
-          console.log(err)
+        } else {
+          axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/top_skills`)
+          .then(res => {
+            allUserInfo.userTopSkills = res.data;
+            this.setState(allUserInfo)
+          })
+          .catch(err => {
+            console.log(err)
+          })
+        }
+        if (!allUserInfo.add_skills) {
           allUserInfo.userAddSkills = [];
-        })
-        axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/familiar`)
-        .then(res => {
-          allUserInfo.userFamSkills = res.data;
-          this.setState(allUserInfo)
-        })
-        .catch(err => {
-          console.log(err)
+        } else {
+          axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/add_skills`)
+          .then(res => {
+            allUserInfo.userAddSkills = res.data;
+            this.setState(allUserInfo)
+          })
+          .catch(err => {
+            console.log(err)
+          })
+        }
+        if (!allUserInfo.familiar) {
           allUserInfo.userFamSkills = [];
-        })
+        } else {
+          axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/familiar`)
+          .then(res => {
+            allUserInfo.userFamSkills = res.data;
+            this.setState(allUserInfo)
+          })
+          .catch(err => {
+            console.log(err)
+          })
+        }
         console.log('USER', allUserInfo)
         this.setState(allUserInfo)
       })
@@ -156,9 +165,11 @@ class UserDashboardContainer extends Component {
     this.setState({isLoading: true})
     const userInfo = this.props.auth.getProfile();
     const userEmail = userInfo.email;
+    console.log('B4',userInfo)
     axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userEmail}`)
     .then(res => {
       const userInfo = res.data;
+      console.log('AF',userInfo)
       // getting edu, exp, proj
       const getUserProjects = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/projects`)
       const getUserExperience = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/experience`)
@@ -242,33 +253,42 @@ class UserDashboardContainer extends Component {
           placesInterestedArr
         }
 
-        axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/top_skills`)
-        .then(res => {
-          allUserInfo.userTopSkills = res.data;
-          this.setState(allUserInfo)
-        })
-        .catch(err => {
-          console.log(err)
+        if (!allUserInfo.top_skills) {
           allUserInfo.userTopSkills = [];
-        })
-        axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/add_skills`)
-        .then(res => {
-          allUserInfo.userAddSkills = res.data;
-          this.setState(allUserInfo)
-        })
-        .catch(err => {
-          console.log(err)
+        } else {
+          axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/top_skills`)
+          .then(res => {
+            allUserInfo.userTopSkills = res.data;
+            this.setState(allUserInfo)
+          })
+          .catch(err => {
+            console.log(err)
+          })
+        }
+        if (!allUserInfo.add_skills) {
           allUserInfo.userAddSkills = [];
-        })
-        axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/familiar`)
-        .then(res => {
-          allUserInfo.userFamSkills = res.data;
-          this.setState(allUserInfo)
-        })
-        .catch(err => {
-          console.log(err)
+        } else {
+          axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/add_skills`)
+          .then(res => {
+            allUserInfo.userAddSkills = res.data;
+            this.setState(allUserInfo)
+          })
+          .catch(err => {
+            console.log(err)
+          })
+        }
+        if (!allUserInfo.familiar) {
           allUserInfo.userFamSkills = [];
-        })
+        } else {
+          axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/familiar`)
+          .then(res => {
+            allUserInfo.userFamSkills = res.data;
+            this.setState(allUserInfo)
+          })
+          .catch(err => {
+            console.log(err)
+          })
+        }
         console.log('USER', allUserInfo)
         this.setState({isLoading: false})
         this.setState(allUserInfo)

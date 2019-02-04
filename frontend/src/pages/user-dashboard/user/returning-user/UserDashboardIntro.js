@@ -17,8 +17,15 @@ class UserDashboardIntro extends Component {
           <h1>Your Dashboard</h1>
         </header>
         <div className="container">
-          <section>
-            <h1>Helloo</h1>
+          <section className="progress-container">
+            <div className="progress">
+              <div>
+                <h2>Profile Strength: <strong>Basic</strong></h2>
+              </div>
+              <div>
+                <canvas id="progress"></canvas>
+              </div>
+            </div>
           </section>
         </div>
         
@@ -45,7 +52,19 @@ const IntroContainer = styled.div`
     font-size: 4rem;
   }
   .container {
-    margin-top: 100px;
+    margin-top: 75px;
+    padding: 0 50px;
+    .progress-container {
+      width: 100%;
+      .progress {
+        width: 75%;
+        border: solid;
+        padding: 20px;
+      }
+      hr {
+        border: solid .5px;
+      }
+    }
   }
 `;
 

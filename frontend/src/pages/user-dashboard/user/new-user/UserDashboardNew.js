@@ -13,7 +13,11 @@ class UserDashboardNew extends Component {
     return (
       <IntroContainer>
         <header>
-          <h1>Welcome, {first_name}!</h1>
+          {first_name === "" ?
+            <h1>Welcome!</h1>
+            :
+            <h1>Welcome, {first_name}!</h1>
+          }
         </header>
         <div className="container">
           <ReactProgrammer className="programmer-svg" alt="logo" />

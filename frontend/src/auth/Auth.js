@@ -4,11 +4,10 @@ import axios from "axios";
 
 export default class Auth {
   auth0 = new auth0.WebAuth({
-    domain: "dev-profiles.auth0.com",
-    clientID: "vmrL9giX33pl1mkLLBojm2uAUOj14Ju1",
-    //NEEDS TO BE LOCAL HOST ENV
+    domain: process.env.REACT_APP_AUTH0_DOMAIN,
+    clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,
     redirectUri: process.env.REACT_APP_AUTH_REDIRECT,
-    audience: "https://dev-profiles.auth0.com/userinfo",
+    audience: process.env.REACT_APP_AUTH0_AUDIENCE,
     responseType: "token id_token",
     scope: "openid profile email"
   });
@@ -28,29 +27,34 @@ export default class Auth {
         localStorage.setItem("expires_at", expiresAt);
         const user = this.getProfile();
         let userInfo;
-        switch(user) {
-          case user.given_name:
-            userInfo = {
-              first_name: user.given_name || "",
-              last_name: user.family_name || "",
-              email: user.email
-            }
-          break;
-          case user.name:
-            let userArrHolder = user.name.split(' ');
+        let userArrHolder;
+        // google returns given_name
+        if (user.given_name) {
+          userInfo = {
+            first_name: user.given_name || "",
+            last_name: user.family_name || "",
+            email: user.email
+          }
+          // github+email return name
+        } else if (user.name) {
+          // github is verified, email is not
+          if (user.email_verified) {
+            userArrHolder = user.name.split(' ');
             userInfo = {
               first_name: userArrHolder[0] || "",
               last_name: userArrHolder[1] || "",
               email: user.email
             }
-            break;
-            default:
+            // email signups contain no name
+          } else {
             userInfo = {
               email: user.email,
               first_name: "",
-              last_name: "",
+              last_name: ""
             }
+          }
         }
+        console.log('USERINFOAUTH', userInfo)
         if(!userInfo.email){
           props.history.push("/");
           console.log("error getting email");
@@ -73,6 +77,15 @@ export default class Auth {
     });
   }
 
+  // renewAuth = () => {
+  //   auth0.checkSession({
+  //     audience: 'https://mystore.com/api/v2',
+  //     scope: 'read:order write:order'
+  //     }, function (err, authResult) {
+  //       // Renewed tokens or error
+  //   });
+  // }
+
   isAuthenticated = () => {
     let expiresAt = JSON.parse(localStorage.getItem("expires_at"));
     return new Date().getTime() < expiresAt;
@@ -84,7 +97,7 @@ export default class Auth {
     localStorage.removeItem('expires_at');
     this.auth0.logout({
       returnTo: process.env.REACT_APP_AUTH_REDIRECT,
-      clientID: 'vmrL9giX33pl1mkLLBojm2uAUOj14Ju1'
+      clientID: process.env.REACT_APP_AUTH0_CLIENT_ID
     });
   }
 
