@@ -127,32 +127,35 @@ server.post('/billing', (req, res) => {
       if (err) {
         console.log(err)
       } else {
-        res.send(customer)
+        stripe.subscriptions.create({
+          customer: customer.data.id,
+            items: [{plan: 'plan_ET8f6n9L0GqW57'}],
+        });
+        res.send(customer.data.id)
       }
   });
 
 
   // .then(customer => {
 
-  //   if (packageSelected === 'month') {
 
+  //   if (packageSelected === 'month') {
   //     stripe.subscriptions.create({
   //       customer: customer.data.id,
   //       items: [{plan: 'plan_ET8f6n9L0GqW57'}],
-  //     })
-  //     .then(something => res.send(something))
-  //     .catch(err => console.log(err));
+  //     });
 
   //   } else if (packageSelected === 'year') {
   //     stripe.subscriptions.create({
   //       customer: customer.data.id,
   //       items: [{plan: 'plan_ET8hisB865nPaL'}],
-  //     })
-  //     .then(something => res.send(something))
-  //     .catch(err => console.log(err));
+  //     });
   //   } else {
   //     res.send('Error')
   //   }
+
+
+
   // })
   // .catch(err => console.log(err));
 
