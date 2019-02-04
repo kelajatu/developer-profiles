@@ -29,8 +29,9 @@ export default class Billing extends Component {
         .then(res => {
           axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/subscribe-customer`, {customerId: res.data.id, packageSelected: this.state.selected})
           .then(res => {
-            console.log('CUSTOMERTOSAVE',res.data)
-            axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, {stripe_token: res.data.customer})
+            console.log('CUSTOMERTOSAVE',res.data.plan.nickname)
+            console.log('CUSTOMERTOSAVE',res.data.customer)
+            axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, {stripe_customer_id: res.data.customer, stripe_subscription_name: res.data.plan.nickname})
             .then(res => {
               console.log('SUCCEESSSSS',res.data)
               this.setState({
