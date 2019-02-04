@@ -63,7 +63,7 @@ filterReLocation = (allArray, params) => {
                 params.relocateLon, 
                 user.current_location_lat, 
                 user.current_location_lon, 
-                params.milesFrom)
+                40)
         }
     })
     return newArr
