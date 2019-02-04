@@ -46,7 +46,7 @@ class PublicFacingPage extends Component {
                 scrollToTop: true,
             })
             //resets to increment num is reset 
-            num=this.state.numOfResultsToReturn
+            num=this.state.incrementNum
         } else {
             //default is the next num i.e. if 6 is dislaying than 12 will be default
             num=this.state.numOfResultsToReturn
@@ -60,11 +60,13 @@ class PublicFacingPage extends Component {
             locatedLat: this.state.locatedLat,
             locatedLon: this.state.locatedLon,
             relocateName: this.state.relocateName,
+            relocateLat: this.state.relocateLat,
+            relocateLon: this.state.relocateLon,
             //this is the number of results to be returned from the API, not the current number
             numOfResultsToReturn: num,
             milesFrom: this.state.milesFrom,
         }
-        console.log(params)
+
         this.setState({
             loading: true,
             scrollToTop: false,

@@ -24,9 +24,4 @@ Whiteboard: https://docs.google.com/spreadsheets/d/1Bo74SDxab344hZ2kneM0_tt6b2LO
 
 Heroku knex: heroku run knex --knexfile=./backend/knexfile.js migrate:rollback -a developer-profiles
 
-Netlify Deploy: 
-    Send a POST request to this webhook to trigger a deploy from master.
-
-    Example using cURL:
-
-    curl -X POST -d {} https://api.netlify.com/build_hooks/5c49e44ccfe233a8dc9de7e3
+Netlify Deploy: curl -X POST -d {} https://api.netlify.com/build_hooks/5c49e44ccfe233a8dc9de7e3
