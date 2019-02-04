@@ -429,7 +429,7 @@ class UserDashboardContainer extends Component {
             <Route path={`${this.props.match.path}/billing`} render={props => <Billing updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
           </main>
           :
-          <Loader />
+          <i className="fas fa-spinner fa-spin"></i>
         }
       </DashboardContainer>
     )
@@ -440,6 +440,10 @@ const DashboardContainer = styled.main`
   /* background-color: #F4F7FC; */
   hr {
     border: solid .5px white;
+  }
+  .fa-spin {
+    font-size: 50px;
+    color: var(--accent-color);
   }
 `;
 

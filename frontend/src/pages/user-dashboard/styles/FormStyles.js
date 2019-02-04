@@ -76,6 +76,9 @@ export const FormSection = styled.section`
       }
     }
   }
+  .skill {
+    cursor: pointer;
+  }
   .text-input,
   #userAreaOfWork,
   #usercurrentLocation,

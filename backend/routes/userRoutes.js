@@ -114,7 +114,7 @@ server.post('/filter', (req, res) => {
         res.status(500).json({message: "there is an error in GET users/", err: err, msg: err.message})
     })
 })
-//session maybe for optimazation?
+//session maybe for optimization?
 
 //get all users for card view
 server.get('/', (req, res) => {
@@ -190,7 +190,7 @@ server.get('/:id/skills/:type', (req, res) => {
 server.post('/:user_id/addskills/:type', (req, res) => {
     db.user_helpers.getUserSkillID(req.params.user_id, req.params.type).then(oldSkillsList => {
         let oldSkills = oldSkillsList[req.params.type] + `,${req.body['id']}`
-        db.addKeywords(req.params.userid, req.params.type, oldSkills).then(data => {
+        db.addKeywords(req.params.user_id, req.params.type, oldSkills).then(data => {
             res.status(200).json(data)
         })}).catch(err => {
             console.log("error adding from skill bank", err)
@@ -204,27 +204,19 @@ server.post('/:user_id/addskills/:type', (req, res) => {
 server.post('/:user_id/createskill/:type', (req, res) => {
     db.createKeywords(req.body).then(async function(data) {
         let oldSkills = await db.user_helpers.getUserSkillID(req.params.user_id, req.params.type);
-        console.log("oldskills:", oldSkills);
-        console.log("data:", data);
         if (oldSkills[req.params.type] === null) {
-            console.log("are u a number other than 1:", `${data}`)
             db.addKeywords(req.params.user_id, req.params.type, `${data}`).then(resdata => {
-                console.log(resdata)
                 res.status(200).json(resdata)
             })
         } else {
-            console.log("should be a number as a string:", `${data}`)
             oldSkills = oldSkills[req.params.type] + `,${data}`
-            console.log("newskills:", oldSkills)
             db.addKeywords(req.params.user_id, req.params.type, oldSkills).then(resdata => {
                 res.status(200).json(resdata)
             }).catch(err => {
-                console.log("there is an error in users/addskill/:id/:type at addKey", err)
                 res.status(500).json({message: "there is an error in users/addskill/:id/:type at addKey", err: err})
             })
         }
     }).catch(err => {
-        console.log("there is an error in users/createskill/:id/:type at createKey", err)
         res.status(500).json({message: "there is an error in users/createskill/:id/:type at createKey", err: err})
     })
 })
