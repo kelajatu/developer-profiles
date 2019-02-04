@@ -1,13 +1,9 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
-import {
-  ButtonContainer
-} from '../styles/FormStyles';
 
-export default class Billing extends Component {
+class QuickstartBilling extends Component {
   constructor(props){
     super(props)
     this.state = {
@@ -114,14 +110,8 @@ export default class Billing extends Component {
             </div>
           </div>
           <ButtonContainer> 
-              <div>
-                  <Link to="/dashboard/education">Back</Link>
-              </div>
               <button onClick={this.clickHandler} id="customButton">{this.state.paid || this.state.selected === "free" ?
                       <i className="success fa fa-check-circle fa-2x"></i> : 'Pay now'}</button>
-              <div>
-                  <Link to="/dashboard">Home</Link>
-              </div>
           </ButtonContainer>
       </BillingDiv>
     )
@@ -129,21 +119,10 @@ export default class Billing extends Component {
 }
 
 export const BillingDiv = styled.div`
-  /* border: 1px solid red; */
-  width: 92%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  float: right;
-  height: auto;
-  min-height: 100vh;
   .options{
-    /* border: 1px solid red; */
     margin: 20px 0;
     display: flex;
     flex-direction: row;
-    width: 80%;
     .option{
       border: 1px solid green;
       width: 100%;
@@ -159,14 +138,7 @@ export const BillingDiv = styled.div`
       }
     }
   }
-      /* from FormStyles */
-      width: calc(100% - 300px);
-      margin-left: 300px;
-      padding-top: 130px;
-      @media (max-width: 1400px) {
-        width: calc(100% - 80px);
-        margin-left: 80px;
-      }
+
       h1 {
         font-size: 5rem;
         color: rgb(42,42,42);
@@ -198,3 +170,41 @@ export const BillingDiv = styled.div`
     }
   }
 `
+
+export const ButtonContainer = styled.div`
+  width: 80%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 50px;
+
+  div {
+    width: 40%;
+    text-align: center;
+  }
+
+  .success {
+    color: green;
+  }
+
+  button {
+    width: 100%;
+    color: black;
+    padding: 30px;
+    font-size: 1.7rem;
+    letter-spacing: 1.5px;
+    background: white;
+    border: solid 1px black;
+    border-radius: 20px;
+    &:hover {
+      cursor: pointer;
+      background: black;
+      color: white;
+    }
+  }
+`;
+
+
+export default QuickstartBilling;

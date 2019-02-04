@@ -165,7 +165,6 @@ class WhereToFindYou extends Component {
   }
 
   render() {
-    console.log('F', this.props.userInfo.current_location_name)
     const {
       currentLocationNameSuccess,
       githubSuccess,

@@ -49,7 +49,6 @@ class App extends Component {
             path="/public"
             render={props => <PublicFacingPage {...props} {...this.state} />}
           />
-          {/* <Route path="/billing" render={props => <Stripe />} /> */}
           <Route component={PageNotFound} />
         </Switch>
       </Fragment>

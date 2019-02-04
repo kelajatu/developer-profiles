@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Auth from '../auth/Auth';
+import Loader from '../components/loader/Loader';
 
 class Callback extends Component {
   componentDidMount() {
@@ -10,7 +11,7 @@ class Callback extends Component {
   render() {
     return (
       <div>
-        <h1>Loading...</h1>
+        <Loader />
       </div>
     )
   }
