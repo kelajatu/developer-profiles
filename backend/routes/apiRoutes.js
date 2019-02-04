@@ -1,7 +1,6 @@
 require('dotenv').config()
 const knex = require("knex");
 const dbconfig = require("../knexfile");
-// need helper to get all skills
 const db = require('../helpers/index.js')
 const express = require('express');
 const helmet = require('helmet');
@@ -45,7 +44,6 @@ const upload = multer({
 const singleImageUpload = upload.single('image');
 
 server.post('/image-upload', (req, res) => {
-  // console.log(req.body)
   singleImageUpload(req, res, function(err) {
     if (err) {
       return res.status(422).send({errors: [{title: 'Image Upload Error', detail: err.message}] });
@@ -62,12 +60,11 @@ server.post('/location', (req, res) => {
   const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${req.body.inputLocation}&types=(cities)&key=${key}`;
   axios.post(url)
   .then(response => {
-    // console.log(response.data)
-    res.send(response.data) // <= send data to the client
+    res.send(response.data)
   })
   .catch(err => {
     console.log(err)
-    res.send({ err }) // <= send error
+    res.send({ err })
   })
 });
 
@@ -76,11 +73,11 @@ server.post('/gio', (req, res) => {
   axios.post(url)
   .then(response => {
     console.log(response.data)
-    res.send(response.data) // <= send data to the client
+    res.send(response.data)
   })
   .catch(err => {
     console.log(err)
-    res.send({ err }) // <= send error
+    res.send({ err })
   })
 });
 
@@ -100,21 +97,6 @@ server.put("/acclaim/:id", (req, res) => {
     });
 });
 
-// // stripe
-// server.post('/billing', (req, res) => {
-//   const { stripeToken } = req.body;
-//   console.log(stripeToken)
-//   const charge = stripe.charges.create({
-//     amount: 999,
-//     currency: 'usd',
-//     description: 'Example charge',
-//     source: stripeToken,
-//   }).then(charge => res.send(charge)).catch(err => console.log(err));
-// });
-
-
-
-
 
 // stripe
 server.post('/create-customer', (req, res) => {
@@ -130,7 +112,6 @@ server.post('/create-customer', (req, res) => {
       }
   });
 });
-
 
 server.post('/subscribe-customer', (req, res) => {
   const { customerId, packageSelected } = req.body;
