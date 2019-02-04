@@ -13,48 +13,23 @@ export default class Billing extends Component {
     this.state = {
       paid: false,
       selected: "free",
-      price: 0,
+      description: ""
     }
-  }
-
-  componentDidMount() {
-    // for returning users
-    // get data from session storage
-    // hydrate state
-    // remove from session storage
-    
-    
-    // document.getElementById('customButton').addEventListener('click', function(e) {
-    //   // Open Checkout with further options:
-    //   e.preventDefault();
-    //   let price = state.price
-    //   handler.open({
-    //     name: 'Demo Site',
-    //     description: '2 widgets',
-    //     amount: [this.state.price]
-    //   });
-    // });
-
-    
   }
 
   clickHandler = (e) => {
     e.preventDefault();
-    // let price = this.state.price
 
     var handler = window.StripeCheckout.configure({
       key: 'pk_test_V4TVCnAGCgyfBK9pXODIWhfA',
       image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
       locale: 'auto',
       token: token => {
-        // You can access the token ID with `token.id`.
-        // Get the token ID to your server-side code for use.
-        // console.log(this.props)
         axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/create-customer`, {stripeToken: token.id, userEmail: token.email})
         .then(res => {
           axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/subscribe-customer`, {customerId: res.data.id, packageSelected: this.state.selected})
           .then(res => {
-            console.log(res.data.customer)
+            console.log('CUSTOMERTOSAVE',res.data)
             axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, {stripe_token: res.data.customer})
             .then(res => {
               console.log('SUCCEESSSSS',res.data)
@@ -72,14 +47,13 @@ export default class Billing extends Component {
     });
 
     handler.open({
-      name: 'Demo Site',
-      description: '2 widgets',
-      amount: [this.state.price]
+      name: 'Developer Profiles',
+      description: `You selected the ${this.state.description} Package`,
     });
   }
 
-  toggler = (name) => {
-      this.setState({selected: name})
+  toggler = (name, description) => {
+      this.setState({selected: name, description})
   }
 
   render() {
@@ -92,7 +66,7 @@ export default class Billing extends Component {
             <div 
               className="option" 
               style={{border: this.state.selected === "year" ? '3px solid green' : '1px solid gray' }}
-              onClick={() => this.toggler("year")}>
+              onClick={() => this.toggler("year", "'Always Looking'")}>
               <h2>Always Looking</h2>
               <li>1 Year - $9.99</li>
               <li>reason 2</li>
@@ -101,7 +75,7 @@ export default class Billing extends Component {
             <div 
               className="option" 
               style={{border: this.state.selected === "month" ? '3px solid green' : '1px solid gray' }} 
-              onClick={() => this.toggler("month")}>
+              onClick={() => this.toggler("month", "'Quick Hire'")}>
               <h2>Quick Hire</h2>
               <li>1 Month - $0.99</li>
               <li>reason 2</li>
@@ -110,7 +84,7 @@ export default class Billing extends Component {
             <div 
               className="option" 
               style={{border: this.state.selected === "free" ? '3px solid green' : '1px solid gray' }}
-              onClick={() => this.toggler("free")}>
+              onClick={() => this.toggler("free", "'Free'")}>
               <h2>Free</h2>
               <li>1 Day = $0.00</li>
               <li>Unlimited Browsing</li>
