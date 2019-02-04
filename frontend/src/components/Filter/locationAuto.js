@@ -41,7 +41,7 @@ export class LocationAuto extends Component {
                 [this.props.lat]: null,
                 [this.props.lon]: null,
             }) 
-            this.props.filter(5)
+            this.props.filter(true)
         } else {
             this.props.updatePublicPageState({
                 [this.props.name]: e.target.value,
@@ -69,7 +69,7 @@ export class LocationAuto extends Component {
                 [this.props.lon]: lng,
                 [this.props.name]: name || null,
             }) 
-            this.props.filter(5)
+            this.props.filter(true)
         }).catch(err => console.log(err))
     }
 
@@ -107,7 +107,6 @@ export class LocationAuto extends Component {
                     }
                   </div>
                 </div>
-                <button onClick={() => this.props.filter(5, true)}>Refresh Filters</button>
               </LocationAutoDiv>
           )
       }
