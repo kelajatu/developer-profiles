@@ -4,6 +4,7 @@ import JobTitles from "./jobTitles";
 import Located from "./located";
 import Relocate from "./relocate";
 import { Grommet } from 'grommet';
+import { ButtonContainer } from "../../pages/user-dashboard/styles/FormStyles";
 
 export default class FilterBox extends Component {
   constructor(props) {
@@ -37,7 +38,9 @@ export default class FilterBox extends Component {
           />
           <button onClick={() => this.props.filter(true)}>Refresh Filters</button>
         </FilterBoxDiv>
-        <MenuButton onClick={()=> this.setState({menuOpen: !this.state.menuOpen})}>Filter Profiles</MenuButton>
+        <MenuButton onClick={()=> this.setState({menuOpen: !this.state.menuOpen})}>
+          Filter Profiles
+        </MenuButton>
       </Grommet>
     );
   }
@@ -119,5 +122,22 @@ const FilterBoxDiv = styled.aside`
     height: ${props => props.menu ? 100 : 0 }vh;
     }
   }
+  button {
+    width: 70%;
+    color: black;
+    margin: 10px;
+    padding: 15px;
+    font-size: 1.7rem;
+    letter-spacing: 1.5px;
+    background: white;
+    border: solid 1px black;
+    border-radius: 20px;
+    &:hover {
+      cursor: pointer;
+      background: black;
+      color: white;
+    }
+  }
+
  
 `;

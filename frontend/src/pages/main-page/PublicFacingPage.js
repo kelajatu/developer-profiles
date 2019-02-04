@@ -46,7 +46,7 @@ class PublicFacingPage extends Component {
                 scrollToTop: true,
             })
             //resets to increment num is reset 
-            num=this.state.numOfResultsToReturn
+            num=this.state.incrementNum
         } else {
             //default is the next num i.e. if 6 is dislaying than 12 will be default
             num=this.state.numOfResultsToReturn
@@ -64,7 +64,7 @@ class PublicFacingPage extends Component {
             numOfResultsToReturn: num,
             milesFrom: this.state.milesFrom,
         }
-        console.log(params)
+
         this.setState({
             loading: true,
             scrollToTop: false,
