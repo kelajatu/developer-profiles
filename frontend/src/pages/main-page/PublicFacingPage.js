@@ -14,7 +14,10 @@ class PublicFacingPage extends Component {
             numCardsDisplaying: "all",
             // updateRequired: false,
             milesFrom: 5,
-            numOfResults: 0,
+            //numOfResultsToReturn will update based on returned API call, this is also the initial return 
+            numOfResultsToReturn: 6,
+            //incrementNum is the initial load request and the amount to increment for api calls 
+            incrementNum: 6,
             loading: true,
             cardsOnScreen: false,
             error: false,
@@ -32,15 +35,21 @@ class PublicFacingPage extends Component {
     }
 
     componentDidMount(){
-        this.filter(5)
+        this.filter(true)
     }
 
-    filter = async (num=this.state.numOfResults, reset=false) => {
+    filter = async (reset=false) => {
+        let num;
         if(reset){
             await this.setState({
                 endOfUsers: false,
                 scrollToTop: true,
             })
+            //resets to increment num is reset 
+            num=this.state.numOfResultsToReturn
+        } else {
+            //default is the next num i.e. if 6 is dislaying than 12 will be default
+            num=this.state.numOfResultsToReturn
         }
         if(this.state.endOfUsers){
             return
@@ -51,21 +60,23 @@ class PublicFacingPage extends Component {
             locatedLat: this.state.locatedLat,
             locatedLon: this.state.locatedLon,
             relocateName: this.state.relocateName,
-            numOfResults: num,
+            //this is the number of results to be returned from the API, not the current number
+            numOfResultsToReturn: num,
             milesFrom: this.state.milesFrom,
         }
+        console.log(params)
         this.setState({
             loading: true,
             scrollToTop: false,
         })
         axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/filter`, params).then(response => {
             this.setState({
-                modUsers: response.data.usersArr, 
+                modUsers: response.data.usersArr,
                 usersReturned: response.data.usersReturned,
                 usersFound: response.data.usersFound,
                 cardsOnScreen: true,
                 loading: false,
-                error: false, 
+                error: false,
                 errorMsg: null,
             })
             if(response.data.usersFound === response.data.usersReturned){
@@ -74,7 +85,7 @@ class PublicFacingPage extends Component {
                 })
             } else {
                 this.setState({
-                    numOfResults: num+5,
+                    numOfResultsToReturn: this.state.numOfResultsToReturn+this.state.incrementNum,
                 })
             }
         }).catch(error => {
@@ -101,7 +112,7 @@ class PublicFacingPage extends Component {
             loading: true,
         })
         //this will be trigger new request to filter
-        this.filter(5, true);
+        this.filter(true);
     };
 
     //this is used in child components to modify publicPageState state

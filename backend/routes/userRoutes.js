@@ -94,7 +94,7 @@ server.post('/filter', (req, res) => {
         let count = 0;
         let shortendArr = filteredArr.filter(item => {
             count++
-            if(count <= req.body.numOfResults){
+            if(count <= req.body.numOfResultsToReturn){
                 return item
             }
         })

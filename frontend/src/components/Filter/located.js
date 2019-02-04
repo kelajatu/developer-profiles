@@ -34,6 +34,7 @@ export default class Located extends Component {
             lat="locatedLat"
             lon="locatedLon"
             // id="locatedCityId"
+            publicPageState={this.props.publicPageState}
             value={this.props.publicPageState.locatedName}
             updatePublicPageState={this.props.updatePublicPageState}
             placeholder="Earth"
