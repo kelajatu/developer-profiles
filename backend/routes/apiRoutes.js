@@ -118,11 +118,10 @@ server.put("/acclaim/:id", (req, res) => {
 
 // stripe
 server.post('/create-customer', (req, res) => {
-  const { stripeToken, userEmail, packageSelected } = req.body;
-
+  const { stripeToken, userEmail } = req.body;
   stripe.customers.create({
     description: `Customer for ${userEmail}`,
-    source: stripeToken // obtained with Stripe.js
+    source: stripeToken
   }, function(err, customer) {
       if (err) {
         console.log(err)
@@ -130,70 +129,48 @@ server.post('/create-customer', (req, res) => {
         res.send(customer)
       }
   });
-
-
-  // .then(customer => {
-
-  //   if (packageSelected === 'month') {
-  //     stripe.subscriptions.create({
-  //       customer: customer.data.id,
-  //       items: [{plan: 'plan_ET8f6n9L0GqW57'}],
-  //     });
-
-  //   } else if (packageSelected === 'year') {
-  //     stripe.subscriptions.create({
-  //       customer: customer.data.id,
-  //       items: [{plan: 'plan_ET8hisB865nPaL'}],
-  //     });
-  //   } else {
-  //     res.send('Error')
-  //   }
-
-  // })
-  // .catch(err => console.log(err));
-
 });
 
 
 server.post('/subscribe-customer', (req, res) => {
-  const { customerId } = req.body;
-
-  stripe.subscriptions.create({
-    customer: customerId,
-    items: [
-      {
-        plan: "plan_ET8f6n9L0GqW57",
-      },
-    ]
-  }, function(err, subscription) {
-      if (err) {
-        console.log(err)
-      } else {
-        res.send(subscription)
+  const { customerId, packageSelected } = req.body;
+  if (packageSelected === 'month') {
+    stripe.subscriptions.create({
+      customer: customerId,
+      items: [
+        {
+          plan: "plan_ET8f6n9L0GqW57",
+        },
+      ]
+    }, function(err, subscription) {
+        if (err) {
+          console.log(err)
+          res.send('ERROR')
+        } else {
+          res.send(subscription)
+        }
       }
-    }
-  );
-
-  // .then(customer => {
-
-  //   if (packageSelected === 'month') {
-  //     stripe.subscriptions.create({
-  //       customer: customer.data.id,
-  //       items: [{plan: 'plan_ET8f6n9L0GqW57'}],
-  //     });
-
-  //   } else if (packageSelected === 'year') {
-  //     stripe.subscriptions.create({
-  //       customer: customer.data.id,
-  //       items: [{plan: 'plan_ET8hisB865nPaL'}],
-  //     });
-  //   } else {
-  //     res.send('Error')
-  //   }
-
-  // })
-  // .catch(err => console.log(err));
-
+    );
+  } else if (packageSelected === 'year') {
+    stripe.subscriptions.create({
+      customer: customerId,
+      items: [
+        {
+          plan: "plan_ET8hisB865nPaL",
+        },
+      ]
+    }, function(err, subscription) {
+        if (err) {
+          console.log(err)
+          res.send('ERROR')
+        } else {
+          res.send(subscription)
+        }
+      }
+    );
+  } else {
+    res.send('Error')
+  }
 });
 
 
