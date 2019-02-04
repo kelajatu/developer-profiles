@@ -50,26 +50,28 @@ export default class Billing extends Component {
         // You can access the token ID with `token.id`.
         // Get the token ID to your server-side code for use.
         // console.log(this.props)
-        axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/billing`, {stripeToken: token.id, userEmail: token.email, packageSelected: this.state.selected})
+        axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/create-customer`, {stripeToken: token.id, userEmail: token.email, packageSelected: this.state.selected})
         .then(res => {
 
+          console.log('SUB RETURN CUST',res.data)
 
-          console.log('SUB RETURN',res.data)
-
-
-          this.setState({
-            paid: true
+          axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/api/subscribe-customer`, {customerId: res.data})
+          .then(res => {
+            console.log(res.data)
+            this.setState({
+              paid: true
+            })
+            this.props.updateProgress()
           })
-
+          .catch(err => console.log(err))
 
           // axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, {stripe_token: res.data.id})
           // .then(res => {
           //   console.log(res.data)
           //   this.props.updateProgress()
           // })
+          //.catch(err => console.log(err))
 
-          
-          .catch(err => console.log(err))
         })
         .catch(err => console.log(err))
       }
