@@ -7,7 +7,6 @@ import programmer, { ReactComponent as ReactProgrammer } from '../../programmer.
 class UserDashboardNew extends Component {
 
   render() {
-    console.log(this.props.userInfo)
     const { first_name } = this.props.userInfo;
 
     return (

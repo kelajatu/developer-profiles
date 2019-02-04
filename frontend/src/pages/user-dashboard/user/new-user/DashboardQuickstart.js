@@ -10,7 +10,6 @@ class DashboardQuickstart extends Component {
     current: 'basics',
   }
   render() {
-    console.log(this.state.current)
     
     return (
       <QuickstartContainer>

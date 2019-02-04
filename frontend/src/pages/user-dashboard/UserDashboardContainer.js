@@ -27,12 +27,9 @@ class UserDashboardContainer extends Component {
   updateProgress = () => {
     const userInfo = this.props.auth.getProfile();
     const userEmail = userInfo.email;
-    // User has name
     axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userEmail}`)
     .then(res => {
       const userInfo = res.data;
-      // User does not have name?
-
       // getting edu, exp, proj
       const getUserProjects = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/projects`)
       const getUserExperience = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/experience`)
@@ -53,6 +50,7 @@ class UserDashboardContainer extends Component {
 
         // Success ?
         let
+          profileProgress,
           profileImgSuccess,
           publicEmailSuccess,
           firstNameSuccess,
@@ -88,7 +86,65 @@ class UserDashboardContainer extends Component {
         userInfo.top_skills ? topSkillsSuccess = true : topSkillsSuccess = false;
         userInfo.add_skills ? additionalSkillsSuccess = true : additionalSkillsSuccess = false;
         userInfo.familiar ? familiarSkillsSuccess = true : familiarSkillsSuccess = false;
+        
+        profileProgress = 5
+        if (
+          stripeTokenSuccess &&
+          firstNameSuccess &&
+          desiredTitleSuccess &&
+          currentLocationNameSuccess &&
+          summarySuccess &&
+          topSkillsSuccess
+          ) {
+            profileProgress = 30;
+          }
+          
+          if (
+          stripeTokenSuccess &&
+          firstNameSuccess &&
+          desiredTitleSuccess &&
+          currentLocationNameSuccess &&
+          summarySuccess &&
+          topSkillsSuccess &&
+          
+          profileImgSuccess &&
+          publicEmailSuccess &&
+          areaOfWorkSuccess &&
+          portfolioSuccess
+        ) {
+          profileProgress += 30;
+        }
+        
+        if (
+          stripeTokenSuccess &&
+          firstNameSuccess &&
+          desiredTitleSuccess &&
+          currentLocationNameSuccess &&
+          summarySuccess &&
+          topSkillsSuccess &&
+          
+          profileImgSuccess &&
+          publicEmailSuccess &&
+          areaOfWorkSuccess &&
+          portfolioSuccess &&
 
+          additionalSkillsSuccess &&
+          familiarSkillsSuccess &&
+          userProjects.length >= 1 &&
+          userExperience.length >= 1 &&
+          userEducation.length >=1
+        ) {
+          profileProgress += 30;
+        }
+
+        if (
+          linkedinSuccess &&
+          githubSuccess &&
+          userProjects.length >= 3 &&
+          userExperience.length >= 2
+        ) {
+          profileProgress += 10;
+        }
 
 
         const allUserInfo = {
@@ -113,7 +169,8 @@ class UserDashboardContainer extends Component {
           userProjects,
           userExperience,
           userEducation,
-          placesInterestedArr
+          placesInterestedArr,
+          profileProgress
         }
 
         if (!allUserInfo.top_skills) {
@@ -152,7 +209,6 @@ class UserDashboardContainer extends Component {
             console.log(err)
           })
         }
-        console.log('USER', allUserInfo)
         this.setState(allUserInfo)
       })
       .catch(err => console.log(err))
@@ -165,11 +221,9 @@ class UserDashboardContainer extends Component {
     this.setState({isLoading: true})
     const userInfo = this.props.auth.getProfile();
     const userEmail = userInfo.email;
-    console.log('B4',userInfo)
     axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userEmail}`)
     .then(res => {
       const userInfo = res.data;
-      console.log('AF',userInfo)
       // getting edu, exp, proj
       const getUserProjects = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/projects`)
       const getUserExperience = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/experience`)
@@ -190,6 +244,7 @@ class UserDashboardContainer extends Component {
 
         // Success ?
         let
+          profileProgress,
           profileImgSuccess,
           publicEmailSuccess,
           firstNameSuccess,
@@ -225,7 +280,65 @@ class UserDashboardContainer extends Component {
         userInfo.top_skills ? topSkillsSuccess = true : topSkillsSuccess = false;
         userInfo.add_skills ? additionalSkillsSuccess = true : additionalSkillsSuccess = false;
         userInfo.familiar ? familiarSkillsSuccess = true : familiarSkillsSuccess = false;
+        
+        profileProgress = 5
+        if (
+          stripeTokenSuccess &&
+          firstNameSuccess &&
+          desiredTitleSuccess &&
+          currentLocationNameSuccess &&
+          summarySuccess &&
+          topSkillsSuccess
+          ) {
+            profileProgress = 30;
+          }
+          
+          if (
+          stripeTokenSuccess &&
+          firstNameSuccess &&
+          desiredTitleSuccess &&
+          currentLocationNameSuccess &&
+          summarySuccess &&
+          topSkillsSuccess &&
+          
+          profileImgSuccess &&
+          publicEmailSuccess &&
+          areaOfWorkSuccess &&
+          portfolioSuccess
+        ) {
+          profileProgress += 30;
+        }
+        
+        if (
+          stripeTokenSuccess &&
+          firstNameSuccess &&
+          desiredTitleSuccess &&
+          currentLocationNameSuccess &&
+          summarySuccess &&
+          topSkillsSuccess &&
+          
+          profileImgSuccess &&
+          publicEmailSuccess &&
+          areaOfWorkSuccess &&
+          portfolioSuccess &&
 
+          additionalSkillsSuccess &&
+          familiarSkillsSuccess &&
+          userProjects.length >= 1 &&
+          userExperience.length >= 1 &&
+          userEducation.length >=1
+        ) {
+          profileProgress += 30;
+        }
+
+        if (
+          linkedinSuccess &&
+          githubSuccess &&
+          userProjects.length >= 3 &&
+          userExperience.length >= 2
+        ) {
+          profileProgress += 10;
+        }
 
 
         const allUserInfo = {
@@ -250,7 +363,8 @@ class UserDashboardContainer extends Component {
           userProjects,
           userExperience,
           userEducation,
-          placesInterestedArr
+          placesInterestedArr,
+          profileProgress
         }
 
         if (!allUserInfo.top_skills) {
@@ -289,7 +403,6 @@ class UserDashboardContainer extends Component {
             console.log(err)
           })
         }
-        console.log('USER', allUserInfo)
         this.setState({isLoading: false})
         this.setState(allUserInfo)
       })
@@ -299,7 +412,6 @@ class UserDashboardContainer extends Component {
   }
 
   render() {
-    console.log('DASH STATE', this.state)
     return (
       <DashboardContainer>
         <UserDashboardNav {...this.props} />

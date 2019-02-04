@@ -54,7 +54,6 @@ export default class Auth {
             }
           }
         }
-        console.log('USERINFOAUTH', userInfo)
         if(!userInfo.email){
           props.history.push("/");
           console.log("error getting email");

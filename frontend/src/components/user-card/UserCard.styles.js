@@ -4,7 +4,8 @@ export const UserCardContainer = styled.div`
   border-radius: 5px;
   border: lightgrey solid 1px;
   background: white;
-  height: ${props => (props.expanded ? null : 320)}px;
+  /* height: ${props => (props.expanded ? null : 320)}px; */
+  height: ${props => (props.expanded ? null : 'auto')};
   min-height: ${props => (props.expanded ? 700 : null)}px;
   width: 520px;
   margin-bottom: 30px;
@@ -74,7 +75,8 @@ export const UserCardContainer = styled.div`
         margin-bottom: 20px;
         .keyword {
           padding: 1px;
-          margin: 2px;
+          /* margin: 2px; */
+          margin: 6px;
         }
       }
     }
