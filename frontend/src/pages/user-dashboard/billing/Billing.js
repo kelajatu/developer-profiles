@@ -49,19 +49,26 @@ export default class Billing extends Component {
       token: token => {
         // You can access the token ID with `token.id`.
         // Get the token ID to your server-side code for use.
-        // console.log(token.id)
         // console.log(this.props)
-        axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/billing`, {stripeToken: token.id})
+        axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/billing`, {stripeToken: token.id, userEmail: token.email, packageSelected: this.state.selected})
         .then(res => {
-          // console.log(res.data.id)
+
+
+          console.log('SUB RETURN',res.data)
+
+
           this.setState({
             paid: true
           })
-          axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, {stripe_token: res.data.id})
-          .then(res => {
-            // console.log(res.data)
-            this.props.updateProgress()
-          })
+
+
+          // axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, {stripe_token: res.data.id})
+          // .then(res => {
+          //   console.log(res.data)
+          //   this.props.updateProgress()
+          // })
+
+          
           .catch(err => console.log(err))
         })
         .catch(err => console.log(err))
@@ -80,6 +87,7 @@ export default class Billing extends Component {
   }
 
   render() {
+    console.log(this.state)
     return (
       <BillingDiv>
           <h1>Billing</h1>
