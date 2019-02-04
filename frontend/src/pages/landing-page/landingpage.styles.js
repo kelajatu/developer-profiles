@@ -31,18 +31,43 @@ export const Moreinfo = styled.div`
   max-width: 1000px;
   width: 100%;
   margin: auto;
-  margin-top: 200px;
+  margin-top: 50px;
+
   @media all and (max-width: 480px) {
   padding:2em;
-  margin-top: 50px;
-  }
+  margin-top: 50px;}
+
 
 `;
+
+export const TextBlock = styled.div `
+display:flex;
+flex-direction: column;
+h2 {
+  font-size: 48px;
+  line-height: 75px;
+  font-weight: bolder;
+
+}
+
+
+`
 
 export const Aboutus = styled.div`
   color: darkgray;
+  display: flex;
+  align-items: center;
   margin-bottom: 100px;
+  text-align:left;
+
+
+
 `;
 export const Learnmore = styled.div`
   color: darkblue;
+  display: flex;
+  align-items: center;
+  flex-flow: row-reverse;
+  text-align: right;
+
 `;
