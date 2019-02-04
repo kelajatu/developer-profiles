@@ -127,7 +127,7 @@ server.post('/create-customer', (req, res) => {
       if (err) {
         console.log(err)
       } else {
-        res.send(customer.data.id)
+        res.send(customer)
       }
   });
 
@@ -160,10 +160,19 @@ server.post('/subscribe-customer', (req, res) => {
 
   stripe.subscriptions.create({
     customer: customerId,
-    items: [{plan: 'plan_ET8f6n9L0GqW57'}],
-  });
-
-  res.send('SUCCESS')
+    items: [
+      {
+        plan: "plan_ET8f6n9L0GqW57",
+      },
+    ]
+  }, function(err, subscription) {
+      if (err) {
+        console.log(err)
+      } else {
+        res.send(subscription)
+      }
+    }
+  );
 
   // .then(customer => {
 
