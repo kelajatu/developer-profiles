@@ -53,7 +53,7 @@ export const UserCardContainer = styled.div`
           padding: 5px 0;
         }
         .photo {
-          background: coral;
+          background: var(--accent-color);
           display: flex;
           border-radius: 100px;
           justify-content: center;

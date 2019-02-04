@@ -52,7 +52,7 @@ export default class UserCards extends Component {
           />
         ))}
         {this.props.publicPageState.loading ? (
-          <LoaderContainer>{/* <h1>Loading...</h1> */}</LoaderContainer>
+          <LoaderContainer><i className="fas fa-spinner fa-spin"></i></LoaderContainer>
         ) : null}
         {this.props.publicPageState.error ? (
           <div>

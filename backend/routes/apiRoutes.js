@@ -85,10 +85,8 @@ server.post('/gio', (req, res) => {
 // acclaim
 server.put("/acclaim/:id", (req, res) => {
     let id = req.params.id
-    console.log(req.body)
     axios.get(`https://api.youracclaim.com/v1/obi/badge_assertions/${req.body.badge}`).then(response => {
-        db.user_helpers.editUser(id, {badge: response.data.image}).then(data => {
-          console.log(data)
+        db.user_helpers.editUser(id, {badge: response.data.image, badgeURL: response.data.evidence}).then(data => {
         res.status(200).json(data)
         })
     }).catch(err => {

@@ -27,6 +27,8 @@ class AboutYou extends Component {
 
     summary: this.props.userInfo.summary || "",
 
+    skillbank: null,
+
     topSkillsInput: "",
     topSkillsInputSuccess: false,
     userTopSkills: [],
@@ -40,6 +42,14 @@ class AboutYou extends Component {
 
   onInputChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
+  }
+
+  onSkillSearch = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+    axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/list/skills/${e.target.value}`)
+    .then(response => {
+      this.setState({skillbank: response.data})
+    })
   }
 
   // places interested
@@ -100,15 +110,6 @@ class AboutYou extends Component {
   //   this.setState({ placesInterested: newPlacesInterestedArr });
   // }
 
-  
-  //should only need one function regardless of skill type, can get type info from input or add button id/name
-  // addSkillsFromBank = (e) => {
-  //   axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/addskills/${e.target.id}`, {"id": ""}).then(
-  //     skill => console.log(skill)
-  //     )
-  //   }
-    
-
 
     // about you and card are tied to a re-mount(CMD), not update(CDU) lifecycle
     // when skills get added, both the components update and re-render, but not re-mount
@@ -132,12 +133,16 @@ class AboutYou extends Component {
           }, 1000)
         })
       }
-      
-      // skillFilter = () => {
-      //   //todo
-      // }
-      
 
+    addSkillsFromBank = (skillID, e) => {
+      e.preventDefault()
+      axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/addskills/${e.target.id}`, {"id": `${skillID}`}).then(
+        skill => console.log(skill)
+        )
+    }
+    
+      
+      
       checkOnSubmit = (e) => {
         e.preventDefault()
         const { placesInterested, summary } = this.state;
@@ -256,11 +261,12 @@ class AboutYou extends Component {
                   id="top_skills"
                   name="topSkillsInput"
                   className="text-input"
-                  placeholder="Put 5 skills here, they are the biggest on your profile"
-                  focusIndicator
+                  placeholder="Add a skill from the list or create a new one"
+                  // focusIndicator
                   value={this.state.topSkillsInput}
-                  onChange={this.onInputChange}
+                  onChange={this.onSkillSearch}
                 />
+                {this.state.skillbank ? <div className="skillbank">{this.state.skillbank.map(skill => <div className="skill" id="top_skills" onClick={this.addSkillsFromBank.bind(this, skill.id)}>{skill.skill}</div>)}</div> : null}
                 <button className="skills-btn" id="top_skills" name="topSkillsInput" onClick={this.addSkillsNew}>
                   {this.state.topSkillsInputSuccess ?
                     <i className="success fa fa-check-circle"></i>

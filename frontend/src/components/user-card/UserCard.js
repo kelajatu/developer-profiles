@@ -16,25 +16,8 @@ class UserCard extends Component{
             familiar: [],
         } 
     }
-    makeSkillsArr(){
-        let newArr = [];
-        let string = 'Lorem ipsum dolor sit persequeris an Et vis possim percipitur appellantur est quas efficiantur theophrastus te tation torquatoss'
-        let tempArr = string.split(' ')
-        tempArr.forEach((word, index) => {
-            let weight = word.length * index % 15 + 5
-            newArr.push({
-                id: index,
-                skill: word,
-                weight: weight
-            }) 
-        })
-        this.setState({
-            arr: newArr,
-        })
-    }
 
     componentDidMount(){
-      this.makeSkillsArr()
       this.getUserExtras('projects')
       this.getUserExtras('education')
       this.getUserExtras('experience')
