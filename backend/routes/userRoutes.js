@@ -51,10 +51,19 @@ filterLocation = (allArray, params) => {
 }
     
 filterReLocation = (allArray, params) => {
+    console.log(allArray, params)
     let newArr = allArray.filter(user => {
         if(user.interested_location_names){
             let arr = user.interested_location_names.split('|')
             return arr.includes(params.relocateName)
+        }
+        if(user.current_location_lat && params.relocateLat){
+            return distance(
+                params.relocateLat, 
+                params.relocateLon, 
+                user.current_location_lat, 
+                user.current_location_lon, 
+                params.milesFrom)
         }
     })
     return newArr

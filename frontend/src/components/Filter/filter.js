@@ -36,9 +36,9 @@ export default class FilterBox extends Component {
             publicPageState={this.props.publicPageState}
             filter={this.props.filter}
           />
-          <button onClick={() => this.props.filter(true)}>Refresh Filters</button>
+          <button onClick={() => this.props.filter(true)}>Search</button>
         </FilterBoxDiv>
-        <MenuButton onClick={()=> this.setState({menuOpen: !this.state.menuOpen})}>
+        <MenuButton onClick={()=> this.setState({ menuOpen: !this.state.menuOpen })}>
           Filter Profiles
         </MenuButton>
       </Grommet>

@@ -14,6 +14,7 @@ import {
 } from '../styles/FormStyles';
 
 var noLeaks;
+
 class AboutYou extends Component {
   state = {
     submitSuccess: false,

@@ -60,6 +60,8 @@ class PublicFacingPage extends Component {
             locatedLat: this.state.locatedLat,
             locatedLon: this.state.locatedLon,
             relocateName: this.state.relocateName,
+            relocateLat: this.state.relocateLat,
+            relocateLon: this.state.relocateLon,
             //this is the number of results to be returned from the API, not the current number
             numOfResultsToReturn: num,
             milesFrom: this.state.milesFrom,
