@@ -16,28 +16,28 @@ export default class FilterBox extends Component {
   render() {
     return (
       <Grommet theme={myTheme}>
-      <FilterBoxDiv menu={this.state.menuOpen}>
-        <h2>
-          Showing: <strong>{this.props.publicPageState.usersReturned}</strong> of {this.props.publicPageState.usersFound} possible profiles
-        </h2>
-        <JobTitles
-          updatePublicPageState={this.props.updatePublicPageState}
-          toggleCheckMarks={this.props.toggleCheckMarks}
-          publicPageState={this.props.publicPageState}
-        />
-        <Located
-          updatePublicPageState={this.props.updatePublicPageState}
-          publicPageState={this.props.publicPageState}
-          filter={this.props.filter}
-        />
-        <Relocate
-          updatePublicPageState={this.props.updatePublicPageState}
-          publicPageState={this.props.publicPageState}
-          filter={this.props.filter}
-        />
-        <button onClick={() => this.props.filter(true)}>Refresh Filters</button>
-      </FilterBoxDiv>
-      <MenuButton onClick={()=> this.setState({menuOpen: !this.state.menuOpen})}>Filter Profiles</MenuButton>
+        <FilterBoxDiv menu={this.state.menuOpen}>
+          <h2>
+            Showing: <strong>{this.props.publicPageState.usersReturned}</strong> of {this.props.publicPageState.usersFound} possible profiles
+          </h2>
+          <JobTitles
+            updatePublicPageState={this.props.updatePublicPageState}
+            toggleCheckMarks={this.props.toggleCheckMarks}
+            publicPageState={this.props.publicPageState}
+          />
+          <Located
+            updatePublicPageState={this.props.updatePublicPageState}
+            publicPageState={this.props.publicPageState}
+            filter={this.props.filter}
+          />
+          <Relocate
+            updatePublicPageState={this.props.updatePublicPageState}
+            publicPageState={this.props.publicPageState}
+            filter={this.props.filter}
+          />
+          <button onClick={() => this.props.filter(true)}>Refresh Filters</button>
+        </FilterBoxDiv>
+        <MenuButton onClick={()=> this.setState({menuOpen: !this.state.menuOpen})}>Filter Profiles</MenuButton>
       </Grommet>
     );
   }
