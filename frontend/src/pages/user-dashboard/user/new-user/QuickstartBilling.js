@@ -34,14 +34,15 @@ export default class Billing extends Component {
                 this.setState({monthSubmitSuccess: true})
                 noLeaks = setTimeout(() => {
                   this.setState({ monthSubmitSuccess: false })
+                  this.props.changeCurrent('basics')
                 }, 2000)
               } else if (packageSelected === 'year') {
                 this.setState({yearSubmitSuccess: true})
                 noLeaks = setTimeout(() => {
                   this.setState({ yearSubmitSuccess: false })
+                  this.props.changeCurrent('basics')
                 }, 2000)
               }
-
               this.props.updateProgress()
             })
             .catch(err => {
@@ -72,17 +73,17 @@ export default class Billing extends Component {
   }
 
   render() {
-    console.log(this.props.userInfo.stripe_subscription_name)
+    console.log(this.props)
     return (
       <BillingDiv>
-          <header>
-            <h1>Billing</h1>
+          <header className="quickstart-header">
+            <h1>Choose package you like</h1>
           </header>
           {this.props.userInfo.subscriptionSuccess ?
             <div className="billing-success-container">
               <main className="billing-success">
                 <header>
-                  <h2>Subscription Active <span><i class="success fa fa-check" aria-hidden="true"></i></span></h2>
+                  <h2>Subscription Active <span><i className="success fa fa-check" aria-hidden="true"></i></span></h2>
                 </header>
                 <section className="package-selected">
 
@@ -179,26 +180,17 @@ export default class Billing extends Component {
 }
 
 export const BillingDiv = styled.div`
-  width: calc(100% - 300px);
-  @media (max-width: 1400px) {
-    width: calc(100% - 80px);
-    margin-left: 80px;
-  }
-  @media (max-width: 650px) {
-    width: 100%;
-    margin-left: 0px;
-  }
-  h1 {
-    font-size: 5rem;
-    color: rgb(42,42,42);
-    margin-bottom: 50px;
-    text-align: center;
-    @media (max-width: 1100px) {
+ .quickstart-header {
+    h1 {
+      font-size: 3.5rem;
+      color: rgb(42,42,42);
+      margin-top: 50px;
+      margin-bottom: 50px;
       text-align: left;
       padding-left: 50px;
-      font-size: 4rem;
     }
-  }
+ }
+
   h2{
     font-size: 4rem;
     color: var(--accent-color);
