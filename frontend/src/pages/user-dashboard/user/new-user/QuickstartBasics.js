@@ -173,15 +173,15 @@ class QuickstartBasics extends Component {
 
     return (
       <div style={{paddingLeft: '50px'}} >
-      <header className="quickstart-header">
-        <h1 style={{
-          fontSize: '3.5rem',
-          color: 'rgb(42,42,42)',
-          marginTop: '50px',
-          marginBottom: '50px',
-          textAlign: 'left',
-      }}>Let's Start With the Basics</h1>
-      </header>
+        <header>
+          <h1 style={{
+            fontSize: '3.2rem',
+            color: 'rgb(42,42,42)',
+            marginTop: '75px',
+            marginBottom: '50px',
+            textAlign: 'left',
+        }}>Let's Start with the Basics</h1>
+        </header>
         <FormSection>
           <form>
             {/* Image */}

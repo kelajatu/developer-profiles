@@ -61,6 +61,7 @@ class UserDashboardIntro extends Component {
             <h2>Profile Strength: <strong>{profileStatus}</strong></h2>
           </header>
 
+          {/* Will crash if moved around due to 'width: ${props => props.children.props.progress};' :) */}
           <section className="progress-container">
             <ProgressContainer>
               <div progress={`${profileProgress}%`} className="progress-bar" />
@@ -70,150 +71,153 @@ class UserDashboardIntro extends Component {
           <section className="basic-section">
             <h3>Basic</h3>
             <div>
-              <span>
+              <span className="input-status">
                 {subscriptionSuccess ?
-                  <p>Package Selected!</p>
+                  <p>Package Selected <span><i className="success fa fa-check"></i></span></p>
                   :
                   <Link to="/dashboard/billing">Select a Package</Link>
                 }
               </span>
-              <span>
+              <span className="input-status">
                 {firstNameSuccess ?
-                  <p>First Name!</p>
+                  <p>First Name <span><i className="success fa fa-check"></i></span></p>
                   :
                   <Link to="/dashboard/personal-info">First Name</Link>
                 }
               </span>
-              <span>
+              <span className="input-status">
                 {desiredTitleSuccess ?
-                  <p>Desired Title!</p>
+                  <p>Desired Title <span><i className="success fa fa-check"></i></span></p>
                   :
                   <Link to="/dashboard/personal-info">Desired Title</Link>
                 }
               </span>
-              <span>
+              <span className="input-status">
                 {currentLocationNameSuccess ?
-                  <p>Location!</p>
+                  <p>Location <span><i className="success fa fa-check"></i></span></p>
                   :
                   <Link to="/dashboard/where-to-find-you">Location</Link>
                 }
               </span>
-              <span>
+              <span className="input-status">
                 {summarySuccess ?
-                  <p>Summary!</p>
+                  <p>Summary <span><i className="success fa fa-check"></i></span></p>
                   :
                   <Link to="/dashboard/about-you">Summary</Link>
                 }
               </span>
-              <span>
+              <span className="input-status">
                 {topSkillsSuccess ?
-                  <p>Top Skills!</p>
+                  <p>Top Skills <span><i className="success fa fa-check"></i></span></p>
                   :
                   <Link to="/dashboard/about-you">Top Skills</Link>
                 }
               </span>
             </div>
           </section>
+
           <section className="intermediate-section">
             <h3>Intermediate</h3>
             <div>
-              <span>
+              <span className="input-status">
                 {profileImgSuccess ?
-                  <p>Profile Image!</p>
+                  <p>Profile Image <span><i className="success fa fa-check"></i></span></p>
                   :
                   <Link to="/dashboard/personal-info">Profile Image</Link>
                 }
               </span>
-              <span>
+              <span className="input-status">
                 {publicEmailSuccess ?
-                  <p>Public Email!</p>
+                  <p>Public Email <span><i className="success fa fa-check"></i></span></p>
                   :
                   <Link to="/dashboard/personal-info">Public Email</Link>
                 }
               </span>
-              <span>
+              <span className="input-status">
                 {areaOfWorkSuccess ?
-                  <p>Area of Work!</p>
+                  <p>Area of Work <span><i className="success fa fa-check"></i></span></p>
                   :
                   <Link to="/dashboard/personal-info">Area of Work</Link>
                 }
               </span>
-              <span>
+              <span className="input-status">
                 {portfolioSuccess ?
-                  <p>Portfolio Website!</p>
+                  <p>Portfolio Website <span><i className="success fa fa-check"></i></span></p>
                   :
                   <Link to="/dashboard/where-to-find-you">Portfolio Website</Link>
                 }
               </span>
             </div>
           </section>
+
           <section className="strong-section">
             <h3>Strong</h3>
             <div>
-              <span>
+              <span className="input-status">
                 {additionalSkillsSuccess ?
-                  <p>Additional Skills!</p>
+                  <p>Additional Skills <span><i className="success fa fa-check"></i></span></p>
                   :
                   <Link to="/dashboard/about-you">Additional Skills</Link>
                 }
               </span>
-              <span>
+              <span className="input-status">
                 {familiarSkillsSuccess ?
-                  <p>Familiar Skills!</p>
+                  <p>Familiar Skills <span><i className="success fa fa-check"></i></span></p>
                   :
                   <Link to="/dashboard/about-you">Familiar Skills</Link>
                 }
               </span>
-              <span>
+              <span className="input-status">
                 {userProjects.length >= 1 ?
-                  <p>At Least 1 Project!</p>
+                  <p>At Least 1 Project <span><i className="success fa fa-check"></i></span></p>
                   :
                   <Link to="/dashboard/projects">At Least 1 Project</Link>
                 }
               </span>
-              <span>
+              <span className="input-status">
                 {userExperience.length >= 1 ?
-                  <p>At Least 1 Job Experience!</p>
+                  <p>At Least 1 Job Experience <span><i className="success fa fa-check"></i></span></p>
                   :
                   <Link to="/dashboard/experience">At Least 1 Job Experience</Link>
                 }
               </span>
-              <span>
+              <span className="input-status">
                 {userEducation.length >= 1 ?
-                  <p>At Least 1 Education!</p>
+                  <p>At Least 1 Education <span><i className="success fa fa-check"></i></span></p>
                   :
                   <Link to="/dashboard/education">At Least 1 Education</Link>
                 }
               </span>
             </div>
           </section>
+
           <section className="powerhouse-section">
             <h3>Powerhouse</h3>
             <div>
-              <span>
+              <span className="input-status">
                 {linkedinSuccess ?
-                  <p>LinkedIn!</p>
+                  <p>LinkedIn <span><i className="success fa fa-check"></i></span></p>
                   :
                   <Link to="/dashboard/where-to-find-you">LinkedIn</Link>
                 }
               </span>
-              <span>
+              <span className="input-status">
                 {githubSuccess ?
-                  <p>Github!</p>
+                  <p>Github <span><i className="success fa fa-check"></i></span></p>
                   :
                   <Link to="/dashboard/where-to-find-you">Github</Link>
                 }
               </span>
-              <span>
+              <span className="input-status">
                 {userProjects.length >= 3 ?
-                  <p>At Least 3 Projects!</p>
+                  <p>At Least 3 Projects <span><i className="success fa fa-check"></i></span></p>
                   :
                   <Link to="/dashboard/projects">At Least 3 Projects</Link>
                 }
               </span>
-              <span>
+              <span className="input-status">
                 {userExperience.length >= 2 ?
-                  <p>At Least 2 Job Experiences!</p>
+                  <p>At Least 2 Job Experiences <span><i className="success fa fa-check"></i></span></p>
                   :
                   <Link to="/dashboard/experience">At Least 2 Job Experiences</Link>
                 }
@@ -221,7 +225,8 @@ class UserDashboardIntro extends Component {
             </div>
           </section>
         </article>
-        <article className="container">
+
+        {/* <article className="container">
           <header>
             <h2>Your Projects</h2>
           </header>
@@ -240,6 +245,7 @@ class UserDashboardIntro extends Component {
             }
           </section>
         </article>
+
         <article className="container">
           <header>
             <h2>Experience</h2>
@@ -259,6 +265,7 @@ class UserDashboardIntro extends Component {
             }
           </section>
         </article>
+
         <article className="container">
           <header>
             <h2>Education</h2>
@@ -277,7 +284,8 @@ class UserDashboardIntro extends Component {
               })
             }
           </section>
-        </article>
+        </article> */}
+
       </IntroContainer>
     )
   }
@@ -286,12 +294,13 @@ class UserDashboardIntro extends Component {
 const IntroContainer = styled.div`
   width: calc(100% - 300px);
   margin-left: 300px;
-  padding-top: 130px;
-  padding-right: 50px;
-  padding-left: 50px;
+  padding: 130px 50px 50px;
   @media (max-width: 1400px) {
     width: calc(100% - 80px);
     margin-left: 80px;
+  }
+  @media (max-width: 850px) {
+    padding: 130px 20px 20px;
   }
   @media (max-width: 650px) {
     width: 100%;
@@ -304,9 +313,11 @@ const IntroContainer = styled.div`
 
 
   .container {
-    width: 65%;
+    width: 100%;
+    max-width: 700px;
     margin-top: 75px;
-    border: solid;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
     padding: 20px;
     .progress-container {
       width: 100%;
@@ -317,7 +328,6 @@ const IntroContainer = styled.div`
     .strong-section,
     .powerhouse-section {
       margin-bottom: 30px;
-      border-bottom: solid .5px red;
       padding: 10px;
     }
     
@@ -328,28 +338,39 @@ const IntroContainer = styled.div`
     h3 {
       font-size: 2.5rem;
       margin-bottom: 20px;
+      border-top: 1px solid lightgrey;
+      border-bottom: 1px solid lightgrey;
+      padding: 8px;
     }
-    span {
+    .input-status {
       font-size: 1.5rem;
       display: inline-block;
-      width: 30%;
-      border: dotted .5px green;
-      margin: 10px;
+      margin: 20px 40px;
+      @media (max-width: 850px) {
+        margin: 20px 20px;
+      }
+      .success {
+        color: var(--accent-color);
+      }
+    }
+    a {
+      text-decoration: none;
     }
   }
 `;
 
 const ProgressContainer = styled.div`
   width: 100%;
-  background-color: blue;
+  background-color: var(--lp_btn_color);
   height: 10px;
   border-radius: 50px;
-  margin-bottom: 10px;
+  margin-bottom: 50px;
   .progress-bar {
-    background-color: #EE6C4D;
+    background-color: var(--accent-color);
     height: 10px;
+    border-right: solid 1px rgba(255,255,255,.3);
     border-radius: 50px;
-    width: 60%;
+    width: ${props => props.children.props.progress};
     ${centerFlex()};
     p {
       color: rgb(42,42,42);

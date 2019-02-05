@@ -77,7 +77,7 @@ export default class Billing extends Component {
     return (
       <BillingDiv>
           <header className="quickstart-header">
-            <h1>Choose package you like</h1>
+            <h1>Choose Package You Like</h1>
           </header>
           {this.props.userInfo.subscriptionSuccess ?
             <div className="billing-success-container">
@@ -182,9 +182,9 @@ export default class Billing extends Component {
 export const BillingDiv = styled.div`
  .quickstart-header {
     h1 {
-      font-size: 3.5rem;
+      font-size: 3.2rem;
       color: rgb(42,42,42);
-      margin-top: 50px;
+      margin-top: 75px;
       margin-bottom: 50px;
       text-align: left;
       padding-left: 50px;
