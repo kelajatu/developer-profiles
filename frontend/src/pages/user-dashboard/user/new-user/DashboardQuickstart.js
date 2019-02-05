@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { Tabs, Tab, Box } from 'grommet';
 
 import QuickstartBasics from './QuickstartBasics';
 import QuickstartBilling from './QuickstartBilling';
@@ -17,15 +18,34 @@ class DashboardQuickstart extends Component {
           <h1>Quickstart</h1>
         </header>
         <div className="container">
-          <nav>
+
+
+
+          {/* <nav>
             <button onClick={() => this.setState({current: 'basics'})}>Basic Info</button>
             <button onClick={() => this.setState({current: 'billing'})}>Billing</button>
           </nav>
+
           {this.state.current === 'basics' ?
             <QuickstartBasics userInfo={this.state} />
             :
             <QuickstartBilling userInfo={this.state} />
-          }
+          } */}
+          <Tabs>
+            <Tab title="Basic Info">
+              <Box pad="medium">
+                <QuickstartBasics userInfo={this.state} />
+              </Box>
+            </Tab>
+            <Tab title="Billing">
+              <Box pad="medium">
+                <QuickstartBilling userInfo={this.state} />
+              </Box>
+            </Tab>
+          </Tabs>
+
+
+
         </div>
       </QuickstartContainer>
     )

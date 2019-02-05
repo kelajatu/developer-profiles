@@ -14,7 +14,7 @@ class UserDashboardIntro extends Component {
     const {
       profileProgress,
 
-      stripeTokenSuccess,
+      subscriptionSuccess,
       firstNameSuccess,
       desiredTitleSuccess,
       currentLocationNameSuccess,
@@ -71,7 +71,7 @@ class UserDashboardIntro extends Component {
             <h3>Basic</h3>
             <div>
               <span>
-                {stripeTokenSuccess ?
+                {subscriptionSuccess ?
                   <p>Package Selected!</p>
                   :
                   <Link to="/dashboard/billing">Select a Package</Link>

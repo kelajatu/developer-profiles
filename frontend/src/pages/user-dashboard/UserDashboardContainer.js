@@ -67,7 +67,7 @@ class UserDashboardContainer extends Component {
           topSkillsSuccess,
           additionalSkillsSuccess,
           familiarSkillsSuccess,
-          stripeTokenSuccess
+          subscriptionSuccess
         ;
         userInfo.image ? profileImgSuccess = true : profileImgSuccess = false;
         userInfo.public_email ? publicEmailSuccess = true : publicEmailSuccess = false;
@@ -82,14 +82,14 @@ class UserDashboardContainer extends Component {
         userInfo.badge ? acclaimSuccess = true : acclaimSuccess = false;
         userInfo.summary ? summarySuccess = true : summarySuccess = false;
         userInfo.interested_location_names ? placesInterestedSuccess = true : placesInterestedSuccess = false;
-        userInfo.stripe_token ? stripeTokenSuccess = true : stripeTokenSuccess = false;
+        userInfo.stripe_subscription_name ? subscriptionSuccess = true : subscriptionSuccess = false;
         userInfo.top_skills ? topSkillsSuccess = true : topSkillsSuccess = false;
         userInfo.add_skills ? additionalSkillsSuccess = true : additionalSkillsSuccess = false;
         userInfo.familiar ? familiarSkillsSuccess = true : familiarSkillsSuccess = false;
         
         profileProgress = 5
         if (
-          stripeTokenSuccess &&
+          subscriptionSuccess &&
           firstNameSuccess &&
           desiredTitleSuccess &&
           currentLocationNameSuccess &&
@@ -100,7 +100,7 @@ class UserDashboardContainer extends Component {
           }
           
           if (
-          stripeTokenSuccess &&
+          subscriptionSuccess &&
           firstNameSuccess &&
           desiredTitleSuccess &&
           currentLocationNameSuccess &&
@@ -116,7 +116,7 @@ class UserDashboardContainer extends Component {
         }
         
         if (
-          stripeTokenSuccess &&
+          subscriptionSuccess &&
           firstNameSuccess &&
           desiredTitleSuccess &&
           currentLocationNameSuccess &&
@@ -165,7 +165,7 @@ class UserDashboardContainer extends Component {
           topSkillsSuccess,
           additionalSkillsSuccess,
           familiarSkillsSuccess,
-          stripeTokenSuccess,
+          subscriptionSuccess,
           userProjects,
           userExperience,
           userEducation,
@@ -261,7 +261,7 @@ class UserDashboardContainer extends Component {
           topSkillsSuccess,
           additionalSkillsSuccess,
           familiarSkillsSuccess,
-          stripeTokenSuccess
+          subscriptionSuccess
         ;
         userInfo.image ? profileImgSuccess = true : profileImgSuccess = false;
         userInfo.public_email ? publicEmailSuccess = true : publicEmailSuccess = false;
@@ -276,14 +276,14 @@ class UserDashboardContainer extends Component {
         userInfo.badge ? acclaimSuccess = true : acclaimSuccess = false;
         userInfo.summary ? summarySuccess = true : summarySuccess = false;
         userInfo.interested_location_names ? placesInterestedSuccess = true : placesInterestedSuccess = false;
-        userInfo.stripe_token ? stripeTokenSuccess = true : stripeTokenSuccess = false;
+        userInfo.stripe_subscription_name ? subscriptionSuccess = true : subscriptionSuccess = false;
         userInfo.top_skills ? topSkillsSuccess = true : topSkillsSuccess = false;
         userInfo.add_skills ? additionalSkillsSuccess = true : additionalSkillsSuccess = false;
         userInfo.familiar ? familiarSkillsSuccess = true : familiarSkillsSuccess = false;
         
         profileProgress = 5
         if (
-          stripeTokenSuccess &&
+          subscriptionSuccess &&
           firstNameSuccess &&
           desiredTitleSuccess &&
           currentLocationNameSuccess &&
@@ -294,7 +294,7 @@ class UserDashboardContainer extends Component {
           }
           
           if (
-          stripeTokenSuccess &&
+          subscriptionSuccess &&
           firstNameSuccess &&
           desiredTitleSuccess &&
           currentLocationNameSuccess &&
@@ -310,7 +310,7 @@ class UserDashboardContainer extends Component {
         }
         
         if (
-          stripeTokenSuccess &&
+          subscriptionSuccess &&
           firstNameSuccess &&
           desiredTitleSuccess &&
           currentLocationNameSuccess &&
@@ -359,7 +359,7 @@ class UserDashboardContainer extends Component {
           topSkillsSuccess,
           additionalSkillsSuccess,
           familiarSkillsSuccess,
-          stripeTokenSuccess,
+          subscriptionSuccess,
           userProjects,
           userExperience,
           userEducation,
