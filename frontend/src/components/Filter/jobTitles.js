@@ -51,6 +51,12 @@ const JobTitlesDiv = styled.div`
     span {
         font-size: 15px;
     }
+    .filters-container {
+        height: 150px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
     @media (max-width: 839px) {
         .filtersTitle {
             display:none;
@@ -63,7 +69,6 @@ const JobTitlesDiv = styled.div`
       height: 140px;
       @media (max-width: 839px) {
         flex-direction: row;
-        /* width: 370px; */
         height: 60px;
         h1 {
             font-size: 18px;
@@ -72,5 +77,6 @@ const JobTitlesDiv = styled.div`
           
         }
       }
+    }
     }
 `

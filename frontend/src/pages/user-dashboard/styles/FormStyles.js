@@ -69,6 +69,7 @@ export const FormSection = styled.section`
       background: white;
       border: solid 1px black;
       border-radius: 20px;
+      margin-top: 10px;
       &:hover {
         cursor: pointer;
         background: black;
@@ -78,8 +79,16 @@ export const FormSection = styled.section`
 
 
   }
+  .skillbank {
+    display: flex;
+    flex-wrap: wrap;
+  }
   .skill {
     cursor: pointer;
+    margin: 5px 5px 5px 0;
+    padding: 0 5px;
+    border: solid grey 1px;
+    border-radius: 5px;
   }
   .text-input,
   #userAreaOfWork,
@@ -102,8 +111,8 @@ export const FormSection = styled.section`
     justify-content: space-evenly;
     align-items: center;
     align-content: center;
-    border-right: solid .5px rgba(0,0,0,.33);
-    border-left: solid .5px rgba(0,0,0,.33);
+    /* border-right: solid .5px rgba(0,0,0,.33);
+    border-left: solid .5px rgba(0,0,0,.33); */
     border-bottom: solid .5px rgba(0,0,0,.33);
     max-height: 250px;
     overflow-y: scroll;

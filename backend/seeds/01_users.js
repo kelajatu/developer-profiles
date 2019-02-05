@@ -50,7 +50,7 @@ exports.seed = function(knex, Promise) {
           linkedin: "linkedin.com",
           portfolio: "coolbanana.com",
           badge: "acclaim.com",
-          summary: faker.lorem.sentences(),
+          summary: faker.lorem.sentence(),
           top_skills: "1,2,3,4,5",
           add_skills: "6,7,8,9,10",
           familiar: "11,12,13,14,15"
