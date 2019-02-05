@@ -101,21 +101,22 @@ class UserCard extends Component{
                             <h3>{this.props.desired_title}</h3>
                             <div className="keywords">
                                 {topSkillsArr.length > 0 ? topSkillsArr.map(word => {
-                                    return (<div key={word.id} className="keyword">
+                                    return (<div key={word.id} className="keyword topskill">
                                         {word.skill}
                                     </div>)
                                 }) : null}
                                 {addSkillsArr.length > 0 ? addSkillsArr.map(word => {
-                                    return (<div key={word.id} className="keyword">
+                                    return (<div key={word.id} className="keyword addskill">
                                         {word.skill}
                                     </div>)
                                 }) : null}
                                 {famSkillsArr.length > 0 ? famSkillsArr.map(word => {
-                                    return (<div key={word.id} className="keyword">
+                                    return (<div key={word.id} className="keyword famskill">
                                         {word.skill}
                                     </div>)
                                 }) : null}
                             </div>
+                            <i class="fas fa-caret-down"></i>
                         </div>
                         <div className="links">
                             {this.props.badge !== null ? this.props.badge !== "acclaim.com" ? <img className="badge" src={this.props.badge} alt="acclaim badge"/> : null : null}
