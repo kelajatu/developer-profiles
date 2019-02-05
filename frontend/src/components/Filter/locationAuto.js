@@ -1,9 +1,9 @@
 import React , { Component } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
-import { TextInput } from "grommet";
+import { TextInput, Select } from "grommet";
 
-// THIS COMPONENT needs the following props 
+// THIS COMPONENT needs the following props passed in
     //placeholder
     //name
     //id - (optional for constructing state to send to a parent component)
@@ -18,23 +18,31 @@ export class LocationAuto extends Component {
     }
  
     inputHandler = async (e) => {
-        axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/location`, {inputLocation: e.target.value}).then(response => {
-            const newArr = response.data.predictions.map(location => {
+        axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/location`, {inputLocation: e}).then(response => {
+            const objArr = response.data.predictions.map(location => {
                 return {
                     name: location.description,
                     id: location.place_id
                 };
             });
-            this.setState({ locationAutocomplete: newArr });
+            const pureArr = response.data.predictions.map(location => {
+                return {
+                    name: location.description,
+                };
+            });
+            this.setState({ 
+                locationAutocomplete: pureArr,
+                objArr: objArr
+            });
         }).catch(error => {
             console.log(error);
         });
 
         //sets component state
-        this.setState({ [this.props.name]: e.target.value });
+        this.setState({ [this.props.name]: e });
         
         //sets parent state
-        if(e.target.value.length === 0){
+        if(e.length === 0){
             // console.log("zero")
             await this.props.updatePublicPageState({
                 [this.props.name]: null,
@@ -44,7 +52,7 @@ export class LocationAuto extends Component {
             this.props.filter(true)
         } else {
             this.props.updatePublicPageState({
-                [this.props.name]: e.target.value,
+                [this.props.name]: e,
             }) 
         }
       }
@@ -56,8 +64,11 @@ export class LocationAuto extends Component {
     }
     
     chooseCurrentLocation = async (e) => {
-        const { id, name } = e.target.dataset
-        axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/gio`, {placeId: id}).then(res => {
+        let location = this.state.objArr.filter(each => {
+            return e.value === each.name
+        })
+        const { id, name } = location[0]
+        axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/gio`, { placeId: id }).then(res => {
             const { lat, lng } = res.data.result.geometry.location;
             this.setState({
                 [this.props.name]: name,
@@ -68,7 +79,7 @@ export class LocationAuto extends Component {
                 [this.props.lat]: lat,
                 [this.props.lon]: lng,
                 [this.props.name]: name || null,
-            }) 
+            })
             this.props.filter(true)
         }).catch(err => console.log(err))
     }
@@ -79,7 +90,7 @@ export class LocationAuto extends Component {
                 <div>
                   <label htmlFor="usercurrentLocation"></label>
                   {/* change to input if it stops working  */}
-                  <TextInput
+                  {/* <TextInput
                     size="small"
                     type="text"
                     autoComplete="off"
@@ -88,8 +99,18 @@ export class LocationAuto extends Component {
                     name={this.props.name}
                     value={this.state[this.props.name]}
                     onChange={this.inputHandler}
+                  /> */}
+                   <Select
+                    // id="placeSuggestions"
+                    // name={this.props.name}
+                    id="usercurrentLocation"
+                    placeholder={this.props.placeholder}
+                    value={this.state[this.props.name]}
+                    onSearch={this.inputHandler}
+                    onChange={this.chooseCurrentLocation}
+                    options={this.state.locationAutocomplete.map(each => each.name)}
                   />
-                  <div className="option" htmlFor="placeSuggestions">
+                  {/* <div className="option" htmlFor="placeSuggestions">
                     {this.state.locationAutocomplete.length === 0 ? null :
                       this.state.locationAutocomplete.map(location => {
                         return (
@@ -105,7 +126,7 @@ export class LocationAuto extends Component {
                         );
                       })
                     }
-                  </div>
+                  </div> */}
                 </div>
               </LocationAutoDiv>
           )
@@ -184,5 +205,10 @@ export class LocationAuto extends Component {
 }
 
 const LocationAutoDiv = styled.div`
-
+    #usercurrentLocation{
+        /* border: 1px solid red; */
+        padding: 0px;
+        width: 90%;
+        margin: 0, 0, 10px, 0;
+    }
 `

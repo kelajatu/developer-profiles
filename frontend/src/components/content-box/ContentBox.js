@@ -21,18 +21,16 @@ class ContentBox extends Component {
               </h2>{" "}
               <br />
               <BtnRow>
-
-            <CallToAction>
-
-              <a href="#recruiters">
-                <Btn>Recruiters</Btn>
-              </a>{" "}
-            </CallToAction>
-            <CallToAction>
-              <a href="#developers">
-                <Btn>Developers</Btn>
-              </a>
-            </CallToAction>
+                <CallToAction>
+                  <a href="#recruiters">
+                    <Btn>Recruiters</Btn>
+                  </a>{" "}
+                </CallToAction>
+                <CallToAction>
+                  <a href="#developers">
+                    <Btn>Developers</Btn>
+                  </a>
+                </CallToAction>
               </BtnRow>
           </CTAContainer>
         </Circle>
