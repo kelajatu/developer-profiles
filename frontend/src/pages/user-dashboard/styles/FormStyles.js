@@ -219,26 +219,24 @@ export const ButtonContainer = styled.div`
   margin-top: 10px;
   margin-bottom: 50px;
 
-  div {
-    width: 30%;
-    text-align: center;
-  }
-
   .success {
     color: var(--lp_btn_color);
   }
 
   /****ALL OTHER BUTTONS****/
   button {
-    width: 100%;
+    width: 330px;
     height: 80px;
     color: white;
-    padding: 15px 20px;
+    padding: 20px 30px;
     font-size: 2rem;
     letter-spacing: 1.5px;
     background-color: var(--accent-color);
     border: none;
     border-radius: 100px;
+    ${centerFlex()};
+    margin-left: 25px;
+    margin-right: 25px;
     &:hover {
       color: var(--lp_btn_color);
       transform: scale(1.1);
@@ -252,18 +250,19 @@ export const ButtonContainer = styled.div`
   }
 
   a {
-    width: 70%;
+    width: 230px;
+    height: 55px;
     display: block;
     margin: auto;
     text-decoration: none;
     color: white;
-    padding: 15px 20px;
+    padding: 20px 30px;
     font-size: 2rem;
     letter-spacing: 1.5px;
     background-color: var(--lp_btn_color);
     border: none;
     border-radius: 100px;
-
+    ${centerFlex()};
     &:hover {
       color:var(--accent-color);
       transform: scale(1.1);
