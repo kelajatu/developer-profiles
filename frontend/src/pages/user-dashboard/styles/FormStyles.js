@@ -55,10 +55,10 @@ export const FormSection = styled.section`
   .select-input-container {
     margin-bottom: 30px;
   }
-  .success {
-    color: green;
-  }
+
   .text-input-container {
+
+
     /****SKILLS BUTTONS****/
     .skills-btn {
       width: 100px;
@@ -75,6 +75,8 @@ export const FormSection = styled.section`
         color: white;
       }
     }
+
+
   }
   .skill {
     cursor: pointer;
@@ -151,7 +153,7 @@ export const LabelContainer = styled.div`
   display: flex;
   align-items: baseline;
   .success {
-    color: green;
+    color: var(--accent-color);
   }
   label {
     color: rgba(42,42,42,.8);
@@ -214,43 +216,55 @@ export const ButtonContainer = styled.div`
   }
 
   .success {
-    color: green;
+    color: var(--lp_btn_color);
   }
 
   /****ALL OTHER BUTTONS****/
   button {
     width: 100%;
-    color: black;
-    padding: 30px;
-    font-size: 1.7rem;
+    height: 80px;
+    color: white;
+    padding: 15px 20px;
+    font-size: 2rem;
     letter-spacing: 1.5px;
-    background: white;
-    border: solid 1px black;
-    border-radius: 20px;
+    background-color: var(--accent-color);
+    border: none;
+    border-radius: 100px;
     &:hover {
+      color: var(--lp_btn_color);
+      transform: scale(1.1);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
       cursor: pointer;
-      background: black;
-      color: white;
+    }
+    &:active {
+      transform: scale(1);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     }
   }
 
-  /****ALL OTHER BUTTONS****/
   a {
     width: 70%;
     display: block;
     margin: auto;
     text-decoration: none;
-    color: black;
-    padding: 20px;
-    font-size: 1.7rem;
+    color: white;
+    padding: 15px 20px;
+    font-size: 2rem;
     letter-spacing: 1.5px;
-    background: white;
-    border: solid 1px black;
-    border-radius: 20px;
+    background-color: var(--lp_btn_color);
+    border: none;
+    border-radius: 100px;
+
     &:hover {
+      color:var(--accent-color);
+      transform: scale(1.1);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
       cursor: pointer;
-      background: black;
-      color: white;
+    }
+    &:active {
+      transform: scale(1);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
     }
   }
 `;
