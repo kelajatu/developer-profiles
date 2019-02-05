@@ -3,8 +3,8 @@ import ContentBox from "../../components/content-box/ContentBox";
 import {
   Pagewrap,
   Moreinfo,
-  Learnmore,
-  Aboutus,
+  DevText,
+  RecruiterText,
   LandingPageDiv,
   TextBlock
 } from "./landingpage.styles";
@@ -19,7 +19,7 @@ class LandingPage extends Component {
           <ContentBox />
         </Pagewrap>
         <Moreinfo>
-          <Aboutus>
+          <RecruiterText>
             <TextBlock>
               <h2 id="recruiters">Recruiters</h2>{" "}
               <p>
@@ -30,8 +30,8 @@ class LandingPage extends Component {
               </p>
             </TextBlock>
             <img src={ProfileSvg} alt="profile graphic" />
-          </Aboutus>
-          <Learnmore>
+          </RecruiterText>
+          <DevText>
 
             <TextBlock>
               <h2 id="developers">Developers</h2>{" "}
@@ -41,7 +41,7 @@ class LandingPage extends Component {
               </p>
             </TextBlock>
             <img src={GraphSvg} alt="git contribution graphic" />
-          </Learnmore>
+          </DevText>
         </Moreinfo>
       </LandingPageDiv>
     );

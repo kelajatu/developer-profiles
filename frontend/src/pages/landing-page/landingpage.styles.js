@@ -53,7 +53,7 @@ h2 {
 
 `
 
-export const Aboutus = styled.div`
+export const RecruiterText = styled.div`
   color: darkgray;
   display: flex;
   align-items: center;
@@ -63,7 +63,7 @@ export const Aboutus = styled.div`
 
 
 `;
-export const Learnmore = styled.div`
+export const DevText = styled.div`
   color: darkblue;
   display: flex;
   align-items: center;
