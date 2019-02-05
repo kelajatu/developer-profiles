@@ -54,7 +54,7 @@ const NavContainer = styled.nav`
   height: 100vh;
   background: white;
   padding: 130px 0 0;
-  border-right: solid .5px #dbdee2;
+  border-right: solid 1px rgba(238, 108, 77, .3);
   position: fixed;
   z-index: 5;
   display: flex;
@@ -84,16 +84,14 @@ const NavContainer = styled.nav`
       ${centerFlex()};
       padding: 25px 20px;
     }
-    &:hover {
-      color: gray;
-    }
   }
   i {
     width: 30px;
   }
   .selected {
-    background-color: rgba(173,216,230, .5);
-    border-right: solid 2px rgb(173,188,230);
+    color: white;
+    background-color: rgba(0, 25, 64, .9);
+    border-right: solid 4px rgb(238, 108, 77);
   }
   .nav-large {
     @media (max-width: 1400px) {
