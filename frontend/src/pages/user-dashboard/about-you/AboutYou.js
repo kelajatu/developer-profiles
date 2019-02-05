@@ -302,7 +302,7 @@ class AboutYou extends Component {
                   id="add_skills"
                   name="additionalSkillsInput"
                   className="text-input"
-                  placeholder="Put more skills here. They will be medium on your profile"
+                  placeholder="Put additional skills here"
                   focusIndicator
                   value={this.state.additionalSkillsInput}
                   onChange={this.onSkillSearch}
@@ -335,7 +335,7 @@ class AboutYou extends Component {
                   id="familiar"
                   name="familiarSkillsInput"
                   className="text-input"
-                  placeholder="Put remaining skills here. They will be small on your profile"
+                  placeholder="These are skills you are just familiar with"
                   focusIndicator
                   value={this.state.familiarSkillsInput}
                   onChange={this.onSkillSearch}

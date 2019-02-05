@@ -17,39 +17,6 @@ export function centerFlex(flexDirection = 'row') {
   `;
 }
 
-// ~~~ probably not going to use this ~~~~
-// export function filterSection() {
-//   return `
-//     width: 99%;
-//     padding: 10px;
-//     display: flex;
-//     flex-direction: column;
-//     font-size: 15px;
-//     h1{
-//       font-size: 25px;
-//       margin-bottom: 5px;
-//     }
-//     .container {
-//       display: flex;
-//     }
-//     span {
-//       display: flex;
-//       align-items: center;
-//       width: 140px;
-//       font-size: 13px;
-//     }
-//     @media (max-width: 839px) {
-//       span {
-//         width: auto
-//         margin-right: 10px;
-//       }
-//       @media (max-width: 480px) {
-      
-//       }
-//     }
-//   `;
-// }
-
 export function labelArea() {
   return `
     color: rgba(42,42,42,.8);

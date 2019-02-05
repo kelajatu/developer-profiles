@@ -16,7 +16,7 @@ export default class FilterBox extends Component {
 
   render() {
     return (
-      <Grommet theme={myTheme}>
+      <Grommet theme={filterTheme}>
         <FilterBoxDiv menu={this.state.menuOpen}>
           <h2>
             Showing: <strong>{this.props.publicPageState.usersReturned}</strong> of {this.props.publicPageState.usersFound} possible profiles
@@ -38,18 +38,18 @@ export default class FilterBox extends Component {
           />
           <button onClick={() => this.props.filter(true)}>Search</button>
         </FilterBoxDiv>
-        <MenuButton onClick={()=> this.setState({ menuOpen: !this.state.menuOpen })}>
-          Filter Profiles
+        <MenuButton menuOpen={this.state.menuOpen}>
+        <i onClick={()=> this.setState({ menuOpen: !this.state.menuOpen })} class="fa fa-bars"></i>
         </MenuButton>
       </Grommet>
     );
   }
 }
 
-const myTheme = {
+const filterTheme = {
   global: {
     colors: {
-      brand: '#86a8e7',
+      brand: 'coral',
     },
   },
   textInput: {
@@ -67,16 +67,14 @@ const myTheme = {
 const MenuButton = styled.div `
   height: 20px;
   width: 120px;
-  left: calc(50% - 60px);
-  text-align: center;
-  border: grey solid 1px;
-  border-top: none;
-  border-radius: 0 0 5px 5px;
-  top: 42px;
+  left: calc(50% - 20px);
+  top: ${props => props.menuOpen ? 280 : 50}px;
   margin: auto;
   position: fixed;
-  z-index: 3;
+  z-index: 1;
   cursor: pointer;
+  font-size: 20px;
+  color: grey;
   @media (max-width: 839px) {
    
     }
@@ -126,16 +124,24 @@ const FilterBoxDiv = styled.aside`
     width: 70%;
     color: black;
     margin: 10px;
-    padding: 15px;
-    font-size: 1.7rem;
+    padding: 5px;
+    font-size: 20px;
     letter-spacing: 1.5px;
     background: white;
     border: solid 1px black;
     border-radius: 20px;
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+    outline-style: none;
     &:hover {
       cursor: pointer;
       background: black;
       color: white;
+    }
+    @media (max-width: 839px) {
+    width: 20%;
+    height: 50px;
     }
   }
 
