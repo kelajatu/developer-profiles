@@ -11,7 +11,7 @@ server.get('/skills', (req, res) => {
 })
 
 //get skills from search 
-server.get('/skills/:search', (req, res) => {
+server.get('/skills/search/:search', (req, res) => {
     db.skills_helpers.getSimilarSkills(req.params.search).then(skillsArr => {
         res.status(200).json(skillsArr)
     }).catch(err => {

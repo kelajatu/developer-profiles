@@ -46,10 +46,12 @@ class AboutYou extends Component {
 
   onSkillSearch = (e) => {
     this.setState({ [e.target.name]: e.target.value });
-    axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/list/skills/${e.target.value}`)
+    axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/list/skills/search/${e.target.value}`)
     .then(response => {
       this.setState({skillbank: response.data})
-    })
+    }).catch(error => {
+      this.setState({skillbank: null})
+    });
   }
 
   // places interested
@@ -136,12 +138,13 @@ class AboutYou extends Component {
 
     addSkillsFromBank = (skillID, e) => {
       e.preventDefault()
-      axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/addskills/${e.target.id}`, {"id": `${skillID}`}).then(
-        skill => console.log(skill)
-        )
+      let skillInput = e.target.getAttribute('name')
+      axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/addskills/${e.target.id}`, {"id": `${skillID}`})
+      .then( response => {
+        this.setState({skillbank: null, [skillInput]: ""})
+        this.props.updateProgress()
+      })
     }
-    
-      
       
       checkOnSubmit = (e) => {
         e.preventDefault()
@@ -262,11 +265,11 @@ class AboutYou extends Component {
                   name="topSkillsInput"
                   className="text-input"
                   placeholder="Add a skill from the list or create a new one"
-                  // focusIndicator
+                  focusIndicator
                   value={this.state.topSkillsInput}
                   onChange={this.onSkillSearch}
                 />
-                {this.state.skillbank ? <div className="skillbank">{this.state.skillbank.map(skill => <div className="skill" id="top_skills" onClick={this.addSkillsFromBank.bind(this, skill.id)}>{skill.skill}</div>)}</div> : null}
+                {this.state.skillbank ? this.state.topSkillsInput !== "" ? <div className="skillbank">{this.state.skillbank.map(skill => <div className="skill" id="top_skills" name="topSkillsInput"onClick={this.addSkillsFromBank.bind(this, skill.id)}>{skill.skill}</div>)}</div> : null : null}
                 <button className="skills-btn" id="top_skills" name="topSkillsInput" onClick={this.addSkillsNew}>
                   {this.state.topSkillsInputSuccess ?
                     <i className="success fa fa-check-circle"></i>
@@ -302,8 +305,9 @@ class AboutYou extends Component {
                   placeholder="Put more skills here. They will be medium on your profile"
                   focusIndicator
                   value={this.state.additionalSkillsInput}
-                  onChange={this.onInputChange}
+                  onChange={this.onSkillSearch}
                 />
+                {this.state.skillbank ? this.state.additionalSkillsInput !== "" ? <div className="skillbank">{this.state.skillbank.map(skill => <div className="skill" id="add_skills" name="additionalSkillsInput"onClick={this.addSkillsFromBank.bind(this, skill.id)}>{skill.skill}</div>)}</div> : null : null}
                 <button className="skills-btn" id="add_skills" name="additionalSkillsInput" onClick={this.addSkillsNew}>
                   {this.state.additionalSkillsInputSuccess ?
                     <i className="success fa fa-check-circle"></i>
@@ -334,8 +338,9 @@ class AboutYou extends Component {
                   placeholder="Put remaining skills here. They will be small on your profile"
                   focusIndicator
                   value={this.state.familiarSkillsInput}
-                  onChange={this.onInputChange}
+                  onChange={this.onSkillSearch}
                 />
+                {this.state.skillbank ? this.state.familiarSkillsInput !== "" ? <div className="skillbank">{this.state.skillbank.map(skill => <div className="skill" id="familiar" name="familiarSkillsInput"onClick={this.addSkillsFromBank.bind(this, skill.id)}>{skill.skill}</div>)}</div> : null : null}
                 <button className="skills-btn" id="familiar" name="familiarSkillsInput" onClick={this.addSkillsNew}>
                   {this.state.familiarSkillsInputSuccess ?
                     <i className="success fa fa-check-circle fa-2x"></i>
