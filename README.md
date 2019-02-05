@@ -7,7 +7,9 @@ Netlify Deploy: curl -X POST -d {} https://api.netlify.com/build_hooks/5c49e44cc
 
 To start Frontend development server: 
     navigate to the front end folder in console `./frontend`
-    yarn start
+    set up appropriate .env file with API keys
+    `yarn` (install dependencies)
+    `yarn start`
 
 **Backend** 
 README: [Backend README](backend\README.md)
@@ -16,8 +18,10 @@ Endpoints: https://labs9-dev-profiles.postman.co/collections/5974950-e056342f-7c
 Heroku command: heroku run knex --knexfile=./backend/knexfile.js migrate:rollback -a developer-profiles
 
 To start Backend development server: 
+    set up appropriate .env file with API keys in backend folder
     remain in root folder
-    nodemon
+    `yarn` (install dependencies)
+    `nodemon` or `yarn dev`
 
 Projects links: 
     Trello: https://trello.com/b/w0Su2ZIZ/labs9-developer-profiles
