@@ -41,7 +41,7 @@ export default class FilterBox extends Component {
           />
           <div className="buttons">
             <button onClick={() => this.props.filter(true)}>Search</button>
-            <button onClick={() => this.props.filter(true)}>Clear </button>
+            <button onClick={() => this.props.updatePublicPageState(false)}>Clear </button>
           </div>
         </FilterBoxDiv>
         <MenuButton menuOpen={this.state.menuOpen}>
