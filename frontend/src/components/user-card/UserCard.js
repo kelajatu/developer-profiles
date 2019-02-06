@@ -137,8 +137,6 @@ class UserCard extends Component{
                                 <a rel="noopener noreferrer" href={this.props.portfolio} target="_blank"><i className="fas fa-code"></i></a>
                             </div>
                         </div>{/* top */}
-                    
-                   
                     </div>
                     <div>
                         {this.state.expanded ? 
