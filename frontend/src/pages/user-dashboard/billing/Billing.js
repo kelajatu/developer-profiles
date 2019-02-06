@@ -72,7 +72,6 @@ export default class Billing extends Component {
   }
 
   render() {
-    console.log(this.props.userInfo.stripe_subscription_name)
     return (
       <BillingDiv>
           <header>

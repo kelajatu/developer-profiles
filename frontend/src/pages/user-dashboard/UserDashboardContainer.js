@@ -179,7 +179,7 @@ class UserDashboardContainer extends Component {
           placesInterestedArr,
           profileProgress
         }
-
+        console.log("FULL USER", allUserInfo)
         this.setState(allUserInfo)
       })
       .catch(err => console.log(err))
@@ -345,7 +345,7 @@ class UserDashboardContainer extends Component {
           placesInterestedArr,
           profileProgress
         }
-
+        console.log("FULL USER", allUserInfo)
         this.setState({isLoading: false})
         this.setState(allUserInfo)
       })

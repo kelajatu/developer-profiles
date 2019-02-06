@@ -125,7 +125,7 @@ class UserCard extends Component{
                                     </div></div>)
                                 }) : null}
                             </div>
-                            <i class="fas fa-caret-down"></i>
+                            <i className="fas fa-caret-down"></i>
                         </div>
                         <div className="links">
                             {this.props.badge !== null ? this.props.badge !== "acclaim.com" ? <img className="badge" src={this.props.badge} alt="acclaim badge"/> : null : null}
