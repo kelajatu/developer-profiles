@@ -13,8 +13,6 @@ export const Pagewrap = styled.div`
   position: relative;
   text-align: center;
   margin: auto;
-  padding-top: 5em;
-  padding-bottom: 5em;
 `;
 
 export const Moreinfo = styled.div`
@@ -69,7 +67,7 @@ export const RecruiterText = styled.div`
   }
 `;
 export const DevText = styled.div`
-  color: var(--accent-color);
+  color: var(--lp_btn_color);
   display: flex;
   align-items: center;
   flex-flow: row-reverse;
