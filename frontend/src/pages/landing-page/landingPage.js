@@ -37,7 +37,7 @@ class LandingPage extends Component {
               <h2 id="developers">Developers</h2>{" "}
               <p>
                 Let us help you get you where you want to go by showing your
-                profile to top companies across a wide variety of industries. Give us a try!
+                profile to top companies across a wide variety of industries. Give us a try today with one of our subscription options!
               </p>
             </TextBlock>
             <img src={GraphSvg} alt="git contribution graphic" />

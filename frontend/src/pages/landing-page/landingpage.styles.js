@@ -5,7 +5,9 @@ export const LandingPageDiv = styled.div``;
 export const Pagewrap = styled.div`
   background: url(${bg_img}) no-repeat center center fixed;
   background-size: cover;
+  display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
   height: 90vh;
   position: relative;
@@ -14,7 +16,6 @@ export const Pagewrap = styled.div`
   padding-top: 5em;
   padding-bottom: 5em;
 `;
-
 
 export const Moreinfo = styled.div`
   display: flex;
@@ -25,11 +26,10 @@ export const Moreinfo = styled.div`
   margin-top: 50px;
 
   @media all and (max-width: 839px) {
-   padding: 0 50px;
-   img {
-     width: 50%;
-   }
-
+    padding: 0 50px;
+    img {
+      width: 50%;
+    }
   }
 
   @media all and (max-width: 480px) {
@@ -39,6 +39,7 @@ export const Moreinfo = styled.div`
     img {
       width: 300px;
       justify-content: center;
+      align-items: center;
     }
   }
 `;
@@ -74,10 +75,7 @@ export const DevText = styled.div`
   flex-flow: row-reverse;
   text-align: right;
   @media all and (max-width: 839px) {
-   padding: 0 50px;
-   text-align: right;
   }
-
 
   @media all and (max-width: 480px) {
     display: flex;
@@ -85,4 +83,3 @@ export const DevText = styled.div`
     text-align: center;
   }
 `;
-

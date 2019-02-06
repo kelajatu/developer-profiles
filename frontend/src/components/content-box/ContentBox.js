@@ -3,7 +3,7 @@ import {
   Btn,
   CallToAction,
   CTAContainer,
-  Circle,
+  SplashBand,
   BtnRow
 } from "./ContentBox.styles";
 
@@ -13,7 +13,7 @@ class ContentBox extends Component {
   render() {
     return (
       <ContentBoxSection>
-        <Circle>
+        <SplashBand>
           <CTAContainer>
           <h1>Dev<span>Profiles</span></h1>
               <h2>
@@ -35,7 +35,7 @@ class ContentBox extends Component {
             </CallToAction>
               </BtnRow>
           </CTAContainer>
-        </Circle>
+        </SplashBand>
       </ContentBoxSection>
     );
   }
