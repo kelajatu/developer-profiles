@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const SplashBand = styled.div`
   background: rgba(0, 63, 160, 0.5);
   position: relative;
-  height: 400px;
+  height: 90vh;
   width: 100%;
   padding-left: 7em;
   display: flex;
