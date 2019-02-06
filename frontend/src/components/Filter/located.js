@@ -25,9 +25,14 @@ export default class Located extends Component {
       <LocatedDiv>
         <div className="range-container">
           <h1>Located</h1>
-          <span className="within">within {this.props.publicPageState.milesFrom}</span>
-          <RangeInput min={5} max={300} step={5} onChange={this.changeHandler} value={this.props.publicPageState.milesFrom} />
-          <span className="milesOf">miles of</span>
+          <span className="within">within {this.props.publicPageState.milesFrom} miles of</span>
+          <RangeInput 
+            min={5} 
+            max={300} 
+            step={5}
+            className="range" 
+            onChange={this.changeHandler} 
+            value={this.props.publicPageState.milesFrom} />
           <label className="container">
           <LocationAuto
             name="locatedCity"
@@ -49,31 +54,37 @@ export default class Located extends Component {
 }
 
 const LocatedDiv = styled.div`
-margin-bottom: 10px;
+  /* border: 1px solid green; */
+  margin-bottom: 10px;
+  font-size: 15px;
   h1 {
     font-size: 25px;
   }
-  font-size: 15px;
+  .range{
+    /* border: 1px solid red; */
+    width: 90%;
+    /* padding-left: 15px; */
+  }
   @media (max-width: 839px) {
-       .range-container {
-         width: 100%;
-         display: flex;
-         align-items: center;
-         justify-content: space-between;
-         span.within {
-           width: 90px;
-         }
-         .milesOf {
-           width: 80px;
-           margin-left: 10px;
-          
-         }
-       }
-       h1 {
-         margin-right: 5px;
-       }
-        @media (max-width: 480px) {
-          flex-direction: column;
-        }
+    .range-container {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      span.within {
+        width: 90px;
       }
+      .milesOf {
+        width: 80px;
+        margin-left: 10px;
+      
+      }
+    }
+    h1 {
+      margin-right: 5px;
+    }
+    @media (max-width: 480px) {
+      flex-direction: column;
+    }
+  }
 `;

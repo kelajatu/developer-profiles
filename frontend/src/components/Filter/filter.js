@@ -18,8 +18,11 @@ export default class FilterBox extends Component {
     return (
       <Grommet theme={filterTheme}>
         <FilterBoxDiv menu={this.state.menuOpen}>
-          <h2>
+          {/* <h2>
             Showing: <strong>{this.props.publicPageState.usersReturned}</strong> of {this.props.publicPageState.usersFound} possible profiles
+          </h2> */}
+          <h2>
+            <strong>{this.props.publicPageState.usersFound}</strong>  possible profiles
           </h2>
           <JobTitles
             updatePublicPageState={this.props.updatePublicPageState}
@@ -36,7 +39,10 @@ export default class FilterBox extends Component {
             publicPageState={this.props.publicPageState}
             filter={this.props.filter}
           />
-          <button onClick={() => this.props.filter(true)}>Search</button>
+          <div className="buttons">
+            <button onClick={() => this.props.filter(true)}>Search</button>
+            <button onClick={() => this.props.filter(true)}>Clear </button>
+          </div>
         </FilterBoxDiv>
         <MenuButton menuOpen={this.state.menuOpen}>
         <i onClick={()=> this.setState({ menuOpen: !this.state.menuOpen })} class="fa fa-bars"></i>
@@ -86,11 +92,13 @@ const FilterBoxDiv = styled.aside`
   z-index: 10;
   width: 272px;
   height: 100%;
-  padding-top: 130px;
+  padding-top: 80px;
   border-right: solid 0.5px #dbdee2;
   display: flex;
   position: fixed;
   flex-direction: column;
+  /* border: 1px solid blue; */
+  overflow: auto;
   h1 {
     font-size: 20px;
     margin-bottom: 5px;
@@ -98,6 +106,37 @@ const FilterBoxDiv = styled.aside`
   h2 {
     font-size: 18px;
     margin-bottom: 5px;
+  }
+  .buttons{
+    /* border: 1px solid red; */
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    button {
+      width: 70%;
+      color: black;
+      margin: 10px;
+      padding: 5px;
+      font-size: 20px;
+      letter-spacing: 1.5px;
+      background: white;
+      border: solid 1px black;
+      border-radius: 20px;
+      /* display: flex;
+      align-items: center;
+      justify-content: center; */
+      outline-style: none;
+      &:hover {
+        cursor: pointer;
+        background: black;
+        color: white;
+      }
+      @media (max-width: 839px) {
+      width: 20%;
+      height: 50px;
+      }
+    }
   }
   @media (max-width: 839px) {
     border: none;
@@ -118,30 +157,6 @@ const FilterBoxDiv = styled.aside`
   }
     @media (max-width: 480px) {
     height: ${props => props.menu ? 100 : 0 }vh;
-    }
-  }
-  button {
-    width: 70%;
-    color: black;
-    margin: 10px;
-    padding: 5px;
-    font-size: 20px;
-    letter-spacing: 1.5px;
-    background: white;
-    border: solid 1px black;
-    border-radius: 20px;
-    /* display: flex;
-    align-items: center;
-    justify-content: center; */
-    outline-style: none;
-    &:hover {
-      cursor: pointer;
-      background: black;
-      color: white;
-    }
-    @media (max-width: 839px) {
-    width: 20%;
-    height: 50px;
     }
   }
 
