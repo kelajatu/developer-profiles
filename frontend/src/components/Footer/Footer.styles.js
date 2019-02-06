@@ -11,4 +11,45 @@ export const FooterContainer = styled.div`
   position: relative;
   margin-top: auto;
   bottom: 0;
+
+  .footer-left p {
+    color: #8f9296;
+    font-size: 16px;
+    margin: 0;
+  }
+
+  p.footer-links {
+    font-size: px;
+    font-weight: bold;
+    color: #ffffff;
+    margin: 0 0 10px;
+    padding: 0;
+
+    a {
+      display: inline-block;
+      line-height: 1.8;
+      text-decoration: none;
+      color: inherit;
+      padding: 0 1% 0 0;
+    }
+  }
+
+  .footer-right {
+    float: right;
+    margin-top: 6px;
+    max-width: 180px;
+
+    a {
+      display: inline-block;
+      width: 35px;
+      height: 35px;
+      background-color: #33383b;
+      border-radius: 2px;
+      font-size: 20px;
+      color: #ffffff;
+      text-align: center;
+      line-height: 35px;
+      margin-left: 3px;
+    }
+  }
 `;
