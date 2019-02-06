@@ -49,6 +49,7 @@ class App extends Component {
             path="/public"
             render={props => <PublicFacingPage {...props} {...this.state} />}
           />
+          
           <Route component={PageNotFound} />
         </Switch>
       </Fragment>

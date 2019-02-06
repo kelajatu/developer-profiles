@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { centerFlex } from '../../../../global-styles/Mixins';
 
 
@@ -34,15 +33,14 @@ export default class Billing extends Component {
                 this.setState({monthSubmitSuccess: true})
                 noLeaks = setTimeout(() => {
                   this.setState({ monthSubmitSuccess: false })
-                  this.props.changeCurrent('basics')
                 }, 2000)
               } else if (packageSelected === 'year') {
                 this.setState({yearSubmitSuccess: true})
                 noLeaks = setTimeout(() => {
                   this.setState({ yearSubmitSuccess: false })
-                  this.props.changeCurrent('basics')
                 }, 2000)
               }
+
               this.props.updateProgress()
             })
             .catch(err => {
@@ -73,11 +71,15 @@ export default class Billing extends Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <BillingDiv>
-          <header className="quickstart-header">
-            <h1>Choose Package You Like</h1>
+          <header>
+            <h1 style={{
+            fontSize: '3.2rem',
+            color: 'rgb(42,42,42)',
+            marginBottom: '50px',
+            textAlign: 'left',
+        }}>Choose Package You Like</h1>
           </header>
           {this.props.userInfo.subscriptionSuccess ?
             <div className="billing-success-container">
@@ -164,33 +166,21 @@ export default class Billing extends Component {
               </div>
             </div>
           }
-
-
-          <ButtonContainer>
-            <div>
-              <Link to="/dashboard/education">Back</Link>
-            </div>
-            <div>
-              <Link to="/dashboard">Home</Link>
-            </div>
-          </ButtonContainer>
       </BillingDiv>
     )
   }
 }
 
 export const BillingDiv = styled.div`
- .quickstart-header {
-    h1 {
-      font-size: 3.2rem;
-      color: rgb(42,42,42);
-      margin-top: 75px;
-      margin-bottom: 50px;
-      text-align: left;
-      padding-left: 50px;
-    }
- }
-
+  width: 100%;
+  padding-left: 25px;
+  padding-right: 25px;
+  h1 {
+    color: rgb(42,42,42);
+    margin-bottom: 50px;
+    text-align: left;
+    font-size: 4rem;
+  }
   h2{
     font-size: 4rem;
     color: var(--accent-color);
@@ -208,6 +198,9 @@ export const BillingDiv = styled.div`
 
   .billing-success-container {
     ${centerFlex()}
+    @media (max-width: 1000px) {
+      margin-bottom: 75px;
+    }
     .billing-success {
       padding: 20px;
       border: 1px solid lightgrey;
@@ -233,13 +226,29 @@ export const BillingDiv = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+    @media (max-width: 1450px) {
+      justify-content: space-between;
+    }
+    @media (max-width: 1000px) {
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
     .option{
       width: 45%;
       max-width: 550px;
-      min-height: 580px;
+      height: 650px;
       padding: 40px 20px 0;
       text-align: center;
       border-radius: 5px;
+      @media (max-width: 1450px) {
+        height: 700px;
+        width: 49%;
+      }
+      @media (max-width: 1000px) {
+        width: 100%;
+        margin-bottom: 75px;
+      }
       header {
         margin-bottom: 50px;
       }
@@ -276,14 +285,18 @@ export const BillingDiv = styled.div`
         left: 50%;
         transform: translateX(-50%);
         button {
-          min-width: 190px;
-          height: 60px;
+          width: 260px;
+          height: 70px;
           color: white;
-          font-size: 1.7rem;
+          padding: 20px 30px;
+          font-size: 2rem;
           letter-spacing: 1.5px;
           background-color: var(--accent-color);
           border: none;
           border-radius: 100px;
+          ${centerFlex()};
+          margin-left: 25px;
+          margin-right: 25px;
           &:hover {
             color: var(--lp_btn_color);
             transform: scale(1.1);
@@ -294,52 +307,8 @@ export const BillingDiv = styled.div`
             transform: scale(1);
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
           }
-          .success {
-            color: var(--lp_btn_color);
-          }
         }
       }
     }
-  }
-`;
-
-export const ButtonContainer = styled.div`
-  width: 80%;
-  margin: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 75px;
-  margin-bottom: 50px;
-  div {
-    width: 30%;
-    text-align: center;
-  }
-  a {
-    width: 70%;
-    display: block;
-    margin: auto;
-    text-decoration: none;
-    color: white;
-    padding: 15px 20px;
-    font-size: 2rem;
-    letter-spacing: 1.5px;
-    background-color: var(--lp_btn_color);
-    border: none;
-    border-radius: 100px;
-
-    &:hover {
-      color:var(--accent-color);
-      transform: scale(1.1);
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    }
-    &:active {
-      transform: scale(1);
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-
-    }
-  }
-  .success {
-    color: green;
   }
 `;

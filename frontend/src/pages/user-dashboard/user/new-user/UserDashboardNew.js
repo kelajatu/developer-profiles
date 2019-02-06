@@ -22,12 +22,8 @@ class UserDashboardNew extends Component {
           <ReactProgrammer className="programmer-svg" alt="logo" />
         </div>
         <ButtonContainer>
-          <div>
-            <Link to="/dashboard/new/quickstart">Quickstart</Link>
-          </div>
-          <div>
-            <Link to="/dashboard">Dashboard Home</Link>
-          </div>
+          <Link to="/dashboard/new/quickstart">Quickstart</Link>
+          <Link to="/dashboard">Home</Link>
         </ButtonContainer>
       </IntroContainer>
     )
@@ -52,28 +48,18 @@ const IntroContainer = styled.div`
     margin-bottom: 50px;
     text-align: center;
     @media (max-width: 1100px) {
-      text-align: left;
-      padding-left: 50px;
       font-size: 4rem;
     }
   }
   .container {
     margin-top: 50px;
-    padding-left: 50px;
-    padding-right: 50px;
+    padding-left: 25px;
+    padding-right: 25px;
     ${centerFlex()}
-    @media (max-width: 1100px) {
-      justify-content: flex-start;
-    }
+
     .programmer-svg {
-      width: 60%;
+      width: 70%;
       height: auto;
-      @media (max-width: 1600px) {
-        width: 65%;
-      }
-      @media (max-width: 1450px) {
-        width: 70%;
-      }
       @media (max-width: 1300px) {
         width: 75%;
       }
@@ -106,24 +92,20 @@ export const ButtonContainer = styled.div`
   margin-top: 30px;
   margin-bottom: 50px;
 
-  div {
-    width: 45%;
-    text-align: center;
-  }
-
   a {
-    width: 70%;
+    width: 230px;
+    height: 55px;
     display: block;
     margin: auto;
     text-decoration: none;
     color: white;
-    padding: 15px 20px;
+    padding: 20px 30px;
     font-size: 2rem;
     letter-spacing: 1.5px;
     background-color: var(--lp_btn_color);
     border: none;
     border-radius: 100px;
-
+    ${centerFlex()};
     &:hover {
       color:var(--accent-color);
       transform: scale(1.1);
@@ -133,7 +115,9 @@ export const ButtonContainer = styled.div`
     &:active {
       transform: scale(1);
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-
+    }
+    &:first-child {
+      margin-right: 50px;
     }
   }
 `;

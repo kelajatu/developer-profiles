@@ -18,15 +18,20 @@ class DashboardQuickstart extends Component {
   render() {
     return (
       <QuickstartContainer>
+
         <header>
           <h1>Quickstart</h1>
         </header>
+
+
         <div className="container">
+
           <div className="quickstart-close">
             <Link to="/dashboard">
-              <i class="fa fa-times fa-2x"></i>
+              <i className="fa fa-times fa-2x"></i>
             </Link>
           </div>
+
           <nav>
             {this.state.current === 'basics' ?
               <button className="active" onClick={() => this.setState({current: 'basics'})}>Basic Info</button>
@@ -39,12 +44,16 @@ class DashboardQuickstart extends Component {
               <button onClick={() => this.setState({current: 'billing'})}>Billing</button>
             }
           </nav>
+
           {this.state.current === 'basics' ?
             <QuickstartBasics changeCurrent={this.changeCurrent} updateProgress={this.props.updateProgress} userInfo={this.props.userInfo} />
             :
             <QuickstartBilling changeCurrent={this.changeCurrent} updateProgress={this.props.updateProgress} userInfo={this.props.userInfo} />
           }
+
         </div>
+
+
       </QuickstartContainer>
     )
   }
@@ -59,27 +68,36 @@ const QuickstartContainer = styled.div`
     width: calc(100% - 80px);
     margin-left: 80px;
   }
+  @media (max-width: 650px) {
+    width: 100%;
+    margin-left: 0;
+  }
   h1 {
     font-size: 5rem;
     color: rgb(42,42,42);
     margin-bottom: 50px;
     text-align: center;
-    @media (max-width: 1100px) {
-      text-align: left;
-      padding-left: 50px;
-      font-size: 4rem;
-    }
   }
+
+
+
   .container {
     width: 80%;
-    padding: 50px;
+    padding-top: 50px;
     border: 1px solid lightgrey;
     border-radius: 5px;
     margin: auto;
     margin-bottom: 50px;
+    @media (max-width: 1650px) {
+      width: 90%;
+    }
+    @media (max-width: 1150px) {
+      width: 97%;
+    }
     nav {
       ${centerFlex()}
       button {
+        margin-bottom: 50px;
         width: 200px;
         height: 80px;
         margin-right: 15px;
@@ -90,6 +108,10 @@ const QuickstartContainer = styled.div`
         background-color: var(--accent-color);
         border: none;
         border-radius: 5px;
+        @media (max-width: 900px) {
+          width: 150px;
+          height: 70px;
+        }
         &:hover {
           color: var(--lp_btn_color);
           transform: scale(1.1);
@@ -119,8 +141,8 @@ const QuickstartContainer = styled.div`
     }
     .quickstart-close {
       position: absolute;
-      top: 2%;
-      right: 2%;
+      top: 1%;
+      right: 1%;
       height: 50px;
       width: 50px;
       ${centerFlex()};

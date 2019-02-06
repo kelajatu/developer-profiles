@@ -294,13 +294,10 @@ class UserDashboardIntro extends Component {
 const IntroContainer = styled.div`
   width: calc(100% - 300px);
   margin-left: 300px;
-  padding: 130px 50px 50px;
+  padding: 130px 25px 25px;
   @media (max-width: 1400px) {
     width: calc(100% - 80px);
     margin-left: 80px;
-  }
-  @media (max-width: 850px) {
-    padding: 130px 20px 20px;
   }
   @media (max-width: 650px) {
     width: 100%;

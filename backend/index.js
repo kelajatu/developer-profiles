@@ -17,6 +17,7 @@ server.get("/", (req, res) => {
 
 server.use("/", routes);
 
+
 server.listen(PORT, () => {
     console.log(
      `== backend server is running on ${PORT} ==\n== using the ${process.env.DB} database ==\n== and the ${process.env.ENV} enviornment ==`
