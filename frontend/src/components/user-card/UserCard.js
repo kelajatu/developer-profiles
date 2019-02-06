@@ -42,6 +42,14 @@ class UserCard extends Component{
         })
     }
 
+    deleteUserSkill = (skilltype, skillID) => {
+        axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.id}/deleteskill/${skilltype}/${skillID}`).then(response => {
+            this.getUserSkills(skilltype);
+        }).catch(err => {
+            console.log(err)
+        })
+    }
+
     render(){
         let topSkillsArr;
         let addSkillsArr;
@@ -85,6 +93,7 @@ class UserCard extends Component{
         return (
                 <UserCardContainer onClick={()=> this.setState({expanded: !this.state.expanded})} expanded={this.state.expanded ? true : false}>
                     <div className="userCardDiv">
+                    {/* {console.log("preview:", this.props.preview)} */}
                         <div className="left-side">
                             <div className="bio">
                             {this.props.image !== null ? 
@@ -101,19 +110,19 @@ class UserCard extends Component{
                             <h3>{this.props.desired_title}</h3>
                             <div className="keywords">
                                 {topSkillsArr.length > 0 ? topSkillsArr.map(word => {
-                                    return (<div key={word.id} className="keyword topskill">
+                                    return (<div>{this.props.preview ? <i onClick={() => this.deleteUserSkill("top_skills", word.id)} className="far fa-times-circle"></i> : null}<div key={word.id} className="keyword topskill">
                                         {word.skill}
-                                    </div>)
+                                    </div></div>)
                                 }) : null}
                                 {addSkillsArr.length > 0 ? addSkillsArr.map(word => {
-                                    return (<div key={word.id} className="keyword addskill">
+                                    return (<div><i onClick={() => this.deleteUserSkill("add_skills", word.id)} className="far fa-times-circle"></i><div key={word.id} className="keyword addskill">
                                         {word.skill}
-                                    </div>)
+                                    </div></div>)
                                 }) : null}
                                 {famSkillsArr.length > 0 ? famSkillsArr.map(word => {
-                                    return (<div key={word.id} className="keyword famskill">
+                                    return (<div><i onClick={() => this.deleteUserSkill("familiar", word.id)} className="far fa-times-circle"></i><div key={word.id} className="keyword famskill">
                                         {word.skill}
-                                    </div>)
+                                    </div></div>)
                                 }) : null}
                             </div>
                             <i class="fas fa-caret-down"></i>

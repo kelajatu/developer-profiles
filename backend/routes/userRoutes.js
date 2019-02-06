@@ -198,10 +198,15 @@ server.get('/:id/skills/:type', (req, res) => {
 //expects skill id in req.body ex."id":"1"
 server.post('/:user_id/addskills/:type', (req, res) => {
     db.user_helpers.getUserSkillID(req.params.user_id, req.params.type).then(oldSkillsList => {
-        let oldSkills = oldSkillsList[req.params.type] + `,${req.body['id']}`
-        db.addKeywords(req.params.user_id, req.params.type, oldSkills).then(data => {
+        if (oldSkillsList[req.params.type] === null) {
+            db.addKeywords(req.params.user_id, req.params.type, `${req.body['id']}`).then(resdata => {
+                res.status(200).json(resdata)
+            })
+        } else {
+        let newSkills = oldSkillsList[req.params.type] + `,${req.body['id']}`
+        db.addKeywords(req.params.user_id, req.params.type, newSkills).then(data => {
             res.status(200).json(data)
-        })}).catch(err => {
+        })}}).catch(err => {
             console.log("error adding from skill bank", err)
             res.status(500).json({message: "error adding from skill bank", err: err})
     })
@@ -227,6 +232,21 @@ server.post('/:user_id/createskill/:type', (req, res) => {
         }
     }).catch(err => {
         res.status(500).json({message: "there is an error in users/createskill/:id/:type at createKey", err: err})
+    })
+})
+
+//delete skill from user (cannot remove from skillbank as other users may be using it)
+server.post('/:user_id/deleteskill/:skillType/:skillID', (req, res) => {
+    db.user_helpers.getUserSkillID(req.params.user_id, req.params.skillType).then(oldSkillList => {
+
+        let oldskillarr = oldSkillList[req.params.skillType].split(",")
+        oldskillarr.splice(oldskillarr.indexOf(`${req.params.skillID}`), 1)
+        oldskillarr = oldskillarr.join(",")
+        db.addKeywords(req.params.user_id, req.params.skillType, oldskillarr).then(response => {
+            res.status(200).json(response)
+        })
+    }).catch(err => {
+        res.status(500).json({err: err})
     })
 })
 
