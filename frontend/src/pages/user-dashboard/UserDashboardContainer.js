@@ -419,14 +419,14 @@ class UserDashboardContainer extends Component {
           <main>
             <Route exact path={`${this.props.match.path}/`} render={props => <UserDashboardIntro {...props} userInfo={this.state} />} />
             <Route exact path={`${this.props.match.path}/new`} render={props => <UserDashboardNew {...props} userInfo={this.state} />} />
-            <Route exact path={`${this.props.match.path}/new/quickstart`} render={props => <DashboardQuickstart {...props} userInfo={this.state} updateProgress={this.updateProgress} />} />
-            <Route path={`${this.props.match.path}/personal-info`} render={props => <PersonalInfo updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
-            <Route path={`${this.props.match.path}/where-to-find-you`} render={props => <WhereToFindYou updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
-            <Route path={`${this.props.match.path}/about-you`} render={props => <AboutYou updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
-            <Route path={`${this.props.match.path}/projects`} render={props => <Projects updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
-            <Route path={`${this.props.match.path}/experience`} render={props => <Experience updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
-            <Route path={`${this.props.match.path}/education`} render={props => <Education updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
-            <Route path={`${this.props.match.path}/billing`} render={props => <Billing updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
+            <Route exact path={`${this.props.match.path}/new/quickstart`} render={props => <DashboardQuickstart {...props} userInfo={this.state} updateProgress={this.updateProgress}/>} />
+            <Route path={`${this.props.match.path}/personal-info`} render={props => <PersonalInfo preview={true} updateProgress={this.updateProgress} {...props} userInfo={this.state}/>} />
+            <Route path={`${this.props.match.path}/where-to-find-you`} render={props => <WhereToFindYou preview={true} updateProgress={this.updateProgress} {...props} userInfo={this.state}/>} />
+            <Route path={`${this.props.match.path}/about-you`} render={props => <AboutYou preview={true} updateProgress={this.updateProgress} {...props} userInfo={this.state}/>} />
+            <Route path={`${this.props.match.path}/projects`} render={props => <Projects preview={true} updateProgress={this.updateProgress} {...props} userInfo={this.state}/>} />
+            <Route path={`${this.props.match.path}/experience`} render={props => <Experience preview={true} updateProgress={this.updateProgress} {...props} userInfo={this.state}/>} />
+            <Route path={`${this.props.match.path}/education`} render={props => <Education preview={true} updateProgress={this.updateProgress} {...props} userInfo={this.state}/>} />
+            <Route path={`${this.props.match.path}/billing`} render={props => <Billing preview={true} updateProgress={this.updateProgress} {...props} userInfo={this.state}/>} />
           </main>
           :
           <i className="fas fa-spinner fa-spin"></i>

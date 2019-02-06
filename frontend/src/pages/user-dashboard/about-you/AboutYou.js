@@ -361,6 +361,7 @@ class AboutYou extends Component {
                 </LabelContainer>
               </header>
               <UserCard
+                preview={this.props.preview}
                 id={this.props.userInfo.id}
                 github={this.props.userInfo.github}
                 linkedin={this.props.userInfo.linkedin}
