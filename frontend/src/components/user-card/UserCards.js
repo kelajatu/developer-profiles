@@ -11,22 +11,22 @@ export default class UserCards extends Component {
       loading: false
     };
 
-    window.onscroll = () => {
-      const { error, loading } = this.props.publicPageState;
-      const UserCardsDiv = document.querySelector("#scroll");
-      if (error || loading) {
-        return;
-      } else {
-        if (UserCardsDiv) {
-          if (
+  window.onscroll = () => {
+    const { error, loading } = this.props.publicPageState;
+    const UserCardsDiv = document.querySelector("#scroll");
+    if (error || loading) {
+      return;
+    } else {
+      if (UserCardsDiv) {
+         if (
             window.innerHeight + document.documentElement.scrollTop ===
-            UserCardsDiv.scrollHeight
-          ) {
-            this.props.filter();
-          }
-        }
+              UserCardsDiv.scrollHeight
+            ) {
+              this.props.filter();
+            }
       }
-    };
+    }
+    }
    }
 
   render() {
