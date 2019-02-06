@@ -8,7 +8,7 @@ export const FooterContainer = styled.div`
   text-align: left;
   font: normal 16px sans-serif;
   padding: 20px;
-  position: fixed;
+  position: relative;
   margin-top: auto;
   bottom: 0;
 `;
