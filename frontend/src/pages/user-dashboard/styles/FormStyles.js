@@ -55,10 +55,10 @@ export const FormSection = styled.section`
   .select-input-container {
     margin-bottom: 30px;
   }
-  .success {
-    color: green;
-  }
+
   .text-input-container {
+
+
     /****SKILLS BUTTONS****/
     .skills-btn {
       width: 100px;
@@ -69,12 +69,26 @@ export const FormSection = styled.section`
       background: white;
       border: solid 1px black;
       border-radius: 20px;
+      margin-top: 10px;
       &:hover {
         cursor: pointer;
         background: black;
         color: white;
       }
     }
+
+
+  }
+  .skillbank {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .skill {
+    cursor: pointer;
+    margin: 5px 5px 5px 0;
+    padding: 0 5px;
+    border: solid grey 1px;
+    border-radius: 5px;
   }
   .text-input,
   #userAreaOfWork,
@@ -97,8 +111,8 @@ export const FormSection = styled.section`
     justify-content: space-evenly;
     align-items: center;
     align-content: center;
-    border-right: solid .5px rgba(0,0,0,.33);
-    border-left: solid .5px rgba(0,0,0,.33);
+    /* border-right: solid .5px rgba(0,0,0,.33);
+    border-left: solid .5px rgba(0,0,0,.33); */
     border-bottom: solid .5px rgba(0,0,0,.33);
     max-height: 250px;
     overflow-y: scroll;
@@ -148,7 +162,7 @@ export const LabelContainer = styled.div`
   display: flex;
   align-items: baseline;
   .success {
-    color: green;
+    color: var(--accent-color);
   }
   label {
     color: rgba(42,42,42,.8);
@@ -205,49 +219,60 @@ export const ButtonContainer = styled.div`
   margin-top: 10px;
   margin-bottom: 50px;
 
-  div {
-    width: 30%;
-    text-align: center;
-  }
-
   .success {
-    color: green;
+    color: var(--lp_btn_color);
   }
 
   /****ALL OTHER BUTTONS****/
   button {
-    width: 100%;
-    color: black;
-    padding: 30px;
-    font-size: 1.7rem;
+    width: 330px;
+    height: 80px;
+    color: white;
+    padding: 20px 30px;
+    font-size: 2rem;
     letter-spacing: 1.5px;
-    background: white;
-    border: solid 1px black;
-    border-radius: 20px;
+    background-color: var(--accent-color);
+    border: none;
+    border-radius: 100px;
+    ${centerFlex()};
+    margin-left: 25px;
+    margin-right: 25px;
     &:hover {
+      color: var(--lp_btn_color);
+      transform: scale(1.1);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
       cursor: pointer;
-      background: black;
-      color: white;
+    }
+    &:active {
+      transform: scale(1);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     }
   }
 
-  /****ALL OTHER BUTTONS****/
   a {
-    width: 70%;
+    width: 230px;
+    height: 55px;
     display: block;
     margin: auto;
     text-decoration: none;
-    color: black;
-    padding: 20px;
-    font-size: 1.7rem;
+    color: white;
+    padding: 20px 30px;
+    font-size: 2rem;
     letter-spacing: 1.5px;
-    background: white;
-    border: solid 1px black;
-    border-radius: 20px;
+    background-color: var(--lp_btn_color);
+    border: none;
+    border-radius: 100px;
+    ${centerFlex()};
     &:hover {
+      color:var(--accent-color);
+      transform: scale(1.1);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
       cursor: pointer;
-      background: black;
-      color: white;
+    }
+    &:active {
+      transform: scale(1);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
     }
   }
 `;

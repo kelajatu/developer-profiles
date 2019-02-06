@@ -18,8 +18,10 @@ exports.up = function(knex, Promise) {
     table.string("linkedin");
     table.string("portfolio");
     table.string("badge");
+    table.string("badgeURL");
     table.string("summary", 1000);
-    table.string("stripe_token");
+    table.string("stripe_customer_id");
+    table.string("stripe_subscription_name");
     table.string("top_skills", 1000);
     table.string("add_skills", 1000);
     table.string("familiar", 1000);

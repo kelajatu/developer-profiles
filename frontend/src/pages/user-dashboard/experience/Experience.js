@@ -266,21 +266,15 @@ class Experience extends Component {
           </CardPreviewSection>
         </div>
         <ButtonContainer>
-          <div>
-            <Link to="/dashboard/projects">Back</Link>
-          </div>
-          <div>
-            <button onClick={this.checkOnSubmit}>
-            {this.state.submitSuccess ?
-              <i className="success fa fa-check-circle fa-2x"></i>
-              :
-              'Save Info'
-            }
-            </button>
-          </div>
-          <div>
-            <Link to="/dashboard/education">Next</Link>
-          </div>
+          <Link to="/dashboard/projects">Back</Link>
+          <button onClick={this.checkOnSubmit}>
+          {this.state.submitSuccess ?
+            <i className="success fa fa-check-circle fa-2x"></i>
+            :
+            'Save Info'
+          }
+          </button>
+          <Link to="/dashboard/education">Next</Link>
         </ButtonContainer>
         <MobileCardPreviewSection>
           <header>

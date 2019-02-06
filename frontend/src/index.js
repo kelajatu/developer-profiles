@@ -4,9 +4,17 @@ import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
 import { Grommet } from 'grommet';
 
+const appTheme = {
+  global: {
+    colors: {
+      brand: 'coral',
+    },
+  },
+};
+
 ReactDOM.render(
   <Router>
-    <Grommet>
+    <Grommet theme={appTheme}>
     <App />
     </Grommet>
   </Router>,

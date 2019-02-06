@@ -67,7 +67,7 @@ class UserDashboardContainer extends Component {
           topSkillsSuccess,
           additionalSkillsSuccess,
           familiarSkillsSuccess,
-          stripeTokenSuccess
+          subscriptionSuccess
         ;
         userInfo.image ? profileImgSuccess = true : profileImgSuccess = false;
         userInfo.public_email ? publicEmailSuccess = true : publicEmailSuccess = false;
@@ -82,14 +82,14 @@ class UserDashboardContainer extends Component {
         userInfo.badge ? acclaimSuccess = true : acclaimSuccess = false;
         userInfo.summary ? summarySuccess = true : summarySuccess = false;
         userInfo.interested_location_names ? placesInterestedSuccess = true : placesInterestedSuccess = false;
-        userInfo.stripe_token ? stripeTokenSuccess = true : stripeTokenSuccess = false;
+        userInfo.stripe_subscription_name ? subscriptionSuccess = true : subscriptionSuccess = false;
         userInfo.top_skills ? topSkillsSuccess = true : topSkillsSuccess = false;
         userInfo.add_skills ? additionalSkillsSuccess = true : additionalSkillsSuccess = false;
         userInfo.familiar ? familiarSkillsSuccess = true : familiarSkillsSuccess = false;
         
         profileProgress = 5
         if (
-          stripeTokenSuccess &&
+          subscriptionSuccess &&
           firstNameSuccess &&
           desiredTitleSuccess &&
           currentLocationNameSuccess &&
@@ -100,7 +100,7 @@ class UserDashboardContainer extends Component {
           }
           
           if (
-          stripeTokenSuccess &&
+          subscriptionSuccess &&
           firstNameSuccess &&
           desiredTitleSuccess &&
           currentLocationNameSuccess &&
@@ -116,7 +116,7 @@ class UserDashboardContainer extends Component {
         }
         
         if (
-          stripeTokenSuccess &&
+          subscriptionSuccess &&
           firstNameSuccess &&
           desiredTitleSuccess &&
           currentLocationNameSuccess &&
@@ -165,7 +165,7 @@ class UserDashboardContainer extends Component {
           topSkillsSuccess,
           additionalSkillsSuccess,
           familiarSkillsSuccess,
-          stripeTokenSuccess,
+          subscriptionSuccess,
           userProjects,
           userExperience,
           userEducation,
@@ -261,7 +261,7 @@ class UserDashboardContainer extends Component {
           topSkillsSuccess,
           additionalSkillsSuccess,
           familiarSkillsSuccess,
-          stripeTokenSuccess
+          subscriptionSuccess
         ;
         userInfo.image ? profileImgSuccess = true : profileImgSuccess = false;
         userInfo.public_email ? publicEmailSuccess = true : publicEmailSuccess = false;
@@ -276,14 +276,14 @@ class UserDashboardContainer extends Component {
         userInfo.badge ? acclaimSuccess = true : acclaimSuccess = false;
         userInfo.summary ? summarySuccess = true : summarySuccess = false;
         userInfo.interested_location_names ? placesInterestedSuccess = true : placesInterestedSuccess = false;
-        userInfo.stripe_token ? stripeTokenSuccess = true : stripeTokenSuccess = false;
+        userInfo.stripe_subscription_name ? subscriptionSuccess = true : subscriptionSuccess = false;
         userInfo.top_skills ? topSkillsSuccess = true : topSkillsSuccess = false;
         userInfo.add_skills ? additionalSkillsSuccess = true : additionalSkillsSuccess = false;
         userInfo.familiar ? familiarSkillsSuccess = true : familiarSkillsSuccess = false;
         
         profileProgress = 5
         if (
-          stripeTokenSuccess &&
+          subscriptionSuccess &&
           firstNameSuccess &&
           desiredTitleSuccess &&
           currentLocationNameSuccess &&
@@ -294,7 +294,7 @@ class UserDashboardContainer extends Component {
           }
           
           if (
-          stripeTokenSuccess &&
+          subscriptionSuccess &&
           firstNameSuccess &&
           desiredTitleSuccess &&
           currentLocationNameSuccess &&
@@ -310,7 +310,7 @@ class UserDashboardContainer extends Component {
         }
         
         if (
-          stripeTokenSuccess &&
+          subscriptionSuccess &&
           firstNameSuccess &&
           desiredTitleSuccess &&
           currentLocationNameSuccess &&
@@ -359,7 +359,7 @@ class UserDashboardContainer extends Component {
           topSkillsSuccess,
           additionalSkillsSuccess,
           familiarSkillsSuccess,
-          stripeTokenSuccess,
+          subscriptionSuccess,
           userProjects,
           userExperience,
           userEducation,
@@ -419,7 +419,7 @@ class UserDashboardContainer extends Component {
           <main>
             <Route exact path={`${this.props.match.path}/`} render={props => <UserDashboardIntro {...props} userInfo={this.state} />} />
             <Route exact path={`${this.props.match.path}/new`} render={props => <UserDashboardNew {...props} userInfo={this.state} />} />
-            <Route exact path={`${this.props.match.path}/new/quickstart`} render={props => <DashboardQuickstart {...props} userInfo={this.state} />} />
+            <Route exact path={`${this.props.match.path}/new/quickstart`} render={props => <DashboardQuickstart {...props} userInfo={this.state} updateProgress={this.updateProgress} />} />
             <Route path={`${this.props.match.path}/personal-info`} render={props => <PersonalInfo updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
             <Route path={`${this.props.match.path}/where-to-find-you`} render={props => <WhereToFindYou updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
             <Route path={`${this.props.match.path}/about-you`} render={props => <AboutYou updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
@@ -429,7 +429,7 @@ class UserDashboardContainer extends Component {
             <Route path={`${this.props.match.path}/billing`} render={props => <Billing updateProgress={this.updateProgress} {...props} userInfo={this.state} />} />
           </main>
           :
-          <Loader />
+          <i className="fas fa-spinner fa-spin"></i>
         }
       </DashboardContainer>
     )
@@ -440,6 +440,10 @@ const DashboardContainer = styled.main`
   /* background-color: #F4F7FC; */
   hr {
     border: solid .5px white;
+  }
+  .fa-spin {
+    font-size: 50px;
+    color: var(--accent-color);
   }
 `;
 
