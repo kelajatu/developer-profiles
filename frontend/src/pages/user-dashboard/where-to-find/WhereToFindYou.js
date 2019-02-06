@@ -181,7 +181,7 @@ class WhereToFindYou extends Component {
         <div className="container">
           <FormSection>
             <form>
-            
+
               {/* location */}
               <div className="select-input-container">
                 <LabelContainer>
