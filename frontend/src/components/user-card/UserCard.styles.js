@@ -99,7 +99,7 @@ export const UserCardContainer = styled.div`
         }
       }
       .links {
-        border: 1px solid green;
+        /* border: 1px solid green; */
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -137,7 +137,7 @@ export const UserCardContainer = styled.div`
     height: 35px;
     overflow: hidden;
     &:hover{
-      background-color: lightgreen;
+      background-color: #ee6c4d;
     }
   }
   .fa-laptop {
