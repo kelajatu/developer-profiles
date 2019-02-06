@@ -69,7 +69,7 @@ export const RecruiterText = styled.div`
   }
 `;
 export const DevText = styled.div`
-  color: var(--accent-color);
+  color: var(--lp_btn_color);
   display: flex;
   align-items: center;
   flex-flow: row-reverse;
