@@ -3,8 +3,8 @@ import ContentBox from "../../components/content-box/ContentBox";
 import {
   Pagewrap,
   Moreinfo,
-  Learnmore,
-  Aboutus,
+  DevText,
+  RecruiterText,
   LandingPageDiv,
   TextBlock
 } from "./landingpage.styles";
@@ -20,7 +20,7 @@ class LandingPage extends Component {
           <ContentBox />
         </Pagewrap>
         <Moreinfo>
-          <Aboutus>
+          <RecruiterText>
             <TextBlock>
               <h2 id="recruiters">Recruiters</h2>{" "}
               <p>
@@ -31,18 +31,20 @@ class LandingPage extends Component {
               </p>
             </TextBlock>
             <img src={ProfileSvg} alt="profile graphic" />
-          </Aboutus>
-          <Learnmore>
+          </RecruiterText>
+          <DevText>
+
+
             <TextBlock>
               <h2 id="developers">Developers</h2>{" "}
               <p>
                 Let us help you get you where you want to go by showing your
-                profile to top companies across a wide variety of industries.
-                Give us a try!
+                profile to top companies across a wide variety of industries. Give us a try today with one of our subscription options!
+
               </p>
             </TextBlock>
             <img src={GraphSvg} alt="git contribution graphic" />
-          </Learnmore>
+          </DevText>
         </Moreinfo>
         <Footer />
       </LandingPageDiv>
