@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
 export const Circle = styled.div`
-  /* background: #003fa0; */
+  background: rgba(0, 63, 160, 0.5);
   position: relative;
   left: -32px;
   bottom: 50px;
-  height: 640px;
-  width: 640px;
+  height: 400px;
+  width: 100%;
 
-  border-radius: 50%;
+
   display: flex;
   z-index: 0;
   align-items: center;
@@ -16,7 +16,6 @@ export const Circle = styled.div`
 
   @media all and (max-width: 839px) {
     left:0;
-
 
   }
   @media all and (max-width: 480px) {
@@ -30,12 +29,9 @@ export const Circle = styled.div`
 `;
 export const ContentBoxSection = styled.div`
   z-index: 1;
-  max-width: 1400px;
-
+  max-width: 1000px;
   width: 100%;
-
   margin: auto;
-
   padding: 2em;
 
   a {
@@ -66,7 +62,7 @@ export const CTAContainer = styled.div`
 
 
   span {
-    color: #003fa0;
+    color: white;
   }
 
   @media all and (max-width: 480px) {
