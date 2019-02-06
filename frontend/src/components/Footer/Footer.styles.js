@@ -52,4 +52,20 @@ export const FooterContainer = styled.div`
       margin-left: 3px;
     }
   }
+
+  @media (max-width: 600px) {
+    .footer-left,
+    .footer-right {
+      text-align: center;
+    }
+
+    .footer-right {
+      float: none;
+      margin: 0 auto 20px;
+    }
+
+    .footer-left p.footer-links {
+      line-height: 1.8;
+    }
+  }
 `;
