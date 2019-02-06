@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { centerFlex } from '../../../../global-styles/Mixins';
 
 
@@ -72,7 +71,6 @@ export default class Billing extends Component {
   }
 
   render() {
-    console.log(this.props.userInfo.stripe_subscription_name)
     return (
       <BillingDiv>
           <header>
@@ -87,7 +85,7 @@ export default class Billing extends Component {
             <div className="billing-success-container">
               <main className="billing-success">
                 <header>
-                  <h2>Subscription Active <span><i class="success fa fa-check" aria-hidden="true"></i></span></h2>
+                  <h2>Subscription Active <span><i className="success fa fa-check" aria-hidden="true"></i></span></h2>
                 </header>
                 <section className="package-selected">
 
@@ -175,8 +173,8 @@ export default class Billing extends Component {
 
 export const BillingDiv = styled.div`
   width: 100%;
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: 25px;
+  padding-right: 25px;
   h1 {
     color: rgb(42,42,42);
     margin-bottom: 50px;

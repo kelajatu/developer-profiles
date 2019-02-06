@@ -195,11 +195,11 @@ class QuickstartBasics extends Component {
               <div className="img-input-sub-container">
                 {this.state.profileImgUploadSuccess ?
                   <div className="img-input-overlay">
-                    <i className="fa fa-check-circle fa-2x"></i>
+                    <i className="success fa fa-check-circle fa-2x"></i>
                   </div>
                   :
                   <div className="img-input-overlay">
-                    <i className="fa fa-upload fa-2x"></i>
+                    <i className="upload fa fa-upload fa-2x"></i>
                   </div>
                 }
 
@@ -371,10 +371,7 @@ class QuickstartBasics extends Component {
 }
 
 const MainContainer = styled.div`
-  padding-left: 50px;
-  @media (max-width: 650px) {
-    padding-left: 20px;
-  }
+  padding-left: 25px;
 `;
 
 const FormSection = styled.section`
@@ -456,6 +453,12 @@ const ImageContainer = styled.div`
       width: 100%;
       height: 100%;
       ${centerFlex()};
+    }
+    .success {
+      color: var(--accent-color);
+    }
+    .upload {
+      color: var(--lp_btn_color);
     }
     input[type=file] {
       padding: 11px 0;
