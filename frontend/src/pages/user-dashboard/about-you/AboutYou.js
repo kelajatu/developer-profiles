@@ -122,9 +122,7 @@ class AboutYou extends Component {
     // about you and card will have to unmount and mount again for CMDs to run
     addSkillsNew = (e) => {
       e.preventDefault()
-
       let skillInput = e.target.getAttribute('name')
-
       axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/createskill/${e.target.id}`, {"skill": `${this.state[skillInput]}`})
         .then(res => {
           let skillInputSuccess = `${skillInput}Success`
@@ -361,6 +359,7 @@ class AboutYou extends Component {
                 </LabelContainer>
               </header>
               <UserCard
+                updateProgress={this.props.updateProgress}
                 preview={this.props.preview}
                 id={this.props.userInfo.id}
                 github={this.props.userInfo.github}
@@ -400,6 +399,8 @@ class AboutYou extends Component {
             </LabelContainer>
           </header>
           <UserCard
+            preview={this.props.preview}
+            updateProgress={this.props.updateProgress}
             id={this.props.userInfo.id}
             github={this.props.userInfo.github}
             linkedin={this.props.userInfo.linkedin}
