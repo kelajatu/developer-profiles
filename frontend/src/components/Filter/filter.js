@@ -3,7 +3,7 @@ import styled from "styled-components";
 import JobTitles from "./jobTitles";
 import Located from "./located";
 import Relocate from "./relocate";
-import { Grommet } from 'grommet';
+import { Grommet, Select } from 'grommet';
 import { ButtonContainer } from "../../pages/user-dashboard/styles/FormStyles";
 
 export default class FilterBox extends Component {
@@ -147,3 +147,42 @@ const FilterBoxDiv = styled.aside`
 
  
 `;
+
+
+// <FormSection>
+//               <form>
+//                 {/* places */}
+//                 <div className="select-input-container">
+//                   <LabelContainer>
+//                     <label htmlFor="userPlacesInterested">
+//                       Places Interested:
+//                     </label>
+//                     {placesInterestedSuccess ?
+//                       <span>
+//                         <i className="success fa fa-check-circle"></i>
+//                       </span>
+//                       :
+//                       null
+//                     }
+//                   </LabelContainer>
+//                   <Select
+//                     id="userPlacesInterested"
+//                     name="placesInterestedInput"
+//                     value={this.state.placesInterestedInput}
+//                     onSearch={this.onPlacesChange}
+//                     onChange={this.choosePlacesInterested}
+//                     options={this.state.placesAutocomplete}
+//                   />
+//                   <div className="showing-places">
+//                     {this.state.placesInterestedArr.length === 0 ?
+//                       null
+//                       :
+//                       this.state.placesInterestedArr.map((location) => {
+//                         return (
+//                           <span className="places" key={location}>
+//                             {location}
+//                           </span>
+//                         );
+//                       })
+//                     }
+//                   </div>
