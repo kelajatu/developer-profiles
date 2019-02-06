@@ -14,6 +14,18 @@ export const UserCardContainer = styled.div`
   a {
     color: black;
   }
+  .skillsdelete {
+      :hover {
+        background: lightgrey;
+        border-radius: 3px;
+      }
+      display: flex;
+      align-items: center;
+      .fa-times-circle {
+        color: coral;
+        cursor: pointer;
+      }
+    }
   .userCardDiv {
     /* border: 1px solid yellow; */
     display: flex;

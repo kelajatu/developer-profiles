@@ -44,7 +44,7 @@ class UserCard extends Component{
 
     deleteUserSkill = (skilltype, skillID) => {
         axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.id}/deleteskill/${skilltype}/${skillID}`).then(response => {
-            this.getUserSkills(skilltype);
+            this.props.updateProgress()
         }).catch(err => {
             console.log(err)
         })
@@ -114,19 +114,19 @@ class UserCard extends Component{
                                 <h3>{this.props.desired_title}</h3>
                                 <div className="keywords">
                                     {topSkillsArr.length > 0 ? topSkillsArr.map(word => {
-                                        return (<div key={word.id} className="keyword topskill">
+                                        return (<div className={`${this.props.preview ? "skillsdelete" : null}`}>{this.props.preview ? <i onClick={() => this.deleteUserSkill("top_skills", word.id)} className="far fa-times-circle"></i> : null}<div key={word.id} className="keyword topskill">
                                             {word.skill}
-                                        </div>)
+                                        </div></div>)
                                     }) : null}
                                     {addSkillsArr.length > 0 ? addSkillsArr.map(word => {
-                                        return (<div key={word.id} className="keyword addskill">
+                                        return (<div className={`${this.props.preview ? "skillsdelete" : null}`}>{this.props.preview ? <i onClick={() => this.deleteUserSkill("add_skills", word.id)} className="far fa-times-circle"></i> : null}<div key={word.id} className="keyword addskill">
                                             {word.skill}
-                                        </div>)
+                                        </div></div>)
                                     }) : null}
                                     {famSkillsArr.length > 0 ? famSkillsArr.map(word => {
-                                        return (<div key={word.id} className="keyword famskill">
+                                        return (<div className={`${this.props.preview ? "skillsdelete" : null}`}>{this.props.preview ? <i onClick={() => this.deleteUserSkill("familiar", word.id)} className="far fa-times-circle"></i> : null}<div key={word.id} className="keyword famskill">
                                             {word.skill}
-                                        </div>)
+                                        </div></div>)
                                     }) : null}
                                 </div>
                             </div>
