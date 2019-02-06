@@ -13,8 +13,6 @@ export const Pagewrap = styled.div`
   position: relative;
   text-align: center;
   margin: auto;
-  padding-top: 5em;
-  padding-bottom: 5em;
 `;
 
 export const Moreinfo = styled.div`

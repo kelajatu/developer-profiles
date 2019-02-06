@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const SplashBand = styled.div`
   background: rgba(0, 63, 160, 0.5);
-  position: relative;
+  /* position: relative; */
   height: 90vh;
   width: 100%;
   padding-left: 7em;
@@ -17,10 +17,8 @@ export const SplashBand = styled.div`
   }
   @media all and (max-width: 480px) {
     border-radius: 0;
-    height: 350px;
     width: 500px;
     padding: 1em;
-    bottom: -32px;
   }
 `;
 export const ContentBoxSection = styled.div`
