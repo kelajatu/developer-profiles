@@ -10,7 +10,8 @@ import {
   LabelContainer,
   ButtonContainer,
   CardPreviewSection,
-  MobileCardPreviewSection
+  MobileCardPreviewSection,
+  Validator
 } from '../styles/FormStyles';
 
 var noLeaks;
@@ -29,6 +30,7 @@ class WhereToFindYou extends Component {
     github: this.props.userInfo.github || "",
     linkedin: this.props.userInfo.linkedin || "",
     portfolio: this.props.userInfo.portfolio || "",
+    portfolioValidation: true,
     acclaim: this.props.userInfo.badge || "",
   }
 
@@ -84,12 +86,40 @@ class WhereToFindYou extends Component {
   checkOnSubmit = (e) => {
     e.preventDefault()
     const { github, linkedin, portfolio, currentLocationName, currentLocationLat, currentLocationLon } = this.state;
+    let normGithub;
+    let normLinkedin;
+    if (github[github.length -1] === '/') {
+      normGithub = github.split('');
+      normGithub.pop();
+      normGithub = normGithub.join('');
+    } else {
+      normGithub = github;
+    }
+    normGithub = normGithub.split('/').pop();
+    normGithub = `https://github.com/${normGithub}`;
+    
+    if (linkedin[linkedin.length -1] === '/') {
+      normLinkedin = linkedin.split('');
+      normLinkedin.pop();
+      normLinkedin = normLinkedin.join('');
+    } else {
+      normLinkedin = linkedin;
+    }
+    normLinkedin = normLinkedin.split('/').pop();
+    normLinkedin = `https://www.linkedin.com/in/${normLinkedin}`;
+
+    if (!(portfolio.includes('http://') || portfolio.includes('https://'))) {
+      this.setState({portfolioValidation: false});
+      return
+    } else {
+      this.setState({portfolioValidation: true})
+    }
     const lePackage = {
       current_location_name: currentLocationName,
       current_location_lat: currentLocationLat,
       current_location_lon: currentLocationLon,
-      github,
-      linkedin,
+      github: normGithub,
+      linkedin: normLinkedin,
       portfolio,
     }
 
@@ -165,6 +195,7 @@ class WhereToFindYou extends Component {
   }
 
   render() {
+    console.log(this.state.portfolioValidation)
     const {
       currentLocationNameSuccess,
       githubSuccess,
@@ -270,15 +301,28 @@ class WhereToFindYou extends Component {
                     null
                   }
                 </LabelContainer>
-                <TextInput
-                  id="userPortfolio"
-                  name="portfolio"
-                  className="text-input"
-                  placeholder="www.myportfolio.com"
-                  focusIndicator
-                  value={this.state.portfolio}
-                  onChange={this.onInputChange}
-                />
+                <Validator validated={this.state.portfolioValidation}>
+                  <TextInput
+                    id="userPortfolio"
+                    name="portfolio"
+                    className="validated-text-input"
+                    placeholder="www.myportfolio.com"
+                    focusIndicator
+                    plain
+                    value={this.state.portfolio}
+                    onChange={this.onInputChange}
+                  />
+                </Validator>
+                {
+                  this.state.portfolioValidation ?
+                  null
+                  :
+                  <LabelContainer>
+                    <label htmlFor="userPortfolio">
+                      Need to include 'http://' or 'https://'
+                    </label>
+                  </LabelContainer>
+                }
               </div>
 
               {/* acclaim */}
