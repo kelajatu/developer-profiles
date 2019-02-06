@@ -9,6 +9,6 @@ module.exports = {
     },
     getSimilarSkills: function(search) {
         return db("skills")
-        .where("skill", "like", `%${search}%`)
+        .where("skill", "ilike", `%${search}%`)
     }
 }

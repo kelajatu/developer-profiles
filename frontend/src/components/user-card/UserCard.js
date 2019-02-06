@@ -42,6 +42,14 @@ class UserCard extends Component{
         })
     }
 
+    deleteUserSkill = (skilltype, skillID) => {
+        axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.id}/deleteskill/${skilltype}/${skillID}`).then(response => {
+            this.getUserSkills(skilltype);
+        }).catch(err => {
+            console.log(err)
+        })
+    }
+
     render(){
         let topSkillsArr;
         let addSkillsArr;
@@ -87,18 +95,21 @@ class UserCard extends Component{
                   
                     expanded={this.state.expanded ? true : false}>
                     <div className="userCardDiv">
+
                         <div className="top">
                             <div className="left-side">
                                 <div className="bio">
-                                {this.props.image !== null ? 
-                                this.props.image !== "" ? <img className="photo" src={this.props.image} alt="user avatar"/> : 
-                                <div className="photo"><i className="fas fa-laptop"></i></div> : <div className="photo"><i className="fas fa-laptop"></i></div>
-                                }
+                                    {this.props.image !== null ? 
+                                        this.props.image !== "" ?
+                                        <img className="photo" src={this.props.image} alt="user avatar"/> : 
+                                        <div className="photo"><i className="fas fa-laptop"></i></div> :
+                                                <div className="photo"><i className="fas fa-laptop"></i></div>
+                                    }
                                     <div className="user-intro">
                                         <h2>{`${this.props.first_name} ${this.props.last_name}`}</h2>
                                         <p className="location">{this.props.location}</p>
                                         <p>{this.props.summary}</p>
-                                    </div>
+                                     </div>
                                 </div>
                                 <h3>{this.props.desired_title}</h3>
                                 <div className="keywords">
@@ -118,7 +129,6 @@ class UserCard extends Component{
                                         </div>)
                                     }) : null}
                                 </div>
-                                
                             </div>
                             <div className="links">
                                 {this.props.badge !== null ? this.props.badge !== "acclaim.com" ? <img className="badge" src={this.props.badge} alt="acclaim badge"/> : null : null}
@@ -128,7 +138,7 @@ class UserCard extends Component{
                             </div>
                         </div>{/* top */}
                     
-                        
+                   
                     </div>
                     <div>
                         {this.state.expanded ? 

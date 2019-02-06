@@ -120,11 +120,11 @@ class PersonalInfo extends Component {
                 <div className="img-input-sub-container">
                   {this.state.profileImgUploadSuccess ?
                     <div className="img-input-overlay">
-                      <i className="fa fa-check-circle fa-2x"></i>
+                      <i className="success fa fa-check-circle fa-2x"></i>
                     </div>
                     :
                     <div className="img-input-overlay">
-                      <i className="fa fa-upload fa-2x"></i>
+                      <i className="upload fa fa-upload fa-2x"></i>
                     </div>
                   }
 

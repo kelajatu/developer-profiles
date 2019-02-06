@@ -53,8 +53,8 @@ const IntroContainer = styled.div`
   }
   .container {
     margin-top: 50px;
-    padding-left: 50px;
-    padding-right: 50px;
+    padding-left: 25px;
+    padding-right: 25px;
     ${centerFlex()}
 
     .programmer-svg {

@@ -37,6 +37,7 @@ export default class UserCards extends Component {
       <UserCardsDiv id="scroll">
         {this.props.publicPageState.modUsers.map(user => (
           <UserCard
+            preview={false}
             id={user.id}
             github={user.github}
             linkedin={user.linkedin}
