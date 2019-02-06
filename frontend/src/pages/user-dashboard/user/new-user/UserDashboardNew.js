@@ -116,17 +116,24 @@ export const ButtonContainer = styled.div`
     display: block;
     margin: auto;
     text-decoration: none;
-    color: black;
-    padding: 20px;
-    font-size: 1.7rem;
+    color: white;
+    padding: 15px 20px;
+    font-size: 2rem;
     letter-spacing: 1.5px;
-    background: white;
-    border: solid 1px black;
-    border-radius: 20px;
+    background-color: var(--lp_btn_color);
+    border: none;
+    border-radius: 100px;
+
     &:hover {
+      color:var(--accent-color);
+      transform: scale(1.1);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
       cursor: pointer;
-      background: black;
-      color: white;
+    }
+    &:active {
+      transform: scale(1);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
     }
   }
 `;

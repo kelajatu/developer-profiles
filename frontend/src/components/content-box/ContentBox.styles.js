@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Circle = styled.div`
-  background: #003fa0;
+  /* background: #003fa0; */
   position: relative;
   left: -32px;
   bottom: 50px;
@@ -56,6 +56,7 @@ export const CTAContainer = styled.div`
   flex-direction: column;
   align-items: space-around;
   color:white;
+
   h1 {
     font-size: 80px;
     line-height: 100px;
@@ -65,7 +66,7 @@ export const CTAContainer = styled.div`
 
 
   span {
-    color: white;
+    color: #003fa0;
   }
 
   @media all and (max-width: 480px) {

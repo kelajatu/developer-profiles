@@ -7,4 +7,8 @@ module.exports = {
     getAllSkills: function(){
         return db("skills")
     },
+    getSimilarSkills: function(search) {
+        return db("skills")
+        .where("skill", "like", `%${search}%`)
+    }
 }

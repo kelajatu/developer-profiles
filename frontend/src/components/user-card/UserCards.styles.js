@@ -20,8 +20,7 @@ export const UserCardsDiv = styled.div`
 `;
 
 export const LoaderContainer = styled.div`
-  width: calc(100% - 20%);
-  margin-left: 20%;
+  margin-left: 300px;
   padding-top: 130px;
   ${centerFlex()};
   h1 {
@@ -31,5 +30,9 @@ export const LoaderContainer = styled.div`
     margin: auto;
     @media (max-width: 480px) {
     }
+  }
+  .fa-spin {
+    font-size: 50px;
+    color: var(--accent-color);
   }
 `;

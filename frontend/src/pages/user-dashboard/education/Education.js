@@ -294,21 +294,15 @@ class Education extends Component {
           </CardPreviewSection>
         </div>
         <ButtonContainer>
-          <div>
-            <Link to="/dashboard/experience">Back</Link>
-          </div>
-          <div>
-            <button onClick={this.checkOnSubmit}>
-              {this.state.submitSuccess ?
-                <i className="success fa fa-check-circle fa-2x"></i>
-                :
-                'Save Info'
-              }
-            </button>
-          </div>
-          <div>
-            <Link to="/dashboard/billing">Next</Link>
-          </div>
+          <Link to="/dashboard/experience">Back</Link>
+          <button onClick={this.checkOnSubmit}>
+            {this.state.submitSuccess ?
+              <i className="success fa fa-check-circle fa-2x"></i>
+              :
+              'Save Info'
+            }
+          </button>
+          <Link to="/dashboard/billing">Next</Link>
         </ButtonContainer>
         <MobileCardPreviewSection>
           <header>

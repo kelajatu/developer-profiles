@@ -27,6 +27,8 @@ class AboutYou extends Component {
 
     summary: this.props.userInfo.summary || "",
 
+    skillbank: null,
+
     topSkillsInput: "",
     topSkillsInputSuccess: false,
     userTopSkills: [],
@@ -40,6 +42,16 @@ class AboutYou extends Component {
 
   onInputChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
+  }
+
+  onSkillSearch = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+    axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/list/skills/search/${e.target.value}`)
+    .then(response => {
+      this.setState({skillbank: response.data})
+    }).catch(error => {
+      this.setState({skillbank: null})
+    });
   }
 
   // places interested
@@ -100,15 +112,6 @@ class AboutYou extends Component {
   //   this.setState({ placesInterested: newPlacesInterestedArr });
   // }
 
-  
-  //should only need one function regardless of skill type, can get type info from input or add button id/name
-  // addSkillsFromBank = (e) => {
-  //   axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/addskills/${e.target.id}`, {"id": ""}).then(
-  //     skill => console.log(skill)
-  //     )
-  //   }
-    
-
 
     // about you and card are tied to a re-mount(CMD), not update(CDU) lifecycle
     // when skills get added, both the components update and re-render, but not re-mount
@@ -132,286 +135,290 @@ class AboutYou extends Component {
           }, 1000)
         })
       }
-      
-      // skillFilter = () => {
-      //   //todo
-      // }
-      
 
-    checkOnSubmit = (e) => {
+    addSkillsFromBank = (skillID, e) => {
       e.preventDefault()
-      const { placesInterested, summary } = this.state;
-      const lePackage = {
-        interested_location_names: placesInterested,
-        summary,
-      }
-      axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
-        .then(res => {
-          this.props.updateProgress()
-        })
-        .catch(err => console.log(err))
+      let skillInput = e.target.getAttribute('name')
+      axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/addskills/${e.target.id}`, {"id": `${skillID}`})
+      .then( response => {
+        this.setState({skillbank: null, [skillInput]: ""})
+        this.props.updateProgress()
+      })
     }
+      
+      checkOnSubmit = (e) => {
+        e.preventDefault()
+        const { placesInterested, summary } = this.state;
+        const lePackage = {
+          interested_location_names: placesInterested,
+          summary,
+        }
+        axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
+          .then(res => {
+            this.props.updateProgress()
+          })
+          .catch(err => console.log(err))
+      }
+
+
 
     render() {
-      const {
-        placesInterestedSuccess,
-        summarySuccess,
-        topSkillsSuccess,
-        additionalSkillsSuccess,
-        familiarSkillsSuccess,
-      } = this.props.userInfo;
+    const {
+      placesInterestedSuccess,
+      summarySuccess,
+      topSkillsSuccess,
+      additionalSkillsSuccess,
+      familiarSkillsSuccess,
+    } = this.props.userInfo;
 
-      return (
-        <MainFormContainer>
-          <header>
-            <h1>About You</h1>
-          </header>
+    return (
+      <MainFormContainer>
+        <header>
+          <h1>About You</h1>
+        </header>
 
-          <div className="container">
-            <FormSection>
-              <form>
+        <div className="container">
+          <FormSection>
+            <form>
 
-                {/* places */}
-                <div className="select-input-container">
-                  <LabelContainer>
-                    <label htmlFor="userPlacesInterested">
-                      Places Interested:
-                    </label>
-                    {placesInterestedSuccess ?
-                      <span>
-                        <i className="success fa fa-check-circle"></i>
-                      </span>
-                      :
-                      null
-                    }
-                  </LabelContainer>
-                  <Select
-                    id="userPlacesInterested"
-                    name="placesInterestedInput"
-                    value={this.state.placesInterestedInput}
-                    onSearch={this.onPlacesChange}
-                    onChange={this.choosePlacesInterested}
-                    options={this.state.placesAutocomplete}
-                  />
-                  <div className="showing-places">
-                    {this.state.placesInterestedArr.length === 0 ?
-                      null
-                      :
-                      this.state.placesInterestedArr.map((location) => {
-                        return (
-                          <span className="places" key={location}>
-                            {location}
-                          </span>
-                        );
-                      })
-                    }
-                  </div>
-                </div>
-                
-                {/* summary */}
-                <div className="text-input-container">
-                  <LabelContainer>
-                    <label htmlFor="userSummary">
-                      Summary:
-                    </label>
-                    {summarySuccess ?
-                      <span>
-                        <i className="success fa fa-check-circle"></i>
-                      </span>
-                      :
-                      null
-                    }
-                  </LabelContainer>
-                  <TextArea
-                    id="userSummary"
-                    name="summary"
-                    className="text-input"
-                    placeholder="Here you can give a quick summary about yourself, your personal elevator pitch! Max length is 128 characters"
-                    maxLength="128"
-                    style={{height: '120px'}}
-                    focusIndicator
-                    resize={false}
-                    value={this.state.summary}
-                    onChange={this.onInputChange}
-                  />
-                </div>
-
-                {/* Top Skills */}
-                <div className="text-input-container">
-                  <LabelContainer>
-                    <label htmlFor="top_skills">
-                      Top Skills:
-                    </label>
-                    {topSkillsSuccess ?
-                      <span>
-                        <i className="success fa fa-check-circle"></i>
-                      </span>
-                      :
-                      null
-                    }
-                  </LabelContainer>
-                  <TextInput
-                    id="top_skills"
-                    name="topSkillsInput"
-                    className="text-input"
-                    placeholder="Put 5 skills here, they are the biggest on your profile"
-                    focusIndicator
-                    value={this.state.topSkillsInput}
-                    onChange={this.onInputChange}
-                  />
-                  <button className="skills-btn" id="top_skills" name="topSkillsInput" onClick={this.addSkillsNew}>
-                    {this.state.topSkillsInputSuccess ?
+              {/* places */}
+              <div className="select-input-container">
+                <LabelContainer>
+                  <label htmlFor="userPlacesInterested">
+                    Places Interested:
+                  </label>
+                  {placesInterestedSuccess ?
+                    <span>
                       <i className="success fa fa-check-circle"></i>
-                      :
-                      'Add New'
-                    }
-                  </button>
-                  <div>
-                    {
-
-                    }
-                  </div>
-                </div>
-
-                {/* Additional Skills */}
-                <div className="text-input-container">
-                  <LabelContainer>
-                    <label htmlFor="add_skills">
-                      Additional Skills:
-                    </label>
-                    {additionalSkillsSuccess ?
-                      <span>
-                        <i className="success fa fa-check-circle"></i>
-                      </span>
-                      :
-                      null
-                    }
-                  </LabelContainer>
-                  <TextInput
-                    id="add_skills"
-                    name="additionalSkillsInput"
-                    className="text-input"
-                    placeholder="Put more skills here. They will be medium on your profile"
-                    focusIndicator
-                    value={this.state.additionalSkillsInput}
-                    onChange={this.onInputChange}
-                  />
-                  <button className="skills-btn" id="add_skills" name="additionalSkillsInput" onClick={this.addSkillsNew}>
-                    {this.state.additionalSkillsInputSuccess ?
-                      <i className="success fa fa-check-circle"></i>
-                      :
-                      'Add New'
-                    }
-                  </button>
-                </div>
-              
-                {/* Familiar Skills */}
-                <div className="text-input-container">
-                  <LabelContainer>
-                    <label htmlFor="familiar">
-                    Familiar With:
-                    </label>
-                    {familiarSkillsSuccess ?
-                      <span>
-                        <i className="success fa fa-check-circle"></i>
-                      </span>
-                      :
-                      null
-                    }
-                  </LabelContainer>
-                  <TextInput
-                    id="familiar"
-                    name="familiarSkillsInput"
-                    className="text-input"
-                    placeholder="Put remaining skills here. They will be small on your profile"
-                    focusIndicator
-                    value={this.state.familiarSkillsInput}
-                    onChange={this.onInputChange}
-                  />
-                  <button className="skills-btn" id="familiar" name="familiarSkillsInput" onClick={this.addSkillsNew}>
-                    {this.state.familiarSkillsInputSuccess ?
-                      <i className="success fa fa-check-circle fa-2x"></i>
-                      :
-                      'Add New'
-                    }
-                  </button>
-                </div>
-
-              </form>
-            </FormSection>
-            <CardPreviewSection>
-                <header>
-                  <LabelContainer>
-                    <label>
-                      Profile Preview:
-                    </label>
-                  </LabelContainer>
-                </header>
-                <UserCard
-                  id={this.props.userInfo.id}
-                  github={this.props.userInfo.github}
-                  linkedin={this.props.userInfo.linkedin}
-                  portfolio={this.props.userInfo.portfolio}
-                  badge={this.props.userInfo.badge}
-                  key={this.props.userInfo.id}
-                  first_name={this.props.userInfo.first_name}
-                  last_name={this.props.userInfo.last_name}
-                  image={this.props.userInfo.image}
-                  summary={this.props.userInfo.summary}
-                  desired_title={this.props.userInfo.desired_title}
-                  location={this.props.userInfo.current_location_name}
-                  userTopSkills={this.props.userInfo.userTopSkills}
-                  userAddSkills={this.props.userInfo.userAddSkills}
-                  userFamSkills={this.props.userInfo.userFamSkills}
+                    </span>
+                    :
+                    null
+                  }
+                </LabelContainer>
+                <Select
+                  id="userPlacesInterested"
+                  name="placesInterestedInput"
+                  value={this.state.placesInterestedInput}
+                  onSearch={this.onPlacesChange}
+                  onChange={this.choosePlacesInterested}
+                  options={this.state.placesAutocomplete}
                 />
-            </CardPreviewSection>
-          </div>
-          <ButtonContainer>
-            <div>
-              <Link to="/dashboard/where-to-find-you">Back</Link>
-            </div>
-            <div>
-              <button onClick={this.checkOnSubmit}>
-              {this.state.submitSuccess ?
-                <i className="success fa fa-check-circle fa-2x"></i>
-                :
-                'Save Info'
-              }
-              </button>
-            </div>
-            <div>
-              <Link to="/dashboard/projects">Next</Link>
-            </div>
-          </ButtonContainer>
-          <MobileCardPreviewSection>
-            <header>
-              <LabelContainer>
-                <label>
-                  Profile Preview:
-                </label>
-              </LabelContainer>
-            </header>
-            <UserCard
-              id={this.props.userInfo.id}
-              github={this.props.userInfo.github}
-              linkedin={this.props.userInfo.linkedin}
-              portfolio={this.props.userInfo.portfolio}
-              badge={this.props.userInfo.badge}
-              key={this.props.userInfo.id}
-              first_name={this.props.userInfo.first_name}
-              last_name={this.props.userInfo.last_name}
-              image={this.props.userInfo.image}
-              summary={this.props.userInfo.summary}
-              desired_title={this.props.userInfo.desired_title}
-              location={this.props.userInfo.current_location_name}
-              userTopSkills={this.props.userInfo.userTopSkills}
-              userAddSkills={this.props.userInfo.userAddSkills}
-              userFamSkills={this.props.userInfo.userFamSkills}
-            />
-          </MobileCardPreviewSection>
-        </MainFormContainer>
-      )
-    }
+                <div className="showing-places">
+                  {this.state.placesInterestedArr.length === 0 ?
+                    null
+                    :
+                    this.state.placesInterestedArr.map((location) => {
+                      return (
+                        <span className="places" key={location}>
+                          {location}
+                        </span>
+                      );
+                    })
+                  }
+                </div>
+              </div>
+              
+              {/* summary */}
+              <div className="text-input-container">
+                <LabelContainer>
+                  <label htmlFor="userSummary">
+                    Summary:
+                  </label>
+                  {summarySuccess ?
+                    <span>
+                      <i className="success fa fa-check-circle"></i>
+                    </span>
+                    :
+                    null
+                  }
+                </LabelContainer>
+                <TextArea
+                  id="userSummary"
+                  name="summary"
+                  className="text-input"
+                  placeholder="Here you can give a quick summary about yourself, your personal elevator pitch! Max length is 128 characters"
+                  maxLength="128"
+                  style={{height: '120px'}}
+                  focusIndicator
+                  resize={false}
+                  value={this.state.summary}
+                  onChange={this.onInputChange}
+                />
+              </div>
+
+              {/* Top Skills */}
+              <div className="text-input-container">
+                <LabelContainer>
+                  <label htmlFor="top_skills">
+                    Top Skills:
+                  </label>
+                  {topSkillsSuccess ?
+                    <span>
+                      <i className="success fa fa-check-circle"></i>
+                    </span>
+                    :
+                    null
+                  }
+                </LabelContainer>
+                <TextInput
+                  id="top_skills"
+                  name="topSkillsInput"
+                  className="text-input"
+                  placeholder="Add a skill from the list or create a new one"
+                  focusIndicator
+                  value={this.state.topSkillsInput}
+                  onChange={this.onSkillSearch}
+                />
+                {this.state.skillbank ? this.state.topSkillsInput !== "" ? <div className="skillbank">{this.state.skillbank.map(skill => <div className="skill" id="top_skills" name="topSkillsInput"onClick={this.addSkillsFromBank.bind(this, skill.id)}>{skill.skill}</div>)}</div> : null : null}
+                <button className="skills-btn" id="top_skills" name="topSkillsInput" onClick={this.addSkillsNew}>
+                  {this.state.topSkillsInputSuccess ?
+                    <i className="success fa fa-check-circle"></i>
+                    :
+                    'Add New'
+                  }
+                </button>
+                <div>
+                  {
+
+                  }
+                </div>
+              </div>
+
+              {/* Additional Skills */}
+              <div className="text-input-container">
+                <LabelContainer>
+                  <label htmlFor="add_skills">
+                    Additional Skills:
+                  </label>
+                  {additionalSkillsSuccess ?
+                    <span>
+                      <i className="success fa fa-check-circle"></i>
+                    </span>
+                    :
+                    null
+                  }
+                </LabelContainer>
+                <TextInput
+                  id="add_skills"
+                  name="additionalSkillsInput"
+                  className="text-input"
+                  placeholder="Put additional skills here"
+                  focusIndicator
+                  value={this.state.additionalSkillsInput}
+                  onChange={this.onSkillSearch}
+                />
+                {this.state.skillbank ? this.state.additionalSkillsInput !== "" ? <div className="skillbank">{this.state.skillbank.map(skill => <div className="skill" id="add_skills" name="additionalSkillsInput"onClick={this.addSkillsFromBank.bind(this, skill.id)}>{skill.skill}</div>)}</div> : null : null}
+                <button className="skills-btn" id="add_skills" name="additionalSkillsInput" onClick={this.addSkillsNew}>
+                  {this.state.additionalSkillsInputSuccess ?
+                    <i className="success fa fa-check-circle"></i>
+                    :
+                    'Add New'
+                  }
+                </button>
+              </div>
+            
+              {/* Familiar Skills */}
+              <div className="text-input-container">
+                <LabelContainer>
+                  <label htmlFor="familiar">
+                  Familiar With:
+                  </label>
+                  {familiarSkillsSuccess ?
+                    <span>
+                      <i className="success fa fa-check-circle"></i>
+                    </span>
+                    :
+                    null
+                  }
+                </LabelContainer>
+                <TextInput
+                  id="familiar"
+                  name="familiarSkillsInput"
+                  className="text-input"
+                  placeholder="These are skills you are just familiar with"
+                  focusIndicator
+                  value={this.state.familiarSkillsInput}
+                  onChange={this.onSkillSearch}
+                />
+                {this.state.skillbank ? this.state.familiarSkillsInput !== "" ? <div className="skillbank">{this.state.skillbank.map(skill => <div className="skill" id="familiar" name="familiarSkillsInput"onClick={this.addSkillsFromBank.bind(this, skill.id)}>{skill.skill}</div>)}</div> : null : null}
+                <button className="skills-btn" id="familiar" name="familiarSkillsInput" onClick={this.addSkillsNew}>
+                  {this.state.familiarSkillsInputSuccess ?
+                    <i className="success fa fa-check-circle fa-2x"></i>
+                    :
+                    'Add New'
+                  }
+                </button>
+              </div>
+
+            </form>
+          </FormSection>
+          <CardPreviewSection>
+              <header>
+                <LabelContainer>
+                  <label>
+                    Profile Preview:
+                  </label>
+                </LabelContainer>
+              </header>
+              <UserCard
+                id={this.props.userInfo.id}
+                github={this.props.userInfo.github}
+                linkedin={this.props.userInfo.linkedin}
+                portfolio={this.props.userInfo.portfolio}
+                badge={this.props.userInfo.badge}
+                key={this.props.userInfo.id}
+                first_name={this.props.userInfo.first_name}
+                last_name={this.props.userInfo.last_name}
+                image={this.props.userInfo.image}
+                summary={this.props.userInfo.summary}
+                desired_title={this.props.userInfo.desired_title}
+                location={this.props.userInfo.current_location_name}
+                userTopSkills={this.props.userInfo.userTopSkills}
+                userAddSkills={this.props.userInfo.userAddSkills}
+                userFamSkills={this.props.userInfo.userFamSkills}
+              />
+          </CardPreviewSection>
+        </div>
+        <ButtonContainer>
+          <Link to="/dashboard/where-to-find-you">Back</Link>
+          <button onClick={this.checkOnSubmit}>
+          {this.state.submitSuccess ?
+            <i className="success fa fa-check-circle fa-2x"></i>
+            :
+            'Save Info'
+          }
+          </button>
+          <Link to="/dashboard/projects">Next</Link>
+        </ButtonContainer>
+        <MobileCardPreviewSection>
+          <header>
+            <LabelContainer>
+              <label>
+                Profile Preview:
+              </label>
+            </LabelContainer>
+          </header>
+          <UserCard
+            id={this.props.userInfo.id}
+            github={this.props.userInfo.github}
+            linkedin={this.props.userInfo.linkedin}
+            portfolio={this.props.userInfo.portfolio}
+            badge={this.props.userInfo.badge}
+            key={this.props.userInfo.id}
+            first_name={this.props.userInfo.first_name}
+            last_name={this.props.userInfo.last_name}
+            image={this.props.userInfo.image}
+            summary={this.props.userInfo.summary}
+            desired_title={this.props.userInfo.desired_title}
+            location={this.props.userInfo.current_location_name}
+            userTopSkills={this.props.userInfo.userTopSkills}
+            userAddSkills={this.props.userInfo.userAddSkills}
+            userFamSkills={this.props.userInfo.userFamSkills}
+          />
+        </MobileCardPreviewSection>
+      </MainFormContainer>
+    )
+  }
 }
 
 export default AboutYou;

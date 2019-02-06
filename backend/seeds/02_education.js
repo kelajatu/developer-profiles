@@ -12,7 +12,7 @@ exports.seed = function(knex, Promise) {
                 arr.push({
                     user_id: num,
                     school: faker.random.word(),
-                    school_dates: faker.date.between(),
+                    school_dates: '2006 - 2010',
                     degree: faker.lorem.word(),  
                     course: faker.random.words()
                 })

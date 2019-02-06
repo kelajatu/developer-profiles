@@ -4,8 +4,8 @@ export const UserCardContainer = styled.div`
   border-radius: 5px;
   border: lightgrey solid 1px;
   background: white;
-  /* height: ${props => (props.expanded ? null : 320)}px; */
-  height: ${props => (props.expanded ? null : 'auto')};
+  height: ${props => (props.expanded ? null : 320)}px;
+  /* height: ${props => (props.expanded ? null : 'auto')}; */
   min-height: ${props => (props.expanded ? 700 : null)}px;
   width: 520px;
   margin-bottom: 30px;
@@ -53,7 +53,7 @@ export const UserCardContainer = styled.div`
           padding: 5px 0;
         }
         .photo {
-          background: coral;
+          background: var(--accent-color);
           display: flex;
           border-radius: 100px;
           justify-content: center;
@@ -75,8 +75,17 @@ export const UserCardContainer = styled.div`
         margin-bottom: 20px;
         .keyword {
           padding: 1px;
-          /* margin: 2px; */
-          margin: 6px;
+          margin: 2px;
+        }
+        .topskill {
+          font-size: 16px;
+          font-weight: bold;
+        }
+        .addskill {
+          font-size: 16px;
+        }
+        .famskill {
+          font-size: 14px;
         }
       }
     }
@@ -158,6 +167,9 @@ export const UserCardContainer = styled.div`
   }
   .indent {
     margin-left: 5px;
+  }
+  .fa-caret-down {
+    
   }
   @media (max-width: 1440px) {
        margin-right: 0;
