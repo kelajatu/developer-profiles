@@ -82,7 +82,7 @@ export default class Billing extends Component {
             <div className="billing-success-container">
               <main className="billing-success">
                 <header>
-                  <h2>Subscription Active <span><i class="success fa fa-check" aria-hidden="true"></i></span></h2>
+                  <h2>Subscription Active <span><i className="success fa fa-check" aria-hidden="true"></i></span></h2>
                 </header>
                 <section className="package-selected">
 
@@ -177,8 +177,8 @@ export const BillingDiv = styled.div`
   width: calc(100% - 300px);
   margin-left: 300px;
   padding-top: 130px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 25px;
+  padding-right: 25px;
   @media (max-width: 1400px) {
     width: calc(100% - 80px);
     margin-left: 80px;

@@ -16,7 +16,6 @@ import Projects from './projects/Projects';
 import Experience from './experience/Experience';
 import Education from './education/Education';
 import Billing from './billing/Billing';
-import Loader from '../../components/loader/Loader';
 
 
 class UserDashboardContainer extends Component {
@@ -34,21 +33,26 @@ class UserDashboardContainer extends Component {
       const getUserProjects = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/projects`)
       const getUserExperience = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/experience`)
       const getUserEducation = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/education`)
+      const getUserTopSkills = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/top_skills`)
+      const getUserAddSkills = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/add_skills`)
+      const getUserFamSkills = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/familiar`)
 
-      Promise.all([getUserProjects, getUserExperience, getUserEducation])
+      Promise.all([getUserProjects, getUserExperience, getUserEducation, getUserTopSkills, getUserAddSkills, getUserFamSkills])
       .then(values => {
   
         // now you have userInfo + locations + all 3(edu,exp,proj)
         const userProjects = values[0].data;
         const userExperience = values[1].data;
         const userEducation = values[2].data;
+        const userTopSkills = values[3].data;
+        const userAddSkills = values[4].data;
+        const userFamSkills = values[5].data;
 
         let placesInterestedArr = [];
         if (userInfo.interested_location_names !== "" && userInfo.interested_location_names !== null) {
           placesInterestedArr = userInfo.interested_location_names.split('|');
         }
 
-        // Success ?
         let
           profileProgress,
           profileImgSuccess,
@@ -86,7 +90,7 @@ class UserDashboardContainer extends Component {
         userInfo.top_skills ? topSkillsSuccess = true : topSkillsSuccess = false;
         userInfo.add_skills ? additionalSkillsSuccess = true : additionalSkillsSuccess = false;
         userInfo.familiar ? familiarSkillsSuccess = true : familiarSkillsSuccess = false;
-        
+
         profileProgress = 5
         if (
           subscriptionSuccess &&
@@ -166,6 +170,9 @@ class UserDashboardContainer extends Component {
           additionalSkillsSuccess,
           familiarSkillsSuccess,
           subscriptionSuccess,
+          userTopSkills,
+          userAddSkills,
+          userFamSkills,
           userProjects,
           userExperience,
           userEducation,
@@ -173,42 +180,6 @@ class UserDashboardContainer extends Component {
           profileProgress
         }
 
-        if (!allUserInfo.top_skills) {
-          allUserInfo.userTopSkills = [];
-        } else {
-          axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/top_skills`)
-          .then(res => {
-            allUserInfo.userTopSkills = res.data;
-            this.setState(allUserInfo)
-          })
-          .catch(err => {
-            console.log(err)
-          })
-        }
-        if (!allUserInfo.add_skills) {
-          allUserInfo.userAddSkills = [];
-        } else {
-          axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/add_skills`)
-          .then(res => {
-            allUserInfo.userAddSkills = res.data;
-            this.setState(allUserInfo)
-          })
-          .catch(err => {
-            console.log(err)
-          })
-        }
-        if (!allUserInfo.familiar) {
-          allUserInfo.userFamSkills = [];
-        } else {
-          axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/familiar`)
-          .then(res => {
-            allUserInfo.userFamSkills = res.data;
-            this.setState(allUserInfo)
-          })
-          .catch(err => {
-            console.log(err)
-          })
-        }
         this.setState(allUserInfo)
       })
       .catch(err => console.log(err))
@@ -228,21 +199,26 @@ class UserDashboardContainer extends Component {
       const getUserProjects = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/projects`)
       const getUserExperience = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/experience`)
       const getUserEducation = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/education`)
+      const getUserTopSkills = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/top_skills`)
+      const getUserAddSkills = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/add_skills`)
+      const getUserFamSkills = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/familiar`)
 
-      Promise.all([getUserProjects, getUserExperience, getUserEducation])
+      Promise.all([getUserProjects, getUserExperience, getUserEducation, getUserTopSkills, getUserAddSkills, getUserFamSkills])
       .then(values => {
   
         // now you have userInfo + locations + all 3(edu,exp,proj)
         const userProjects = values[0].data;
         const userExperience = values[1].data;
         const userEducation = values[2].data;
+        const userTopSkills = values[3].data;
+        const userAddSkills = values[4].data;
+        const userFamSkills = values[5].data;
 
         let placesInterestedArr = [];
         if (userInfo.interested_location_names !== "" && userInfo.interested_location_names !== null) {
           placesInterestedArr = userInfo.interested_location_names.split('|');
         }
 
-        // Success ?
         let
           profileProgress,
           profileImgSuccess,
@@ -280,7 +256,7 @@ class UserDashboardContainer extends Component {
         userInfo.top_skills ? topSkillsSuccess = true : topSkillsSuccess = false;
         userInfo.add_skills ? additionalSkillsSuccess = true : additionalSkillsSuccess = false;
         userInfo.familiar ? familiarSkillsSuccess = true : familiarSkillsSuccess = false;
-        
+
         profileProgress = 5
         if (
           subscriptionSuccess &&
@@ -360,6 +336,9 @@ class UserDashboardContainer extends Component {
           additionalSkillsSuccess,
           familiarSkillsSuccess,
           subscriptionSuccess,
+          userTopSkills,
+          userAddSkills,
+          userFamSkills,
           userProjects,
           userExperience,
           userEducation,
@@ -367,42 +346,6 @@ class UserDashboardContainer extends Component {
           profileProgress
         }
 
-        if (!allUserInfo.top_skills) {
-          allUserInfo.userTopSkills = [];
-        } else {
-          axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/top_skills`)
-          .then(res => {
-            allUserInfo.userTopSkills = res.data;
-            this.setState(allUserInfo)
-          })
-          .catch(err => {
-            console.log(err)
-          })
-        }
-        if (!allUserInfo.add_skills) {
-          allUserInfo.userAddSkills = [];
-        } else {
-          axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/add_skills`)
-          .then(res => {
-            allUserInfo.userAddSkills = res.data;
-            this.setState(allUserInfo)
-          })
-          .catch(err => {
-            console.log(err)
-          })
-        }
-        if (!allUserInfo.familiar) {
-          allUserInfo.userFamSkills = [];
-        } else {
-          axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/users/${userInfo.id}/skills/familiar`)
-          .then(res => {
-            allUserInfo.userFamSkills = res.data;
-            this.setState(allUserInfo)
-          })
-          .catch(err => {
-            console.log(err)
-          })
-        }
         this.setState({isLoading: false})
         this.setState(allUserInfo)
       })

@@ -21,13 +21,13 @@ export const MainFormContainer = styled.main`
     text-align: center;
     @media (max-width: 1100px) {
       text-align: left;
-      padding-left: 50px;
+      padding-left: 25px;
       font-size: 4rem;
     }
   }
   .container {
-    padding-left: 50px;
-    padding-right: 50px;
+    padding-left: 25px;
+    padding-right: 25px;
     display: flex;
     justify-content: space-evenly;
     align-items: flex-start;
@@ -192,6 +192,12 @@ export const ImageContainer = styled.div`
       width: 100%;
       height: 100%;
       ${centerFlex()};
+    }
+    .success {
+      color: var(--accent-color);
+    }
+    .upload {
+      color: var(--lp_btn_color);
     }
     input[type=file] {
       padding: 11px 0;

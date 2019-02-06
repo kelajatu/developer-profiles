@@ -28,7 +28,7 @@ class DashboardQuickstart extends Component {
 
           <div className="quickstart-close">
             <Link to="/dashboard">
-              <i class="fa fa-times fa-2x"></i>
+              <i className="fa fa-times fa-2x"></i>
             </Link>
           </div>
 
