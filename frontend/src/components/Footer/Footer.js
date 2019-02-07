@@ -5,28 +5,13 @@ const Footer = () => {
   return (
     <FooterContainer>
       <div className="footer-right">
-        <a href="#">
-          <i className="fa fa-facebook" />
-        </a>
-        <a href="#">
-          <i className="fa fa-twitter" />
-        </a>
-        <a href="#">
-          <i className="fa fa-linkedin" />
-        </a>
-        <a href="#">
-          <i className="fa fa-github" />
-        </a>
+      <a href="https://github.com/Lambda-School-Labs/labs9-developer-profiles">
+      <i class="fa fa-github"></i></a>
       </div>
 
       <div className="footer-left">
         <p className="footer-links">
           <a href="#">Home</a>
-          <a href="#">Blog</a>
-          <a href="#">Pricing</a>
-          <a href="#">About</a>
-          <a href="#">Faq</a>
-          <a href="#">Contact</a>
         </p>
 
         <p>Developer Profiles &copy; 2019</p>
@@ -36,3 +21,5 @@ const Footer = () => {
 };
 
 export default Footer;
+
+
