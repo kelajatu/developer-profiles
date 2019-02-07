@@ -7,7 +7,7 @@ export const UserCardContainer = styled.div`
   height: ${props => (props.expanded ? null : null)}px;
   /* height: ${props => (props.expanded ? null : 'auto')}; */
   min-height: ${props => (props.expanded ? 700 : null)}px;
-  max-width: 520px;
+  width: 520px;
   margin-bottom: 30px;
   /* padding-bottom: 20px; */
   margin-right: 30px;

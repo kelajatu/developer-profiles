@@ -74,7 +74,12 @@ const JobTitlesDiv = styled.div`
             font-size: 18px;
         }
         @media (max-width: 480px) {
-          
+            height: 150px;
+            flex-wrap: wrap;
+            justify-content: center;
+            span {
+                margin-right: 10px;
+            }
         }
       }
     }

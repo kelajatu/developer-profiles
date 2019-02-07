@@ -53,7 +53,6 @@ export default class Located extends Component {
 }
 
 const LocatedDiv = styled.div`
-  /* border: 1px solid green; */
   margin-bottom: 10px;
   font-size: 15px;
   @media (max-width: 839px) {
@@ -62,16 +61,18 @@ const LocatedDiv = styled.div`
       justify-content: space-between;
       align-items: center;
   }
+  @media (max-width: 480px) {
+      flex-direction: column;
+      font-size: 20px;
+  }
   h1 {
     font-size: 25px;
   }
   .range{
-    /* border: 1px solid red; */
     width: 90%;
     padding: 15px;
   }
   .within-container{
-    /* border: 1px solid red; */
     display: flex;
     flex-direction: column;
     align-items: flex-start;
