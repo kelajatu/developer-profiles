@@ -13,22 +13,18 @@ import {
   MobileCardPreviewSection
 } from '../styles/FormStyles';
 
-var noLeaks;
 
+var noLeaks;
 class AboutYou extends Component {
   state = {
     submitSuccess: false,
     submitFailure: false,
-
     placesAutocomplete: [],
     placesInterestedArr: this.props.userInfo.placesInterestedArr || [],
     placesInterestedInput: "",
     placesInterested: this.props.userInfo.interested_location_names || "",
-
     summary: this.props.userInfo.summary || "",
-
     skillbank: null,
-
     topSkillsInput: "",
     topSkillsInputSuccess: false,
     userTopSkills: [],
@@ -95,31 +91,41 @@ class AboutYou extends Component {
       }
       newPlacesInterestedArr = newPlacesInterested.split('|');
     }
-
-    this.setState({
-      placesInterestedArr: newPlacesInterestedArr,
-      placesInterested: newPlacesInterested,
-      placesAutocomplete: [],
-      placesInterestedInput: ""
-    });
+    const lePackage = {
+      interested_location_names: newPlacesInterested,
+    }
+    axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
+    .then(res => {
+      this.setState({
+        placesInterestedArr: newPlacesInterestedArr,
+        placesInterested: newPlacesInterested,
+        placesAutocomplete: [],
+        placesInterestedInput: ""
+      });
+      this.props.updateProgress()
+    })
+    .catch(err => console.log(err))
   }
 
-  // removePlace = (e) => {
-  //   let newPlacesInterestedArr = this.state.placesInterested.slice();
-  //   newPlacesInterestedArr = newPlacesInterestedArr.filter(place => {
-  //     return place.id !== e.target.dataset.id
-  //   });
-  //   this.setState({ placesInterested: newPlacesInterestedArr });
-  // }
+  removePlace = (location) => {
+    let newPlacesInterestedArr = this.state.placesInterestedArr.slice();
+    newPlacesInterestedArr = newPlacesInterestedArr.filter(place => {
+      return place !== location
+    });
+
+    let newPlacesInterestedStr = newPlacesInterestedArr.join('|');
+    const lePackage = {
+      interested_location_names: newPlacesInterestedStr,
+    }
+    axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
+    .then(res => {
+      this.setState({ placesInterestedArr: newPlacesInterestedArr });
+      this.props.updateProgress()
+    })
+    .catch(err => console.log(err))
+  }
 
 
-    // about you and card are tied to a re-mount(CMD), not update(CDU) lifecycle
-    // when skills get added, both the components update and re-render, but not re-mount
-    // dashboardcontainer was handling all that by updating, and passing props to all components,
-    // GET skills fails when there are no skills, all cards currently send 500s for new users with no skills yet
-    // if I do a GET on dashboard container, the entire thing will crash
-    // therefore dashboardcontainer can't update and create skillsArr and can't send updated props to about you and card
-    // about you and card will have to unmount and mount again for CMDs to run
     addSkillsNew = (e) => {
       e.preventDefault()
       let skillInput = e.target.getAttribute('name')
@@ -146,19 +152,30 @@ class AboutYou extends Component {
       
       checkOnSubmit = (e) => {
         e.preventDefault()
-        const { placesInterested, summary } = this.state;
+        const { summary } = this.state;
         const lePackage = {
-          interested_location_names: placesInterested,
-          summary,
+          summary
         }
         axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
           .then(res => {
+            this.setState({ submitSuccess: true })
+            noLeaks = setTimeout(() => {
+              this.setState({ submitSuccess: false })
+            }, 2000)
             this.props.updateProgress()
           })
-          .catch(err => console.log(err))
+          .catch(err => {
+            this.setState({ submitFailure: true })
+            noLeaks = setTimeout(() => {
+              this.setState({ submitFailure: false })
+            }, 2000)
+            console.log(err)
+          })
       }
 
-
+      componentWillUnmount() {
+        clearTimeout(noLeaks)
+      }
 
     render() {
     const {
@@ -172,7 +189,7 @@ class AboutYou extends Component {
     return (
       <MainFormContainer>
         <header>
-          <h1>About You</h1>
+          <h1 className="main-heading">About You</h1>
         </header>
 
         <div className="container">
@@ -201,24 +218,24 @@ class AboutYou extends Component {
                   onSearch={this.onPlacesChange}
                   onChange={this.choosePlacesInterested}
                   options={this.state.placesAutocomplete}
-                />
-              {this.state.placesInterestedArr.length === 0 ?
-                null
-                :
-                <div className="showing-places">
+                  />
                   {this.state.placesInterestedArr.length === 0 ?
                     null
                     :
-                    this.state.placesInterestedArr.map((location) => {
-                      return (
-                        <span className="places" key={location}>
-                          <i className="success fa fa-times-circle"></i> {location}
-                        </span>
-                      );
-                    })
+                    <div className="showing-places">
+                      {this.state.placesInterestedArr.length === 0 ?
+                        null
+                        :
+                        this.state.placesInterestedArr.map((location) => {
+                          return (
+                            <span className="places" key={location}>
+                              <i onClick={() => this.removePlace(location)} className="delete far fa-times-circle"></i> {location}
+                            </span>
+                          );
+                        })
+                      }
+                    </div>
                   }
-                </div>
-              }
               </div>
 
               {/* summary */}
@@ -272,19 +289,14 @@ class AboutYou extends Component {
                   value={this.state.topSkillsInput}
                   onChange={this.onSkillSearch}
                 />
-                {this.state.skillbank ? this.state.topSkillsInput !== "" ? <div className="skillbank">{this.state.skillbank.map(skill => <div className="skill" id="top_skills" name="topSkillsInput"onClick={this.addSkillsFromBank.bind(this, skill.id)}>{skill.skill}</div>)}</div> : null : null}
+                {this.state.skillbank ? this.state.topSkillsInput !== "" ? <div className="skillbank">{this.state.skillbank.map(skill => <div key={skill.id} className="skill" id="top_skills" name="topSkillsInput"onClick={this.addSkillsFromBank.bind(this, skill.id)}>{skill.skill}</div>)}</div> : null : null}
                 <button className="skills-btn" id="top_skills" name="topSkillsInput" onClick={this.addSkillsNew}>
                   {this.state.topSkillsInputSuccess ?
-                    <i className="success fa fa-check-circle"></i>
+                    <i className="success fa fa-check-circle fa-1x"></i>
                     :
                     'Add New'
                   }
                 </button>
-                <div>
-                  {
-
-                  }
-                </div>
               </div>
 
               {/* Additional Skills */}
@@ -310,10 +322,10 @@ class AboutYou extends Component {
                   value={this.state.additionalSkillsInput}
                   onChange={this.onSkillSearch}
                 />
-                {this.state.skillbank ? this.state.additionalSkillsInput !== "" ? <div className="skillbank">{this.state.skillbank.map(skill => <div className="skill" id="add_skills" name="additionalSkillsInput"onClick={this.addSkillsFromBank.bind(this, skill.id)}>{skill.skill}</div>)}</div> : null : null}
+                {this.state.skillbank ? this.state.additionalSkillsInput !== "" ? <div className="skillbank">{this.state.skillbank.map(skill => <div key={skill.id} className="skill" id="add_skills" name="additionalSkillsInput"onClick={this.addSkillsFromBank.bind(this, skill.id)}>{skill.skill}</div>)}</div> : null : null}
                 <button className="skills-btn" id="add_skills" name="additionalSkillsInput" onClick={this.addSkillsNew}>
                   {this.state.additionalSkillsInputSuccess ?
-                    <i className="success fa fa-check-circle"></i>
+                    <i className="success fa fa-check-circle fa-1x"></i>
                     :
                     'Add New'
                   }
@@ -343,10 +355,10 @@ class AboutYou extends Component {
                   value={this.state.familiarSkillsInput}
                   onChange={this.onSkillSearch}
                 />
-                {this.state.skillbank ? this.state.familiarSkillsInput !== "" ? <div className="skillbank">{this.state.skillbank.map(skill => <div className="skill" id="familiar" name="familiarSkillsInput"onClick={this.addSkillsFromBank.bind(this, skill.id)}>{skill.skill}</div>)}</div> : null : null}
+                {this.state.skillbank ? this.state.familiarSkillsInput !== "" ? <div className="skillbank">{this.state.skillbank.map(skill => <div key={skill.id} className="skill" id="familiar" name="familiarSkillsInput"onClick={this.addSkillsFromBank.bind(this, skill.id)}>{skill.skill}</div>)}</div> : null : null}
                 <button className="skills-btn" id="familiar" name="familiarSkillsInput" onClick={this.addSkillsNew}>
                   {this.state.familiarSkillsInputSuccess ?
-                    <i className="success fa fa-check-circle fa-2x"></i>
+                    <i className="success fa fa-check-circle fa-1x"></i>
                     :
                     'Add New'
                   }

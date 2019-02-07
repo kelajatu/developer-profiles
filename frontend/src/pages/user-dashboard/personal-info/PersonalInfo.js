@@ -97,7 +97,7 @@ class PersonalInfo extends Component {
     return (
       <MainFormContainer>
         <header>
-          <h1>Personal Info</h1>
+          <h1 className="main-heading">Personal Info</h1>
         </header>
 
         <div className="container">

@@ -142,7 +142,7 @@ class Projects extends Component {
     return (
       <MainFormContainer>
         <header>
-          <h1>Projects</h1>
+          <h1 className="main-heading">Projects</h1>
         </header>
 
         

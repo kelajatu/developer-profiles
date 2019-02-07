@@ -20,7 +20,7 @@ class DashboardQuickstart extends Component {
       <QuickstartContainer>
 
         <header>
-          <h1>Quickstart</h1>
+          <h1 className="main-heading">Quickstart</h1>
         </header>
 
 
@@ -72,7 +72,7 @@ const QuickstartContainer = styled.div`
     width: 100%;
     margin-left: 0;
   }
-  h1 {
+  .main-heading {
     font-size: 5rem;
     color: rgb(42,42,42);
     margin-bottom: 50px;
@@ -94,13 +94,20 @@ const QuickstartContainer = styled.div`
     @media (max-width: 1150px) {
       width: 97%;
     }
+    @media (max-width: 500px) {
+      padding-top: 100px;
+    }
+    @media (max-width: 450px) {
+      border-left: none;
+      border-right: none;
+      width: 100%;
+    }
     nav {
       ${centerFlex()}
       button {
         margin-bottom: 50px;
         width: 200px;
         height: 80px;
-        margin-right: 15px;
         color: white;
         padding: 15px 20px;
         font-size: 2rem;
@@ -121,6 +128,9 @@ const QuickstartContainer = styled.div`
         &:active {
           transform: scale(1);
           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        }
+        &:first-child {
+          margin-right: 15px;
         }
       }
     }

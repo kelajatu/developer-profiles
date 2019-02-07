@@ -13,9 +13,9 @@ class UserDashboardNew extends Component {
       <IntroContainer>
         <header>
           {first_name === "" ?
-            <h1>Welcome!</h1>
+            <h1 className="main-heading">Welcome!</h1>
             :
-            <h1>Welcome, {first_name}!</h1>
+            <h1 className="main-heading">Welcome, {first_name}!</h1>
           }
         </header>
         <div className="container">
@@ -42,7 +42,7 @@ const IntroContainer = styled.div`
     width: 100%;
     margin-left: 0px;
   }
-  h1 {
+   .main-heading {
     font-size: 5rem;
     color: rgb(42,42,42);
     margin-bottom: 50px;
@@ -91,6 +91,9 @@ export const ButtonContainer = styled.div`
   align-items: center;
   margin-top: 30px;
   margin-bottom: 50px;
+  @media (max-width: 450px) {
+    flex-direction: column;
+  }
 
   a {
     width: 230px;
@@ -105,6 +108,12 @@ export const ButtonContainer = styled.div`
     background-color: var(--lp_btn_color);
     border: none;
     border-radius: 100px;
+    @media (max-width: 500px) {
+    width: 95%;
+    }
+    @media (max-width: 450px) {
+      margin-bottom: 25px;
+    }
     ${centerFlex()};
     &:hover {
       color:var(--accent-color);
@@ -118,6 +127,9 @@ export const ButtonContainer = styled.div`
     }
     &:first-child {
       margin-right: 50px;
+      @media (max-width: 450px) {
+        margin-right: 0;
+      }
     }
   }
 `;

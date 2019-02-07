@@ -14,15 +14,21 @@ export const MainFormContainer = styled.main`
     width: 100%;
     margin-left: 0px;
   }
-  h1 {
+  .main-heading {
     font-size: 5rem;
     color: rgb(42,42,42);
     margin-bottom: 50px;
     text-align: center;
-    @media (max-width: 1100px) {
+    @media (max-width: 1150px) {
       text-align: left;
-      padding-left: 25px;
+      padding-left: 20px;
       font-size: 4rem;
+    }
+    @media (max-width: 450px) {
+      padding-left: 10px;
+    }
+    @media (max-width: 400px) {
+      padding-left: 5px;
     }
   }
   .container {
@@ -38,6 +44,14 @@ export const MainFormContainer = styled.main`
     @media (max-width: 1150px) {
       padding-left: 20px;
       padding-right: 20px;
+    }
+    @media (max-width: 450px) {
+    padding-left: 10px;
+    padding-right: 10px;
+    }
+    @media (max-width: 400px) {
+      padding-left: 5px;
+      padding-right: 5px;
     }
     section {
       width: 45%;
@@ -65,18 +79,28 @@ export const FormSection = styled.section`
     /****SKILLS BUTTONS****/
     .skills-btn {
       width: 100px;
-      color: black;
+      height: 40px;
+      color: white;
       padding: 8px;
+      margin-top: 10px;
       font-size: 1.4rem;
       letter-spacing: 1.5px;
-      background: white;
-      border: solid 1px black;
-      border-radius: 20px;
-      margin-top: 10px;
+      background-color: var(--accent-color);
+      border: none;
+      border-radius: 100px;
+      ${centerFlex()};
       &:hover {
+        color: var(--lp_btn_color);
+        transform: scale(1.1);
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
         cursor: pointer;
-        background: black;
-        color: white;
+      }
+      &:active {
+        transform: scale(1);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+      }
+      .success {
+        color: var(--lp_btn_color);
       }
     }
   }
@@ -107,19 +131,14 @@ export const FormSection = styled.section`
   }
   .showing-places {
     width: 83%;
-    margin-top: 15px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    padding-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: center;
-    align-content: center;
-    /* border-right: solid .5px rgba(0,0,0,.33);
-    border-left: solid .5px rgba(0,0,0,.33); */
-    border-bottom: solid .5px rgba(0,0,0,.33);
-    max-height: 250px;
+    border-bottom: solid 1px lightgrey;
+    max-height: 200px;
     overflow-y: scroll;
     @media (max-width: 750px) {
       width: 93%;
@@ -127,10 +146,20 @@ export const FormSection = styled.section`
     @media (max-width: 650px) {
       width: 97%;
     }
+    .delete {
+      color: var(--accent-color);
+      &:hover {
+        cursor: pointer;
+      }
+    }
     .places {
       margin: 15px 20px;
-      font-size: 1.4rem;
+      padding: 5px;
+      font-size: 1.6rem;
       font-weight: bold;
+      &:hover {
+        background-color: lightgrey;
+      }
     }
     ::-webkit-scrollbar {
       width: 3px;
@@ -244,8 +273,14 @@ export const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 45px;
   margin-bottom: 50px;
+  @media (max-width: 500px) {
+    width: 95%;
+  }
+  @media (max-width: 450px) {
+    flex-direction: column;
+  }
 
   .success {
     color: var(--lp_btn_color);
@@ -265,6 +300,11 @@ export const ButtonContainer = styled.div`
     ${centerFlex()};
     margin-left: 25px;
     margin-right: 25px;
+    @media (max-width: 450px) {
+      margin-left: 0;
+      margin-right: 0;
+      margin-bottom: 25px;
+    }
     &:hover {
       color: var(--lp_btn_color);
       transform: scale(1.1);
@@ -290,6 +330,9 @@ export const ButtonContainer = styled.div`
     background-color: var(--lp_btn_color);
     border: none;
     border-radius: 100px;
+    @media (max-width: 450px) {
+      margin-bottom: 25px;
+    }
     ${centerFlex()};
     &:hover {
       color:var(--accent-color);
