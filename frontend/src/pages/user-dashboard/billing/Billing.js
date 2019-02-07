@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 var noLeaks;
 class Billing extends Component {
   state = {
+    currentSubPeriodEnd: 0,
     monthSubmitLoading: false,
     monthSubmitSuccess: false,
     monthSubmitFailure: false,
@@ -15,11 +16,16 @@ class Billing extends Component {
   };
 
   componentDidMount() {
-    let customerId = this.props.userInfo.stripe_customer_id;
-    console.log(customerId)
-    axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/get-customer`, {customerId})
-    .then(res => console.log(res.data))
-    .catch(err => console.log(err));
+    if (this.props.userInfo.stripe_customer_id) {
+      let customerId = this.props.userInfo.stripe_customer_id;
+      console.log(customerId)
+      axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/get-customer`, {customerId})
+      // axios.post(`http://localhost:7000/get-customer`, {customerId})
+      .then(res => {
+        console.log('AAAWTFFFFF', res)
+      })
+      .catch(err => console.log('WTFFFFF'));
+    }
   }
 
   selectPackage = (e, packageSelected) => {
@@ -27,8 +33,8 @@ class Billing extends Component {
 
     var handler = window.StripeCheckout.configure({
       key: "pk_test_V4TVCnAGCgyfBK9pXODIWhfA",
-      image: "https://stripe.com/img/documentation/checkout/marketplace.png",
-      locale: "auto",
+      image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+      locale: 'auto',
       token: token => {
         if (packageSelected === "month") {
           this.setState({ monthSubmitLoading: true });
@@ -87,6 +93,26 @@ class Billing extends Component {
               .catch(err => {
                 console.log(err);
               });
+            let currentSubPeriodEnd = res.data.current_period_end;
+            //this.setState({currentSubPeriodEnd: res.data.current_period_end})
+            axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, {stripe_customer_id: res.data.customer, stripe_subscription_name: res.data.plan.nickname})
+            .then(res => {
+              if (packageSelected === 'month') {
+                this.setState({monthSubmitLoading: false, monthSubmitSuccess: true, currentSubPeriodEnd})
+                noLeaks = setTimeout(() => {
+                  this.setState({ monthSubmitSuccess: false })
+                }, 2000)
+              } else if (packageSelected === 'year') {
+                this.setState({yearSubmitLoading: false, yearSubmitSuccess: true, currentSubPeriodEnd})
+                noLeaks = setTimeout(() => {
+                  this.setState({ yearSubmitSuccess: false })
+                }, 2000)
+              }
+              this.props.updateProgress()
+            })
+            .catch(err => {
+              console.log(err)
+            })
           })
           .catch(err => {
             console.log(err);
@@ -111,6 +137,7 @@ class Billing extends Component {
   }
 
   render() {
+    console.log(this.state.currentSubPeriodEnd)
     let yearButtonContent;
     if (this.state.yearSubmitLoading) {
       yearButtonContent = (
