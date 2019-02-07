@@ -171,7 +171,7 @@ class Projects extends Component {
     console.log("submitEdit", lePackage, this.state)
     axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/projects/${this.state.projectId}`, lePackage)
     .then(res => {
-      console.log(res)
+      window.location.reload()
     }).catch(err => {
       console.log(err)
     })

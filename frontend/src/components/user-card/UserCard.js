@@ -107,7 +107,6 @@ class UserCard extends Component{
                     expanded={this.state.expanded ? true : false}
                     canEdit={this.props.canEdit ? true : false}>
                     <div className="userCardDiv">
-
                         <div className="top">
                             <div className="left-side">
                                 <div className="bio">
@@ -201,7 +200,10 @@ class UserCard extends Component{
                                             <div className="indent">{education.degree}</div>
                                             <div className="indent">{education.course}</div> 
                                         </div>
-                                        {this.props.canEdit ? <i onClick={()=> this.del("education", education)} className="far fa-times-circle"></i> : null}
+                                        <div className="project-right">
+                                                {this.props.canEditEdu ? <i onClick={()=> this.del("education", education)} className="far fa-times-circle"></i> : null}
+                                                {this.props.canEditEdu ? <i onClick={()=> this.edit(education)} className="far fa-edit"></i> : null}
+                                        </div>
                                     </div>
                                             
                                         

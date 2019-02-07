@@ -149,6 +149,52 @@ class Education extends Component {
     clearTimeout(noLeaks)
   }
 
+  editExtra = (edit) => {
+    console.log(edit)
+    let dates = edit.school_dates.split(" to ")
+    if(this.state.enableEdit){
+        this.setState({
+          enableEdit: false,
+          schoolId: null,
+          schoolName: '',
+          schoolCourse: '',
+          schoolDegree: '',
+          schoolDatesFrom: "1936-04",
+          schoolDatesTo: "1950-01"
+        })
+    } else {
+        this.setState({
+          enableEdit: true,
+          schoolId: edit.id,
+          schoolName: edit.school,
+          schoolCourse: edit.course,
+          schoolDegree: edit.degree,
+          schoolDatesFrom: dates[0],
+          schoolDatesTo: dates[1],
+          schoolDates: edit.school_dates
+        })
+    }
+  }
+
+  submitEdit = () => {
+    const lePackage = {
+      user_id: this.props.userInfo.id,
+      id: this.state.schoolId,
+      school: this.state.schoolName,
+      course: this.state.schoolCourse,
+      degree: this.state.schoolDegree,
+      school_dates: this.state.schoolDates,
+    }
+    console.log("submitEdit", lePackage, this.state)
+    axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/education/${this.state.schoolId}`, lePackage)
+    .then(res => {
+      window.location.reload()
+    }).catch(err => {
+      console.log(err.message)
+    })
+  }
+
+
   render() {
     return (
       <MainFormContainer>
@@ -267,6 +313,7 @@ class Education extends Component {
               </div>
 
             </form>
+            {this.state.enableEdit ? <button onClick={this.submitEdit}>Submit Edit</button> : null}
           </FormSection>
           <CardPreviewSection>
             <header>
@@ -277,8 +324,12 @@ class Education extends Component {
               </LabelContainer>
             </header>
             <UserCard
+              canEditEdu
               canEdit
+              enableEdit
               delExtra={this.props.delExtra}
+              editExtra={this.editExtra}
+
               id={this.props.userInfo.id}
               github={this.props.userInfo.github}
               linkedin={this.props.userInfo.linkedin}

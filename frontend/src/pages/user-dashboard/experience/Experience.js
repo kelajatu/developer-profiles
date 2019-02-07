@@ -145,7 +145,7 @@ class Experience extends Component {
     if(this.state.enableEdit){
         this.setState({
           enableEdit: false,
-          project_id: null,
+          jobId: null,
           jobDescription: '',
           jobTitle: '',
           jobDatesFrom: "1936-04",
@@ -175,7 +175,7 @@ class Experience extends Component {
     console.log("submitEdit", lePackage, this.state)
     axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/experience/${this.state.jobId}`, lePackage)
     .then(res => {
-      console.log(res)
+      window.location.reload()
     }).catch(err => {
       console.log(err.message)
     })
