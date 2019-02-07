@@ -146,44 +146,54 @@ server.post('/subscribe-customer', (req, res) => {
 
 server.post('/get-customer', (req, res) => {
   const { customerId } = req.body;
-  console.log('AAAAAAAAAAAAAAAAAAA0')
-  console.log(customerId)
-  stripe.customers.create({
-    customerId: customerId
-  }, function(err, customer) {
-    console.log('AAAAAAAAAAAAAAAAAAA1')
+  let stringCustomerId = JSON.stringify(customerId)
+  stripe.customers.create(
+    stringCustomerId,
+    function(err, customer) {
       if (err) {
-        console.log('AAAAAAAAAAAAAAAAAAA2')
         console.log(err)
         res.send({ err })
       } else {
-        console.log('AAAAAAAAAAAAAAAAAAA3')
         console.log(customer)
         res.send(customer)
       }
-      console.log('AAAAAAAAAAAAAAAAAAA4')
     });
-    console.log('AAAAAAAAAAAAAAAAAAA5')
 });
 
-// server.post('/get-customer', (req, res) => {
-//   const { customerId } = req.body;
-//   console.log(customerId)
-//   stripe.customers.retrieve(
-//     customerId,
-//     function(err, customer) {
-//       console.log('AAAAAAAAAAAAAAAAAAA1')
-//       if (err) {
-//         console.log(err)
-//         res.send(err)
-//       } else {
-//         console.log('AAAAAAAAAAAAAAAAAAA2')
-//         console.log(customer)
-//         res.send(customer)
-//       }
-//       console.log('AAAAAAAAAAAAAAAAAAA3')
-//     }
-//   );
-// });
+
+server.post('/get-customerhc', (req, res) => {
+  const { customerId } = req.body;
+  stripe.customers.create(
+    "cus_EU1Sv2b7zt3OzB",
+    function(err, customer) {
+      if (err) {
+        console.log(err)
+        res.send({ err })
+      } else {
+        console.log(customer)
+        res.send(customer)
+      }
+    });
+});
+
+
+server.get('/get-customer/:id', (req, res) => {
+  const { id } = req.params;
+  stripe.customers.create(
+    id,
+    function(err, customer) {
+      if (err) {
+        console.log(err)
+        res.send({ err })
+      } else {
+        console.log(customer)
+        res.send(customer)
+      }
+    });
+});
+
+
+
+
 
 module.exports = server 
