@@ -289,19 +289,14 @@ class AboutYou extends Component {
                   value={this.state.topSkillsInput}
                   onChange={this.onSkillSearch}
                 />
-                {this.state.skillbank ? this.state.topSkillsInput !== "" ? <div className="skillbank">{this.state.skillbank.map(skill => <div className="skill" id="top_skills" name="topSkillsInput"onClick={this.addSkillsFromBank.bind(this, skill.id)}>{skill.skill}</div>)}</div> : null : null}
+                {this.state.skillbank ? this.state.topSkillsInput !== "" ? <div className="skillbank">{this.state.skillbank.map(skill => <div key={skill.id} className="skill" id="top_skills" name="topSkillsInput"onClick={this.addSkillsFromBank.bind(this, skill.id)}>{skill.skill}</div>)}</div> : null : null}
                 <button className="skills-btn" id="top_skills" name="topSkillsInput" onClick={this.addSkillsNew}>
                   {this.state.topSkillsInputSuccess ?
-                    <i className="success fa fa-check-circle"></i>
+                    <i className="success fa fa-check-circle fa-1x"></i>
                     :
                     'Add New'
                   }
                 </button>
-                <div>
-                  {
-
-                  }
-                </div>
               </div>
 
               {/* Additional Skills */}
@@ -327,10 +322,10 @@ class AboutYou extends Component {
                   value={this.state.additionalSkillsInput}
                   onChange={this.onSkillSearch}
                 />
-                {this.state.skillbank ? this.state.additionalSkillsInput !== "" ? <div className="skillbank">{this.state.skillbank.map(skill => <div className="skill" id="add_skills" name="additionalSkillsInput"onClick={this.addSkillsFromBank.bind(this, skill.id)}>{skill.skill}</div>)}</div> : null : null}
+                {this.state.skillbank ? this.state.additionalSkillsInput !== "" ? <div className="skillbank">{this.state.skillbank.map(skill => <div key={skill.id} className="skill" id="add_skills" name="additionalSkillsInput"onClick={this.addSkillsFromBank.bind(this, skill.id)}>{skill.skill}</div>)}</div> : null : null}
                 <button className="skills-btn" id="add_skills" name="additionalSkillsInput" onClick={this.addSkillsNew}>
                   {this.state.additionalSkillsInputSuccess ?
-                    <i className="success fa fa-check-circle"></i>
+                    <i className="success fa fa-check-circle fa-1x"></i>
                     :
                     'Add New'
                   }
@@ -360,10 +355,10 @@ class AboutYou extends Component {
                   value={this.state.familiarSkillsInput}
                   onChange={this.onSkillSearch}
                 />
-                {this.state.skillbank ? this.state.familiarSkillsInput !== "" ? <div className="skillbank">{this.state.skillbank.map(skill => <div className="skill" id="familiar" name="familiarSkillsInput"onClick={this.addSkillsFromBank.bind(this, skill.id)}>{skill.skill}</div>)}</div> : null : null}
+                {this.state.skillbank ? this.state.familiarSkillsInput !== "" ? <div className="skillbank">{this.state.skillbank.map(skill => <div key={skill.id} className="skill" id="familiar" name="familiarSkillsInput"onClick={this.addSkillsFromBank.bind(this, skill.id)}>{skill.skill}</div>)}</div> : null : null}
                 <button className="skills-btn" id="familiar" name="familiarSkillsInput" onClick={this.addSkillsNew}>
                   {this.state.familiarSkillsInputSuccess ?
-                    <i className="success fa fa-check-circle fa-2x"></i>
+                    <i className="success fa fa-check-circle fa-1x"></i>
                     :
                     'Add New'
                   }

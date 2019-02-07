@@ -26,6 +26,7 @@ class QuickstartBasics extends Component {
     currentLocationLon: this.props.userInfo.current_location_lon || "",
     summary: this.props.userInfo.summary || "",
 
+    skillbank: null,
     topSkillsInput: "",
     topSkillsInputSuccess: false,
     userTopSkills: [],
@@ -33,6 +34,16 @@ class QuickstartBasics extends Component {
 
   onInputChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
+  }
+
+  onSkillSearch = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+    axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/list/skills/search/${e.target.value}`)
+    .then(response => {
+      this.setState({skillbank: response.data})
+    }).catch(error => {
+      this.setState({skillbank: null})
+    });
   }
 
   onLocationChange = (e) => {
@@ -107,19 +118,27 @@ class QuickstartBasics extends Component {
 
   addSkillsNew = (e) => {
     e.preventDefault()
-
     let skillInput = e.target.getAttribute('name')
-
     axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/createskill/${e.target.id}`, {"skill": `${this.state[skillInput]}`})
-      .then(res => {
-        let skillInputSuccess = `${skillInput}Success`
-        this.setState({ [skillInput]: "", [skillInputSuccess]: true })
-        this.props.updateProgress()
-        noLeaks = setTimeout(() => {
-          this.setState({ [skillInputSuccess]: false })
-        }, 1000)
-      })
-    }
+    .then(res => {
+      let skillInputSuccess = `${skillInput}Success`
+      this.setState({ [skillInput]: "", [skillInputSuccess]: true })
+      this.props.updateProgress()
+      noLeaks = setTimeout(() => {
+        this.setState({ [skillInputSuccess]: false })
+      }, 1000)
+    })
+  }
+
+  addSkillsFromBank = (skillID, e) => {
+    e.preventDefault()
+    let skillInput = e.target.getAttribute('name')
+    axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/addskills/${e.target.id}`, {"id": `${skillID}`})
+    .then( response => {
+      this.setState({skillbank: null, [skillInput]: ""})
+      this.props.updateProgress()
+    })
+  }
 
 
   checkOnSubmit = (e) => {
@@ -333,24 +352,21 @@ class QuickstartBasics extends Component {
                 id="top_skills"
                 name="topSkillsInput"
                 className="text-input"
-                placeholder="Put 5 skills here, they are the biggest on your profile"
+                placeholder="Add a skill from the list or create a new one"
                 focusIndicator
                 value={this.state.topSkillsInput}
-                onChange={this.onInputChange}
+                onChange={this.onSkillSearch}
               />
+              {this.state.skillbank ? this.state.topSkillsInput !== "" ? <div className="skillbank">{this.state.skillbank.map(skill => <div key={skill.id} className="skill" id="top_skills" name="topSkillsInput"onClick={this.addSkillsFromBank.bind(this, skill.id)}>{skill.skill}</div>)}</div> : null : null}
               <button className="skills-btn" id="top_skills" name="topSkillsInput" onClick={this.addSkillsNew}>
                 {this.state.topSkillsInputSuccess ?
-                  <i className="success fa fa-check-circle"></i>
+                  <i className="success fa fa-check-circle fa-1x"></i>
                   :
                   'Add New'
                 }
               </button>
-              <div>
-                {
-
-                }
-              </div>
             </div>
+
           </form>
         </FormSection>
         <ButtonContainer style={{justifyContent: 'center'}}>
@@ -389,18 +405,28 @@ const FormSection = styled.section`
     /****SKILLS BUTTONS****/
     .skills-btn {
       width: 100px;
-      color: black;
+      height: 40px;
+      color: white;
       padding: 8px;
+      margin-top: 10px;
       font-size: 1.4rem;
       letter-spacing: 1.5px;
-      background: white;
-      border: solid 1px black;
-      border-radius: 20px;
-      margin-top: 10px;
+      background-color: var(--accent-color);
+      border: none;
+      border-radius: 100px;
+      ${centerFlex()};
       &:hover {
+        color: var(--lp_btn_color);
+        transform: scale(1.1);
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
         cursor: pointer;
-        background: black;
-        color: white;
+      }
+      &:active {
+        transform: scale(1);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+      }
+      .success {
+        color: var(--lp_btn_color);
       }
     }
   }
@@ -488,7 +514,7 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 45px;
   margin-bottom: 50px;
 
   .success {

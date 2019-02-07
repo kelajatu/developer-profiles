@@ -6,7 +6,7 @@ import { centerFlex } from '../../../global-styles/Mixins';
 
 
 var noLeaks;
-export default class Billing extends Component {
+class Billing extends Component {
   state = {
     monthSubmitSuccess: false,
     monthSubmitFailure: false,
@@ -249,7 +249,7 @@ export const BillingDiv = styled.div`
       justify-content: center;
       align-items: flex-start;
     }
-    .option{
+    .option {
       width: 45%;
       max-width: 550px;
       height: 650px;
@@ -371,3 +371,5 @@ export const ButtonContainer = styled.div`
     color: green;
   }
 `;
+
+export default Billing;
