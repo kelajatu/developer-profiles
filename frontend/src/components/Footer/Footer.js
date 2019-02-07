@@ -6,16 +6,16 @@ const Footer = () => {
     <FooterContainer>
       <div className="footer-right">
         <a href="#">
-          <i className="fa fa-facebook" />
+          <i className="fab fa-facebook" />
         </a>
         <a href="#">
-          <i className="fa fa-twitter" />
+          <i className="fab fa-twitter" />
         </a>
         <a href="#">
-          <i className="fa fa-linkedin" />
+          <i className="fab fa-linkedin" />
         </a>
         <a href="#">
-          <i className="fa fa-github" />
+          <i className="fab fa-github" />
         </a>
       </div>
 
