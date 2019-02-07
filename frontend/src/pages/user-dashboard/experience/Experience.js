@@ -14,6 +14,8 @@ import {
   MobileCardPreviewSection
 } from '../styles/FormStyles';
 
+import { oneToTwo } from '../dateHelpers'
+
 var noLeaks;
 class Experience extends Component {
   state = {
@@ -141,30 +143,9 @@ class Experience extends Component {
   }
 
   editExtra = (edit) => {
-    let dates = edit.job_dates.split(" to ")
-    let monthMaker = {
-      'January': '01',
-      'February': '02',
-      'March': '03',
-      'April': '04',
-      'May': '05',
-      'June': '06',
-      'July': '07',
-      'August': '08',
-      'September': '09',
-      'October': '10',
-      'November': '11',
-      'December': '12',
-    }
-    let startFrom = dates[0].split(" ")
-    let monthFrom = startFrom[0]
-    let yearFrom = startFrom[1]
-    let endFrom = `${yearFrom}-${monthMaker[monthFrom]}`
-    let startTo = dates[1].split(" ")
-    let monthTo = startTo[0]
-    let yearTo = startTo[1]
-    let endTo = `${yearTo}-${monthMaker[monthTo]}`
-    
+
+    let dates = oneToTwo(edit.job_dates)
+
     if(this.state.enableEdit){
         this.setState({
           enableEdit: false,
@@ -180,8 +161,8 @@ class Experience extends Component {
           jobId: edit.id,
           jobDescription: edit.job_description,
           jobTitle: edit.job_description,
-          jobDatesFrom: endFrom,
-          jobDatesTo: endTo,
+          jobDatesFrom: dates.from,
+          jobDatesTo: dates.to,
           job_dates: edit.job_dates,
         })
     }

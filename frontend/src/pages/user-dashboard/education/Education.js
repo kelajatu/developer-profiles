@@ -14,6 +14,8 @@ import {
   MobileCardPreviewSection
 } from '../styles/FormStyles';
 
+import { oneToTwo } from '../dateHelpers'
+
 var noLeaks;
 class Education extends Component {
   state = {
@@ -150,29 +152,7 @@ class Education extends Component {
   }
 
   editExtra = (edit) => {
-    let dates = edit.school_dates.split(" to ")
-    let monthMaker = {
-      'January': '01',
-      'February': '02',
-      'March': '03',
-      'April': '04',
-      'May': '05',
-      'June': '06',
-      'July': '07',
-      'August': '08',
-      'September': '09',
-      'October': '10',
-      'November': '11',
-      'December': '12',
-    }
-    let startFrom = dates[0].split(" ")
-    let monthFrom = startFrom[0]
-    let yearFrom = startFrom[1]
-    let endFrom = `${yearFrom}-${monthMaker[monthFrom]}`
-    let startTo = dates[1].split(" ")
-    let monthTo = startTo[0]
-    let yearTo = startTo[1]
-    let endTo = `${yearTo}-${monthMaker[monthTo]}`
+    let dates = oneToTwo(edit.school_dates)
 
     if(this.state.enableEdit){
         this.setState({
@@ -191,8 +171,8 @@ class Education extends Component {
           schoolName: edit.school,
           schoolCourse: edit.course,
           schoolDegree: edit.degree,
-          schoolDatesFrom: endFrom,
-          schoolDatesTo: endTo,
+          schoolDatesFrom: dates.from,
+          schoolDatesTo: dates.to,
           schoolDates: edit.school_dates
         })
     }
