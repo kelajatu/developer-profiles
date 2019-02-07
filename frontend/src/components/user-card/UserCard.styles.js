@@ -8,7 +8,7 @@ export const UserCardContainer = styled.div`
   /* height: ${props => (props.expanded ? null : 'auto')}; */
   min-height: ${props => (props.expanded ? 700 : null)}px;
   max-width: 520px;
-  /* margin-bottom: 30px; */
+  margin-bottom: 30px;
   /* padding-bottom: 20px; */
   margin-right: 30px;
   a {
@@ -114,7 +114,7 @@ export const UserCardContainer = styled.div`
         /* border: 1px solid green; */
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: space-around;
         align-items: center;
         width: 15%;
         height: 300px;
