@@ -107,8 +107,6 @@ class Projects extends Component {
       project_description: projectDescription
     }
     
-    
-    
     axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/projects`, lePackage)
     .then(res => {
       this.setState({
@@ -137,8 +135,13 @@ class Projects extends Component {
   componentWillUnmount() {
     clearTimeout(noLeaks)
   }
-  
+
+  // setProjectsState(edit){
+  //   this.setState(edit)
+  // }
+
   render() {
+    // console.log(this.props.userInfo.userProjects)
     return (
       <MainFormContainer>
         <header>
@@ -149,7 +152,6 @@ class Projects extends Component {
         <div className="container">
           <FormSection>
             <form>
-
               {/* Image */}
               <ImageContainer>
                 <LabelContainer>
@@ -261,6 +263,7 @@ class Projects extends Component {
             </header>
             <UserCard
               canEdit
+              delExtra={this.props.delExtra}
               id={this.props.userInfo.id}
               github={this.props.userInfo.github}
               linkedin={this.props.userInfo.linkedin}

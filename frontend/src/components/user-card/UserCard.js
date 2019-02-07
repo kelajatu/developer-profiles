@@ -50,9 +50,11 @@ class UserCard extends Component{
         })
     }
 
-    edit(thing){
+    edit(project){
         if(this.props.canEdit){
-            console.log(thing)
+            // console.log(this.props)
+            // console.log(project)
+            this.props.delExtra(project.user_id, "projects", project.id)
         }
     }
 
@@ -151,9 +153,14 @@ class UserCard extends Component{
                                 {/* ~~~~ projects ~~~~ */}
                                 <h2>Projects</h2>
                                 {userProjectsArr.map(project => 
-                                    <div key={project.project_title} className="proj-etc-container" onClick={()=> this.edit(project)}>
-                                        <div className="extratitle">{project.project_title}</div>
-                                        <a rel="noopener noreferrer" href={project.link} target="_blank">{project.link}</a>
+                                    <div key={project.project_title} className="proj-etc-container" >
+                                        <div className="project-top">
+                                            <div className="project-left">
+                                                <div className="extratitle">{project.project_title}</div>
+                                                <a rel="noopener noreferrer" href={project.link} target="_blank">{project.link}</a>
+                                            </div>
+                                            <button onClick={()=> this.edit(project)}>DELETE PROJECT</button>
+                                        </div>
                                         <div className="proj-image-container">
                                             <img width="150px" height="min-height" src={project.project_img} alt="project"/>
                                             <div className="description">{project.project_description}</div>

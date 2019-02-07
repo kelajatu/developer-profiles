@@ -355,22 +355,62 @@ class UserDashboardContainer extends Component {
     .catch(err => console.log(err))
   }
 
+  delExtra(user_id, extras, extras_id){
+    axios.delete(`${process.env.REACT_APP_BACKEND_SERVER}/users/${user_id}/${extras}/${extras_id}`).then(res => {
+      alert(`${extras} deleted!`)
+      console.log(this.state)
+      // this.setState({
+      //   userInfo: 
+      // })
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+
   render() {
     return (
       <DashboardContainer>
         <UserDashboardNav {...this.props} />
         {!this.state.isLoading && this.state.id ?
           <main>
-            <Route exact path={`${this.props.match.path}/`} render={props => <UserDashboardIntro {...props} userInfo={this.state} />} />
-            <Route exact path={`${this.props.match.path}/new`} render={props => <UserDashboardNew {...props} userInfo={this.state} />} />
-            <Route exact path={`${this.props.match.path}/new/quickstart`} render={props => <DashboardQuickstart {...props} userInfo={this.state} updateProgress={this.updateProgress}/>} />
-            <Route path={`${this.props.match.path}/personal-info`} render={props => <PersonalInfo preview={true} updateProgress={this.updateProgress} {...props} userInfo={this.state}/>} />
-            <Route path={`${this.props.match.path}/where-to-find-you`} render={props => <WhereToFindYou preview={true} updateProgress={this.updateProgress} {...props} userInfo={this.state}/>} />
-            <Route path={`${this.props.match.path}/about-you`} render={props => <AboutYou preview={true} updateProgress={this.updateProgress} {...props} userInfo={this.state}/>} />
-            <Route path={`${this.props.match.path}/projects`} render={props => <Projects preview={true} updateProgress={this.updateProgress} {...props} userInfo={this.state}/>} />
-            <Route path={`${this.props.match.path}/experience`} render={props => <Experience preview={true} updateProgress={this.updateProgress} {...props} userInfo={this.state}/>} />
-            <Route path={`${this.props.match.path}/education`} render={props => <Education preview={true} updateProgress={this.updateProgress} {...props} userInfo={this.state}/>} />
-            <Route path={`${this.props.match.path}/billing`} render={props => <Billing preview={true} updateProgress={this.updateProgress} {...props} userInfo={this.state}/>} />
+            <Route 
+              exact 
+              path={`${this.props.match.path}/`} 
+              render={props =><UserDashboardIntro {...props} userInfo={this.state} />} />
+            <Route 
+              exact 
+              path={`${this.props.match.path}/new`} 
+              render={props => <UserDashboardNew {...props} userInfo={this.state} />} />
+            <Route 
+              exact 
+              path={`${this.props.match.path}/new/quickstart`} 
+              render={props => <DashboardQuickstart {...props} userInfo={this.state} updateProgress={this.updateProgress}/>} />
+            <Route 
+              path={`${this.props.match.path}/personal-info`} 
+              render={props => <PersonalInfo preview={true} updateProgress={this.updateProgress} {...props} userInfo={this.state}/>} />
+            <Route 
+              path={`${this.props.match.path}/where-to-find-you`} 
+              render={props => <WhereToFindYou preview={true} updateProgress={this.updateProgress} {...props} userInfo={this.state}/>} />
+            <Route 
+              path={`${this.props.match.path}/about-you`} 
+              render={props => <AboutYou preview={true} updateProgress={this.updateProgress} {...props} userInfo={this.state}/>} />
+            <Route 
+              path={`${this.props.match.path}/projects`} 
+              render={props => <Projects 
+                {...props} 
+                delExtra={this.delExtra}
+                preview={true} 
+                updateProgress={this.updateProgress} 
+                userInfo={this.state}/>} />
+            <Route 
+              path={`${this.props.match.path}/experience`} 
+              render={props => <Experience preview={true} updateProgress={this.updateProgress} {...props} userInfo={this.state}/>} />
+            <Route 
+              path={`${this.props.match.path}/education`} 
+              render={props => <Education preview={true} updateProgress={this.updateProgress} {...props} userInfo={this.state}/>} />
+            <Route 
+              path={`${this.props.match.path}/billing`} 
+              render={props => <Billing preview={true} updateProgress={this.updateProgress} {...props} userInfo={this.state}/>} />
           </main>
           :
           <Loader />

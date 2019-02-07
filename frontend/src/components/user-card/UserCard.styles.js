@@ -168,6 +168,14 @@ export const UserCardContainer = styled.div`
     a {
       margin-left: 5px;
     }
+    .project-top{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    button{
+      /* NEEDS STYLING */
+    }
   }
   .proj-image-container {
     img {
