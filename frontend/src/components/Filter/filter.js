@@ -101,10 +101,9 @@ const MenuButton = styled.div `
     /* border: 1px solid red; */
     display: flex;
     align-items: center;
-    padding: 10px;
+    padding: 15px;
     margin-bottom: 10px;
     width: 100%;
-
   }
 `
 
