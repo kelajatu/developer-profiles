@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Route } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
+import Loader from '../../components/loader/Loader';
 
 
 import UserDashboardNav from './UserDashboardNav'
@@ -372,7 +373,7 @@ class UserDashboardContainer extends Component {
             <Route path={`${this.props.match.path}/billing`} render={props => <Billing preview={true} updateProgress={this.updateProgress} {...props} userInfo={this.state}/>} />
           </main>
           :
-          <i className="fas fa-spinner fa-spin"></i>
+          <Loader />
         }
       </DashboardContainer>
     )
@@ -380,13 +381,10 @@ class UserDashboardContainer extends Component {
 }
 
 const DashboardContainer = styled.main`
-  /* background-color: #F4F7FC; */
-  hr {
-    border: solid .5px white;
-  }
-  .fa-spin {
-    font-size: 50px;
-    color: var(--accent-color);
+  font-family: inherit;
+  .validated-text-input, .text-input {
+    font-family: inherit;
+    line-height: 23px;
   }
 `;
 

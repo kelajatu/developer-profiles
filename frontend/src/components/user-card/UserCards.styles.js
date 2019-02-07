@@ -31,8 +31,7 @@ export const LoaderContainer = styled.div`
     @media (max-width: 480px) {
     }
   }
-  .fa-spin {
-    font-size: 50px;
+  .loading {
     color: var(--accent-color);
   }
 `;

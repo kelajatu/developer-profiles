@@ -371,7 +371,12 @@ class QuickstartBasics extends Component {
 }
 
 const MainContainer = styled.div`
-  padding-left: 25px;
+  padding-left: 50px;
+  padding-right: 50px;
+  @media (max-width: 1150px) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 `;
 
 const FormSection = styled.section`

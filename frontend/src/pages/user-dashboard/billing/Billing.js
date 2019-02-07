@@ -176,11 +176,15 @@ export const BillingDiv = styled.div`
   width: calc(100% - 300px);
   margin-left: 300px;
   padding-top: 130px;
-  padding-left: 25px;
-  padding-right: 25px;
+  padding-left: 50px;
+  padding-right: 50px;
   @media (max-width: 1400px) {
     width: calc(100% - 80px);
     margin-left: 80px;
+  }
+  @media (max-width: 1150px) {
+    padding-left: 20px;
+    padding-right: 20px;
   }
   @media (max-width: 650px) {
     width: 100%;
@@ -240,10 +244,7 @@ export const BillingDiv = styled.div`
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-    @media (max-width: 1100px) {
-      justify-content: space-between;
-    }
+    justify-content: space-between;
     @media (max-width: 950px) {
       flex-direction: column;
       justify-content: center;

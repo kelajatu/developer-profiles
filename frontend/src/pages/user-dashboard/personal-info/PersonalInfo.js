@@ -229,6 +229,7 @@ class PersonalInfo extends Component {
                 </LabelContainer>
                 <Select
                   id="userAreaOfWork"
+                  className="text-input"
                   name="areaOfWork"
                   value={this.state.areaOfWork}
                   onChange={e => this.setState({

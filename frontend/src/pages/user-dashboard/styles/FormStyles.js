@@ -26,14 +26,18 @@ export const MainFormContainer = styled.main`
     }
   }
   .container {
-    padding-left: 25px;
-    padding-right: 25px;
+    padding-left: 50px;
+    padding-right: 50px;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: flex-start;
     flex-wrap: wrap;
-    @media (max-width: 1200px) {
+    @media (max-width: 1550px) {
       justify-content: flex-start;
+    }
+    @media (max-width: 1150px) {
+      padding-left: 20px;
+      padding-right: 20px;
     }
     section {
       width: 45%;
@@ -51,14 +55,13 @@ export const MainFormContainer = styled.main`
 `;
 
 export const FormSection = styled.section`
+  
   .text-input-container,
   .select-input-container {
     margin-bottom: 30px;
   }
 
   .text-input-container {
-
-
     /****SKILLS BUTTONS****/
     .skills-btn {
       width: 100px;
@@ -76,9 +79,8 @@ export const FormSection = styled.section`
         color: white;
       }
     }
-
-
   }
+
   .skillbank {
     display: flex;
     flex-wrap: wrap;
@@ -101,14 +103,17 @@ export const FormSection = styled.section`
     @media (max-width: 650px) {
       width: 100%;
     }
+
   }
   .showing-places {
-    width: 80%;
-    margin: 10px;
-    padding: 15px;
+    width: 83%;
+    margin-top: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 15px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     align-content: center;
     /* border-right: solid .5px rgba(0,0,0,.33);
@@ -117,12 +122,29 @@ export const FormSection = styled.section`
     max-height: 250px;
     overflow-y: scroll;
     @media (max-width: 750px) {
-      width: 90%;
+      width: 93%;
+    }
+    @media (max-width: 650px) {
+      width: 97%;
     }
     .places {
-      margin: 11px;
+      margin: 15px 20px;
       font-size: 1.4rem;
       font-weight: bold;
+    }
+    ::-webkit-scrollbar {
+      width: 3px;
+      border-bottom: none;
+    }
+    ::-webkit-scrollbar-track {
+      border-radius: 10px;
+      background-color: lightgrey;
+      width: 50%;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--lp_btn_color);
+      border-radius: 10px;
+      width: 50%;
     }
   }
 `;
