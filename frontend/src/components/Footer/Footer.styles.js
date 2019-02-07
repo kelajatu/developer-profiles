@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const FooterContainer = styled.div`
-  background-color: #292c2f;
+  background-color: var(--lp_btn_color);
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
   box-sizing: border-box;
   width: 100%;
@@ -12,10 +12,16 @@ export const FooterContainer = styled.div`
   margin-top: auto;
   bottom: 0;
 
+  .footer-left {
+    width:50%;
+  }
+
   .footer-left p {
     color: #8f9296;
     font-size: 16px;
     margin: 0;
+
+
   }
 
   p.footer-links {
@@ -24,6 +30,8 @@ export const FooterContainer = styled.div`
     color: #ffffff;
     margin: 0 0 10px;
     padding: 0;
+    width: 100%;
+
 
     a {
       display: inline-block;
@@ -31,6 +39,7 @@ export const FooterContainer = styled.div`
       text-decoration: none;
       color: inherit;
       padding: 0 1% 0 0;
+
     }
   }
 
@@ -39,11 +48,12 @@ export const FooterContainer = styled.div`
     margin-top: 6px;
     max-width: 180px;
 
+
     a {
       display: inline-block;
       width: 35px;
       height: 35px;
-      background-color: #33383b;
+      background-color: var(--lp_btn_color);
       border-radius: 2px;
       font-size: 20px;
       color: #ffffff;
@@ -54,9 +64,13 @@ export const FooterContainer = styled.div`
   }
 
   @media (max-width: 600px) {
+    display: flex;
+    flex-direction: column-reverse;
     .footer-left,
     .footer-right {
       text-align: center;
+      align-items: center;
+      width:100%;
     }
 
     .footer-right {
