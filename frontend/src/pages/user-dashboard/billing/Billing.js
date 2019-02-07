@@ -16,6 +16,12 @@ class Billing extends Component {
     yearSubmitFailure: false,
   }
 
+  componentDidMount() {
+    axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/get-customer`, {customerId: this.props.stripe_customer_id})
+    .then(res => console.log(res.data))
+    .catch(err => console.log(err));
+  }
+
   selectPackage = (e, packageSelected) => {
     e.preventDefault();
 
