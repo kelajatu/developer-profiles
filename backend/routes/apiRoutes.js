@@ -146,17 +146,31 @@ server.post('/subscribe-customer', (req, res) => {
   }
 });
 
+// server.post('/get-customer', (req, res) => {
+//   const { customerId } = req.body;
+//   stripe.customers.retrieve({
+//     customerId,
+//   }, function(err, customer) {
+//       if (err) {
+//         res.send(err)
+//       } else {
+//         res.send(customer)
+//       }
+//   });
+// });
+
 server.post('/get-customer', (req, res) => {
   const { customerId } = req.body;
-  stripe.customers.retrieve({
+  stripe.customers.retrieve(
     customerId,
-  }, function(err, customer) {
+    function(err, customer) {
       if (err) {
-        res.send({ err })
+        res.send(err)
       } else {
         res.send(customer)
       }
-  });
+    }
+  );
 });
 
 module.exports = server 
