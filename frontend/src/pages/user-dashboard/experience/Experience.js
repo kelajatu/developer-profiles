@@ -284,7 +284,9 @@ class Experience extends Component {
               </div>
 
             </form>
+            <ButtonContainer>
             {this.state.enableEdit ? <button onClick={this.submitEdit}>Submit Edit</button> : null}
+            </ButtonContainer>
           </FormSection>
           <CardPreviewSection>
             <header>
