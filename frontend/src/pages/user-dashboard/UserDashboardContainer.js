@@ -355,10 +355,11 @@ class UserDashboardContainer extends Component {
     .catch(err => console.log(err))
   }
 
-  delExtra(user_id, extras, extras_id){
-    if(window.confirm("Are you sure you want to delete?")){
-        axios.delete(`${process.env.REACT_APP_BACKEND_SERVER}/users/${user_id}/${extras}/${extras_id}`).then(res => {
-            alert(`${extras} deleted!`)
+  delExtra(user_id, extra, extras_id){
+    if(window.confirm(`Are you sure you want to delete this ${extra}? This cannot be undone.`)){
+        axios.delete(`${process.env.REACT_APP_BACKEND_SERVER}/users/${user_id}/${extra}/${extras_id}`).then(res => {
+            alert(`${extra} deleted!`)
+            window.location.reload()
             }).catch(err => {
               console.log(err)
             })
