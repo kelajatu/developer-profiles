@@ -10,10 +10,9 @@ export const MainNav = styled.nav`
   z-index: 20;
   box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.1);
   border-bottom: solid 0.5px rgba(219, 222, 226, 0.5);
-  @media (max-width: 1024px) {
+  @media (max-width: 839px) {
     width: 100%;
-    justify-content: flex-end;
-    font-size: 1.6rem;
+    justify-content: center;
   }
   @media (max-width: 480px) {
     justify-content: center;
@@ -31,7 +30,8 @@ export const MainNav = styled.nav`
       justify-content: center;
     }
     @media (max-width: 480px) {
-      font-size: 15px;
+      padding: 1rem 1rem;
+      font-size: 1.5rem;
     }
     &:after {
       height: 2px;

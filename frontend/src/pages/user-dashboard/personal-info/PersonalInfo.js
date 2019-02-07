@@ -97,7 +97,7 @@ class PersonalInfo extends Component {
     return (
       <MainFormContainer>
         <header>
-          <h1>Personal Info</h1>
+          <h1 className="main-heading">Personal Info</h1>
         </header>
 
         <div className="container">
@@ -120,11 +120,11 @@ class PersonalInfo extends Component {
                 <div className="img-input-sub-container">
                   {this.state.profileImgUploadSuccess ?
                     <div className="img-input-overlay">
-                      <i className="fa fa-check-circle fa-2x"></i>
+                      <i className="success fa fa-check-circle fa-2x"></i>
                     </div>
                     :
                     <div className="img-input-overlay">
-                      <i className="fa fa-upload fa-2x"></i>
+                      <i className="upload fa fa-upload fa-2x"></i>
                     </div>
                   }
 
@@ -229,6 +229,7 @@ class PersonalInfo extends Component {
                 </LabelContainer>
                 <Select
                   id="userAreaOfWork"
+                  className="text-input"
                   name="areaOfWork"
                   value={this.state.areaOfWork}
                   onChange={e => this.setState({

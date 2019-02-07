@@ -11,22 +11,22 @@ export default class UserCards extends Component {
       loading: false
     };
 
-    window.onscroll = () => {
-      const { error, loading } = this.props.publicPageState;
-      const UserCardsDiv = document.querySelector("#scroll");
-      if (error || loading) {
-        return;
-      } else {
-        if (UserCardsDiv) {
-          if (
+  window.onscroll = () => {
+    const { error, loading } = this.props.publicPageState;
+    const UserCardsDiv = document.querySelector("#scroll");
+    if (error || loading) {
+      return;
+    } else {
+      if (UserCardsDiv) {
+         if (
             window.innerHeight + document.documentElement.scrollTop ===
-            UserCardsDiv.scrollHeight
-          ) {
-            this.props.filter();
-          }
-        }
+              UserCardsDiv.scrollHeight
+            ) {
+              this.props.filter();
+            }
       }
-    };
+    }
+    }
    }
 
   render() {
@@ -37,6 +37,7 @@ export default class UserCards extends Component {
       <UserCardsDiv id="scroll">
         {this.props.publicPageState.modUsers.map(user => (
           <UserCard
+            preview={false}
             id={user.id}
             github={user.github}
             linkedin={user.linkedin}
@@ -52,7 +53,7 @@ export default class UserCards extends Component {
           />
         ))}
         {this.props.publicPageState.loading ? (
-          <LoaderContainer><i className="fas fa-spinner fa-spin"></i></LoaderContainer>
+          <LoaderContainer><i className="loading fas fa-spinner fa-5x fa-spin"></i></LoaderContainer>
         ) : null}
         {this.props.publicPageState.error ? (
           <div>

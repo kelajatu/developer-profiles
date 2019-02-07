@@ -4,118 +4,152 @@ export const UserCardContainer = styled.div`
   border-radius: 5px;
   border: lightgrey solid 1px;
   background: white;
-  height: ${props => (props.expanded ? null : 320)}px;
+  height: ${props => (props.expanded ? null : null)}px;
   /* height: ${props => (props.expanded ? null : 'auto')}; */
   min-height: ${props => (props.expanded ? 700 : null)}px;
-  width: 520px;
+  max-width: 520px;
   margin-bottom: 30px;
-  padding-bottom: 20px;
+  /* padding-bottom: 20px; */
   margin-right: 30px;
   a {
     color: black;
   }
+  .skillsdelete {
+      :hover {
+        background: lightgrey;
+        border-radius: 3px;
+      }
+      display: flex;
+      align-items: center;
+      .fa-times-circle {
+        color: coral;
+        cursor: pointer;
+      }
+    }
   .userCardDiv {
-    box-sizing: border-box;
-    padding-top: 20px;
+    /* border: 1px solid yellow; */
     display: flex;
-    justify-content: center;
-    .left-side {
-      width: 90%;
-      overflow: hidden;
-      height: 100%;
-      margin-left: 28px;
-      h2 {
-        font-size: 30px;
-      }
-      h3 {
-        font-size: 22px;
-        padding: 5px 5px;
-        border-top: 1px solid lightgrey;
-        border-bottom: 1px solid lightgrey;
-      }
-      .bio {
-        display: flex;
-        flex-direction: row;
-        margin: 0;
-        p {
-          font-size: 13px;
-          margin: 3px;
+    flex-direction: column;
+    justify-content: space-between;
+    .top{
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      /* border: 1px solid blue; */
+      .left-side {
+        width: 90%;
+        overflow: hidden;
+        height: 100%;
+        padding-top: 20px;
+        margin-left: 28px;
+        h2 {
+          font-size: 30px;
         }
-        .user-intro {
+        h3 {
+          font-size: 22px;
+          padding: 5px 5px;
+          border-top: 1px solid lightgrey;
+          border-bottom: 1px solid lightgrey;
+        }
+        .bio {
           display: flex;
-          flex-direction: column;
+          flex-direction: row;
           margin: 0;
-          padding: 10px 0 10px 10px;
-          width: 70%;
+          p {
+            font-size: 13px;
+            margin: 3px;
+          }
+          .user-intro {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            padding: 10px 0 10px 10px;
+            width: 70%;
+          }
+          .location {
+            color: limegreen;
+            padding: 5px 0;
+          }
+          .photo {
+            background: var(--accent-color);
+            display: flex;
+            border-radius: 100px;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            height: 100px;
+            background-image: cover;
+            margin: 10px;
+            margin-left: 0;
+          }
         }
-        .location {
-          color: limegreen;
-          padding: 5px 0;
-        }
-        .photo {
-          background: var(--accent-color);
+        .keywords {
           display: flex;
-          border-radius: 100px;
-          justify-content: center;
-          align-items: center;
-          width: 100px;
-          height: 100px;
-          background-image: cover;
-          margin: 10px;
-          margin-left: 0;
+          /* border: 1px solid green; */
+          flex-direction: row;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          padding: 10px, 0;
+          margin-top: 20px;
+          margin-bottom: 0px;
+          max-height: 100px;
+          overflow: auto;
+          .keyword {
+            padding: 1px;
+            margin: 2px;
+          }
+          .topskill {
+            font-size: 16px;
+            font-weight: bold;
+          }
+          .addskill {
+            font-size: 16px;
+          }
+          .famskill {
+            font-size: 14px;
+          }
         }
       }
-      .keywords {
+      .links {
+        /* border: 1px solid green; */
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        padding: 10px, 0;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        .keyword {
-          padding: 1px;
-          margin: 2px;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        width: 15%;
+        height: 300px;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top: 0;
+        .fab,
+        .fas {
+          font-size: 25px;
+          &:hover {
+            color: gray;
+          }
+          cursor: pointer;
         }
-        .topskill {
-          font-size: 16px;
-          font-weight: bold;
+        .fas {
+          font-size: 20px;
+          margin-bottom: 40px;
         }
-        .addskill {
-          font-size: 16px;
-        }
-        .famskill {
-          font-size: 14px;
+        .badge {
+          width: 50px;
+          margin-top: 25px;
+          cursor: pointer;
         }
       }
     }
-
-    .links {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      width: 15%;
-      height: 300px;
-      margin-left: 10px;
-      margin-right: 10px;
-      .fab,
-      .fas {
-        font-size: 25px;
-        &:hover {
-          color: gray;
-        }
-        cursor: pointer;
-      }
-      .fas {
-        font-size: 20px;
-        margin-bottom: 40px;
-      }
-      .badge {
-        width: 50px;
-        margin-top: 25px;
-        cursor: pointer;
-      }
+  }
+  .bottom {
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 35px;
+    overflow: hidden;
+    &:hover{
+      background-color: #ee6c4d;
     }
   }
   .fa-laptop {

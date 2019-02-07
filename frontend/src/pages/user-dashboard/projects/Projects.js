@@ -142,7 +142,7 @@ class Projects extends Component {
     return (
       <MainFormContainer>
         <header>
-          <h1>Projects</h1>
+          <h1 className="main-heading">Projects</h1>
         </header>
 
         
@@ -162,11 +162,11 @@ class Projects extends Component {
 
                     {this.state.projectImgUploadSuccess ?
                       <div className="img-input-overlay">
-                        <i className="fa fa-check-circle fa-2x"></i>
+                        <i className="success fa fa-check-circle fa-2x"></i>
                       </div>
                       :
                       <div className="img-input-overlay">
-                        <i className="fa fa-upload fa-2x"></i>
+                        <i className="upload fa fa-upload fa-2x"></i>
                       </div>
                     }
 

@@ -5,6 +5,7 @@ const Footer = () => {
   return (
     <FooterContainer>
       <div className="footer-right">
+
         <a href="#">
           <i className="fab fa-facebook" />
         </a>
@@ -22,11 +23,6 @@ const Footer = () => {
       <div className="footer-left">
         <p className="footer-links">
           <a href="#">Home</a>
-          <a href="#">Blog</a>
-          <a href="#">Pricing</a>
-          <a href="#">About</a>
-          <a href="#">Faq</a>
-          <a href="#">Contact</a>
         </p>
 
         <p>Developer Profiles &copy; 2019</p>
@@ -36,3 +32,5 @@ const Footer = () => {
 };
 
 export default Footer;
+
+

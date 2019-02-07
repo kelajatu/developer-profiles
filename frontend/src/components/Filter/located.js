@@ -23,11 +23,17 @@ export default class Located extends Component {
   render() {
     return (
       <LocatedDiv>
-        <div className="range-container">
           <h1>Located</h1>
-          <span className="within">within {this.props.publicPageState.milesFrom}</span>
-          <RangeInput min={5} max={300} step={5} onChange={this.changeHandler} value={this.props.publicPageState.milesFrom} />
-          <span className="milesOf">miles of</span>
+          <div className="within-container">
+            <span className="within">within {this.props.publicPageState.milesFrom} miles of</span>
+            <RangeInput 
+              min={5} 
+              max={300} 
+              step={5}
+              className="range" 
+              onChange={this.changeHandler} 
+              value={this.props.publicPageState.milesFrom} />
+          </div>
           <label className="container">
           <LocationAuto
             name="locatedCity"
@@ -41,39 +47,59 @@ export default class Located extends Component {
             filter={this.props.filter}
           />
           </label>
-        </div>
-
       </LocatedDiv>
     );
   }
 }
 
 const LocatedDiv = styled.div`
-margin-bottom: 10px;
+  /* border: 1px solid green; */
+  margin-bottom: 10px;
+  font-size: 15px;
+  @media (max-width: 839px) {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+  }
   h1 {
     font-size: 25px;
   }
-  font-size: 15px;
-  @media (max-width: 839px) {
-       .range-container {
-         width: 100%;
-         display: flex;
-         align-items: center;
-         justify-content: space-between;
-         span.within {
-           width: 90px;
-         }
-         .milesOf {
-           width: 80px;
-           margin-left: 10px;
-          
-         }
-       }
-       h1 {
-         margin-right: 5px;
-       }
-        @media (max-width: 480px) {
-          flex-direction: column;
+  .range{
+    /* border: 1px solid red; */
+    width: 90%;
+    padding: 15px;
+  }
+  .within-container{
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 90%;
+    justify-content: center;
+    @media (max-width: 839px) {
+      align-items: center;
+      width: 50%;
+      .range-container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        span.within {
+          width: 90px;
+        }
+        .milesOf {
+          width: 80px;
+          margin-left: 10px;
+        
         }
       }
+      h1 {
+        margin-right: 5px;
+      }
+      @media (max-width: 480px) {
+        flex-direction: column;
+      }
+    }
+  }
 `;

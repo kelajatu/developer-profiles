@@ -24,13 +24,12 @@ class PublicFacingPage extends Component {
             allUsers: [],
             modUsers: [],
             endOfUsers: false,
-
-            // locatedCity: '',
-            // locatedLat: '',
-            // locatedLon: '',
-            // relocateCity: '',
-            // relocateLat: '',
-            // relocateLon: '',
+            locatedName: '',
+            locatedLat: '',
+            locatedLon: '',
+            relocateName: '',
+            relocateLat: '',
+            relocateLon: '',
         }
     }
 
@@ -119,7 +118,24 @@ class PublicFacingPage extends Component {
 
     //this is used in child components to modify publicPageState state
     updatePublicPageState = async update => {
-        this.setState(update);
+        if(update===false){
+            console.log("update")
+            this.setState({
+                filters: [],
+                locatedName: '',
+                locatedLat: '',
+                locatedLon: '',
+                relocateName: '',
+                relocateLat: '',
+                relocateLon: '',
+                numOfResultsToReturn: 6,
+                milesFrom: 4,
+            })
+            this.filter(true)
+        } else {
+            console.log("update true")
+            this.setState(update);
+        }
     };
 
     render() {

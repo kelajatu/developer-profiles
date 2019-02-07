@@ -3,7 +3,7 @@ import {
   Btn,
   CallToAction,
   CTAContainer,
-  Circle,
+  SplashBand,
   BtnRow
 } from "./ContentBox.styles";
 
@@ -13,7 +13,7 @@ class ContentBox extends Component {
   render() {
     return (
       <ContentBoxSection>
-        <Circle>
+        <SplashBand>
           <CTAContainer>
           <h1>Dev<span>Profiles</span></h1>
               <h2>
@@ -22,18 +22,15 @@ class ContentBox extends Component {
               <br />
               <BtnRow>
                 <CallToAction>
-                  <a href="#recruiters">
-                    <Btn>Recruiters</Btn>
-                  </a>{" "}
+                    <Btn onClick={() => {this.props.scroll(this.props.myRef)}}>Recruiters</Btn>
+                  {" "}
                 </CallToAction>
                 <CallToAction>
-                  <a href="#developers">
-                    <Btn>Developers</Btn>
-                  </a>
+                    <Btn onClick={() => {this.props.scroll(this.props.myDevRef)}}>Developers</Btn>
                 </CallToAction>
               </BtnRow>
           </CTAContainer>
-        </Circle>
+        </SplashBand>
       </ContentBoxSection>
     );
   }

@@ -4,8 +4,10 @@ import { centerFlex } from "../../global-styles/Mixins";
 export const UserCardsDiv = styled.div`
     display: flex;
     flex-wrap: wrap;
-    margin-left: 300px; 
-    padding-top: 130px;
+    padding-left: 300px; 
+    padding-top: 80px;
+    border-left: solid 0.5px #dbdee2;
+
     @media (max-width: 1440px) {
       ${centerFlex('column')}; 
     }
@@ -31,8 +33,7 @@ export const LoaderContainer = styled.div`
     @media (max-width: 480px) {
     }
   }
-  .fa-spin {
-    font-size: 50px;
+  .loading {
     color: var(--accent-color);
   }
 `;
