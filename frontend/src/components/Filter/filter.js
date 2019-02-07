@@ -3,8 +3,8 @@ import styled from "styled-components";
 import JobTitles from "./jobTitles";
 import Located from "./located";
 import Relocate from "./relocate";
-import { Grommet, Select } from 'grommet';
-import { ButtonContainer } from "../../pages/user-dashboard/styles/FormStyles";
+import { Grommet, } from 'grommet';
+// import { ButtonContainer } from "../../pages/user-dashboard/styles/FormStyles";
 
 export default class FilterBox extends Component {
   constructor(props) {
@@ -40,26 +40,26 @@ export default class FilterBox extends Component {
       <Grommet theme={filterTheme}>
         {window.innerWidth < 839 ? this.ham(): null}
         <FilterBoxDiv menu={this.state.menuOpen}>
-          {window.innerWidth < 839 ? null :<h2>
-            <strong>{this.props.publicPageState.usersFound}</strong>  possible profiles
-          </h2>}
+          {window.innerWidth < 839 ? null :
+            <h2>
+              <strong>{this.props.publicPageState.usersFound} </strong>
+              possible profiles
+            </h2>}
           <JobTitles
             updatePublicPageState={this.props.updatePublicPageState}
             toggleCheckMarks={this.props.toggleCheckMarks}
-            publicPageState={this.props.publicPageState}
-          />
+            publicPageState={this.props.publicPageState} />
           <Located
             updatePublicPageState={this.props.updatePublicPageState}
             publicPageState={this.props.publicPageState}
-            filter={this.props.filter}
-          />
+            filter={this.props.filter} />
           <div className="relocate-container">
-            <Relocate
-              updatePublicPageState={this.props.updatePublicPageState}
-              publicPageState={this.props.publicPageState}
-              filter={this.props.filter}
-            />
-            {window.innerWidth < 839 ? this.buttons() : null}
+              <Relocate
+                updatePublicPageState={this.props.updatePublicPageState}
+                publicPageState={this.props.publicPageState}
+                filter={this.props.filter}
+              />
+              {window.innerWidth < 839 ? this.buttons() : null}
           </div>
           {window.innerWidth < 839 ? null : this.buttons()}
           {this.state.menuOpen && window.innerWidth < 839 ? this.ham(): null}
