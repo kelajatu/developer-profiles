@@ -147,7 +147,7 @@ server.post('/subscribe-customer', (req, res) => {
 server.post('/get-customer', (req, res) => {
   const { customerId } = req.body;
   let stringCustomerId = JSON.stringify(customerId)
-  stripe.customers.create(
+  stripe.customers.retrieve(
     stringCustomerId,
     function(err, customer) {
       if (err) {
@@ -163,7 +163,7 @@ server.post('/get-customer', (req, res) => {
 
 server.post('/get-customerhc', (req, res) => {
   const { customerId } = req.body;
-  stripe.customers.create(
+  stripe.customers.retrieve(
     "cus_EU1Sv2b7zt3OzB",
     function(err, customer) {
       if (err) {
@@ -179,7 +179,7 @@ server.post('/get-customerhc', (req, res) => {
 
 server.get('/get-customer/:id', (req, res) => {
   const { id } = req.params;
-  stripe.customers.create(
+  stripe.customers.retrieve(
     id,
     function(err, customer) {
       if (err) {
