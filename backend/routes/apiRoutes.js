@@ -161,6 +161,22 @@ server.post('/get-customer', (req, res) => {
 });
 
 
+server.post('/get-customerreg', (req, res) => {
+  const { customerId } = req.body;
+  stripe.customers.retrieve(
+    customerId,
+    function(err, customer) {
+      if (err) {
+        console.log(err)
+        res.send({ err })
+      } else {
+        console.log(customer)
+        res.send(customer)
+      }
+    });
+});
+
+
 server.post('/get-customerhc', (req, res) => {
   const { customerId } = req.body;
   stripe.customers.retrieve(
