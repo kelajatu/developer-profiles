@@ -13,8 +13,7 @@ export const UserCardsDiv = styled.div`
     }
     @media (max-width: 839px) {
     margin: 0 auto;
-    padding-left: 30px; 
-    padding-top: 75px;
+    padding: 75px 20px 0;
     width: 100%;
     @media (max-width: 480px) {
       padding-top: 50px;
