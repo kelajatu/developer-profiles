@@ -67,7 +67,7 @@ export default class FilterBox extends Component {
               filter={this.props.filter}
             />
           </div>
-          {window.innerWidth < 839 ? this.buttons() : null}
+          {this.buttons()}
           <div className="menu-button-close">
         <i onClick={()=> this.setState({ menuOpen: false })} class="fa fa-times"></i>
    </div>
