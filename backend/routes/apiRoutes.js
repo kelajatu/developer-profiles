@@ -60,10 +60,10 @@ server.post('/location', (req, res) => {
   const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${req.body.inputLocation}&types=(cities)&key=${key}`;
   axios.post(url)
   .then(response => {
-    res.send(response.data);
+    res.send(response.data)
   })
   .catch(err => {
-    res.send({ err });
+    res.send({ err })
   })
 });
 
@@ -71,10 +71,10 @@ server.post('/gio', (req, res) => {
   const url = `https://maps.googleapis.com/maps/api/place/details/json?placeid=${req.body.placeId}&fields=geometry&key=${key}`
   axios.post(url)
   .then(response => {
-    res.send(response.data);
+    res.send(response.data)
   })
   .catch(err => {
-    res.send({ err });
+    res.send({ err })
   })
 });
 
@@ -87,7 +87,7 @@ server.put("/acclaim/:id", (req, res) => {
         res.status(200).json(data)
         })
     }).catch(err => {
-      res.send({ err });
+      res.send({ err })
     });
 });
 
@@ -100,9 +100,9 @@ server.post('/create-customer', (req, res) => {
     source: stripeToken
   }, function(err, customer) {
       if (err) {
-        res.send({ err });
+        res.send({ err })
       } else {
-        res.send(customer);
+        res.send(customer)
       }
   });
 });
@@ -119,9 +119,9 @@ server.post('/subscribe-customer', (req, res) => {
       ]
     }, function(err, subscription) {
       if (err) {
-        res.send({ err });
+        res.send({ err })
       } else {
-        res.send(subscription);
+        res.send(subscription)
       }
     }
     );
@@ -135,9 +135,9 @@ server.post('/subscribe-customer', (req, res) => {
       ]
     }, function(err, subscription) {
       if (err) {
-        res.send({ err });
+        res.send({ err })
       } else {
-        res.send(subscription);
+        res.send(subscription)
       }
     }
     );
@@ -148,16 +148,15 @@ server.post('/subscribe-customer', (req, res) => {
 
 server.post('/get-customer', (req, res) => {
   const { customerId } = req.body;
-  stripe.customers.retrieve(
+  stripe.customers.retrieve({
     customerId,
-    function(err, customer) {
+  }, function(err, customer) {
       if (err) {
-        res.send({ err });
+        res.send({ err })
       } else {
-        res.send(customer);
+        res.send(customer)
       }
-    }
-  );
+  });
 });
 
 module.exports = server 
