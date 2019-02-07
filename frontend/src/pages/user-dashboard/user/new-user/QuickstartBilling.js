@@ -100,28 +100,27 @@ class Billing extends Component {
     return (
       <BillingDiv>
           <header>
-            <h1 style={{
-            fontSize: '3.2rem',
-            color: 'rgb(42,42,42)',
-            marginBottom: '50px',
-            textAlign: 'left',
-        }}>Choose Package You Like</h1>
+            {this.props.userInfo.subscriptionSuccess ?
+              null
+              :
+              <h2 className="sub-heading">Choose Package You Like</h2>
+            }
           </header>
           {this.props.userInfo.subscriptionSuccess ?
             <div className="billing-success-container">
               <main className="billing-success">
                 <header>
-                  <h2>Subscription Active <span><i className="success fa fa-check" aria-hidden="true"></i></span></h2>
+                  <h1 className="sub-active-heading">Subscription Active <span><i className="success fa fa-check" aria-hidden="true"></i></span></h1>
                 </header>
                 <section className="package-selected">
 
-                  <h3>Package Selected:</h3>
+                  <h3 className="sub-sub-heading">Package Selected:</h3>
 
 
                   {this.props.userInfo.stripe_subscription_name === 'Always looking yearly' ?
-                    <h1>ALWAYS LOOKING</h1>
+                    <p className="text">ALWAYS LOOKING</p>
                     :
-                    <h1>MONTHH</h1>
+                    <p className="text">MONTHH</p>
                   }
 
 
@@ -133,18 +132,18 @@ class Billing extends Component {
             <div className="options">
               <div className="option">
                 <header>
-                  <h2>Always Looking</h2>
+                  <h3 className="sub-active-heading">Always Looking</h3>
                 </header>
                 <section className="price-section">
-                  <h3>$9.99</h3>
+                  <h3 className="sub-price-heading">$9.99</h3>
                   <label>/yearly</label>
                 </section>
                 <section className="features-section">
-                  <p>Live profile for anyone to see</p>
-                  <p>Be found quickly with advanced filtering</p>
-                  <p>Simple and live profile customization</p>
-                  <p>Choose any city in the world for relocation</p>
-                  <p>Keep your doors open to opportunity year-round</p>
+                  <p className="text">Live profile for anyone to see</p>
+                  <p className="text">Be found quickly with advanced filtering</p>
+                  <p className="text">Simple and live profile customization</p>
+                  <p className="text">Choose any city in the world for relocation</p>
+                  <p className="text">Keep your doors open to opportunity year-round</p>
                 </section>
                 <section className="btn-section">
                   <button onClick={(e) => this.selectPackage(e, 'year')}>
@@ -154,18 +153,18 @@ class Billing extends Component {
               </div>
               <div className="option">
                 <header>
-                  <h2>Quick Hire</h2>
+                  <h3 className="sub-active-heading">Quick Hire</h3>
                 </header>
                 <section className="price-section">
-                  <h3>$0.99</h3>
+                  <h3 className="sub-price-heading">$0.99</h3>
                   <label>/monthly</label>
                 </section>
                 <section className="features-section">
                   <div>
-                    <p>Live profile for anyone to see</p>
-                    <p>Be found quickly with advanced filtering</p>
-                    <p>Simple and live profile customization</p>
-                    <p>Choose any city in the world for relocation</p>
+                    <p className="text">Live profile for anyone to see</p>
+                    <p className="text">Be found quickly with advanced filtering</p>
+                    <p className="text">Simple and live profile customization</p>
+                    <p className="text">Choose any city in the world for relocation</p>
                   </div>
                 </section>
                 <section className="btn-section">
@@ -189,24 +188,44 @@ export const BillingDiv = styled.div`
     padding-left: 20px;
     padding-right: 20px;
   }
-  h1 {
-    color: rgb(42,42,42);
-    margin-bottom: 50px;
-    text-align: left;
-    font-size: 4rem;
+  @media (max-width: 450px) {
+    padding-left: 10px;
+    padding-right: 10px;
   }
-  h2{
+  @media (max-width: 400px) {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .sub-heading {
+    font-size: 3rem;
+    margin-bottom: 50px;
+  }
+  .sub-active-heading {
     font-size: 4rem;
+    margin-bottom: 50px;
     color: var(--accent-color);
     @media (max-width: 1100px) {
       font-size: 3.5rem;
     }
   }
-  h3 {
-    font-size: 3.2rem;
+  .sub-sub-heading {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
     border-top: 1px solid lightgrey;
     border-bottom: 1px solid lightgrey;
-    padding: 8px;
+    padding: 12px 8px;
+  }
+  .sub-price-heading {
+    font-size: 3.2rem;
+  }
+  .text {
+    color: rgba(42,42,42,.8);
+    font-size: 1.7rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 25px;
+    line-height: 23px;
   }
   .success {
     color: var(--lp_btn_color);
@@ -227,18 +246,9 @@ export const BillingDiv = styled.div`
       border-radius: 5px;
       height: 550px;
       width: 700px;
-    }
-    h2 {
-      margin-bottom: 50px;
-    }
-    h3 {
-      margin-bottom: 50px;
-    }
-    .success {
-      color: var(--lp_btn_color);
+      
     }
   }
-
 
 
   .options{
@@ -255,36 +265,36 @@ export const BillingDiv = styled.div`
       width: 45%;
       max-width: 550px;
       height: 650px;
-      padding: 40px 20px 0;
+      padding: 50px;
       text-align: center;
       border: 1px solid lightgrey;
       border-radius: 5px;
+      @media (max-width: 1700px) {
+        height: 740px;
+      }
+      @media (max-width: 1650px) {
+        height: 720px;
+      }
       @media (max-width: 1450px) {
-        height: 700px;
+        height: 730px;
         width: 49%;
       }
       @media (max-width: 1000px) {
+        height: 650px;
         width: 100%;
         margin-bottom: 75px;
       }
-      header {
-        margin-bottom: 50px;
+      @media (max-width: 600px) {
+        height: 700px;
       }
-      h2{
-        font-size: 4rem;
+      @media (max-width: 500px) {
+        padding: 40px 20px 0;
+        height: 720px;
       }
-      h3 {
-        font-size: 3.2rem;
-        border: none;
+      @media (max-width: 400px) {
+        height: 740px;
       }
-      p {
-        color: rgba(42,42,42,.8);
-        font-size: 1.7rem;
-        font-weight: bold;
-        letter-spacing: 1px;
-        margin-bottom: 25px;
-        line-height: 23px;
-      }
+
       label {
         color: rgba(42,42,42,.8);
         font-size: 1.7rem;

@@ -53,23 +53,31 @@ class UserDashboardIntro extends Component {
     return (
       <IntroContainer>
         <header>
-          <h1>Your Dashboard</h1>
+          <h1 className="main-heading">Your Dashboard</h1>
         </header>
 
         <article className="container">
           <header>
-            <h2>Profile Strength: <strong>{profileStatus}</strong></h2>
+            <h2 className="sub-heading">Profile Strength: <strong>{profileStatus}</strong></h2>
           </header>
 
           {/* Will crash if moved around due to 'width: ${props => props.children.props.progress};' :) */}
           <section className="progress-container">
             <ProgressContainer>
-              <div progress={`${profileProgress}%`} className="progress-bar" />
+              <div progress={`${profileProgress}%`} className="progress-bar">
+              {profileProgress >= 30 ?
+                <div className="progress-end">
+                  <span><i className="success fa fa-check"></i></span>
+                </div>
+                :
+                null
+              }
+              </div>
             </ProgressContainer>
           </section>
 
           <section className="basic-section">
-            <h3>Basic</h3>
+            <h3 className="sub-sub-heading">Basic</h3>
             <div>
               <span className="input-status">
                 {subscriptionSuccess ?
@@ -117,7 +125,7 @@ class UserDashboardIntro extends Component {
           </section>
 
           <section className="intermediate-section">
-            <h3>Intermediate</h3>
+            <h3 className="sub-sub-heading">Intermediate</h3>
             <div>
               <span className="input-status">
                 {profileImgSuccess ?
@@ -151,7 +159,7 @@ class UserDashboardIntro extends Component {
           </section>
 
           <section className="strong-section">
-            <h3>Strong</h3>
+            <h3 className="sub-sub-heading">Strong</h3>
             <div>
               <span className="input-status">
                 {additionalSkillsSuccess ?
@@ -192,7 +200,7 @@ class UserDashboardIntro extends Component {
           </section>
 
           <section className="powerhouse-section">
-            <h3>Powerhouse</h3>
+            <h3 className="sub-sub-heading">Powerhouse</h3>
             <div>
               <span className="input-status">
                 {linkedinSuccess ?
@@ -308,15 +316,21 @@ const IntroContainer = styled.div`
     margin-left: 0px;
   }
 
-  h1 {
-    text-align: left;
-    font-size: 4rem;
+  .main-heading {
+    font-size: 5rem;
+    color: rgb(42,42,42);
+    margin-bottom: 50px;
+    text-align: center;
+    @media (max-width: 1100px) {
+      text-align: left;
+      font-size: 4rem;
+    }
   }
 
 
   .container {
     width: 100%;
-    max-width: 700px;
+    max-width: 750px;
     margin-top: 75px;
     border: 1px solid lightgrey;
     border-radius: 5px;
@@ -334,17 +348,19 @@ const IntroContainer = styled.div`
       margin-bottom: 30px;
     }
     
-    h2 {
+    .sub-heading {
       font-size: 3rem;
-      margin-bottom: 20px;
+      margin-bottom: 50px;
     }
-    h3 {
+
+    .sub-sub-heading {
       font-size: 2.5rem;
       margin-bottom: 20px;
       border-top: 1px solid lightgrey;
       border-bottom: 1px solid lightgrey;
       padding: 12px 8px;
     }
+
     .input-status {
       font-size: 1.5rem;
       display: inline-block;
@@ -361,10 +377,10 @@ const IntroContainer = styled.div`
     }
   }
 `;
-
+/* width: ${props => props.children.props.progress}; */
 const ProgressContainer = styled.div`
   width: 100%;
-  background-color: var(--lp_btn_color);
+  background-color: lightgrey;
   height: 10px;
   border-radius: 50px;
   margin-bottom: 50px;
@@ -373,12 +389,26 @@ const ProgressContainer = styled.div`
     height: 10px;
     border-right: solid 1px rgba(255,255,255,.3);
     border-radius: 50px;
-    width: ${props => props.children.props.progress};
+    width: 30%;
     ${centerFlex()};
     p {
       color: rgb(42,42,42);
       font-size: 1.7rem;
       font-weight: bold;
+    }
+    .progress-end {
+      position: absolute;
+      right: -16.5px;
+      width: 33px;
+      height: 33px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-radius: 50%;
+      background-color: var(--lp_btn_color);
+      ${centerFlex()};
+      .success {
+        color: var(--accent-color);
+      }
     }
   }
 `;

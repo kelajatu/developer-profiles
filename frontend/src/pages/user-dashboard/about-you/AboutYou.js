@@ -189,7 +189,7 @@ class AboutYou extends Component {
     return (
       <MainFormContainer>
         <header>
-          <h1>About You</h1>
+          <h1 className="main-heading">About You</h1>
         </header>
 
         <div className="container">

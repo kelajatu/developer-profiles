@@ -216,7 +216,7 @@ class WhereToFindYou extends Component {
     return (
       <MainFormContainer>
         <header>
-          <h1>Where To Find You</h1>
+          <h1 className="main-heading">Where To Find You</h1>
         </header>
 
         <div className="container">

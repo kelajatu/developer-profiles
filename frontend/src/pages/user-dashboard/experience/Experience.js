@@ -143,7 +143,7 @@ class Experience extends Component {
     return (
       <MainFormContainer>
         <header>
-          <h1>Experience</h1>
+          <h1 className="main-heading">Experience</h1>
         </header>
 
         <div className="container">

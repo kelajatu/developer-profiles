@@ -14,7 +14,7 @@ export const MainFormContainer = styled.main`
     width: 100%;
     margin-left: 0px;
   }
-  h1 {
+  .main-heading {
     font-size: 5rem;
     color: rgb(42,42,42);
     margin-bottom: 50px;
@@ -38,6 +38,14 @@ export const MainFormContainer = styled.main`
     @media (max-width: 1150px) {
       padding-left: 20px;
       padding-right: 20px;
+    }
+    @media (max-width: 450px) {
+    padding-left: 10px;
+    padding-right: 10px;
+    }
+    @media (max-width: 400px) {
+      padding-left: 5px;
+      padding-right: 5px;
     }
     section {
       width: 45%;

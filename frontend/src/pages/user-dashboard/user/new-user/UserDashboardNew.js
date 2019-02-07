@@ -13,9 +13,9 @@ class UserDashboardNew extends Component {
       <IntroContainer>
         <header>
           {first_name === "" ?
-            <h1>Welcome!</h1>
+            <h1 className="main-heading">Welcome!</h1>
             :
-            <h1>Welcome, {first_name}!</h1>
+            <h1 className="main-heading">Welcome, {first_name}!</h1>
           }
         </header>
         <div className="container">
@@ -42,7 +42,7 @@ const IntroContainer = styled.div`
     width: 100%;
     margin-left: 0px;
   }
-  h1 {
+   .main-heading {
     font-size: 5rem;
     color: rgb(42,42,42);
     margin-bottom: 50px;

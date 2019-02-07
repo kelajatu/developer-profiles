@@ -188,12 +188,7 @@ class QuickstartBasics extends Component {
     return (
       <MainContainer>
         <header>
-          <h1 style={{
-            fontSize: '3.2rem',
-            color: 'rgb(42,42,42)',
-            marginBottom: '50px',
-            textAlign: 'left',
-        }}>Let's Start with the Basics</h1>
+          <h2 className="sub-heading">Let's Start with the Basics</h2>
         </header>
         <FormSection>
           <form>
@@ -392,6 +387,14 @@ const MainContainer = styled.div`
   @media (max-width: 1150px) {
     padding-left: 20px;
     padding-right: 20px;
+  }
+  @media (max-width: 450px) {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .sub-heading {
+    font-size: 3rem;
+    margin-bottom: 50px;
   }
 `;
 

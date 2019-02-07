@@ -153,7 +153,7 @@ class Education extends Component {
     return (
       <MainFormContainer>
         <header>
-          <h1>Education</h1>
+          <h1 className="main-heading">Education</h1>
         </header>
 
         <div className="container">
