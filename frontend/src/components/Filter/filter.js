@@ -3,8 +3,8 @@ import styled from "styled-components";
 import JobTitles from "./jobTitles";
 import Located from "./located";
 import Relocate from "./relocate";
-import { Grommet, Select } from 'grommet';
-import { ButtonContainer } from "../../pages/user-dashboard/styles/FormStyles";
+import { Grommet, } from 'grommet';
+// import { ButtonContainer } from "../../pages/user-dashboard/styles/FormStyles";
 
 export default class FilterBox extends Component {
   constructor(props) {
@@ -23,17 +23,6 @@ export default class FilterBox extends Component {
       )
   }
 
-  ham(){
-    return(
-        <div className="menu-button-container">
-          <MenuButton menuOpen={this.state.menuOpen}>
-              <i onClick={()=> this.setState({ menuOpen: !this.state.menuOpen })} 
-                class="fa fa-bars"></i>
-          </MenuButton>
-        </div>
-      )
-  }
-  
   ham(){
     return(
         <div className="menu-button-container">
