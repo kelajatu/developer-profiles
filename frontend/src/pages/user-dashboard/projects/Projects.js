@@ -18,6 +18,7 @@ import {
 var noLeaks;
 class Projects extends Component {
   state = {
+    enableEdit: false,
     submitSuccess: false,
     submitFailure: false,
     projectImg: "",
@@ -110,6 +111,7 @@ class Projects extends Component {
     axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/projects`, lePackage)
     .then(res => {
       this.setState({
+        enableEdit: false,
         submitSuccess: true,
         projectTitle: "",
         projectImg: "",
@@ -136,12 +138,50 @@ class Projects extends Component {
     clearTimeout(noLeaks)
   }
 
-  // setProjectsState(edit){
-  //   this.setState(edit)
-  // }
+  editExtra = (edit) => {
+    console.log("edit", edit.id)
+    let id = edit.id
+    console.log(id)
+    if(this.state.enableEdit){
+        this.setState({
+          enableEdit: false,
+          project_id: null,
+          projectTitle: '',
+          projectImg: '',
+          projectLink: '',
+          projectDescription: '',
+        })
+    } else {
+        this.setState({
+          enableEdit: true,
+          projectTitle: edit.project_title,
+          projectId: id,
+          projectImg: edit.project_img,
+          projectLink: edit.link,
+          projectDescription: edit.project_description,
+        })
+    }
+  }
+
+  submitEdit = () => {
+    const lePackage = {
+      user_id: this.props.userInfo.id,
+      project_title: this.state.projectTitle,
+      project_img: this.state.projectImg,
+      link: this.state.projectLink,
+      project_description: this.state.projectDescription
+    }
+    console.log("submitEdit", lePackage, this.state)
+    axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/projects/${this.state.projectId}`, lePackage)
+    .then(res => {
+      console.log(res)
+    }).catch(err => {
+      console.log(err)
+    })
+  }
 
   render() {
-    // console.log(this.props.userInfo.userProjects)
+    console.log(this.state)
     return (
       <MainFormContainer>
         <header>
@@ -252,6 +292,7 @@ class Projects extends Component {
                 </Validator>
               </div>
             </form>
+            {this.state.enableEdit ? <button onClick={this.submitEdit}>Submit Edit</button> : null}
           </FormSection>
           <CardPreviewSection>
             <header>
@@ -263,7 +304,10 @@ class Projects extends Component {
             </header>
             <UserCard
               canEdit
+              enableEdit
               delExtra={this.props.delExtra}
+              editExtra={this.editExtra}
+
               id={this.props.userInfo.id}
               github={this.props.userInfo.github}
               linkedin={this.props.userInfo.linkedin}

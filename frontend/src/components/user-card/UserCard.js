@@ -56,11 +56,10 @@ class UserCard extends Component{
         }
     }
 
-    edit(type, thingToBeEdited ){
-        console.log("edit", thingToBeEdited)
-        // if(this.props.canEdit){
-        //     this.props.delExtra(thingToBeEdited.user_id, type, thingToBeEdited.id)
-        // }
+    edit(thingToBeEdited ){
+        if(this.props.canEdit){
+            this.props.editExtra(thingToBeEdited)
+        }
     }
 
     render(){
@@ -165,7 +164,7 @@ class UserCard extends Component{
                                             </div>
                                             <div className="project-right">
                                                 {this.props.canEdit ? <i onClick={()=> this.del("projects", project)} className="far fa-times-circle"></i> : null}
-                                                {this.props.canEdit ? <i onClick={()=> this.edit("projects", project)} className="far fa-edit"></i> : null}
+                                                {this.props.canEdit ? <i onClick={()=> this.edit(project)} className="far fa-edit"></i> : null}
                                             </div>
                                         </div>
                                         <div className="proj-image-container">

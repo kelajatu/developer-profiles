@@ -280,8 +280,11 @@ server.post('/:user_id/:extras', (req, res) => {
 //expects project/experience/education ID as param extrasID
 //expects edited fields in req.body
 server.put('/:user_id/:extras/:extras_id', (req, res) => {
+    console.log(req.params)
+    console.log(req.body)
     db.editExtra(req.params.extras_id, req.params.extras, req.body).then(extra => {
         res.status(200).json(extra)
+        console.log("updated")
     }).catch(err => {
         res.status(500).json({message: "error editing extras data", err: err})
     })
