@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-import UserCard from '../../../components/user-card/UserCard';
-import { TextInput } from 'grommet';
+import React, { Component } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import UserCard from "../../../components/user-card/UserCard";
+import { TextInput } from "grommet";
 
 import {
   MainFormContainer,
@@ -12,7 +12,7 @@ import {
   Validator,
   CardPreviewSection,
   MobileCardPreviewSection
-} from '../styles/FormStyles';
+} from "../styles/FormStyles";
 
 var noLeaks;
 class Education extends Component {
@@ -30,88 +30,98 @@ class Education extends Component {
     schoolDatesTo: "1950-01",
     schoolDatesToValidation: true,
     education: this.props.userInfo.userEducation || []
-  }
+  };
 
-  onInputChange = (e) => {
+  onInputChange = e => {
     this.setState({ [e.target.name]: e.target.value });
-  }
-  
+  };
+
   // Checking package that will be sent for user info
-  checkOnSubmit = (e) => {
-    e.preventDefault()
+  checkOnSubmit = e => {
+    e.preventDefault();
 
     let months = {
-      '01': 'January',
-      '02': 'February',
-      '03': 'March',
-      '04': 'April',
-      '05': 'May',
-      '06': 'June',
-      '07': 'July',
-      '08': 'August',
-      '09': 'September',
-      '10': 'October',
-      '10': 'November',
-      '12': 'December',
-    }
+      "01": "January",
+      "02": "February",
+      "03": "March",
+      "04": "April",
+      "05": "May",
+      "06": "June",
+      "07": "July",
+      "08": "August",
+      "09": "September",
+      "10": "October",
+      "11": "November",
+      "12": "December"
+    };
 
-    const { schoolDatesFrom,schoolDatesTo, schoolName, schoolCourse, schoolDegree } = this.state;
+    const {
+      schoolDatesFrom,
+      schoolDatesTo,
+      schoolName,
+      schoolCourse,
+      schoolDegree
+    } = this.state;
 
     if (schoolName === "") {
-      this.setState({schoolNameValidation: false})
-      return
+      this.setState({ schoolNameValidation: false });
+      return;
     } else {
-      this.setState({schoolNameValidation: true})
+      this.setState({ schoolNameValidation: true });
     }
-    
+
     if (schoolCourse === "") {
-      this.setState({schoolCourseValidation: false})
-      return
+      this.setState({ schoolCourseValidation: false });
+      return;
     } else {
-      this.setState({schoolCourseValidation: true})
+      this.setState({ schoolCourseValidation: true });
     }
-    
+
     if (schoolDegree === "") {
-      this.setState({schoolDegreeValidation: false})
-      return
+      this.setState({ schoolDegreeValidation: false });
+      return;
     } else {
-      this.setState({schoolDegreeValidation: true})
+      this.setState({ schoolDegreeValidation: true });
     }
 
     let newSchoolDatesFrom;
     if (schoolDatesFrom !== "1936-04") {
       if (!schoolDatesFrom) {
-        this.setState({schoolDatesFromValidation: false})
-        return
+        this.setState({ schoolDatesFromValidation: false });
+        return;
       } else {
-        newSchoolDatesFrom = schoolDatesFrom.split('-');
-        newSchoolDatesFrom = `${months[newSchoolDatesFrom[1]]} ${newSchoolDatesFrom[0]}`;
+        newSchoolDatesFrom = schoolDatesFrom.split("-");
+        newSchoolDatesFrom = `${months[newSchoolDatesFrom[1]]} ${
+          newSchoolDatesFrom[0]
+        }`;
       }
     }
     if (!newSchoolDatesFrom) {
-      this.setState({schoolDatesFromValidation: false})
-      return
+      this.setState({ schoolDatesFromValidation: false });
+      return;
     } else {
-      this.setState({schoolDatesFromValidation: true})
+      this.setState({ schoolDatesFromValidation: true });
     }
-    
+
     let newSchoolDatesTo;
     if (schoolDatesTo !== "1950-01") {
       if (!schoolDatesTo) {
-        newSchoolDatesTo = 'Present'
+        newSchoolDatesTo = "Present";
       } else {
-        newSchoolDatesTo = schoolDatesTo.split('-');
-        newSchoolDatesTo = `${months[newSchoolDatesTo[1]]} ${newSchoolDatesTo[0]}`;
+        newSchoolDatesTo = schoolDatesTo.split("-");
+        newSchoolDatesTo = `${months[newSchoolDatesTo[1]]} ${
+          newSchoolDatesTo[0]
+        }`;
       }
     }
     if (!newSchoolDatesTo) {
-      this.setState({schoolDatesToValidation: false})
-      return
+      this.setState({ schoolDatesToValidation: false });
+      return;
     } else {
-      this.setState({schoolDatesToValidation: true})
+      this.setState({ schoolDatesToValidation: true });
     }
-    
-    let schoolDates = `${newSchoolDatesFrom} to ${newSchoolDatesTo}`
+
+    let schoolDates = `${newSchoolDatesFrom} to ${newSchoolDatesTo}`;
 
     const lePackage = {
       user_id: this.props.userInfo.id,
@@ -119,9 +129,15 @@ class Education extends Component {
       school_dates: schoolDates,
       degree: schoolCourse,
       course: schoolDegree
-    }
+    };
 
-    axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/education`, lePackage)
+    axios
+      .post(
+        `${process.env.REACT_APP_BACKEND_SERVER}/users/${
+          this.props.userInfo.id
+        }/education`,
+        lePackage
+      )
       .then(res => {
         this.setState({
           submitSuccess: true,
@@ -130,23 +146,23 @@ class Education extends Component {
           schoolDegree: "",
           schoolDatesFrom: "1936-04",
           schoolDatesTo: "1950-01"
-        })
+        });
         noLeaks = setTimeout(() => {
-          this.setState({ submitSuccess: false })
-        }, 2000)
-        this.props.updateProgress()
+          this.setState({ submitSuccess: false });
+        }, 2000);
+        this.props.updateProgress();
       })
       .catch(err => {
-        this.setState({ submitFailure: true })
+        this.setState({ submitFailure: true });
         noLeaks = setTimeout(() => {
-          this.setState({ submitFailure: false })
-        }, 2000)
-        console.log(err)
-      })
-  }
+          this.setState({ submitFailure: false });
+        }, 2000);
+        console.log(err);
+      });
+  };
 
   componentWillUnmount() {
-    clearTimeout(noLeaks)
+    clearTimeout(noLeaks);
   }
 
   render() {
@@ -159,13 +175,10 @@ class Education extends Component {
         <div className="container">
           <FormSection>
             <form>
-
               {/* school */}
               <div className="text-input-container">
                 <LabelContainer>
-                  <label htmlFor="userSchoolName">
-                    School Name:
-                  </label>
+                  <label htmlFor="userSchoolName">School Name:</label>
                 </LabelContainer>
                 <Validator validated={this.state.schoolNameValidation}>
                   <TextInput
@@ -206,9 +219,7 @@ class Education extends Component {
               {/* schooldates */}
               <div className="text-input-container">
                 <LabelContainer>
-                  <label htmlFor="userSchoolDatesTo">
-                    Dates Attended To:
-                  </label>
+                  <label htmlFor="userSchoolDatesTo">Dates Attended To:</label>
                 </LabelContainer>
                 <Validator validated={this.state.schoolDatesToValidation}>
                   <TextInput
@@ -227,9 +238,7 @@ class Education extends Component {
               {/* course */}
               <div className="text-input-container">
                 <LabelContainer>
-                  <label htmlFor="userSchoolCourse">
-                    School Course:
-                  </label>
+                  <label htmlFor="userSchoolCourse">School Course:</label>
                 </LabelContainer>
                 <Validator validated={this.state.schoolCourseValidation}>
                   <TextInput
@@ -265,15 +274,12 @@ class Education extends Component {
                   />
                 </Validator>
               </div>
-
             </form>
           </FormSection>
           <CardPreviewSection>
             <header>
               <LabelContainer>
-                <label>
-                  Profile Preview:
-                </label>
+                <label>Profile Preview:</label>
               </LabelContainer>
             </header>
             <UserCard
@@ -296,20 +302,18 @@ class Education extends Component {
         <ButtonContainer>
           <Link to="/dashboard/experience">Back</Link>
           <button onClick={this.checkOnSubmit}>
-            {this.state.submitSuccess ?
-              <i className="success fa fa-check-circle fa-2x"></i>
-              :
-              'Save Info'
-            }
+            {this.state.submitSuccess ? (
+              <i className="success fa fa-check-circle fa-2x" />
+            ) : (
+              "Save Info"
+            )}
           </button>
           <Link to="/dashboard/billing">Next</Link>
         </ButtonContainer>
         <MobileCardPreviewSection>
           <header>
             <LabelContainer>
-              <label>
-                Profile Preview:
-              </label>
+              <label>Profile Preview:</label>
             </LabelContainer>
           </header>
           <UserCard
@@ -331,7 +335,7 @@ class Education extends Component {
           />
         </MobileCardPreviewSection>
       </MainFormContainer>
-    )
+    );
   }
 }
 
