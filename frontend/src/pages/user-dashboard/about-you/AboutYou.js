@@ -195,12 +195,16 @@ class AboutYou extends Component {
                 </LabelContainer>
                 <Select
                   id="userPlacesInterested"
+                  className="text-input"
                   name="placesInterestedInput"
                   value={this.state.placesInterestedInput}
                   onSearch={this.onPlacesChange}
                   onChange={this.choosePlacesInterested}
                   options={this.state.placesAutocomplete}
                 />
+              {this.state.placesInterestedArr.length === 0 ?
+                null
+                :
                 <div className="showing-places">
                   {this.state.placesInterestedArr.length === 0 ?
                     null
@@ -208,14 +212,15 @@ class AboutYou extends Component {
                     this.state.placesInterestedArr.map((location) => {
                       return (
                         <span className="places" key={location}>
-                          {location}
+                          <i className="success fa fa-times-circle"></i> {location}
                         </span>
                       );
                     })
                   }
                 </div>
+              }
               </div>
-              
+
               {/* summary */}
               <div className="text-input-container">
                 <LabelContainer>

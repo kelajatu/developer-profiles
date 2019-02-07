@@ -172,9 +172,12 @@ export default class Billing extends Component {
 }
 
 export const BillingDiv = styled.div`
-  width: 100%;
-  padding-left: 25px;
-  padding-right: 25px;
+  padding-left: 50px;
+  padding-right: 50px;
+  @media (max-width: 1150px) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
   h1 {
     color: rgb(42,42,42);
     margin-bottom: 50px;
@@ -225,10 +228,7 @@ export const BillingDiv = styled.div`
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-    @media (max-width: 1450px) {
-      justify-content: space-between;
-    }
+    justify-content: space-between;
     @media (max-width: 1000px) {
       flex-direction: column;
       justify-content: center;

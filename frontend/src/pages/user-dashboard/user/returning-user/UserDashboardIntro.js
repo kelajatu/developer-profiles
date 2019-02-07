@@ -294,15 +294,20 @@ class UserDashboardIntro extends Component {
 const IntroContainer = styled.div`
   width: calc(100% - 300px);
   margin-left: 300px;
-  padding: 130px 25px 25px;
+  padding: 130px 50px 50px;
   @media (max-width: 1400px) {
     width: calc(100% - 80px);
     margin-left: 80px;
+  }
+  @media (max-width: 1150px) {
+    padding-left: 20px;
+    padding-right: 20px;
   }
   @media (max-width: 650px) {
     width: 100%;
     margin-left: 0px;
   }
+
   h1 {
     text-align: left;
     font-size: 4rem;
@@ -315,17 +320,18 @@ const IntroContainer = styled.div`
     margin-top: 75px;
     border: 1px solid lightgrey;
     border-radius: 5px;
-    padding: 20px;
-    .progress-container {
-      width: 100%;
-      padding: 20px;
+    padding: 50px;
+    padding-left: 40px;
+    padding-right: 40px;
+    @media (max-width: 1150px) {
+      padding-left: 20px;
+      padding-right: 20px;
     }
     .basic-section,
     .intermediate-section,
     .strong-section,
     .powerhouse-section {
       margin-bottom: 30px;
-      padding: 10px;
     }
     
     h2 {
@@ -337,7 +343,7 @@ const IntroContainer = styled.div`
       margin-bottom: 20px;
       border-top: 1px solid lightgrey;
       border-bottom: 1px solid lightgrey;
-      padding: 8px;
+      padding: 12px 8px;
     }
     .input-status {
       font-size: 1.5rem;

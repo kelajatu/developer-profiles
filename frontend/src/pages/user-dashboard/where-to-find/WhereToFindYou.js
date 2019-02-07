@@ -239,6 +239,7 @@ class WhereToFindYou extends Component {
                 </LabelContainer>
                 <Select
                   id="usercurrentLocation"
+                  className="text-input"
                   name="currentLocationInput"
                   value={this.state.currentLocationInput}
                   onSearch={this.onLocationChange}
