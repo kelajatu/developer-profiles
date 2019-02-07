@@ -5,8 +5,19 @@ const Footer = () => {
   return (
     <FooterContainer>
       <div className="footer-right">
-      <a href="https://github.com/Lambda-School-Labs/labs9-developer-profiles">
-      <i class="fa fa-github"></i></a>
+
+        <a href="#">
+          <i className="fab fa-facebook" />
+        </a>
+        <a href="#">
+          <i className="fab fa-twitter" />
+        </a>
+        <a href="#">
+          <i className="fab fa-linkedin" />
+        </a>
+        <a href="#">
+          <i className="fab fa-github" />
+        </a>
       </div>
 
       <div className="footer-left">

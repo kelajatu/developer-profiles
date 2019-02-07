@@ -25,7 +25,6 @@ export const FooterContainer = styled.div`
   }
 
   p.footer-links {
-    font-size: px;
     font-weight: bold;
     color: #ffffff;
     margin: 0 0 10px;
@@ -51,15 +50,15 @@ export const FooterContainer = styled.div`
 
     a {
       display: inline-block;
-      width: 35px;
-      height: 35px;
-      background-color: var(--lp_btn_color);
-      border-radius: 2px;
-      font-size: 20px;
+      width: 40px;
+      height: 40px;
+      background-color: #33383b;
+      border-radius: 4px;
+      font-size: 30px;
       color: #ffffff;
       text-align: center;
-      line-height: 35px;
-      margin-left: 3px;
+      line-height: 42px;
+      margin-left: 5px;
     }
   }
 
