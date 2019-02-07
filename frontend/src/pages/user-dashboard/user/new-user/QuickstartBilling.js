@@ -7,8 +7,10 @@ import { centerFlex } from '../../../../global-styles/Mixins';
 var noLeaks;
 class Billing extends Component {
   state = {
+    monthSubmitLoading: false,
     monthSubmitSuccess: false,
     monthSubmitFailure: false,
+    yearSubmitLoading: false,
     yearSubmitSuccess: false,
     yearSubmitFailure: false,
   }
@@ -16,11 +18,17 @@ class Billing extends Component {
   selectPackage = (e, packageSelected) => {
     e.preventDefault();
 
+
     var handler = window.StripeCheckout.configure({
       key: 'pk_test_V4TVCnAGCgyfBK9pXODIWhfA',
       image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
       locale: 'auto',
       token: token => {
+        if (packageSelected === 'month') {
+          this.setState({ monthSubmitLoading: true });
+        } else if (packageSelected === 'year') {
+          this.setState({ yearSubmitLoading: true });
+        }
         axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/create-customer`, {stripeToken: token.id, userEmail: token.email})
         .then(res => {
           axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/subscribe-customer`, {customerId: res.data.id, packageSelected})
@@ -28,12 +36,12 @@ class Billing extends Component {
             axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, {stripe_customer_id: res.data.customer, stripe_subscription_name: res.data.plan.nickname})
             .then(res => {
               if (packageSelected === 'month') {
-                this.setState({monthSubmitSuccess: true})
+                this.setState({monthSubmitLoading: false, monthSubmitSuccess: true})
                 noLeaks = setTimeout(() => {
                   this.setState({ monthSubmitSuccess: false })
                 }, 2000)
               } else if (packageSelected === 'year') {
-                this.setState({yearSubmitSuccess: true})
+                this.setState({yearSubmitLoading: false, yearSubmitSuccess: true})
                 noLeaks = setTimeout(() => {
                   this.setState({ yearSubmitSuccess: false })
                 }, 2000)
@@ -72,6 +80,23 @@ class Billing extends Component {
   }
 
   render() {
+    let yearButtonContent;
+    if (this.state.yearSubmitLoading) {
+      yearButtonContent = <i className=" loading fas fa-spinner fa-2x fa-spin"></i>;
+    } else if (this.state.yearSubmitSuccess) {
+      yearButtonContent = <i className="success fa fa-check-circle fa-2x"></i>;
+    } else {
+      yearButtonContent ='Choose Package';
+    }
+
+    let monthButtonContent;
+    if (this.state.monthSubmitLoading) {
+      monthButtonContent = <i className=" loading fas fa-spinner fa-2x fa-spin"></i>;
+    } else if (this.state.monthSubmitSuccess) {
+      monthButtonContent = <i className="success fa fa-check-circle fa-2x"></i>;
+    } else {
+      monthButtonContent ='Choose Package';
+    }
     return (
       <BillingDiv>
           <header>
@@ -123,11 +148,7 @@ class Billing extends Component {
                 </section>
                 <section className="btn-section">
                   <button onClick={(e) => this.selectPackage(e, 'year')}>
-                    {this.state.yearSubmitSuccess ?
-                      <i className="success fa fa-check-circle fa-2x"></i>
-                      :
-                      'Choose Package'
-                    }
+                    {yearButtonContent}
                   </button>
                 </section>
               </div>
@@ -149,11 +170,7 @@ class Billing extends Component {
                 </section>
                 <section className="btn-section">
                   <button onClick={(e) => this.selectPackage(e, 'month')}>
-                    {this.state.monthSubmitSuccess ?
-                      <i className="success fa fa-check-circle fa-2x"></i>
-                      :
-                      'Choose Package'
-                    }
+                    {monthButtonContent}
                   </button>
                 </section>
               </div>
@@ -167,6 +184,7 @@ class Billing extends Component {
 export const BillingDiv = styled.div`
   padding-left: 50px;
   padding-right: 50px;
+  padding-bottom: 50px;
   @media (max-width: 1150px) {
     padding-left: 20px;
     padding-right: 20px;
@@ -189,6 +207,12 @@ export const BillingDiv = styled.div`
     border-top: 1px solid lightgrey;
     border-bottom: 1px solid lightgrey;
     padding: 8px;
+  }
+  .success {
+    color: var(--lp_btn_color);
+  }
+  .loading {
+    color: var(--lp_btn_color);
   }
 
 

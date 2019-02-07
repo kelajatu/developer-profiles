@@ -249,7 +249,7 @@ class Education extends Component {
               <div className="text-input-container">
                 <LabelContainer>
                   <label htmlFor="userSchoolDegree">
-                    School Degree:
+                    School Degree or Certification:
                   </label>
                 </LabelContainer>
                 <Validator validated={this.state.schoolDegreeValidation}>
