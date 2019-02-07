@@ -20,7 +20,7 @@ class Billing extends Component {
 
 
     var handler = window.StripeCheckout.configure({
-      key: 'pk_test_V4TVCnAGCgyfBK9pXODIWhfA',
+      key: "pk_test_V4TVCnAGCgyfBK9pXODIWhfA",
       image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
       locale: 'auto',
       token: token => {
