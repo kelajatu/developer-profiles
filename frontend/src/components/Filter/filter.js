@@ -122,21 +122,16 @@ const FilterBoxDiv = styled.aside`
   overflow: auto;
 
   .relocate-container {
-    @media (max-width: 839px) {
-      /* border: 1px solid red; */
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-    }
     .buttons {
       /* border: 1px solid red; */
       width: 90%;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+      left: -25px;
       @media (max-width: 839px) {
         /* border: 1px solid blue; */
-        width: 100%;
+        width: 80%;
         justify-content: center;   
       }
       button {
@@ -163,9 +158,16 @@ const FilterBoxDiv = styled.aside`
         height: 50px;
         } */
         @media (max-width: 839px) {
-          width: 100%;
+          width: 50%;
+          size: 15px;
         }
       }
+    }
+    @media (max-width: 839px) {
+      /* border: 1px solid red; */
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
     }
   }
   h1 {
