@@ -311,6 +311,14 @@ const IntroContainer = styled.div`
     padding-left: 20px;
     padding-right: 20px;
   }
+  @media (max-width: 450px) {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  @media (max-width: 400px) {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
   @media (max-width: 650px) {
     width: 100%;
     margin-left: 0px;
@@ -341,6 +349,7 @@ const IntroContainer = styled.div`
       padding-left: 20px;
       padding-right: 20px;
     }
+
     .basic-section,
     .intermediate-section,
     .strong-section,
@@ -367,6 +376,13 @@ const IntroContainer = styled.div`
       margin: 20px 40px;
       @media (max-width: 850px) {
         margin: 20px 20px;
+      }
+      @media (max-width: 450px) {
+        margin: 30px 30px;
+      }
+      @media (max-width: 400px) {
+        margin: 45px 20px;
+        ${centerFlex('column')}
       }
       .success {
         color: var(--accent-color);

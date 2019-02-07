@@ -94,6 +94,9 @@ const QuickstartContainer = styled.div`
     @media (max-width: 1150px) {
       width: 97%;
     }
+    @media (max-width: 500px) {
+      padding-top: 100px;
+    }
     @media (max-width: 450px) {
       border-left: none;
       border-right: none;

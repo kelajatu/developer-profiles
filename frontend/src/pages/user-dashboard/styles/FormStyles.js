@@ -19,10 +19,16 @@ export const MainFormContainer = styled.main`
     color: rgb(42,42,42);
     margin-bottom: 50px;
     text-align: center;
-    @media (max-width: 1100px) {
+    @media (max-width: 1150px) {
       text-align: left;
-      padding-left: 25px;
+      padding-left: 20px;
       font-size: 4rem;
+    }
+    @media (max-width: 450px) {
+      padding-left: 10px;
+    }
+    @media (max-width: 400px) {
+      padding-left: 5px;
     }
   }
   .container {
@@ -269,6 +275,12 @@ export const ButtonContainer = styled.div`
   align-items: center;
   margin-top: 45px;
   margin-bottom: 50px;
+  @media (max-width: 500px) {
+    width: 95%;
+  }
+  @media (max-width: 450px) {
+    flex-direction: column;
+  }
 
   .success {
     color: var(--lp_btn_color);
@@ -288,6 +300,11 @@ export const ButtonContainer = styled.div`
     ${centerFlex()};
     margin-left: 25px;
     margin-right: 25px;
+    @media (max-width: 450px) {
+      margin-left: 0;
+      margin-right: 0;
+      margin-bottom: 25px;
+    }
     &:hover {
       color: var(--lp_btn_color);
       transform: scale(1.1);
@@ -313,6 +330,9 @@ export const ButtonContainer = styled.div`
     background-color: var(--lp_btn_color);
     border: none;
     border-radius: 100px;
+    @media (max-width: 450px) {
+      margin-bottom: 25px;
+    }
     ${centerFlex()};
     &:hover {
       color:var(--accent-color);

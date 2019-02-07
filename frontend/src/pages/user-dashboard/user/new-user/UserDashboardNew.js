@@ -91,6 +91,9 @@ export const ButtonContainer = styled.div`
   align-items: center;
   margin-top: 30px;
   margin-bottom: 50px;
+  @media (max-width: 450px) {
+    flex-direction: column;
+  }
 
   a {
     width: 230px;
@@ -105,6 +108,12 @@ export const ButtonContainer = styled.div`
     background-color: var(--lp_btn_color);
     border: none;
     border-radius: 100px;
+    @media (max-width: 500px) {
+    width: 95%;
+    }
+    @media (max-width: 450px) {
+      margin-bottom: 25px;
+    }
     ${centerFlex()};
     &:hover {
       color:var(--accent-color);
@@ -118,6 +127,9 @@ export const ButtonContainer = styled.div`
     }
     &:first-child {
       margin-right: 50px;
+      @media (max-width: 450px) {
+        margin-right: 0;
+      }
     }
   }
 `;
