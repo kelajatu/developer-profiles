@@ -165,8 +165,10 @@ server.post('/get-customer', (req, res) => {
     customerId,
     function(err, customer) {
       if (err) {
+        console.log(err)
         res.send(err)
       } else {
+        console.log(customer)
         res.send(customer)
       }
     }

@@ -21,7 +21,7 @@ class Billing extends Component {
     if (this.props.userInfo.stripe_customer_id) {
       let customerId = this.props.userInfo.stripe_customer_id;
       console.log(customerId)
-      axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/get-customer`, {customerId})
+      axios.post(`http://localhost:7000/get-customer`, {customerId})
       .then(res => {
         console.log(res.data.subscriptions.data[0])
       })
