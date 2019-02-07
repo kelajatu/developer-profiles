@@ -277,6 +277,8 @@ class Education extends Component {
               </LabelContainer>
             </header>
             <UserCard
+              canEdit
+              delExtra={this.props.delExtra}
               id={this.props.userInfo.id}
               github={this.props.userInfo.github}
               linkedin={this.props.userInfo.linkedin}

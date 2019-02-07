@@ -17,8 +17,7 @@ export default class Nav extends Component {
             <div className="nav-link">
               <a
                 href="/"
-                onClick={() => this.props.auth.logout({ ...this.props })}
-              >
+                onClick={() => this.props.auth.logout({ ...this.props })} >
                 Logout
               </a>
             </div>

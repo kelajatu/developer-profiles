@@ -173,9 +173,19 @@ export const UserCardContainer = styled.div`
       flex-direction: row;
       justify-content: space-between;
     }
-    button{
+    i{
       /* NEEDS STYLING */
+      &:hover{
+        ${props => {
+        if(props.canEdit){
+          return ('color: #ee6c4d; cursor: pointer')
+        } else {
+          return null;
+        }
+      }};
+    }  
     }
+    
   }
   .proj-image-container {
     img {
@@ -190,15 +200,7 @@ export const UserCardContainer = styled.div`
   .proj-etc-container {
     margin-bottom: 20px;
     margin-right: 28px;
-    &:hover{
-        ${props => {
-        if(props.canEdit){
-          return ('background: red; cursor: pointer')
-        } else {
-          return null;
-        }
-      }};
-    }
+    
   }
   .extratitle {
     font-size: 20px;
