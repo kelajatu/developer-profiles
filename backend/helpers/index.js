@@ -14,7 +14,6 @@ module.exports = {
     //skills/places associated with those IDs in a batch
     getUserSkills: async function(id, type){
       let currentSkills = await user_helpers.getUserSkillID(id, type)
-      console.log("current", currentSkills[type])
       if (currentSkills[type] === null) {
           return []
       } else {

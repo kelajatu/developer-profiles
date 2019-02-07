@@ -22,14 +22,11 @@ class ContentBox extends Component {
               <br />
               <BtnRow>
                 <CallToAction>
-                  <a href="#recruiters">
-                    <Btn>Recruiters</Btn>
-                  </a>{" "}
+                    <Btn onClick={() => {this.props.scroll(this.props.myRef)}}>Recruiters</Btn>
+                  {" "}
                 </CallToAction>
                 <CallToAction>
-                  <a href="#developers">
-                    <Btn>Developers</Btn>
-                  </a>
+                    <Btn onClick={() => {this.props.scroll(this.props.myDevRef)}}>Developers</Btn>
                 </CallToAction>
               </BtnRow>
           </CTAContainer>
