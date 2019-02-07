@@ -41,6 +41,7 @@ class Education extends Component {
     e.preventDefault();
 
     let months = {
+
       "01": "January",
       "02": "February",
       "03": "March",

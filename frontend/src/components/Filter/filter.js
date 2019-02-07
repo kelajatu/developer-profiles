@@ -24,51 +24,55 @@ export default class FilterBox extends Component {
     );
   }
 
-  ham() {
-    return (
-      <div className="menu-button-container">
-        <MenuButton menuOpen={this.state.menuOpen}>
-          <i
-            onClick={() => this.setState({ menuOpen: !this.state.menuOpen })}
-            class="fa fa-bars"
-          />
-        </MenuButton>
-      </div>
-    );
-  }
+
+  // ham = () => {
+  //   return(
+  //       <div className="menu-button-open">
+  //             <i onClick={()=> this.setState({ menuOpen: true })} 
+  //               class="fa fa-bars"></i>
+  //       </div>
+  //     )
+  // }
+  // exit = () => {
+  //   return(
+  //   <div className="menu-button-close">
+  //       <i onClick={()=> this.setState({ menuOpen: false })} class="fa fa-times"></i>
+  //  </div>)
+  // }
 
   render() {
     // console.log(this.state.menuOpen)
     return (
       <Grommet theme={filterTheme}>
-        {window.innerWidth < 839 ? this.ham() : null}
+        <Hamburger menuOpen={this.state.menuOpen}>
+              <i onClick={()=> this.setState({ menuOpen: true })} 
+                class="fa fa-bars"></i>
+        </Hamburger>
         <FilterBoxDiv menu={this.state.menuOpen}>
-          {window.innerWidth < 839 ? null : (
+          {window.innerWidth < 839 ? null :
             <h2>
-              <strong>{this.props.publicPageState.usersFound}</strong> possible
-              profiles
-            </h2>
-          )}
+              <strong>{this.props.publicPageState.usersFound} </strong>
+              possible profiles
+            </h2>}
           <JobTitles
             updatePublicPageState={this.props.updatePublicPageState}
             toggleCheckMarks={this.props.toggleCheckMarks}
-            publicPageState={this.props.publicPageState}
-          />
+            publicPageState={this.props.publicPageState} />
           <Located
             updatePublicPageState={this.props.updatePublicPageState}
             publicPageState={this.props.publicPageState}
-            filter={this.props.filter}
-          />
+            filter={this.props.filter} />
           <div className="relocate-container">
             <Relocate
               updatePublicPageState={this.props.updatePublicPageState}
               publicPageState={this.props.publicPageState}
               filter={this.props.filter}
             />
-            {window.innerWidth < 839 ? this.buttons() : null}
           </div>
-          {window.innerWidth < 839 ? null : this.buttons()}
-          {this.state.menuOpen && window.innerWidth < 839 ? this.ham() : null}
+          {window.innerWidth < 839 ? this.buttons() : null}
+          <div className="menu-button-close">
+        <i onClick={()=> this.setState({ menuOpen: false })} class="fa fa-times"></i>
+   </div>
         </FilterBoxDiv>
       </Grommet>
     );
@@ -93,28 +97,34 @@ const filterTheme = {
   }
 };
 
-const MenuButton = styled.div`
+
+const Hamburger = styled.div `
+  z-index: 10;
   height: 20px;
   width: 100%;
-  top: ${props => (props.menuOpen ? 280 : 50)}px;
-  justify-content: ${props => (props.menuOpen ? "center" : null)};
+  top: ${props => props.menuOpen ? 0 : 50}px;
+  justify-content: center;
   margin: auto;
   position: fixed;
-  z-index: 1;
   cursor: pointer;
   font-size: 20px;
   color: grey;
+  @media (min-width: 840px){
+      display: none;
+    }
   @media (max-width: 839px) {
-    /* border: 1px solid red; */
     display: flex;
     align-items: center;
     padding: 15px;
     margin-bottom: 10px;
     width: 100%;
   }
-`;
+  @media (max-width: 480px) {
+  }
+`
 
 const FilterBoxDiv = styled.aside`
+  background: white;
   padding-left: 20px;
   background-color: white;
   z-index: 10;
@@ -126,6 +136,12 @@ const FilterBoxDiv = styled.aside`
   flex-direction: column;
   /* border: 1px solid blue; */
   overflow: auto;
+  .menu-button-close {
+    font-size: 20px;
+    @media (min-width: 840px){
+      display: none;
+    }
+  }
   .buttons {
     /* border: 1px solid red; */
     width: 90%;
@@ -167,6 +183,11 @@ const FilterBoxDiv = styled.aside`
     }
   }
   .relocate-container {
+    @media (max-width: 480px) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
     .buttons {
       /* border: 1px solid red; */
       width: 90%;
@@ -177,7 +198,10 @@ const FilterBoxDiv = styled.aside`
       @media (max-width: 839px) {
         /* border: 1px solid blue; */
         width: 80%;
-        justify-content: center;
+        justify-content: center;   
+      @media (max-width: 480px) {
+      margin: auto;
+    }
       }
       button {
         width: 70%;
@@ -241,7 +265,12 @@ const FilterBoxDiv = styled.aside`
       margin-bottom: 0;
     }
     @media (max-width: 480px) {
-      height: ${props => (props.menu ? 100 : 0)}vh;
+      height: ${props => props.menu ? 100 : 0 }vh;
+      flex-direction: column;
+      h1 {
+      font-size: 25px;
+      margin-bottom: 10px;
+    }
     }
   }
 `;

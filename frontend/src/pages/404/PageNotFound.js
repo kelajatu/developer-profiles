@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
 import { centerFlex } from '../../global-styles/Mixins';
-import warning, { ReactComponent as ReactWarning } from './warning.svg';
+import { ReactComponent as ReactWarning } from './warning.svg';
 
 function PageNotFound() {
   return (

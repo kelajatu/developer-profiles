@@ -52,7 +52,6 @@ class Experience extends Component {
       "11": "November",
       "12": "December"
     };
-
     const { jobTitle, jobDatesFrom, jobDatesTo, jobDescription } = this.state;
 
     if (jobTitle === "") {
@@ -229,8 +228,7 @@ class Experience extends Component {
                     plain
                     resize={false}
                     value={this.state.jobDescription}
-                    onChange={this.onInputChange}
-                  />
+                    onChange={this.onInputChange} />
                 </Validator>
               </div>
             </form>

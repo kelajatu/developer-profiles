@@ -7,7 +7,7 @@ export const UserCardContainer = styled.div`
   height: ${props => (props.expanded ? null : null)}px;
   /* height: ${props => (props.expanded ? null : 'auto')}; */
   min-height: ${props => (props.expanded ? 700 : null)}px;
-  max-width: 520px;
+  width: 520px;
   margin-bottom: 30px;
   /* padding-bottom: 20px; */
   margin-right: 30px;
@@ -31,7 +31,7 @@ export const UserCardContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    .top{
+    .top {
       box-sizing: border-box;
       display: flex;
       justify-content: center;
@@ -163,10 +163,18 @@ export const UserCardContainer = styled.div`
       margin-bottom: 15px;
       border-top: 1px solid lightgrey;
       border-bottom: 1px solid lightgrey;
-      width: 465px;
+      max-width: 465px;
     }
     a {
       margin-left: 5px;
+    }
+    .project-top{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    button{
+      /* NEEDS STYLING */
     }
   }
   .proj-image-container {
@@ -182,6 +190,15 @@ export const UserCardContainer = styled.div`
   .proj-etc-container {
     margin-bottom: 20px;
     margin-right: 28px;
+    &:hover{
+        ${props => {
+        if(props.canEdit){
+          return ('background: red; cursor: pointer')
+        } else {
+          return null;
+        }
+      }};
+    }
   }
   .extratitle {
     font-size: 20px;

@@ -1,6 +1,9 @@
+
 import React, { Component } from "react";
 import styled from "styled-components";
 import { CheckBox } from "grommet";
+
+
 
 export default class JobTitles extends Component {
   constructor(props) {
@@ -73,6 +76,13 @@ const JobTitlesDiv = styled.div`
           font-size: 18px;
         }
         @media (max-width: 480px) {
+
+            height: 150px;
+            flex-wrap: wrap;
+            justify-content: center;
+            span {
+                margin-right: 10px;
+            }
         }
       }
     }

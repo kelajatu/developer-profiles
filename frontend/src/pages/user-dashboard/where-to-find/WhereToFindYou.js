@@ -326,7 +326,7 @@ class WhereToFindYou extends Component {
                   :
                   <LabelContainer>
                     <label style={{width: '90%', wordBreak: 'break-all', fontSize: '1.4rem'}} htmlFor="userPortfolio">
-                      Need to include 'http://' or 'https://'
+                      Need to include 'http://' or 'https:// or leave blank'
                     </label>
                   </LabelContainer>
                 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { centerFlex } from '../../../../global-styles/Mixins';
-import programmer, { ReactComponent as ReactProgrammer } from '../../programmer.svg';
+import { ReactComponent as ReactProgrammer } from '../../programmer.svg';
 
 class UserDashboardNew extends Component {
 

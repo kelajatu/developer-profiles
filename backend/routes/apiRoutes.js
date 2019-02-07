@@ -63,7 +63,6 @@ server.post('/location', (req, res) => {
     res.send(response.data)
   })
   .catch(err => {
-    console.log(err)
     res.send({ err })
   })
 });
@@ -72,11 +71,9 @@ server.post('/gio', (req, res) => {
   const url = `https://maps.googleapis.com/maps/api/place/details/json?placeid=${req.body.placeId}&fields=geometry&key=${key}`
   axios.post(url)
   .then(response => {
-    console.log(response.data)
     res.send(response.data)
   })
   .catch(err => {
-    console.log(err)
     res.send({ err })
   })
 });
@@ -90,8 +87,7 @@ server.put("/acclaim/:id", (req, res) => {
         res.status(200).json(data)
         })
     }).catch(err => {
-    console.log(err);
-    res.send({ err });
+      res.send({ err })
     });
 });
 
@@ -104,7 +100,7 @@ server.post('/create-customer', (req, res) => {
     source: stripeToken
   }, function(err, customer) {
       if (err) {
-        console.log(err)
+        res.send({ err })
       } else {
         res.send(customer)
       }
@@ -122,13 +118,12 @@ server.post('/subscribe-customer', (req, res) => {
         },
       ]
     }, function(err, subscription) {
-        if (err) {
-          console.log(err)
-          res.send('ERROR')
-        } else {
-          res.send(subscription)
-        }
+      if (err) {
+        res.send({ err })
+      } else {
+        res.send(subscription)
       }
+    }
     );
   } else if (packageSelected === 'year') {
     stripe.subscriptions.create({
@@ -139,18 +134,29 @@ server.post('/subscribe-customer', (req, res) => {
         },
       ]
     }, function(err, subscription) {
-        if (err) {
-          console.log(err)
-          res.send('ERROR')
-        } else {
-          res.send(subscription)
-        }
+      if (err) {
+        res.send({ err })
+      } else {
+        res.send(subscription)
       }
+    }
     );
   } else {
     res.send('Error')
   }
 });
 
+server.post('/get-customer', (req, res) => {
+  const { customerId } = req.body;
+  stripe.customers.retrieve({
+    customerId,
+  }, function(err, customer) {
+      if (err) {
+        res.send({ err })
+      } else {
+        res.send(customer)
+      }
+  });
+});
 
 module.exports = server 
