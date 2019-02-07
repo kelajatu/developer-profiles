@@ -28,6 +28,7 @@ export default class Relocate extends Component {
 }
 
 const RelocateDiv = styled.div`
+    /* border: 1px solid red; */
   @media (max-width: 839px) {
     display: flex;
     align-items: center;
