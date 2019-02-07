@@ -144,38 +144,46 @@ server.post('/subscribe-customer', (req, res) => {
   }
 });
 
-// server.post('/get-customer', (req, res) => {
-//   const { customerId } = req.body;
-//   stripe.customers.retrieve({
-//     customerId,
-//   }, function(err, customer) {
-//       if (err) {
-//         res.send(err)
-//       } else {
-//         res.send(customer)
-//       }
-//   });
-// });
-
 server.post('/get-customer', (req, res) => {
   const { customerId } = req.body;
+  console.log('AAAAAAAAAAAAAAAAAAA0')
   console.log(customerId)
-  stripe.customers.retrieve(
-    customerId,
-    function(err, customer) {
-      console.log('AAAAAAAAAAAAAAAAAAA1')
+  stripe.customers.create({
+    customerId: customerId
+  }, function(err, customer) {
+    console.log('AAAAAAAAAAAAAAAAAAA1')
       if (err) {
         console.log('AAAAAAAAAAAAAAAAAAA2')
         console.log(err)
-        res.send(err)
+        res.send({ err })
       } else {
         console.log('AAAAAAAAAAAAAAAAAAA3')
         console.log(customer)
         res.send(customer)
       }
-      console.log('AAAAAAAAAAAAAAAAAAA3')
-    }
-  );
+      console.log('AAAAAAAAAAAAAAAAAAA4')
+    });
+    console.log('AAAAAAAAAAAAAAAAAAA5')
 });
+
+// server.post('/get-customer', (req, res) => {
+//   const { customerId } = req.body;
+//   console.log(customerId)
+//   stripe.customers.retrieve(
+//     customerId,
+//     function(err, customer) {
+//       console.log('AAAAAAAAAAAAAAAAAAA1')
+//       if (err) {
+//         console.log(err)
+//         res.send(err)
+//       } else {
+//         console.log('AAAAAAAAAAAAAAAAAAA2')
+//         console.log(customer)
+//         res.send(customer)
+//       }
+//       console.log('AAAAAAAAAAAAAAAAAAA3')
+//     }
+//   );
+// });
 
 module.exports = server 
