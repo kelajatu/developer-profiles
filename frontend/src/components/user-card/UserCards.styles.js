@@ -13,6 +13,7 @@ export const UserCardsDiv = styled.div`
     }
     @media (max-width: 839px) {
     margin: 0 auto;
+    padding-left: 30px; 
     padding-top: 75px;
     width: 100%;
     @media (max-width: 480px) {
@@ -22,7 +23,7 @@ export const UserCardsDiv = styled.div`
 `;
 
 export const LoaderContainer = styled.div`
-  margin-left: 300px;
+  margin-left: 0px;
   padding-top: 130px;
   ${centerFlex()};
   h1 {
