@@ -52,8 +52,6 @@ class UserCard extends Component{
 
     del(type, thingToBeDeleted ){
         if(this.props.canEdit){
-            // console.log(this.props)
-            // console.log(project)
             this.props.delExtra(thingToBeDeleted.user_id, type, thingToBeDeleted.id)
         }
     }

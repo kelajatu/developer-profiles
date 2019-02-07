@@ -356,15 +356,13 @@ class UserDashboardContainer extends Component {
   }
 
   delExtra(user_id, extras, extras_id){
-    axios.delete(`${process.env.REACT_APP_BACKEND_SERVER}/users/${user_id}/${extras}/${extras_id}`).then(res => {
-      alert(`${extras} deleted!`)
-      console.log(this.state)
-      // this.setState({
-      //   userInfo: 
-      // })
-    }).catch(err => {
-      console.log(err)
-    })
+    if(window.confirm("Are you sure you want to delete?")){
+        axios.delete(`${process.env.REACT_APP_BACKEND_SERVER}/users/${user_id}/${extras}/${extras_id}`).then(res => {
+            alert(`${extras} deleted!`)
+            }).catch(err => {
+              console.log(err)
+            })
+    }
   }
 
   render() {
