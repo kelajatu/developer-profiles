@@ -1,6 +1,4 @@
 require('dotenv').config()
-const knex = require("knex");
-const dbconfig = require("../knexfile");
 const db = require('../helpers/index.js')
 const express = require('express');
 const helmet = require('helmet');
@@ -161,16 +159,21 @@ server.post('/subscribe-customer', (req, res) => {
 
 server.post('/get-customer', (req, res) => {
   const { customerId } = req.body;
+  console.log(customerId)
   stripe.customers.retrieve(
     customerId,
     function(err, customer) {
+      console.log('AAAAAAAAAAAAAAAAAAA1')
       if (err) {
+        console.log('AAAAAAAAAAAAAAAAAAA2')
         console.log(err)
         res.send(err)
       } else {
+        console.log('AAAAAAAAAAAAAAAAAAA3')
         console.log(customer)
         res.send(customer)
       }
+      console.log('AAAAAAAAAAAAAAAAAAA3')
     }
   );
 });
