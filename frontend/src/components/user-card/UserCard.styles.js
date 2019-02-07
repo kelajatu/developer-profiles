@@ -173,17 +173,21 @@ export const UserCardContainer = styled.div`
       flex-direction: row;
       justify-content: space-between;
     }
-    i{
-      /* NEEDS STYLING */
-      &:hover{
-        ${props => {
-        if(props.canEdit){
-          return ('color: #ee6c4d; cursor: pointer')
-        } else {
-          return null;
-        }
-      }};
-    }  
+    .project-right{
+      display: flex;
+      flex-direction: column;
+      i {
+        padding: 5px;
+        &:hover{
+          ${props => {
+          if(props.canEdit){
+            return ('color: #ee6c4d; cursor: pointer')
+          } else {
+            return null;
+          }
+          }};
+        }  
+      }
     }
     
   }

@@ -56,6 +56,13 @@ class UserCard extends Component{
         }
     }
 
+    edit(type, thingToBeEdited ){
+        console.log("edit", thingToBeEdited)
+        // if(this.props.canEdit){
+        //     this.props.delExtra(thingToBeEdited.user_id, type, thingToBeEdited.id)
+        // }
+    }
+
     render(){
         let topSkillsArr;
         let addSkillsArr;
@@ -156,7 +163,10 @@ class UserCard extends Component{
                                                 <div className="extratitle">{project.project_title}</div>
                                                 <a rel="noopener noreferrer" href={project.link} target="_blank">{project.link}</a>
                                             </div>
-                                            {this.props.canEdit ? <i onClick={()=> this.del("projects", project)} className="far fa-times-circle"></i> : null}
+                                            <div className="project-right">
+                                                {this.props.canEdit ? <i onClick={()=> this.del("projects", project)} className="far fa-times-circle"></i> : null}
+                                                {this.props.canEdit ? <i onClick={()=> this.edit("projects", project)} className="far fa-edit"></i> : null}
+                                            </div>
                                         </div>
                                         <div className="proj-image-container">
                                             <img width="150px" height="min-height" src={project.project_img} alt="project"/>
