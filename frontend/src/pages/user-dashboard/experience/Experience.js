@@ -142,6 +142,29 @@ class Experience extends Component {
 
   editExtra = (edit) => {
     let dates = edit.job_dates.split(" to ")
+    let monthMaker = {
+      'January': '01',
+      'February': '02',
+      'March': '03',
+      'April': '04',
+      'May': '05',
+      'June': '06',
+      'July': '07',
+      'August': '08',
+      'September': '09',
+      'October': '10',
+      'November': '11',
+      'December': '12',
+    }
+    let startFrom = dates[0].split(" ")
+    let monthFrom = startFrom[0]
+    let yearFrom = startFrom[1]
+    let endFrom = `${yearFrom}-${monthMaker[monthFrom]}`
+    let startTo = dates[1].split(" ")
+    let monthTo = startTo[0]
+    let yearTo = startTo[1]
+    let endTo = `${yearTo}-${monthMaker[monthTo]}`
+    
     if(this.state.enableEdit){
         this.setState({
           enableEdit: false,
@@ -157,8 +180,8 @@ class Experience extends Component {
           jobId: edit.id,
           jobDescription: edit.job_description,
           jobTitle: edit.job_description,
-          jobDatesFrom: dates[0],
-          jobDatesTo: dates[1],
+          jobDatesFrom: endFrom,
+          jobDatesTo: endTo,
           job_dates: edit.job_dates,
         })
     }
@@ -169,7 +192,7 @@ class Experience extends Component {
       user_id: this.props.userInfo.id,
       id: this.state.jobId,
       job_title: this.state.jobTitle,
-      job_dates: this.state.jobDates,
+      job_dates: this.state.job_dates,
       job_description: this.state.jobDescription,
     }
     console.log("submitEdit", lePackage, this.state)

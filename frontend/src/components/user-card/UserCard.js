@@ -193,20 +193,18 @@ class UserCard extends Component{
                                 <h2>Education</h2>
                                 {userEducationArr.map(education => 
                                     <div key={education.school} className="proj-etc-container">
-                                    <div className="project-top">
-                                        <div className="project-left">
-                                            <div className="extratitle">{education.school}</div>
-                                            <div className="dates">{education.school_dates}</div>
-                                            <div className="indent">{education.degree}</div>
-                                            <div className="indent">{education.course}</div> 
-                                        </div>
-                                        <div className="project-right">
+                                        <div className="project-top">
+                                            <div className="project-left">
+                                                <div className="extratitle">{education.school}</div>
+                                                <div className="dates">{education.school_dates}</div>
+                                                <div className="indent">{education.degree}</div>
+                                                <div className="indent">{education.course}</div> 
+                                            </div>
+                                            <div className="project-right">
                                                 {this.props.canEditEdu ? <i onClick={()=> this.del("education", education)} className="far fa-times-circle"></i> : null}
                                                 {this.props.canEditEdu ? <i onClick={()=> this.edit(education)} className="far fa-edit"></i> : null}
+                                            </div>
                                         </div>
-                                    </div>
-                                            
-                                        
                                     </div>
                                 )}
                             </div>    
