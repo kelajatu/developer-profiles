@@ -3,46 +3,52 @@ import styled from "styled-components";
 import JobTitles from "./jobTitles";
 import Located from "./located";
 import Relocate from "./relocate";
-import { Grommet, Select } from 'grommet';
-import { ButtonContainer } from "../../pages/user-dashboard/styles/FormStyles";
+import { Grommet } from "grommet";
 
 export default class FilterBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      menuOpen: false,
+      menuOpen: false
     };
   }
 
-  buttons(){
-    return(
-          <div className="buttons">
-            <button onClick={() => this.props.filter(true)}>Search</button>
-            <button onClick={() => this.props.updatePublicPageState(false)}>Clear </button>
-          </div>
-      )
+  buttons() {
+    return (
+      <div className="buttons">
+        <button onClick={() => this.props.filter(true)}>Search</button>
+        <button onClick={() => this.props.updatePublicPageState(false)}>
+          Clear{" "}
+        </button>
+      </div>
+    );
   }
 
-  ham(){
-    return(
-        <div className="menu-button-container">
-          <MenuButton menuOpen={this.state.menuOpen}>
-              <i onClick={()=> this.setState({ menuOpen: !this.state.menuOpen })} 
-                class="fa fa-bars"></i>
-          </MenuButton>
-        </div>
-      )
+  ham() {
+    return (
+      <div className="menu-button-container">
+        <MenuButton menuOpen={this.state.menuOpen}>
+          <i
+            onClick={() => this.setState({ menuOpen: !this.state.menuOpen })}
+            class="fa fa-bars"
+          />
+        </MenuButton>
+      </div>
+    );
   }
 
   render() {
     // console.log(this.state.menuOpen)
     return (
       <Grommet theme={filterTheme}>
-        {window.innerWidth < 839 ? this.ham(): null}
+        {window.innerWidth < 839 ? this.ham() : null}
         <FilterBoxDiv menu={this.state.menuOpen}>
-          {window.innerWidth < 839 ? null :<h2>
-            <strong>{this.props.publicPageState.usersFound}</strong>  possible profiles
-          </h2>}
+          {window.innerWidth < 839 ? null : (
+            <h2>
+              <strong>{this.props.publicPageState.usersFound}</strong> possible
+              profiles
+            </h2>
+          )}
           <JobTitles
             updatePublicPageState={this.props.updatePublicPageState}
             toggleCheckMarks={this.props.toggleCheckMarks}
@@ -62,7 +68,7 @@ export default class FilterBox extends Component {
             {window.innerWidth < 839 ? this.buttons() : null}
           </div>
           {window.innerWidth < 839 ? null : this.buttons()}
-          {this.state.menuOpen && window.innerWidth < 839 ? this.ham(): null}
+          {this.state.menuOpen && window.innerWidth < 839 ? this.ham() : null}
         </FilterBoxDiv>
       </Grommet>
     );
@@ -72,26 +78,26 @@ export default class FilterBox extends Component {
 const filterTheme = {
   global: {
     colors: {
-      brand: 'coral',
-    },
+      brand: "coral"
+    }
   },
   textInput: {
     extend: {
-      width: '200px',
+      width: "200px"
     }
   },
   rangeInput: {
     extend: {
-      width: '250px',
-    },
+      width: "250px"
+    }
   }
 };
 
-const MenuButton = styled.div `
+const MenuButton = styled.div`
   height: 20px;
   width: 100%;
-  top: ${props => props.menuOpen ? 280 : 50}px;
-  justify-content: ${props => props.menuOpen ? 'center' : null};
+  top: ${props => (props.menuOpen ? 280 : 50)}px;
+  justify-content: ${props => (props.menuOpen ? "center" : null)};
   margin: auto;
   position: fixed;
   z-index: 1;
@@ -106,7 +112,7 @@ const MenuButton = styled.div `
     margin-bottom: 10px;
     width: 100%;
   }
-`
+`;
 
 const FilterBoxDiv = styled.aside`
   padding-left: 20px;
@@ -121,44 +127,44 @@ const FilterBoxDiv = styled.aside`
   /* border: 1px solid blue; */
   overflow: auto;
   .buttons {
-      /* border: 1px solid red; */
-      width: 90%;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      @media (max-width: 839px) {
-        /* border: 1px solid blue; */
-        width: 80%;
-        justify-content: center;   
-      }
-      button {
-        width: 70%;
-        color: black;
-        margin: 10px;
-        padding: 5px;
-        font-size: 20px;
-        letter-spacing: 1.5px;
-        background: white;
-        border: solid 1px black;
-        border-radius: 20px;
-        /* display: flex;
+    /* border: 1px solid red; */
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    @media (max-width: 839px) {
+      /* border: 1px solid blue; */
+      width: 80%;
+      justify-content: center;
+    }
+    button {
+      width: 70%;
+      color: black;
+      margin: 10px;
+      padding: 5px;
+      font-size: 20px;
+      letter-spacing: 1.5px;
+      background: white;
+      border: solid 1px black;
+      border-radius: 20px;
+      /* display: flex;
         align-items: center;
         justify-content: center; */
-        outline-style: none;
-        &:hover {
-          cursor: pointer;
-          background: black;
-          color: white;
-        }
-        /* @media (max-width: 839px) {
+      outline-style: none;
+      &:hover {
+        cursor: pointer;
+        background: black;
+        color: white;
+      }
+      /* @media (max-width: 839px) {
         width: 20%;
         height: 50px;
         } */
-        @media (max-width: 839px) {
-          width: 50%;
-          size: 15px;
-        }
+      @media (max-width: 839px) {
+        width: 50%;
+        size: 15px;
       }
+    }
   }
   .relocate-container {
     .buttons {
@@ -171,7 +177,7 @@ const FilterBoxDiv = styled.aside`
       @media (max-width: 839px) {
         /* border: 1px solid blue; */
         width: 80%;
-        justify-content: center;   
+        justify-content: center;
       }
       button {
         width: 70%;
@@ -221,8 +227,8 @@ const FilterBoxDiv = styled.aside`
     /* border: 1px solid red; */
     width: 100%;
     padding-right: 20px;
-    height: ${props => props.menu ? 300 : 0 }px;
-    z-index: ${props => props.menu ? 1 : -10 };
+    height: ${props => (props.menu ? 300 : 0)}px;
+    z-index: ${props => (props.menu ? 1 : -10)};
     font-size: 12px;
     padding-top: 70px;
     border-bottom: solid lightgrey 1px;
@@ -235,11 +241,10 @@ const FilterBoxDiv = styled.aside`
       margin-bottom: 0;
     }
     @media (max-width: 480px) {
-      height: ${props => props.menu ? 100 : 0 }vh;
+      height: ${props => (props.menu ? 100 : 0)}vh;
     }
-  } 
+  }
 `;
-
 
 // <FormSection>
 //               <form>
