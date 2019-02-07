@@ -3,25 +3,27 @@ import styled from "styled-components";
 import JobTitles from "./jobTitles";
 import Located from "./located";
 import Relocate from "./relocate";
-import { Grommet, } from 'grommet';
-// import { ButtonContainer } from "../../pages/user-dashboard/styles/FormStyles";
+import { Grommet } from "grommet";
 
 export default class FilterBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      menuOpen: false,
+      menuOpen: false
     };
   }
 
-  buttons(){
-    return(
-          <div className="buttons">
-            <button onClick={() => this.props.filter(true)}>Search</button>
-            <button onClick={() => this.props.updatePublicPageState(false)}>Clear </button>
-          </div>
-      )
+  buttons() {
+    return (
+      <div className="buttons">
+        <button onClick={() => this.props.filter(true)}>Search</button>
+        <button onClick={() => this.props.updatePublicPageState(false)}>
+          Clear{" "}
+        </button>
+      </div>
+    );
   }
+
 
   // ham = () => {
   //   return(
@@ -80,20 +82,21 @@ export default class FilterBox extends Component {
 const filterTheme = {
   global: {
     colors: {
-      brand: 'coral',
-    },
+      brand: "coral"
+    }
   },
   textInput: {
     extend: {
-      width: '200px',
+      width: "200px"
     }
   },
   rangeInput: {
     extend: {
-      width: '250px',
-    },
+      width: "250px"
+    }
   }
 };
+
 
 const Hamburger = styled.div `
   z-index: 10;
@@ -140,44 +143,44 @@ const FilterBoxDiv = styled.aside`
     }
   }
   .buttons {
-      /* border: 1px solid red; */
-      width: 90%;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      @media (max-width: 839px) {
-        /* border: 1px solid blue; */
-        width: 80%;
-        justify-content: center;   
-      }
-      button {
-        width: 70%;
-        color: black;
-        margin: 10px;
-        padding: 5px;
-        font-size: 20px;
-        letter-spacing: 1.5px;
-        background: white;
-        border: solid 1px black;
-        border-radius: 20px;
-        /* display: flex;
+    /* border: 1px solid red; */
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    @media (max-width: 839px) {
+      /* border: 1px solid blue; */
+      width: 80%;
+      justify-content: center;
+    }
+    button {
+      width: 70%;
+      color: black;
+      margin: 10px;
+      padding: 5px;
+      font-size: 20px;
+      letter-spacing: 1.5px;
+      background: white;
+      border: solid 1px black;
+      border-radius: 20px;
+      /* display: flex;
         align-items: center;
         justify-content: center; */
-        outline-style: none;
-        &:hover {
-          cursor: pointer;
-          background: black;
-          color: white;
-        }
-        /* @media (max-width: 839px) {
+      outline-style: none;
+      &:hover {
+        cursor: pointer;
+        background: black;
+        color: white;
+      }
+      /* @media (max-width: 839px) {
         width: 20%;
         height: 50px;
         } */
-        @media (max-width: 839px) {
-          width: 50%;
-          size: 15px;
-        }
+      @media (max-width: 839px) {
+        width: 50%;
+        size: 15px;
       }
+    }
   }
   .relocate-container {
     @media (max-width: 480px) {
@@ -248,8 +251,8 @@ const FilterBoxDiv = styled.aside`
     /* border: 1px solid red; */
     width: 100%;
     padding-right: 20px;
-    height: ${props => props.menu ? 300 : 0 }px;
-    z-index: ${props => props.menu ? 1 : -10 };
+    height: ${props => (props.menu ? 300 : 0)}px;
+    z-index: ${props => (props.menu ? 1 : -10)};
     font-size: 12px;
     padding-top: 70px;
     border-bottom: solid lightgrey 1px;
@@ -269,9 +272,8 @@ const FilterBoxDiv = styled.aside`
       margin-bottom: 10px;
     }
     }
-  } 
+  }
 `;
-
 
 // <FormSection>
 //               <form>

@@ -13,15 +13,13 @@ export const FooterContainer = styled.div`
   bottom: 0;
 
   .footer-left {
-    width:50%;
+    width: 50%;
   }
 
   .footer-left p {
     color: #8f9296;
     font-size: 16px;
     margin: 0;
-
-
   }
 
   p.footer-links {
@@ -31,14 +29,12 @@ export const FooterContainer = styled.div`
     padding: 0;
     width: 100%;
 
-
     a {
       display: inline-block;
       line-height: 1.8;
       text-decoration: none;
       color: inherit;
       padding: 0 1% 0 0;
-
     }
   }
 
@@ -46,7 +42,6 @@ export const FooterContainer = styled.div`
     float: right;
     margin-top: 6px;
     max-width: 180px;
-
 
     a {
       display: inline-block;
@@ -69,12 +64,16 @@ export const FooterContainer = styled.div`
     .footer-right {
       text-align: center;
       align-items: center;
-      width:100%;
+      width: 100%;
     }
 
     .footer-right {
       float: none;
       margin: 0 auto 20px;
+    }
+
+    a {
+      margin: 15px 0 0 0;
     }
 
     .footer-left p.footer-links {

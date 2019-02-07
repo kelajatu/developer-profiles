@@ -5,7 +5,6 @@ const Footer = () => {
   return (
     <FooterContainer>
       <div className="footer-right">
-
         <a href="/">
           <i className="fab fa-facebook" />
         </a>
@@ -32,5 +31,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
-

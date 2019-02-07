@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-import UserCard from '../../../components/user-card/UserCard';
+import React, { Component } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import UserCard from "../../../components/user-card/UserCard";
 
-import { TextInput, TextArea } from 'grommet';
+import { TextInput, TextArea } from "grommet";
 import {
   MainFormContainer,
   FormSection,
@@ -12,7 +12,7 @@ import {
   Validator,
   CardPreviewSection,
   MobileCardPreviewSection
-} from '../styles/FormStyles';
+} from "../styles/FormStyles";
 
 var noLeaks;
 class Experience extends Component {
@@ -28,115 +28,119 @@ class Experience extends Component {
     jobDatesTo: "1950-01",
     jobDatesToValidation: true,
     experience: this.props.userInfo.userExperience || []
-  }
+  };
 
-  onInputChange = (e) => {
+  onInputChange = e => {
     this.setState({ [e.target.name]: e.target.value });
-  }
+  };
 
   // Checking package that will be sent for user info
-  checkOnSubmit = (e) => {
-    e.preventDefault()
+  checkOnSubmit = e => {
+    e.preventDefault();
 
     let months = {
-      '01': 'January',
-      '02': 'February',
-      '03': 'March',
-      '04': 'April',
-      '05': 'May',
-      '06': 'June',
-      '07': 'July',
-      '08': 'August',
-      '09': 'September',
-      '10': 'October',
-      '11': 'November',
-      '12': 'December',
-    }
-
+      "01": "January",
+      "02": "February",
+      "03": "March",
+      "04": "April",
+      "05": "May",
+      "06": "June",
+      "07": "July",
+      "08": "August",
+      "09": "September",
+      "10": "October",
+      "11": "November",
+      "12": "December"
+    };
     const { jobTitle, jobDatesFrom, jobDatesTo, jobDescription } = this.state;
 
     if (jobTitle === "") {
-      this.setState({jobTitleValidation: false})
-      return
+      this.setState({ jobTitleValidation: false });
+      return;
     } else {
-      this.setState({jobTitleValidation: true})
+      this.setState({ jobTitleValidation: true });
     }
-    
+
     if (jobDescription === "") {
-      this.setState({jobDescriptionValidation: false})
-      return
+      this.setState({ jobDescriptionValidation: false });
+      return;
     } else {
-      this.setState({jobDescriptionValidation: true})
+      this.setState({ jobDescriptionValidation: true });
     }
 
     let newjobDatesFrom;
     if (jobDatesFrom !== "1936-04") {
       if (!jobDatesFrom) {
-        this.setState({jobDatesFromValidation: false})
-        return
+        this.setState({ jobDatesFromValidation: false });
+        return;
       } else {
-        newjobDatesFrom = jobDatesFrom.split('-');
+        newjobDatesFrom = jobDatesFrom.split("-");
         newjobDatesFrom = `${months[newjobDatesFrom[1]]} ${newjobDatesFrom[0]}`;
       }
     }
     if (!newjobDatesFrom) {
-      this.setState({jobDatesFromValidation: false})
-      return
+      this.setState({ jobDatesFromValidation: false });
+      return;
     } else {
-      this.setState({jobDatesFromValidation: true})
+      this.setState({ jobDatesFromValidation: true });
     }
-    
+
     let newjobDatesTo;
     if (jobDatesTo !== "1950-01") {
       if (!jobDatesTo) {
-        newjobDatesTo = 'Present'
+        newjobDatesTo = "Present";
       } else {
-        newjobDatesTo = jobDatesTo.split('-');
+        newjobDatesTo = jobDatesTo.split("-");
         newjobDatesTo = `${months[newjobDatesTo[1]]} ${newjobDatesTo[0]}`;
       }
     }
     if (!newjobDatesTo) {
-      this.setState({jobDatesToValidation: false})
-      return
+      this.setState({ jobDatesToValidation: false });
+      return;
     } else {
-      this.setState({jobDatesToValidation: true})
+      this.setState({ jobDatesToValidation: true });
     }
-    
-    let jobDates = `${newjobDatesFrom} to ${newjobDatesTo}`
 
+    let jobDates = `${newjobDatesFrom} to ${newjobDatesTo}`;
 
     const lePackage = {
       user_id: this.props.userInfo.id,
       job_title: jobTitle,
       job_dates: jobDates,
-      job_description: jobDescription,
-    }
+      job_description: jobDescription
+    };
 
-    axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/experience`, lePackage)
+    axios
+      .post(
+        `${process.env.REACT_APP_BACKEND_SERVER}/users/${
+          this.props.userInfo.id
+        }/experience`,
+        lePackage
+      )
       .then(res => {
         this.setState({
           submitSuccess: true,
-          jobDescription: '',
-          jobTitle: '',
+          jobDescription: "",
+          jobTitle: "",
           jobDatesFrom: "1936-04",
           jobDatesTo: "1950-01"
-        })
+        });
         noLeaks = setTimeout(() => {
-          this.setState({ submitSuccess: false })
-        }, 2000)
-        this.props.updateProgress()
+          this.setState({ submitSuccess: false });
+        }, 2000);
+        this.props.updateProgress();
       })
       .catch(err => {
-        this.setState({ submitFailure: true })
+        this.setState({ submitFailure: true });
         noLeaks = setTimeout(() => {
-          this.setState({ submitFailure: false })
-        }, 2000)
-        console.log(err)
-      })
-  }
+          this.setState({ submitFailure: false });
+        }, 2000);
+        console.log(err);
+      });
+  };
 
   componentWillUnmount() {
-    clearTimeout(noLeaks)
+    clearTimeout(noLeaks);
   }
 
   render() {
@@ -149,13 +153,10 @@ class Experience extends Component {
         <div className="container">
           <FormSection>
             <form>
-
               {/* jobtitle */}
               <div className="text-input-container">
                 <LabelContainer>
-                  <label htmlFor="userJobTitle">
-                    Job Title:
-                  </label>
+                  <label htmlFor="userJobTitle">Job Title:</label>
                 </LabelContainer>
                 <Validator validated={this.state.jobTitleValidation}>
                   <TextInput
@@ -174,11 +175,9 @@ class Experience extends Component {
               {/* jobdates */}
               <div className="text-input-container">
                 <LabelContainer>
-                  <label htmlFor="userJobDatesFrom">
-                    Job Dates From:
-                  </label>
+                  <label htmlFor="userJobDatesFrom">Job Dates From:</label>
                 </LabelContainer>
-                <Validator validated={this.state.jobDatesFromValidation}> 
+                <Validator validated={this.state.jobDatesFromValidation}>
                   <TextInput
                     type="month"
                     min="1936-01"
@@ -189,16 +188,14 @@ class Experience extends Component {
                     plain
                     value={this.state.jobDatesFrom}
                     onChange={this.onInputChange}
-                    />
-                  </Validator>
+                  />
+                </Validator>
               </div>
 
               {/* jobdates */}
               <div className="text-input-container">
                 <LabelContainer>
-                  <label htmlFor="userJobDatesTo">
-                    Job Dates To:
-                  </label>
+                  <label htmlFor="userJobDatesTo">Job Dates To:</label>
                 </LabelContainer>
                 <Validator validated={this.state.jobDatesToValidation}>
                   <TextInput
@@ -217,9 +214,7 @@ class Experience extends Component {
               {/* jobdescription */}
               <div className="text-input-container">
                 <LabelContainer>
-                  <label htmlFor="userJobDescription">
-                  Job Description:
-                  </label>
+                  <label htmlFor="userJobDescription">Job Description:</label>
                 </LabelContainer>
                 <Validator validated={this.state.jobDescriptionValidation}>
                   <TextArea
@@ -228,7 +223,7 @@ class Experience extends Component {
                     className="validated-text-input"
                     placeholder="Here you can give a quick summary of your job duties! Max length is 128 characters"
                     maxLength="128"
-                    style={{height: '120px'}}
+                    style={{ height: "120px" }}
                     focusIndicator
                     plain
                     resize={false}
@@ -236,15 +231,12 @@ class Experience extends Component {
                     onChange={this.onInputChange} />
                 </Validator>
               </div>
-
             </form>
           </FormSection>
           <CardPreviewSection>
             <header>
               <LabelContainer>
-                <label>
-                  Profile Preview:
-                </label>
+                <label>Profile Preview:</label>
               </LabelContainer>
             </header>
             <UserCard
@@ -267,20 +259,18 @@ class Experience extends Component {
         <ButtonContainer>
           <Link to="/dashboard/projects">Back</Link>
           <button onClick={this.checkOnSubmit}>
-          {this.state.submitSuccess ?
-            <i className="success fa fa-check-circle fa-2x"></i>
-            :
-            'Save Info'
-          }
+            {this.state.submitSuccess ? (
+              <i className="success fa fa-check-circle fa-2x" />
+            ) : (
+              "Save Info"
+            )}
           </button>
           <Link to="/dashboard/education">Next</Link>
         </ButtonContainer>
         <MobileCardPreviewSection>
           <header>
             <LabelContainer>
-              <label>
-                Profile Preview:
-              </label>
+              <label>Profile Preview:</label>
             </LabelContainer>
           </header>
           <UserCard
@@ -302,7 +292,7 @@ class Experience extends Component {
           />
         </MobileCardPreviewSection>
       </MainFormContainer>
-    )
+    );
   }
 }
 
