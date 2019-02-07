@@ -10,6 +10,11 @@ const appTheme = {
       brand: 'coral',
     },
   },
+  textInput: {
+      extend: {
+        'font-family': "'Roboto', sans-serif",
+      }
+  }
 };
 
 ReactDOM.render(
