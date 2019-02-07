@@ -22,6 +22,7 @@ export default class FilterBox extends Component {
           </div>
       )
   }
+
   ham(){
     return(
         <div className="menu-button-container">
@@ -34,7 +35,7 @@ export default class FilterBox extends Component {
   }
 
   render() {
-    console.log(this.state.menuOpen)
+    // console.log(this.state.menuOpen)
     return (
       <Grommet theme={filterTheme}>
         {window.innerWidth < 839 ? this.ham(): null}
@@ -61,7 +62,7 @@ export default class FilterBox extends Component {
             {window.innerWidth < 839 ? this.buttons() : null}
           </div>
           {window.innerWidth < 839 ? null : this.buttons()}
-          {this.state.menuOpen ? this.ham(): null}
+          {this.state.menuOpen && window.innerWidth < 839 ? this.ham(): null}
         </FilterBoxDiv>
       </Grommet>
     );
@@ -114,13 +115,51 @@ const FilterBoxDiv = styled.aside`
   width: 272px;
   height: auto;
   padding-top: 80px;
-  border-right: solid 0.5px #dbdee2;
   display: flex;
   position: fixed;
   flex-direction: column;
   /* border: 1px solid blue; */
   overflow: auto;
-
+  .buttons {
+      /* border: 1px solid red; */
+      width: 90%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      @media (max-width: 839px) {
+        /* border: 1px solid blue; */
+        width: 80%;
+        justify-content: center;   
+      }
+      button {
+        width: 70%;
+        color: black;
+        margin: 10px;
+        padding: 5px;
+        font-size: 20px;
+        letter-spacing: 1.5px;
+        background: white;
+        border: solid 1px black;
+        border-radius: 20px;
+        /* display: flex;
+        align-items: center;
+        justify-content: center; */
+        outline-style: none;
+        &:hover {
+          cursor: pointer;
+          background: black;
+          color: white;
+        }
+        /* @media (max-width: 839px) {
+        width: 20%;
+        height: 50px;
+        } */
+        @media (max-width: 839px) {
+          width: 50%;
+          size: 15px;
+        }
+      }
+  }
   .relocate-container {
     .buttons {
       /* border: 1px solid red; */
