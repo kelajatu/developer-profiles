@@ -163,8 +163,8 @@ class UserCard extends Component{
                                                 <a rel="noopener noreferrer" href={project.link} target="_blank">{project.link}</a>
                                             </div>
                                             <div className="project-right">
-                                                {this.props.canEdit ? <i onClick={()=> this.del("projects", project)} className="far fa-times-circle"></i> : null}
-                                                {this.props.canEdit ? <i onClick={()=> this.edit(project)} className="far fa-edit"></i> : null}
+                                                {this.props.canEditPro ? <i onClick={()=> this.del("projects", project)} className="far fa-times-circle"></i> : null}
+                                                {this.props.canEditPro ? <i onClick={()=> this.edit(project)} className="far fa-edit"></i> : null}
                                             </div>
                                         </div>
                                         <div className="proj-image-container">
@@ -183,7 +183,10 @@ class UserCard extends Component{
                                                 <div className="dates">{experience.job_dates}</div>
                                                 <div className="indent">{experience.job_description}</div>
                                             </div>
-                                            {this.props.canEdit ? <i onClick={()=> this.del("experience", experience)} className="far fa-times-circle"></i> : null}
+                                            <div className="project-right">
+                                                {this.props.canEditExp ? <i onClick={()=> this.del("experience", experience)} className="far fa-times-circle"></i> : null}
+                                                {this.props.canEditExp ? <i onClick={()=> this.edit(experience)} className="far fa-edit"></i> : null}
+                                            </div>
                                         </div>
                                     </div>
                                 )}

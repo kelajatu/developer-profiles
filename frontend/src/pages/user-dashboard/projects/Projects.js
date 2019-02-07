@@ -139,9 +139,6 @@ class Projects extends Component {
   }
 
   editExtra = (edit) => {
-    console.log("edit", edit.id)
-    let id = edit.id
-    console.log(id)
     if(this.state.enableEdit){
         this.setState({
           enableEdit: false,
@@ -155,7 +152,7 @@ class Projects extends Component {
         this.setState({
           enableEdit: true,
           projectTitle: edit.project_title,
-          projectId: id,
+          projectId: edit.id,
           projectImg: edit.project_img,
           projectLink: edit.link,
           projectDescription: edit.project_description,
@@ -304,6 +301,7 @@ class Projects extends Component {
             </header>
             <UserCard
               canEdit
+              canEditPro
               enableEdit
               delExtra={this.props.delExtra}
               editExtra={this.editExtra}

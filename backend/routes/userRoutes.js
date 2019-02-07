@@ -286,6 +286,7 @@ server.put('/:user_id/:extras/:extras_id', (req, res) => {
         res.status(200).json(extra)
         console.log("updated")
     }).catch(err => {
+        console.log(err)
         res.status(500).json({message: "error editing extras data", err: err})
     })
 })

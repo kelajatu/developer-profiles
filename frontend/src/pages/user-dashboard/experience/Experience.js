@@ -20,6 +20,7 @@ class Experience extends Component {
     submitSuccess: false,
     submitFailure: false,
     jobTitle: "",
+    enableEdit: false,
     jobTitleValidation: true,
     jobDescription: "",
     jobDescriptionValidation: true,
@@ -139,6 +140,47 @@ class Experience extends Component {
     clearTimeout(noLeaks)
   }
 
+  editExtra = (edit) => {
+    let dates = edit.job_dates.split(" to ")
+    if(this.state.enableEdit){
+        this.setState({
+          enableEdit: false,
+          project_id: null,
+          jobDescription: '',
+          jobTitle: '',
+          jobDatesFrom: "1936-04",
+          jobDatesTo: "1950-01"
+        })
+    } else {
+        this.setState({
+          enableEdit: true,
+          jobId: edit.id,
+          jobDescription: edit.job_description,
+          jobTitle: edit.job_description,
+          jobDatesFrom: dates[0],
+          jobDatesTo: dates[1],
+          job_dates: edit.job_dates,
+        })
+    }
+  }
+
+  submitEdit = () => {
+    const lePackage = {
+      user_id: this.props.userInfo.id,
+      id: this.state.jobId,
+      job_title: this.state.jobTitle,
+      job_dates: this.state.jobDates,
+      job_description: this.state.jobDescription,
+    }
+    console.log("submitEdit", lePackage, this.state)
+    axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/experience/${this.state.jobId}`, lePackage)
+    .then(res => {
+      console.log(res)
+    }).catch(err => {
+      console.log(err.message)
+    })
+  }
+
   render() {
     return (
       <MainFormContainer>
@@ -238,6 +280,7 @@ class Experience extends Component {
               </div>
 
             </form>
+            {this.state.enableEdit ? <button onClick={this.submitEdit}>Submit Edit</button> : null}
           </FormSection>
           <CardPreviewSection>
             <header>
@@ -248,8 +291,13 @@ class Experience extends Component {
               </LabelContainer>
             </header>
             <UserCard
+              canEditExp
               canEdit
+              enableEdit
               delExtra={this.props.delExtra}
+              editExtra={this.editExtra}
+
+
               id={this.props.userInfo.id}
               github={this.props.userInfo.github}
               linkedin={this.props.userInfo.linkedin}
