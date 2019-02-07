@@ -114,17 +114,17 @@ class UserCard extends Component{
                                 <h3>{this.props.desired_title}</h3>
                                 <div className="keywords">
                                     {topSkillsArr.length > 0 ? topSkillsArr.map(word => {
-                                        return (<div className={`${this.props.preview ? "skillsdelete" : null}`}>{this.props.preview ? <i onClick={() => this.deleteUserSkill("top_skills", word.id)} className="far fa-times-circle"></i> : null}<div key={word.id} className="keyword topskill">
+                                        return (<div key={word.id} className={`${this.props.preview ? "skillsdelete" : null}`}>{this.props.preview ? <i onClick={() => this.deleteUserSkill("top_skills", word.id)} className="far fa-times-circle"></i> : null}<div className="keyword topskill">
                                             {word.skill}
                                         </div></div>)
                                     }) : null}
                                     {addSkillsArr.length > 0 ? addSkillsArr.map(word => {
-                                        return (<div className={`${this.props.preview ? "skillsdelete" : null}`}>{this.props.preview ? <i onClick={() => this.deleteUserSkill("add_skills", word.id)} className="far fa-times-circle"></i> : null}<div key={word.id} className="keyword addskill">
+                                        return (<div key={word.id} className={`${this.props.preview ? "skillsdelete" : null}`}>{this.props.preview ? <i onClick={() => this.deleteUserSkill("add_skills", word.id)} className="far fa-times-circle"></i> : null}<div className="keyword addskill">
                                             {word.skill}
                                         </div></div>)
                                     }) : null}
                                     {famSkillsArr.length > 0 ? famSkillsArr.map(word => {
-                                        return (<div className={`${this.props.preview ? "skillsdelete" : null}`}>{this.props.preview ? <i onClick={() => this.deleteUserSkill("familiar", word.id)} className="far fa-times-circle"></i> : null}<div key={word.id} className="keyword famskill">
+                                        return (<div key={word.id} className={`${this.props.preview ? "skillsdelete" : null}`}>{this.props.preview ? <i onClick={() => this.deleteUserSkill("familiar", word.id)} className="far fa-times-circle"></i> : null}<div className="keyword famskill">
                                             {word.skill}
                                         </div></div>)
                                     }) : null}
@@ -144,7 +144,7 @@ class UserCard extends Component{
                                 {/* ~~~~ projects ~~~~ */}
                                 <h2>Projects</h2>
                                 {userProjectsArr.map(project => 
-                                    <div className="proj-etc-container">
+                                    <div key={project.project_title} className="proj-etc-container">
                                         <div className="extratitle">{project.project_title}</div>
                                         <a rel="noopener noreferrer" href={project.link} target="_blank">{project.link}</a>
                                         <div className="proj-image-container">
@@ -156,7 +156,7 @@ class UserCard extends Component{
                                 {/* ~~~~ experience ~~~~ */}
                                 <h2>Experience</h2>
                                 {userExperienceArr.map(experience => 
-                                    <div className="proj-etc-container">
+                                    <div key={experience.job_dates} className="proj-etc-container">
                                         <div className="extratitle">{experience.job_title}</div>
                                         <div className="dates">{experience.job_dates}</div>
                                         <div className="indent">{experience.job_description}</div>
@@ -165,7 +165,7 @@ class UserCard extends Component{
                                 {/* ~~~~ education ~~~~ */}
                                 <h2>Education</h2>
                                 {userEducationArr.map(education => 
-                                    <div className="proj-etc-container">
+                                    <div key={education.school} className="proj-etc-container">
                                         <div className="extratitle">{education.school}</div>
                                         <div className="dates">{education.school_dates}</div>
                                         <div className="indent">{education.degree}</div>
@@ -176,7 +176,7 @@ class UserCard extends Component{
                         : null}
                         <div className="bottom" 
                             onClick={()=> this.setState({expanded: !this.state.expanded})} >
-                            <i class={this.state.expanded?"fas fa-caret-up":"fas fa-caret-down"}></i>
+                            <i className={this.state.expanded?"fas fa-caret-up":"fas fa-caret-down"}></i>
                         </div>
                     </div>
                 </UserCardContainer>

@@ -78,6 +78,9 @@ export const FormSection = styled.section`
         background: black;
         color: white;
       }
+      .success {
+        color: var(--accent-color);
+      }
     }
   }
 
@@ -107,19 +110,14 @@ export const FormSection = styled.section`
   }
   .showing-places {
     width: 83%;
-    margin-top: 15px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    padding-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: center;
-    align-content: center;
-    /* border-right: solid .5px rgba(0,0,0,.33);
-    border-left: solid .5px rgba(0,0,0,.33); */
-    border-bottom: solid .5px rgba(0,0,0,.33);
-    max-height: 250px;
+    border-bottom: solid 1px lightgrey;
+    max-height: 200px;
     overflow-y: scroll;
     @media (max-width: 750px) {
       width: 93%;
@@ -127,10 +125,20 @@ export const FormSection = styled.section`
     @media (max-width: 650px) {
       width: 97%;
     }
+    .delete {
+      color: var(--accent-color);
+      &:hover {
+        cursor: pointer;
+      }
+    }
     .places {
       margin: 15px 20px;
-      font-size: 1.4rem;
+      padding: 5px;
+      font-size: 1.6rem;
       font-weight: bold;
+      &:hover {
+        background-color: lightgrey;
+      }
     }
     ::-webkit-scrollbar {
       width: 3px;

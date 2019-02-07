@@ -12,8 +12,6 @@ export default class Billing extends Component {
     monthSubmitFailure: false,
     yearSubmitSuccess: false,
     yearSubmitFailure: false,
-    selected: "",
-    description: ""
   }
 
   selectPackage = (e, packageSelected) => {
@@ -57,14 +55,17 @@ export default class Billing extends Component {
         })
       }
     });
-    handler.open({
-      name: 'Developer Profiles',
-      description: `You selected the ${this.state.description} Package`,
-    });
-  }
-
-  toggler = (name, description) => {
-      this.setState({selected: name, description})
+    if (packageSelected === 'month') {
+      handler.open({
+        name: 'Developer Profiles',
+        description: `You selected the 'Quick Hire' Package`,
+      });
+    } else if (packageSelected === 'year') {
+      handler.open({
+        name: 'Developer Profiles',
+        description: `You selected the 'Always Looking' Package`,
+      });
+    }
   }
 
   componentWillUnmount() {
@@ -101,11 +102,7 @@ export default class Billing extends Component {
             </div>
             :
             <div className="options">
-              <div 
-                className="option" 
-                style={{border: this.state.selected === "year" ? '3px solid var(--accent-color)' : '1px solid lightgrey' }}
-                onClick={() => this.toggler("year", "'Always Looking'")}
-              >
+              <div className="option">
                 <header>
                   <h2>Always Looking</h2>
                 </header>
@@ -130,11 +127,7 @@ export default class Billing extends Component {
                   </button>
                 </section>
               </div>
-              <div
-                className="option" 
-                style={{border: this.state.selected === "month" ? '3px solid var(--accent-color)' : '1px solid lightgrey' }} 
-                onClick={() => this.toggler("month", "'Quick Hire'")}
-              >
+              <div className="option">
                 <header>
                   <h2>Quick Hire</h2>
                 </header>
@@ -213,6 +206,9 @@ export const BillingDiv = styled.div`
     border-bottom: 1px solid lightgrey;
     padding: 8px;
   }
+  .success {
+    color: var(--lp_btn_color);
+  }
 
 
   .billing-success-container {
@@ -244,7 +240,10 @@ export const BillingDiv = styled.div`
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-evenly;
+    @media (max-width: 1100px) {
+      justify-content: space-between;
+    }
     @media (max-width: 950px) {
       flex-direction: column;
       justify-content: center;
@@ -256,6 +255,7 @@ export const BillingDiv = styled.div`
       height: 650px;
       padding: 40px 20px 0;
       text-align: center;
+      border: 1px solid lightgrey;
       border-radius: 5px;
       @media (max-width: 1100px) {
         height: 700px;
