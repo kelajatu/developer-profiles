@@ -50,6 +50,12 @@ class UserCard extends Component{
         })
     }
 
+    edit(thing){
+        if(this.props.canEdit){
+            console.log(thing)
+        }
+    }
+
     render(){
         let topSkillsArr;
         let addSkillsArr;
@@ -90,10 +96,11 @@ class UserCard extends Component{
             userEducationArr = this.state.education
         }
 
+        
         return (
                 <UserCardContainer 
-                  
-                    expanded={this.state.expanded ? true : false}>
+                    expanded={this.state.expanded ? true : false}
+                    canEdit={this.props.canEdit ? true : false}>
                     <div className="userCardDiv">
 
                         <div className="top">
@@ -144,7 +151,7 @@ class UserCard extends Component{
                                 {/* ~~~~ projects ~~~~ */}
                                 <h2>Projects</h2>
                                 {userProjectsArr.map(project => 
-                                    <div key={project.project_title} className="proj-etc-container">
+                                    <div key={project.project_title} className="proj-etc-container" onClick={()=> this.edit(project)}>
                                         <div className="extratitle">{project.project_title}</div>
                                         <a rel="noopener noreferrer" href={project.link} target="_blank">{project.link}</a>
                                         <div className="proj-image-container">

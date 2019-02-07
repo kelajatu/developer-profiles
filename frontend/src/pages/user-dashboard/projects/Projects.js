@@ -260,6 +260,9 @@ class Projects extends Component {
               </LabelContainer>
             </header>
             <UserCard
+              canEdit
+                //email is being used as auth
+                email={this.props.userInfo.email}
               id={this.props.userInfo.id}
               github={this.props.userInfo.github}
               linkedin={this.props.userInfo.linkedin}
