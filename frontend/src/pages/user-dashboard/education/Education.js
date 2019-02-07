@@ -51,7 +51,7 @@ class Education extends Component {
       '08': 'August',
       '09': 'September',
       '10': 'October',
-      '10': 'November',
+      '11': 'November',
       '12': 'December',
     }
 

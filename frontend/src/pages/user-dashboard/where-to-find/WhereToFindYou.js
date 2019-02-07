@@ -19,6 +19,7 @@ class WhereToFindYou extends Component {
   state = {
     submitSuccess: false,
     submitFailure: false,
+    submitLoading: false,
 
     locationAutocomplete: [],
     currentLocationObjArr: [],
@@ -32,6 +33,8 @@ class WhereToFindYou extends Component {
     portfolio: this.props.userInfo.portfolio || "",
     portfolioValidation: true,
     acclaim: this.props.userInfo.badge || "",
+    acclaimValidation: true,
+    acclaimValidationMssg: ``
   }
 
   onInputChange = (e) => {
@@ -85,7 +88,7 @@ class WhereToFindYou extends Component {
   // send to db
   checkOnSubmit = (e) => {
     e.preventDefault()
-    const { github, linkedin, portfolio, currentLocationName, currentLocationLat, currentLocationLon } = this.state;
+    const { github, linkedin, portfolio, currentLocationName, currentLocationLat, currentLocationLon, acclaim } = this.state;
 
     let normGithub = github;
     let normLinkedin = linkedin;
@@ -123,7 +126,7 @@ class WhereToFindYou extends Component {
     } else {
       this.setState({portfolioValidation: true})
     }
-
+    
     const lePackage = {
       current_location_name: currentLocationName,
       current_location_lat: currentLocationLat,
@@ -132,41 +135,42 @@ class WhereToFindYou extends Component {
       linkedin: normLinkedin,
       portfolio,
     }
-
-
-    // causes bug since it adds url to db on its own, instead of updating with this.props.updateProgress
-    // it will be in the db so if you refresh you'll see it
-    // also the image url is returned, so it will always fail if kept as input default
-    // server needs to create two columns, one for the image url, and one for the acclaim url
-    // add both to user, and return the acclaim url
-    // ugly quick fix for now..
-    if (this.state.acclaim !== "") {
-      let acclaimBadge = this.state.acclaim;
-      let regex = /https:\/\/www.youracclaim.com\/badges\//;
-      let badge = acclaimBadge.replace(regex, '')
-      axios
-      .put(`${process.env.REACT_APP_BACKEND_SERVER}/api/acclaim/${this.props.userInfo.id}`, {badge})
-      .then(response => {
+    if (acclaim !== '' && !acclaim.includes('https://images.youracclaim.com/images/')) {
+      if (!(acclaim.includes('https://www.youracclaim.com/badges/') || acclaim.includes('http://www.youracclaim.com/badges/'))) {
+        this.setState({acclaimValidation: false, acclaimValidationMssg: `'https://www.youracclaim.com/badges/YOUR_BADGE' or leave blank`});
+        return
+      } else {
+        this.setState({ submitLoading: true, acclaimValidation: true })
+        let acclaimBadge = this.state.acclaim;
+        let regex = /https:\/\/www.youracclaim.com\/badges\//;
+        let badge = acclaimBadge.replace(regex, '')
+        axios
+        .put(`${process.env.REACT_APP_BACKEND_SERVER}/api/acclaim/${this.props.userInfo.id}`, {badge})
+        .then(response => {
+          axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
+            .then(res => {
+              this.setState({ submitLoading: false, submitSuccess: true })
+              noLeaks = setTimeout(() => {
+                this.setState({ submitSuccess: false })
+              }, 2000)
+              this.props.updateProgress()
+            })
+            .catch(err => {
+              this.setState({ submitLoading: false, submitFailure: true })
+              noLeaks = setTimeout(() => {
+                this.setState({ submitFailure: false })
+              }, 2000)
+              console.log(err)
+            })
+          })
+          .catch(error => {
+            this.setState({ submitLoading: false, acclaimValidation: false, acclaimValidationMssg: `There was an error with your badge, please check it's validation`});
+            console.log(error);
+          });
+        }
+      } else {
+        this.setState({acclaimValidation: true})
         axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
-          .then(res => {
-            this.setState({ submitSuccess: true })
-            noLeaks = setTimeout(() => {
-              this.setState({ submitSuccess: false })
-            }, 2000)
-            this.props.updateProgress()
-          })
-          .catch(err => {
-            this.setState({ submitFailure: true })
-            noLeaks = setTimeout(() => {
-              this.setState({ submitFailure: false })
-            }, 2000)
-            console.log(err)
-          })
-      })
-      .catch(error => {
-        console.log(error);
-      });
-      axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
         .then(res => {
           this.setState({ submitSuccess: true })
           noLeaks = setTimeout(() => {
@@ -181,31 +185,23 @@ class WhereToFindYou extends Component {
           }, 2000)
           console.log(err)
         })
-    } else {
-      axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, lePackage)
-        .then(res => {
-          this.setState({ submitSuccess: true })
-          noLeaks = setTimeout(() => {
-            this.setState({ submitSuccess: false })
-          }, 2000)
-          this.props.updateProgress()
-        })
-        .catch(err => {
-          this.setState({ submitFailure: true })
-          noLeaks = setTimeout(() => {
-            this.setState({ submitFailure: false })
-          }, 2000)
-          console.log(err)
-        })
+      }
     }
-  }
 
   componentWillUnmount() {
     clearTimeout(noLeaks)
   }
 
   render() {
-    console.log(this.state.portfolioValidation)
+    let ButtonContent;
+    if (this.state.submitLoading) {
+      ButtonContent = <i className=" loading fas fa-spinner fa-2x fa-spin"></i>;
+    } else if (this.state.submitSuccess) {
+      ButtonContent = <i className="success fa fa-check-circle fa-2x"></i>;
+    } else {
+      ButtonContent ='Save Info';
+    }
+
     const {
       currentLocationNameSuccess,
       githubSuccess,
@@ -329,8 +325,8 @@ class WhereToFindYou extends Component {
                   null
                   :
                   <LabelContainer>
-                    <label htmlFor="userPortfolio">
-                      Need to include 'http://' or 'https://'
+                    <label style={{width: '90%', wordBreak: 'break-all', fontSize: '1.4rem'}} htmlFor="userPortfolio">
+                      Need to include 'http://' or 'https:// or leave blank'
                     </label>
                   </LabelContainer>
                 }
@@ -350,15 +346,28 @@ class WhereToFindYou extends Component {
                     null
                   }
                 </LabelContainer>
-                <TextInput
-                  id="userAcclaimBadge"
-                  name="acclaim"
-                  className="text-input"
-                  placeholder="https://www.youracclaim.com/badges/..."
-                  focusIndicator
-                  value={this.state.acclaim}
-                  onChange={this.onInputChange}
-                />
+                <Validator validated={this.state.acclaimValidation}>
+                  <TextInput
+                    id="userAcclaimBadge"
+                    name="acclaim"
+                    className="validated-text-input"
+                    placeholder="https://www.youracclaim.com/badges/..."
+                    focusIndicator
+                    plain
+                    value={this.state.acclaim}
+                    onChange={this.onInputChange}
+                  />
+                </Validator>
+                {
+                  this.state.acclaimValidation ?
+                  null
+                  :
+                  <LabelContainer>
+                    <label style={{width: '90%', wordBreak: 'break-all', fontSize: '1.4rem'}} htmlFor="userPortfolio">
+                      {this.state.acclaimValidationMssg}
+                    </label>
+                  </LabelContainer>
+                }
               </div>
             </form>
           </FormSection>
@@ -389,11 +398,7 @@ class WhereToFindYou extends Component {
         <ButtonContainer>
           <Link to="/dashboard/personal-info">Back</Link>
           <button onClick={this.checkOnSubmit}>
-            {this.state.submitSuccess ?
-              <i className="success fa fa-check-circle fa-2x"></i>
-              :
-              'Save Info'
-            }
+            {ButtonContent}
           </button>
           <Link to="/dashboard/about-you">Next</Link>
         </ButtonContainer>

@@ -1,7 +1,7 @@
 import React , { Component } from 'react'
 import styled from 'styled-components'
-import { filterSection } from '../../global-styles/Mixins'
-import {CheckBox} from 'grommet';
+// import { filterSection } from '../../global-styles/Mixins'
+import { CheckBox } from 'grommet';
 
 export default class JobTitles extends Component {
     constructor(props){

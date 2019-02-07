@@ -285,6 +285,9 @@ export const ButtonContainer = styled.div`
   .success {
     color: var(--lp_btn_color);
   }
+  .loading {
+    color: var(--lp_btn_color);
+  }
 
   /****ALL OTHER BUTTONS****/
   button {

@@ -167,6 +167,8 @@ server.post('/new', (req, res) => {
   })
 
 server.put('/:id', (req, res) => {
+    console.log(req.params.id)
+    console.log(req.body)
     db.user_helpers.editUser(req.params.id, req.body).then(user => {
         res.status(200).json(user)
     }).catch(err => {

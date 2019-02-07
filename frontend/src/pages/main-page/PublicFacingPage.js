@@ -145,14 +145,11 @@ class PublicFacingPage extends Component {
                     publicPageState={this.state}
                     toggleCheckMarks={this.toggleCheckMarks}
                     updatePublicPageState={this.updatePublicPageState}
-                    filter={this.filter}
-                />
-
+                    filter={this.filter} />
                 <UserCards
                     publicPageState={this.state}
                     updatePublicPageState={this.updatePublicPageState}
-                    filter={this.filter}
-                />
+                    filter={this.filter} />
             </PublicFacingPageDiv>
         );
     }
