@@ -146,23 +146,6 @@ server.post('/subscribe-customer', (req, res) => {
 
 server.post('/get-customer', (req, res) => {
   const { customerId } = req.body;
-  let stringCustomerId = JSON.stringify(customerId)
-  stripe.customers.retrieve(
-    stringCustomerId,
-    function(err, customer) {
-      if (err) {
-        console.log(err)
-        res.send({ err })
-      } else {
-        console.log(customer)
-        res.send(customer)
-      }
-    });
-});
-
-
-server.post('/get-customerreg', (req, res) => {
-  const { customerId } = req.body;
   stripe.customers.retrieve(
     customerId,
     function(err, customer) {
@@ -175,41 +158,6 @@ server.post('/get-customerreg', (req, res) => {
       }
     });
 });
-
-
-server.post('/get-customerhc', (req, res) => {
-  const { customerId } = req.body;
-  stripe.customers.retrieve(
-    "cus_EU1Sv2b7zt3OzB",
-    function(err, customer) {
-      if (err) {
-        console.log(err)
-        res.send({ err })
-      } else {
-        console.log(customer)
-        res.send(customer)
-      }
-    });
-});
-
-
-server.get('/get-customer/:id', (req, res) => {
-  const { id } = req.params;
-  stripe.customers.retrieve(
-    id,
-    function(err, customer) {
-      if (err) {
-        console.log(err)
-        res.send({ err })
-      } else {
-        console.log(customer)
-        res.send(customer)
-      }
-    });
-});
-
-
-
 
 
 module.exports = server 
