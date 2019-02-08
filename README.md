@@ -31,3 +31,6 @@ Projects links:
     Guidelines: https://docs.google.com/document/d/1KBLXucApsCGYJ2p1jIRjf7sgpsJKtFQhmnBK3LK3w6c/edit
     Rubric: https://docs.google.com/spreadsheets/d/1-D0SY8SkipneUox08vEdumf1OtGtX5gWTt7XQ1dBHCc/edit#gid=1885109639
     Whiteboard: https://docs.google.com/spreadsheets/d/1Bo74SDxab344hZ2kneM0_tt6b2LO5m4wa2dRkyHm-yw/edit#gid=753636956
+
+
+Fake Acclaim Badge: https://www.youracclaim.com/badges/384d834b-33fa-40e4-9ffd-f6b426db730f

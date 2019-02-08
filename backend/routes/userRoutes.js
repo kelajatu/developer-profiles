@@ -51,7 +51,6 @@ filterLocation = (allArray, params) => {
 }
     
 filterReLocation = (allArray, params) => {
-    console.log(allArray, params)
     let newArr = allArray.filter(user => {
         if(user.interested_location_names){
             let arr = user.interested_location_names.split('|')
