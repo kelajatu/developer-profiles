@@ -12,7 +12,14 @@ export const MainFormContainer = styled.main`
   }
   @media (max-width: 650px) {
     width: 100%;
+    padding-top: 200px;
     margin-left: 0px;
+  }
+  @media (max-width: 600px) {
+    padding-top: 300px;
+  }
+  @media (max-width: 400px) {
+    padding-top: 350px;
   }
   .main-heading {
     font-size: 5rem;
@@ -24,10 +31,14 @@ export const MainFormContainer = styled.main`
       padding-left: 20px;
       font-size: 4rem;
     }
+    @media (max-width: 600px) {
+      font-size: 3.5rem;
+    }
     @media (max-width: 450px) {
       padding-left: 10px;
     }
     @media (max-width: 400px) {
+      font-size: 3.2rem;
       padding-left: 5px;
     }
   }
@@ -190,8 +201,12 @@ export const MobileCardPreviewSection = styled.section`
   @media (max-width: 1100px) {
     display: block;
     padding: 20px;
-    width: 100%;
+    width: 99%;
     ${centerFlex('column')};
+  }
+  @media (max-width: 450px) {
+    padding: 20px;
+    margin-top: 50px;
   }
 `;
 
@@ -279,6 +294,8 @@ export const ButtonContainer = styled.div`
     width: 95%;
   }
   @media (max-width: 450px) {
+    margin-top: 20px;
+    margin-bottom: 20px;
     flex-direction: column;
   }
 
@@ -307,6 +324,9 @@ export const ButtonContainer = styled.div`
       margin-left: 0;
       margin-right: 0;
       margin-bottom: 25px;
+      width: 245px;
+      height: 50;
+      padding: 5px 10px;
     }
     &:hover {
       color: var(--lp_btn_color);
@@ -335,6 +355,9 @@ export const ButtonContainer = styled.div`
     border-radius: 100px;
     @media (max-width: 450px) {
       margin-bottom: 25px;
+      width: 220px;
+      height: 40;
+      padding: 5px 10px;
     }
     ${centerFlex()};
     &:hover {

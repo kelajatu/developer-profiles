@@ -62,13 +62,26 @@ const QuickstartContainer = styled.div`
   }
   @media (max-width: 650px) {
     width: 100%;
+    padding-top: 200px;
     margin-left: 0;
+  }
+  @media (max-width: 600px) {
+    padding-top: 300px;
+  }
+  @media (max-width: 400px) {
+    padding-top: 350px;
   }
   .main-heading {
     font-size: 5rem;
     color: rgb(42,42,42);
     margin-bottom: 50px;
     text-align: center;
+    @media (max-width: 600px) {
+      font-size: 3.5rem;
+    }
+    @media (max-width: 400px) {
+      font-size: 3.2rem;
+    }
   }
 
 
