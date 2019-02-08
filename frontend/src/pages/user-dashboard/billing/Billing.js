@@ -8,7 +8,7 @@ import { centerFlex } from '../../../global-styles/Mixins';
 var noLeaks;
 class Billing extends Component {
   state = {
-    currentSubPeriodEnd: 0,
+    currentSubPeriodEnd: '',
     monthSubmitLoading: false,
     monthSubmitSuccess: false,
     monthSubmitFailure: false,
@@ -21,12 +21,16 @@ class Billing extends Component {
     if (this.props.userInfo.stripe_customer_id) {
       let customerId = this.props.userInfo.stripe_customer_id;
       console.log(customerId)
-      axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/get-customer`, {customerId})
-      // axios.post(`http://localhost:7000/get-customer`, {customerId})
+      axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/get-customerreg`, {customerId})
       .then(res => {
-        console.log('AAAWTFFFFF', res)
+        let date = res.data.subscriptions.data[0].current_period_end  * 1000;
+        let normDate = new Date(date);
+        normDate = normDate.toString();
+        let normDateArr = normDate.split(' ');
+        normDate = `${normDateArr[0]} ${normDateArr[1]} ${normDateArr[2]} ${normDateArr[3]}`;
+        this.setState({currentSubPeriodEnd: normDate})
       })
-      .catch(err => console.log('WTFFFFF'));
+      .catch(err => console.log(err));
     }
   }
 
@@ -48,17 +52,20 @@ class Billing extends Component {
         .then(res => {
           axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/subscribe-customer`, {customerId: res.data.id, packageSelected})
           .then(res => {
-            let currentSubPeriodEnd = res.data.current_period_end;
-            //this.setState({currentSubPeriodEnd: res.data.current_period_end})
+            let date = res.data.current_period_end * 1000;
+            let normDate = new Date(date);
+            normDate = normDate.toString();
+            let normDateArr = normDate.split(' ');
+            normDate = `${normDateArr[0]} ${normDateArr[1]} ${normDateArr[2]} ${normDateArr[3]}`;
             axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}`, {stripe_customer_id: res.data.customer, stripe_subscription_name: res.data.plan.nickname})
             .then(res => {
               if (packageSelected === 'month') {
-                this.setState({monthSubmitLoading: false, monthSubmitSuccess: true, currentSubPeriodEnd})
+                this.setState({monthSubmitLoading: false, monthSubmitSuccess: true, currentSubPeriodEnd: normDate})
                 noLeaks = setTimeout(() => {
                   this.setState({ monthSubmitSuccess: false })
                 }, 2000)
               } else if (packageSelected === 'year') {
-                this.setState({yearSubmitLoading: false, yearSubmitSuccess: true, currentSubPeriodEnd})
+                this.setState({yearSubmitLoading: false, yearSubmitSuccess: true, currentSubPeriodEnd: normDate})
                 noLeaks = setTimeout(() => {
                   this.setState({ yearSubmitSuccess: false })
                 }, 2000)
@@ -130,18 +137,27 @@ class Billing extends Component {
                   <h1 className="sub-active-heading">Subscription Active <span><i className="success fa fa-check" aria-hidden="true"></i></span></h1>
                 </header>
                 <section className="package-selected">
-
-                <h3 className="sub-sub-heading">Package Selected:</h3>
-
-
+                  <h3 className="sub-sub-heading">Package Selected:</h3>
                   {this.props.userInfo.stripe_subscription_name === 'Always looking yearly' ?
-                    <p className="text">ALWAYS LOOKING</p>
+                    <div>
+                      <p className="text">{this.props.userInfo.stripe_subscription_name}</p>
+                      <p className="text">$9.99/year</p>
+                    </div>
                     :
-                    <p className="text">MONTHH</p>
+                    <div>
+                      <p className="text">{this.props.userInfo.stripe_subscription_name}</p>
+                      <p className="text">$0.99/month</p>
+                    </div>
                   }
-
-
-
+                </section>
+                <section className="sub-renew">
+                  <h3 className="sub-sub-heading">Your Subscription Is Set to Renew:</h3>
+                  <p className="text">{this.state.currentSubPeriodEnd}</p>
+                </section>
+                <section className="cancel-btn-section">
+                  <button onClick={() => console.log('deletee')}>
+                    Cancel Subscription
+                  </button>
                 </section>
               </main>
             </div>
@@ -297,6 +313,36 @@ export const BillingDiv = styled.div`
       border-radius: 5px;
       height: 550px;
       width: 700px;
+      .package-selected, .sub-renew {
+        margin-bottom: 50px;
+      }
+      .cancel-btn-section {
+        position: absolute;
+        bottom: 3%;
+        left: 50%;
+        transform: translateX(-50%);
+        button {
+          width: 260px;
+          color: white;
+          padding: 15px 0;
+          font-size: 1.5rem;
+          letter-spacing: 1.5px;
+          background-color: var(--accent-color);
+          border: none;
+          border-radius: 100px;
+          ${centerFlex()};
+          &:hover {
+            color: var(--lp_btn_color);
+            transform: scale(1.1);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+            cursor: pointer;
+          }
+          &:active {
+            transform: scale(1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+          }
+        }
+      }
     }
   }
 

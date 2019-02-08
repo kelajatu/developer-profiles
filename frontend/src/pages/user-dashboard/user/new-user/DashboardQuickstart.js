@@ -18,12 +18,9 @@ class DashboardQuickstart extends Component {
   render() {
     return (
       <QuickstartContainer>
-
         <header>
           <h1 className="main-heading">Quickstart</h1>
         </header>
-
-
         <div className="container">
 
           <div className="quickstart-close">
@@ -31,7 +28,6 @@ class DashboardQuickstart extends Component {
               <i className="fa fa-times fa-2x"></i>
             </Link>
           </div>
-
           <nav>
             {this.state.current === 'basics' ?
               <button className="active" onClick={() => this.setState({current: 'basics'})}>Basic Info</button>
@@ -44,16 +40,12 @@ class DashboardQuickstart extends Component {
               <button onClick={() => this.setState({current: 'billing'})}>Billing</button>
             }
           </nav>
-
           {this.state.current === 'basics' ?
             <QuickstartBasics changeCurrent={this.changeCurrent} updateProgress={this.props.updateProgress} userInfo={this.props.userInfo} />
             :
             <QuickstartBilling changeCurrent={this.changeCurrent} updateProgress={this.props.updateProgress} userInfo={this.props.userInfo} />
           }
-
         </div>
-
-
       </QuickstartContainer>
     )
   }
