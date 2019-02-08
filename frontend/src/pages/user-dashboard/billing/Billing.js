@@ -164,7 +164,7 @@ class Billing extends Component {
             <div className="options">
               <div className="option">
                 <header>
-                  <h3 className="sub-active-heading">Always Looking</h3>
+                  <h3 className="sub-option-heading">Always Looking</h3>
                 </header>
                 <section className="price-section">
                   <h3 className="sub-price-heading">$9.99</h3>
@@ -185,7 +185,7 @@ class Billing extends Component {
               </div>
               <div className="option">
                 <header>
-                  <h3 className="sub-active-heading">Quick Hire</h3>
+                  <h3 className="sub-option-heading">Quick Hire</h3>
                 </header>
                 <section className="price-section">
                   <h3 className="sub-price-heading">$0.99</h3>
@@ -230,6 +230,17 @@ export const BillingDiv = styled.div`
     padding-left: 20px;
     padding-right: 20px;
   }
+  @media (max-width: 650px) {
+    width: 100%;
+    padding-top: 200px;
+    margin-left: 0px;
+  }
+  @media (max-width: 600px) {
+    padding-top: 300px;
+  }
+  @media (max-width: 400px) {
+    padding-top: 350px;
+  }
   @media (max-width: 450px) {
     padding-left: 10px;
     padding-right: 10px;
@@ -237,10 +248,6 @@ export const BillingDiv = styled.div`
   @media (max-width: 400px) {
     padding-left: 5px;
     padding-right: 5px;
-  }
-  @media (max-width: 650px) {
-    width: 100%;
-    margin-left: 0px;
   }
   .billing-main-heading {
     font-size: 5rem;
@@ -253,6 +260,17 @@ export const BillingDiv = styled.div`
     @media (max-width: 950px) {
       text-align: left;
     }
+    @media (max-width: 600px) {
+      font-size: 3.5rem;
+    }
+    @media (max-width: 450px) {
+      line-height: 35px;
+      padding-left: 10px;
+    }
+    @media (max-width: 400px) {
+      font-size: 3.2rem;
+      padding-left: 5px;
+    }
   }
   .billing-main-success-heading {
     font-size: 5rem;
@@ -261,6 +279,13 @@ export const BillingDiv = styled.div`
     text-align: center;
     @media (max-width: 1100px) {
       font-size: 4rem;
+    }
+    @media (max-width: 600px) {
+      font-size: 3.5rem;
+      line-height: 35px;
+    }
+    @media (max-width: 450px) {
+      font-size: 3.2rem;
     }
   }
   .sub-heading {
@@ -274,6 +299,28 @@ export const BillingDiv = styled.div`
     @media (max-width: 1100px) {
       font-size: 3.5rem;
     }
+    @media (max-width: 600px) {
+    font-size: 2.8rem;
+    line-height: 35px;
+    }
+    @media (max-width: 450px) {
+      font-size: 2.7rem;
+    }
+  }
+  .sub-option-heading {
+    font-size: 4rem;
+    margin-bottom: 50px;
+    color: var(--accent-color);
+    @media (max-width: 1100px) {
+      font-size: 3.7rem;
+    }
+    @media (max-width: 600px) {
+    font-size: 3.2rem;
+    line-height: 35px;
+    }
+    @media (max-width: 450px) {
+      font-size: 3rem;
+    }
   }
   .sub-sub-heading {
     font-size: 2.5rem;
@@ -281,9 +328,19 @@ export const BillingDiv = styled.div`
     border-top: 1px solid lightgrey;
     border-bottom: 1px solid lightgrey;
     padding: 12px 8px;
+    @media (max-width: 600px) {
+    font-size: 2.4rem;
+    line-height: 30px;
+    }
+    @media (max-width: 450px) {
+      font-size: 2.2rem;
+    }
   }
   .sub-price-heading {
     font-size: 3.2rem;
+    @media (max-width: 450px) {
+      font-size: 2.9rem;
+    }
   }
   .text {
     color: rgba(42,42,42,.8);
@@ -398,6 +455,9 @@ export const BillingDiv = styled.div`
         line-height: 23px;
         letter-spacing: 1px;
         margin-right: 5px;
+        @media (max-width: 450px) {
+          font-size: 1.5rem;
+        }
       }
       .price-section {
         margin-bottom: 40px;

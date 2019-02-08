@@ -163,7 +163,7 @@ class Billing extends Component {
             <div className="options">
               <div className="option">
                 <header>
-                  <h3 className="sub-active-heading">Always Looking</h3>
+                  <h3 className="sub-option-heading">Always Looking</h3>
                 </header>
                 <section className="price-section">
                   <h3 className="sub-price-heading">$9.99</h3>
@@ -184,7 +184,7 @@ class Billing extends Component {
               </div>
               <div className="option">
                 <header>
-                  <h3 className="sub-active-heading">Quick Hire</h3>
+                  <h3 className="sub-option-heading">Quick Hire</h3>
                 </header>
                 <section className="price-section">
                   <h3 className="sub-price-heading">$0.99</h3>
@@ -231,6 +231,13 @@ export const BillingDiv = styled.div`
   .sub-heading {
     font-size: 3rem;
     margin-bottom: 50px;
+    @media (max-width: 600px) {
+    font-size: 2.8rem;
+    line-height: 35px;
+    }
+    @media (max-width: 450px) {
+      font-size: 2.7rem;
+    }
   }
   .sub-active-heading {
     font-size: 4rem;
@@ -239,6 +246,28 @@ export const BillingDiv = styled.div`
     @media (max-width: 1100px) {
       font-size: 3.5rem;
     }
+    @media (max-width: 600px) {
+    font-size: 2.8rem;
+    line-height: 35px;
+    }
+    @media (max-width: 450px) {
+      font-size: 2.7rem;
+    }
+  }
+  .sub-option-heading {
+    font-size: 4rem;
+    margin-bottom: 50px;
+    color: var(--accent-color);
+    @media (max-width: 1100px) {
+      font-size: 3.7rem;
+    }
+    @media (max-width: 600px) {
+    font-size: 3.2rem;
+    line-height: 35px;
+    }
+    @media (max-width: 450px) {
+      font-size: 3rem;
+    }
   }
   .sub-sub-heading {
     font-size: 2.5rem;
@@ -246,9 +275,19 @@ export const BillingDiv = styled.div`
     border-top: 1px solid lightgrey;
     border-bottom: 1px solid lightgrey;
     padding: 12px 8px;
+    @media (max-width: 600px) {
+    font-size: 2.4rem;
+    line-height: 30px;
+    }
+    @media (max-width: 450px) {
+      font-size: 2.2rem;
+    }
   }
   .sub-price-heading {
     font-size: 3.2rem;
+    @media (max-width: 450px) {
+      font-size: 2.9rem;
+    }
   }
   .text {
     color: rgba(42,42,42,.8);

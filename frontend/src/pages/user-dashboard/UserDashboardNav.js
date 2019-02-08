@@ -64,8 +64,8 @@ const NavContainer = styled.nav`
   }
   @media (max-width: 650px) {
     width: 100%;
-    height: 100px;
-    padding-top: 40px;
+    height: auto;
+    padding-top: 65px;
     top: 0;
     left: 0;
     flex-direction: row;
@@ -73,6 +73,9 @@ const NavContainer = styled.nav`
     justify-content: center;
     border-right: none;
     border-bottom: solid .5px #dbdee2;
+  }
+  @media (max-width: 600px) {
+    flex-wrap: wrap;
   }
   a {
     @media (max-width: 650px) {
@@ -84,6 +87,18 @@ const NavContainer = styled.nav`
       ${centerFlex()};
       padding: 25px 20px;
     }
+    @media (max-width: 650px) {
+      padding: 20px 20px;
+    }
+    @media (max-width: 600px) {
+      padding: 25px 30px;
+    }
+    @media (max-width: 400px) {
+      padding: 25px 40px;
+    }
+    @media (max-width: 360px) {
+      padding: 25px 30px;
+    }
   }
   i {
     width: 30px;
@@ -92,6 +107,10 @@ const NavContainer = styled.nav`
     color: white;
     background-color: rgba(0, 25, 64, .9);
     border-right: solid 4px rgb(238, 108, 77);
+    @media (max-width: 650px) {
+      border-right: none;
+      border-bottom: solid 4px rgb(238, 108, 77);
+    }
   }
   .nav-large {
     @media (max-width: 1400px) {

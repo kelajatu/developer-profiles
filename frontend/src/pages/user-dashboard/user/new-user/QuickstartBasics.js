@@ -395,6 +395,13 @@ const MainContainer = styled.div`
   .sub-heading {
     font-size: 3rem;
     margin-bottom: 50px;
+    @media (max-width: 600px) {
+    font-size: 2.8rem;
+    line-height: 35px;
+    }
+    @media (max-width: 450px) {
+      font-size: 2.7rem;
+    }
   }
 `;
 
@@ -538,6 +545,14 @@ const ButtonContainer = styled.div`
     ${centerFlex()};
     margin-left: 25px;
     margin-right: 25px;
+    @media (max-width: 450px) {
+      margin-left: 0;
+      margin-right: 0;
+      margin-bottom: 25px;
+      width: 245px;
+      height: 50;
+      padding: 5px 10px;
+    }
     &:hover {
       color: var(--lp_btn_color);
       transform: scale(1.1);
@@ -547,33 +562,6 @@ const ButtonContainer = styled.div`
     &:active {
       transform: scale(1);
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    }
-  }
-
-  a {
-    width: 230px;
-    height: 55px;
-    display: block;
-    margin: auto;
-    text-decoration: none;
-    color: white;
-    padding: 20px 30px;
-    font-size: 2rem;
-    letter-spacing: 1.5px;
-    background-color: var(--lp_btn_color);
-    border: none;
-    border-radius: 100px;
-    ${centerFlex()};
-    &:hover {
-      color:var(--accent-color);
-      transform: scale(1.1);
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-      cursor: pointer;
-    }
-    &:active {
-      transform: scale(1);
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-
     }
   }
 `;

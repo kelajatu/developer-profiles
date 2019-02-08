@@ -321,7 +321,14 @@ const IntroContainer = styled.div`
   }
   @media (max-width: 650px) {
     width: 100%;
+    padding-top: 200px;
     margin-left: 0px;
+  }
+  @media (max-width: 600px) {
+    padding-top: 300px;
+  }
+  @media (max-width: 400px) {
+    padding-top: 350px;
   }
 
   .main-heading {
@@ -332,6 +339,16 @@ const IntroContainer = styled.div`
     @media (max-width: 1100px) {
       text-align: left;
       font-size: 4rem;
+    }
+    @media (max-width: 600px) {
+      font-size: 3.5rem;
+    }
+    @media (max-width: 450px) {
+      padding-left: 10px;
+    }
+    @media (max-width: 400px) {
+      font-size: 3.2rem;
+      padding-left: 5px;
     }
   }
 
@@ -360,6 +377,17 @@ const IntroContainer = styled.div`
     .sub-heading {
       font-size: 3rem;
       margin-bottom: 50px;
+      @media (max-width: 600px) {
+      font-size: 2.8rem;
+      line-height: 35px;
+      }
+      @media (max-width: 450px) {
+        padding-left: 10px;
+      }
+      @media (max-width: 400px) {
+        font-size: 2.7rem;
+        padding-left: 5px;
+      }
     }
 
     .sub-sub-heading {
