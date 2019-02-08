@@ -82,7 +82,7 @@ export default class FilterBox extends Component {
           </div>
           <div className="buttons">
             <button onClick={() => this.props.filter(true)}>Search</button>
-            <button onClick={() => this.props.updatePublicPageState(false)}>
+            <button onClick={() => window.location.reload()}>
               Clear{" "}
             </button>
           </div>
