@@ -12,19 +12,20 @@ export const UserCardsDiv = styled.div`
       ${centerFlex('column')}; 
     }
     @media (max-width: 839px) {
-    margin: 0 auto;
+    margin: 20px auto;
     padding: 75px 20px 0;
     width: 100%;
     @media (max-width: 480px) {
+      flex-wrap: nowrap;
+      padding: 0;
       padding-top: 50px;
     }
   }
 `;
 
 export const LoaderContainer = styled.div`
-  margin-left: 0px;
   padding-top: 130px;
-  ${centerFlex()};
+  margin-left: 300px;
   h1 {
     font-size: 5rem;
   }

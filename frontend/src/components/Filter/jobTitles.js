@@ -18,6 +18,7 @@ export default class JobTitles extends Component {
           <h1 className="filtersTitle">Filters</h1>
         </header>
         <form className="filters-container">
+        <div className="checkfsw">
           <CheckBox
             checked={this.props.publicPageState.filters.includes(
               "Full Stack Web"
@@ -25,24 +26,31 @@ export default class JobTitles extends Component {
             label="Full Stack Web"
             onChange={() => this.props.toggleCheckMarks("Full Stack Web")}
           />
+          </div>
+          <div className="check">
           <CheckBox
             className="checkmark"
             checked={this.props.publicPageState.filters.includes("iOS")}
             label="iOS"
             onChange={() => this.props.toggleCheckMarks("iOS")}
           />
+          </div>
+          <div className="checkAndroid">
           <CheckBox
             className="checkmark"
             checked={this.props.publicPageState.filters.includes("Android")}
             label="Android"
             onChange={() => this.props.toggleCheckMarks("Android")}
           />
+          </div>
+          <div className="check">
           <CheckBox
             className="checkmark"
             checked={this.props.publicPageState.filters.includes("UI/UX")}
             label="UI/UX"
             onChange={() => this.props.toggleCheckMarks("UI/UX")}
           />
+          </div>
         </form>
       </JobTitlesDiv>
     );
@@ -72,17 +80,27 @@ const JobTitlesDiv = styled.div`
       @media (max-width: 839px) {
         flex-direction: row;
         height: 60px;
+        margin-top: 20px;
         h1 {
           font-size: 18px;
         }
         @media (max-width: 480px) {
-
-            height: 150px;
-            flex-wrap: wrap;
-            justify-content: center;
-            span {
-                margin-right: 10px;
-            }
+          align-items: center;
+          height: 150px;
+          flex-wrap: wrap;
+          justify-content: space-around;
+          .check {
+            width: 100px;
+            height: 40px;
+          }
+          .checkfsw {
+            height: 40px;
+            width: 140px;
+          }
+          .checkAndroid {
+            height: 40px;
+            width: 140px;
+          }
         }
       }
     }

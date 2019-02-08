@@ -62,7 +62,10 @@ const LocatedDiv = styled.div`
       align-items: center;
   }
   @media (max-width: 480px) {
-      flex-direction: column;
+    flex-direction:column;
+      .within-container {
+      flex-direction: row;
+    }
       font-size: 20px;
   }
   h1 {
@@ -100,6 +103,7 @@ const LocatedDiv = styled.div`
       }
       @media (max-width: 480px) {
         flex-direction: column;
+        justify-content: flex-start;
       }
     }
   }

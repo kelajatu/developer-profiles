@@ -31,12 +31,17 @@ const RelocateDiv = styled.div`
   @media (max-width: 839px) {
     display: flex;
     align-items: center;
+    margin-top: 40px;
     h1 {
      margin-right: 10px;
     }
     @media (max-width: 480px) {
         flex-direction: column;
         margin: auto;
+        margin-top: 20px;
+       h1 {
+           margin-right: 20px;
+       }
     }
    }
 
