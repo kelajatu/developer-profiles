@@ -405,7 +405,7 @@ const ProgressContainer = styled.div`
     height: 10px;
     border-right: solid 1px rgba(255,255,255,.3);
     border-radius: 50px;
-    width: 30%;
+    width: ${props => props.children.props.progress};
     ${centerFlex()};
     p {
       color: rgb(42,42,42);

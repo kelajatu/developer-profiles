@@ -20,8 +20,7 @@ class Billing extends Component {
   componentDidMount() {
     if (this.props.userInfo.stripe_customer_id) {
       let customerId = this.props.userInfo.stripe_customer_id;
-      console.log(customerId)
-      axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/get-customerreg`, {customerId})
+      axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/api/get-customer`, {customerId})
       .then(res => {
         let date = res.data.subscriptions.data[0].current_period_end  * 1000;
         let normDate = new Date(date);
