@@ -48,6 +48,7 @@ export default class FilterBox extends Component {
             onClick={() => this.setState({ menuOpen: true })}
             class="fa fa-bars"
           />
+
         </Hamburger>
         <FilterBoxDiv menu={this.state.menuOpen}>
           <div className="menu-button-close">
@@ -204,6 +205,52 @@ const FilterBoxDiv = styled.aside`
       align-items: center;
       justify-content: center;
     }
+
+    .buttons {
+      /* border: 1px solid red; */
+      width: 90%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      left: -25px;
+      @media (max-width: 839px) {
+        /* border: 1px solid blue; */
+        width: 80%;
+        justify-content: center;
+      @media (max-width: 480px) {
+      margin: auto;
+    }
+      }
+      button {
+        width: 70%;
+        color: black;
+        margin: 10px;
+        padding: 5px;
+        font-size: 20px;
+        letter-spacing: 1.5px;
+        background: white;
+        border: solid 1px black;
+        border-radius: 20px;
+        /* display: flex;
+        align-items: center;
+        justify-content: center; */
+        outline-style: none;
+        &:hover {
+          cursor: pointer;
+          background: black;
+          color: white;
+        }
+        /* @media (max-width: 839px) {
+        width: 20%;
+        height: 50px;
+        } */
+        @media (max-width: 839px) {
+          width: 50%;
+          size: 15px;
+        }
+      }
+    }
+
     @media (max-width: 839px) {
       /* border: 1px solid red; */
       display: flex;

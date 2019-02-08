@@ -67,7 +67,7 @@ export const UserCardContainer = styled.div`
             width: 70%;
           }
           .location {
-            color: limegreen;
+            color: var(--accent-color);
             padding: 5px 0;
           }
           .photo {
@@ -226,7 +226,7 @@ export const UserCardContainer = styled.div`
     margin-left: 5px;
   }
   .fa-caret-down {
-    
+
   }
   @media (max-width: 1440px) {
        margin-right: 0;

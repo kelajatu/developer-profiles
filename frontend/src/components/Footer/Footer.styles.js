@@ -47,7 +47,7 @@ export const FooterContainer = styled.div`
       display: inline-block;
       width: 40px;
       height: 40px;
-      background-color: #33383b;
+      background-color:var(--lp_btn_color);
       border-radius: 4px;
       font-size: 30px;
       color: #ffffff;
