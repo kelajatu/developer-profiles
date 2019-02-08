@@ -50,11 +50,15 @@ class UserCard extends Component{
         })
     }
 
-    edit(project){
+    del(type, thingToBeDeleted ){
         if(this.props.canEdit){
-            // console.log(this.props)
-            // console.log(project)
-            this.props.delExtra(project.user_id, "projects", project.id)
+            this.props.delExtra(thingToBeDeleted.user_id, type, thingToBeDeleted.id)
+        }
+    }
+
+    edit(thingToBeEdited ){
+        if(this.props.canEdit){
+            this.props.editExtra(thingToBeEdited)
         }
     }
 
@@ -81,7 +85,6 @@ class UserCard extends Component{
         } else {
             famSkillsArr = this.state.familiar
         }
-
         if (this.props.userProjects) {
             userProjectsArr = this.props.userProjects
         } else {
@@ -104,7 +107,6 @@ class UserCard extends Component{
                     expanded={this.state.expanded ? true : false}
                     canEdit={this.props.canEdit ? true : false}>
                     <div className="userCardDiv">
-
                         <div className="top">
                             <div className="left-side">
                                 <div className="bio">
@@ -159,7 +161,10 @@ class UserCard extends Component{
                                                 <div className="extratitle">{project.project_title}</div>
                                                 <a rel="noopener noreferrer" href={project.link} target="_blank">{project.link}</a>
                                             </div>
-                                            <button onClick={()=> this.edit(project)}>DELETE PROJECT</button>
+                                            <div className="project-right">
+                                                {this.props.canEditPro ? <i onClick={()=> this.del("projects", project)} className="far fa-times-circle"></i> : null}
+                                                {this.props.canEditPro ? <i onClick={()=> this.edit(project)} className="far fa-edit"></i> : null}
+                                            </div>
                                         </div>
                                         <div className="proj-image-container">
                                             <img width="150px" height="min-height" src={project.project_img} alt="project"/>
@@ -171,19 +176,35 @@ class UserCard extends Component{
                                 <h2>Experience</h2>
                                 {userExperienceArr.map(experience => 
                                     <div key={experience.job_dates} className="proj-etc-container">
-                                        <div className="extratitle">{experience.job_title}</div>
-                                        <div className="dates">{experience.job_dates}</div>
-                                        <div className="indent">{experience.job_description}</div>
+                                        <div className="project-top">
+                                            <div className="project-left">
+                                                <div className="extratitle">{experience.job_title}</div>
+                                                <div className="dates">{experience.job_dates}</div>
+                                                <div className="indent">{experience.job_description}</div>
+                                            </div>
+                                            <div className="project-right">
+                                                {this.props.canEditExp ? <i onClick={()=> this.del("experience", experience)} className="far fa-times-circle"></i> : null}
+                                                {this.props.canEditExp ? <i onClick={()=> this.edit(experience)} className="far fa-edit"></i> : null}
+                                            </div>
+                                        </div>
                                     </div>
                                 )}
                                 {/* ~~~~ education ~~~~ */}
                                 <h2>Education</h2>
                                 {userEducationArr.map(education => 
                                     <div key={education.school} className="proj-etc-container">
-                                        <div className="extratitle">{education.school}</div>
-                                        <div className="dates">{education.school_dates}</div>
-                                        <div className="indent">{education.degree}</div>
-                                        <div className="indent">{education.course}</div> 
+                                        <div className="project-top">
+                                            <div className="project-left">
+                                                <div className="extratitle">{education.school}</div>
+                                                <div className="dates">{education.school_dates}</div>
+                                                <div className="indent">{education.degree}</div>
+                                                <div className="indent">{education.course}</div> 
+                                            </div>
+                                            <div className="project-right">
+                                                {this.props.canEditEdu ? <i onClick={()=> this.del("education", education)} className="far fa-times-circle"></i> : null}
+                                                {this.props.canEditEdu ? <i onClick={()=> this.edit(education)} className="far fa-edit"></i> : null}
+                                            </div>
+                                        </div>
                                     </div>
                                 )}
                             </div>    

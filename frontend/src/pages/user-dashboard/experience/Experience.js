@@ -14,12 +14,15 @@ import {
   MobileCardPreviewSection
 } from "../styles/FormStyles";
 
+import { oneToTwo, twoToOne } from '../dateHelpers'
+
 var noLeaks;
 class Experience extends Component {
   state = {
     submitSuccess: false,
     submitFailure: false,
     jobTitle: "",
+    enableEdit: false,
     jobTitleValidation: true,
     jobDescription: "",
     jobDescriptionValidation: true,
@@ -143,6 +146,49 @@ class Experience extends Component {
     clearTimeout(noLeaks);
   }
 
+  editExtra = (edit) => {
+    console.log(edit)
+    let dates = oneToTwo(edit.job_dates)
+
+    if(this.state.enableEdit){
+        this.setState({
+          enableEdit: false,
+          jobId: null,
+          jobDescription: '',
+          jobTitle: '',
+          jobDatesFrom: "1936-04",
+          jobDatesTo: "1950-01"
+        })
+    } else {
+        this.setState({
+          enableEdit: true,
+          jobId: edit.id,
+          jobDescription: edit.job_description,
+          jobTitle: edit.job_description,
+          jobDatesFrom: dates.from,
+          jobDatesTo: dates.to,
+          job_dates: edit.job_dates,
+        })
+    }
+  }
+
+  submitEdit = () => {
+    let dates = twoToOne(this.state.jobDatesFrom, this.state.jobDatesTo)
+    const lePackage = {
+      user_id: this.props.userInfo.id,
+      id: this.state.jobId,
+      job_title: this.state.jobTitle,
+      job_dates: dates,
+      job_description: this.state.jobDescription,
+    }
+    axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/experience/${this.state.jobId}`, lePackage)
+    .then(res => {
+      window.location.reload()
+    }).catch(err => {
+      console.log(err.message)
+    })
+  }
+
   render() {
     return (
       <MainFormContainer>
@@ -232,6 +278,9 @@ class Experience extends Component {
                 </Validator>
               </div>
             </form>
+            <ButtonContainer>
+                {this.state.enableEdit ? <button onClick={this.submitEdit}>Submit Edit</button> : null}
+            </ButtonContainer>
           </FormSection>
           <CardPreviewSection>
             <header>
@@ -240,6 +289,13 @@ class Experience extends Component {
               </LabelContainer>
             </header>
             <UserCard
+              canEditExp
+              canEdit
+              enableEdit
+              delExtra={this.props.delExtra}
+              editExtra={this.editExtra}
+
+
               id={this.props.userInfo.id}
               github={this.props.userInfo.github}
               linkedin={this.props.userInfo.linkedin}
