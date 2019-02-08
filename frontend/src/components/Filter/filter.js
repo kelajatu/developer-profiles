@@ -28,7 +28,7 @@ export default class FilterBox extends Component {
   // ham = () => {
   //   return(
   //       <div className="menu-button-open">
-  //             <i onClick={()=> this.setState({ menuOpen: true })} 
+  //             <i onClick={()=> this.setState({ menuOpen: true })}
   //               class="fa fa-bars"></i>
   //       </div>
   //     )
@@ -45,8 +45,8 @@ export default class FilterBox extends Component {
     return (
       <Grommet theme={filterTheme}>
         <Hamburger menuOpen={this.state.menuOpen}>
-              <i onClick={()=> this.setState({ menuOpen: true })} 
-                class="fa fa-bars"></i>
+              <i onClick={()=> this.setState({ menuOpen: true })}
+                className="fa fa-bars"></i>
         </Hamburger>
         <FilterBoxDiv menu={this.state.menuOpen}>
           {window.innerWidth < 839 ? null :
@@ -198,7 +198,7 @@ const FilterBoxDiv = styled.aside`
       @media (max-width: 839px) {
         /* border: 1px solid blue; */
         width: 80%;
-        justify-content: center;   
+        justify-content: center;
       @media (max-width: 480px) {
       margin: auto;
     }
