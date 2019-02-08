@@ -169,7 +169,6 @@ class Experience extends Component {
   }
 
   submitEdit = () => {
-    console.log(this.state.jobDatesFrom, this.state.jobDatesTo)
     let dates = twoToOne(this.state.jobDatesFrom, this.state.jobDatesTo)
     const lePackage = {
       user_id: this.props.userInfo.id,
@@ -178,19 +177,15 @@ class Experience extends Component {
       job_dates: dates,
       job_description: this.state.jobDescription,
     }
-    console.log("submitEdit", lePackage, this.state)
     axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/experience/${this.state.jobId}`, lePackage)
     .then(res => {
-      console.log(res)
-      // window.location.reload()
+      window.location.reload()
     }).catch(err => {
       console.log(err.message)
     })
   }
 
   render() {
-    console.log(twoToOne(this.state.jobDatesFrom, this.state.jobDatesTo))
-    console.log(this.props.userInfo.userExperience)
     return (
       <MainFormContainer>
         <header>

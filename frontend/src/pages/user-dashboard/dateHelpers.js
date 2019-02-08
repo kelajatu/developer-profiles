@@ -1,5 +1,5 @@
 export const oneToTwo = (oneString) => {
-  console.log(oneString)
+
     let dates = oneString.split(" to ")
     let monthMaker = {
       'January': '01',
@@ -27,12 +27,8 @@ export const oneToTwo = (oneString) => {
 }
 
 export const twoToOne = (dateFrom='2018-06', dateTo='2019-04') => {
-  console.log(dateFrom)
-  console.log(dateTo)
   let from = dateFrom.split('-')
   let to = dateTo.split('-')
-  console.log("from", from)
-  console.log("to", to)
   let months = {
     '01': 'January',
     '02': 'February',
@@ -47,6 +43,5 @@ export const twoToOne = (dateFrom='2018-06', dateTo='2019-04') => {
     '11': 'November',
     '12': 'December',
   }
-
   return `${months[from[1]]} ${from[0]} to ${months[to[1]]} ${to[0]}`;
 }

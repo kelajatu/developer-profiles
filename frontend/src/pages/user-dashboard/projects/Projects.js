@@ -168,7 +168,6 @@ class Projects extends Component {
       link: this.state.projectLink,
       project_description: this.state.projectDescription
     }
-    console.log("submitEdit", lePackage, this.state)
     axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/projects/${this.state.projectId}`, lePackage)
     .then(res => {
       window.location.reload()
@@ -178,7 +177,6 @@ class Projects extends Component {
   }
 
   render() {
-    console.log(this.state)
     return (
       <MainFormContainer>
         <header>

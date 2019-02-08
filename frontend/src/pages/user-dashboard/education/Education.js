@@ -188,7 +188,6 @@ class Education extends Component {
       degree: this.state.schoolDegree,
       school_dates: dates,
     }
-    console.log("submitEdit", lePackage, this.state)
     axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/education/${this.state.schoolId}`, lePackage)
     .then(res => {
       window.location.reload()
