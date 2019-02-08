@@ -213,8 +213,8 @@ class Education extends Component {
     })
   }
 
-
   render() {
+    console.log(this.props)
     return (
       <MainFormContainer>
         <header>

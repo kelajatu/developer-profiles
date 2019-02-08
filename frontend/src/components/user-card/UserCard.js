@@ -63,6 +63,7 @@ class UserCard extends Component{
     }
 
     render(){
+        // console.log(this.props)
         let topSkillsArr;
         let addSkillsArr;
         let famSkillsArr;
@@ -142,7 +143,7 @@ class UserCard extends Component{
                                 </div>
                             </div>
                             <div className="links">
-                                {this.props.badge !== null ? this.props.badge !== "acclaim.com" ? <img className="badge" src={this.props.badge} alt="acclaim badge"/> : null : null}
+                                {this.props.badge !== null ? this.props.badge !== "acclaim.com" ? <a href={this.props.badgeURL}><img className="badge" src={this.props.badge} alt="acclaim badge"/></a> : null : null}
                                 <a rel="noopener noreferrer" href={this.props.github} target="_blank"><i className="fab fa-github"></i></a>
                                 <a rel="noopener noreferrer" href={this.props.linkedin} target="_blank"><i className="fab fa-linkedin"></i></a>
                                 <a rel="noopener noreferrer" href={this.props.portfolio} target="_blank"><i className="fas fa-code"></i></a>
