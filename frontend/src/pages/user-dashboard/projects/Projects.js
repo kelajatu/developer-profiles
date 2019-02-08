@@ -289,7 +289,9 @@ class Projects extends Component {
                 </Validator>
               </div>
             </form>
-            {this.state.enableEdit ? <button onClick={this.submitEdit}>Submit Edit</button> : null}
+            <ButtonContainer>
+                {this.state.enableEdit ? <button onClick={this.submitEdit}>Submit Edit</button> : null}
+            </ButtonContainer>
           </FormSection>
           <CardPreviewSection>
             <header>

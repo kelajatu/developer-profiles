@@ -14,7 +14,7 @@ import {
   MobileCardPreviewSection
 } from '../styles/FormStyles';
 
-import { oneToTwo } from '../dateHelpers'
+import { oneToTwo, twoToOne } from '../dateHelpers'
 
 var noLeaks;
 class Education extends Component {
@@ -179,13 +179,14 @@ class Education extends Component {
   }
 
   submitEdit = () => {
+    let dates = twoToOne(this.state.schoolDatesFrom, this.state.schoolDatesTo)
     const lePackage = {
       user_id: this.props.userInfo.id,
       id: this.state.schoolId,
       school: this.state.schoolName,
       course: this.state.schoolCourse,
       degree: this.state.schoolDegree,
-      school_dates: this.state.schoolDates,
+      school_dates: dates,
     }
     console.log("submitEdit", lePackage, this.state)
     axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/education/${this.state.schoolId}`, lePackage)
@@ -315,7 +316,9 @@ class Education extends Component {
               </div>
 
             </form>
-            {this.state.enableEdit ? <button onClick={this.submitEdit}>Submit Edit</button> : null}
+            <ButtonContainer>
+                {this.state.enableEdit ? <button onClick={this.submitEdit}>Submit Edit</button> : null}
+            </ButtonContainer>
           </FormSection>
           <CardPreviewSection>
             <header>

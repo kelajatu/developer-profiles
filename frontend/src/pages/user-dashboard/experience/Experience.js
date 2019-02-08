@@ -14,7 +14,7 @@ import {
   MobileCardPreviewSection
 } from '../styles/FormStyles';
 
-import { oneToTwo } from '../dateHelpers'
+import { oneToTwo, twoToOne } from '../dateHelpers'
 
 var noLeaks;
 class Experience extends Component {
@@ -143,7 +143,7 @@ class Experience extends Component {
   }
 
   editExtra = (edit) => {
-
+    console.log(edit)
     let dates = oneToTwo(edit.job_dates)
 
     if(this.state.enableEdit){
@@ -169,23 +169,28 @@ class Experience extends Component {
   }
 
   submitEdit = () => {
+    console.log(this.state.jobDatesFrom, this.state.jobDatesTo)
+    let dates = twoToOne(this.state.jobDatesFrom, this.state.jobDatesTo)
     const lePackage = {
       user_id: this.props.userInfo.id,
       id: this.state.jobId,
       job_title: this.state.jobTitle,
-      job_dates: this.state.job_dates,
+      job_dates: dates,
       job_description: this.state.jobDescription,
     }
     console.log("submitEdit", lePackage, this.state)
     axios.put(`${process.env.REACT_APP_BACKEND_SERVER}/users/${this.props.userInfo.id}/experience/${this.state.jobId}`, lePackage)
     .then(res => {
-      window.location.reload()
+      console.log(res)
+      // window.location.reload()
     }).catch(err => {
       console.log(err.message)
     })
   }
 
   render() {
+    console.log(twoToOne(this.state.jobDatesFrom, this.state.jobDatesTo))
+    console.log(this.props.userInfo.userExperience)
     return (
       <MainFormContainer>
         <header>
@@ -285,7 +290,7 @@ class Experience extends Component {
 
             </form>
             <ButtonContainer>
-            {this.state.enableEdit ? <button onClick={this.submitEdit}>Submit Edit</button> : null}
+                {this.state.enableEdit ? <button onClick={this.submitEdit}>Submit Edit</button> : null}
             </ButtonContainer>
           </FormSection>
           <CardPreviewSection>
