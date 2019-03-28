@@ -37,7 +37,7 @@ This software uses the following open source packages:
 
 ## License
 
-## [MIT](https://tldrlegal.com/license/mit-license)
+[MIT](https://tldrlegal.com/license/mit-license)
 
 > Portfolio [jurgenkela.com](https://www.jurgenkela.com/)
 > GitHub [@kelajatu](https://github.com/amitmerchant1990)
